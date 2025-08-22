@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMG Protocol - Harvesting</title>
+    <meta name="description" content="Harvesting dashboard for IMG Protocol financial platform" />
+    <link rel="stylesheet" href="../style.css?v=237">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-logo">
+            <img src="/public/imglogo.png" alt="IMG Logo" class="mobile-logo-icon" />
+            <span class="mobile-logo-text">IMG Protocol</span>
+        </div>
+        <button class="burger-menu-btn" id="burger-menu-btn">
+            ☰
+        </button>
+    </header>
+
+    <div id="sidebar-container" data-page="harvesting">
+        <div class="sidebar-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading Navigation...</p>
+        </div>
+    </div>
+    
+    <main class="main-content">
+        <div class="dashboard-content">
+            <!-- Page Header -->
+            <section class="page-header">
+                <div class="page-title-section">
+                    <h1 class="page-title">Harvesting Dashboard</h1>
+                    <p class="page-subtitle">Track your IMG token harvesting activities and rewards</p>
+                </div>
+            </section>
+
+            <!-- Harvesting Overview -->
+            <section class="harvesting-overview">
+                <div class="overview-grid">
+                    <!-- Total Harvested -->
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3 class="overview-title">Total Harvested</h3>
+                        </div>
+                        <div class="overview-value" id="total-harvested">0 IMG</div>
+                        <div class="overview-change positive">+0.00%</div>
+                    </div>
+
+                    <!-- Current Rewards -->
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3 class="overview-title">Current Rewards</h3>
+                        </div>
+                        <div class="overview-value" id="current-rewards">0 IMG</div>
+                        <div class="overview-change positive">+0.00%</div>
+                    </div>
+
+                    <!-- Harvesting Rate -->
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3 class="overview-title">Harvesting Rate</h3>
+                        </div>
+                        <div class="overview-value" id="harvesting-rate">0 IMG/day</div>
+                        <div class="overview-change neutral">0.00%</div>
+                    </div>
+
+                    <!-- Last Harvest -->
+                    <div class="overview-card">
+                        <div class="overview-header">
+                            <h3 class="overview-title">Last Harvest</h3>
+                        </div>
+                        <div class="overview-value" id="last-harvest">Never</div>
+                        <div class="overview-change neutral">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Harvesting Charts -->
+            <section class="harvesting-charts">
+                <div class="charts-grid">
+                    <!-- Harvesting History Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Harvesting History</h3>
+                            <div class="chart-period-selector">
+                                <select class="period-dropdown" id="harvesting-period">
+                                    <option value="7d">Last 7 Days</option>
+                                    <option value="30d">Last 30 Days</option>
+                                    <option value="90d">Last 90 Days</option>
+                                    <option value="1y">Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="harvesting-history-canvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Rewards Distribution Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Rewards Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="rewards-distribution-canvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Harvesting Activity -->
+            <section class="harvesting-activity">
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <h3 class="activity-title">Recent Harvesting Activity</h3>
+                        <button class="refresh-btn" id="refresh-activity">Refresh</button>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-table-container">
+                            <table class="activity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Transaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activity-tbody">
+                                    <tr>
+                                        <td colspan="5" class="no-data">No harvesting activity found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Harvesting Settings -->
+            <section class="harvesting-settings">
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3 class="settings-title">Harvesting Settings</h3>
+                    </div>
+                    <div class="settings-content">
+                        <div class="setting-item">
+                            <label class="setting-label">Auto-Harvest</label>
+                            <div class="setting-control">
+                                <input type="checkbox" id="auto-harvest" class="setting-checkbox">
+                                <span class="setting-description">Automatically harvest rewards when threshold is reached</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">Harvest Threshold</label>
+                            <div class="setting-control">
+                                <input type="number" id="harvest-threshold" class="setting-input" value="1000" min="100">
+                                <span class="setting-description">Minimum IMG amount to trigger auto-harvest</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">Notification Email</label>
+                            <div class="setting-control">
+                                <input type="email" id="notification-email" class="setting-input" placeholder="your@email.com">
+                                <span class="setting-description">Receive email notifications for harvesting events</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../script.js"></script>
+    <script src="./harvesting.js"></script>
+</body>
+</html>
