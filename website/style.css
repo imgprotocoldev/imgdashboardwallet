@@ -677,7 +677,7 @@
         width: 160px;
         height: 100%;
         align-self: stretch;
-        flex-shrink: 0;
+    flex-shrink: 0;
         object-fit: cover;
     }
     
@@ -1376,7 +1376,7 @@
     }
     
     .update-content {
-        display: flex;
+    display: flex;
         flex-direction: column;
         gap: 10px;
         flex: 1;
@@ -1391,7 +1391,7 @@
     }
     
     .update-description {
-        font-size: 14px;
+    font-size: 14px;
         line-height: 1.5;
         margin: 0;
         color: var(--text-secondary);
@@ -1400,9 +1400,9 @@
     
     .update-date {
         font-size: 12px;
-        font-weight: 600;
+    font-weight: 600;
         color: var(--accent-primary);
-        margin: 0;
+    margin: 0;
         margin-top: auto;
     }
     
@@ -1494,7 +1494,7 @@
     
     /* Two Column Row - Stack Vertically */
     .events-two-column-row {
-        display: flex;
+    display: flex;
         flex-direction: column;
         gap: 16px;
         width: 100%;
@@ -1562,7 +1562,7 @@
     
     .split-hero-eyebrow {
         font-size: 11px;
-        font-weight: 600;
+    font-weight: 600;
         color: var(--accent-primary);
         margin-bottom: 5px;
     }
@@ -1570,7 +1570,7 @@
     .split-hero-title {
         font-size: 16px;
         font-weight: 700;
-        color: var(--text-primary);
+    color: var(--text-primary);
         margin-bottom: 7px;
         line-height: 1.3;
     }
@@ -1621,7 +1621,7 @@
     
     /* Project Updates Container - Horizontal Scroll */
     .project-updates-container {
-        display: flex;
+    display: flex;
         flex-direction: row;
         gap: 14px;
         overflow-x: auto;
@@ -1668,9 +1668,9 @@
     
     .update-title {
         font-size: 16px;
-        font-weight: 700;
+    font-weight: 700;
         margin: 0;
-        color: var(--text-primary);
+    color: var(--text-primary);
         line-height: 1.3;
     }
     
@@ -1864,5 +1864,364 @@
     .split-hero-image,
     .update-image {
         height: 160px;
+    }
+}
+
+/* ========================================
+   HARVESTING PAGE STYLES - MATCHING WEBSITE DESIGN
+   ======================================== */
+
+/* Harvesting Page Layout - Full Width */
+.harvesting-page {
+    width: 100%;
+    max-width: none;
+    padding: 4px 8px 0px 8px;
+    /* min-height: 100vh; Remove to prevent browser scroll */
+    background: transparent;
+    color: var(--text-primary);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Harvesting Content Container - Optimized Spacing */
+.harvesting-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* Remove gap to maximize space */
+    width: 100%;
+    height: 100%; /* Use full height */
+}
+
+/* Harvesting Spreadsheet Container - Daily Rewards Style */
+.harvesting-spreadsheet-container {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px; /* was 20px */
+    padding: 10px; /* Restore proper container padding */
+    backdrop-filter: blur(20px);
+    width: 100%;
+    height: calc(100vh - 50px); /* 10px bigger container */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Professional Spreadsheet Header - Matching Events Style */
+.spreadsheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; /* Restore proper spacing */
+    padding-bottom: 6px; /* Restore proper spacing */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0; /* Don't shrink header */
+}
+
+.spreadsheet-header h1 {
+    font-size: 20px; /* was 24px */
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    padding-left: 5px; /* Add left padding to move text right */
+    background: linear-gradient(135deg, var(--text-primary), rgba(248, 250, 252, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Professional Spreadsheet Wrapper - Full Width */
+.spreadsheet-wrapper {
+    overflow: hidden; /* contain internal scroll */
+    border-radius: 12px; /* was 16px */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.15); /* slightly lighter */
+    width: 100%;
+    max-width: 100%;
+    flex: 1; /* Take remaining space in container */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollable table body with sticky header */
+.table-scroll-container {
+    flex: 1; /* Take remaining space in wrapper */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar - Gradient Green (Same as Recent Project Updates) */
+.table-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #10b981, #06b6d4);
+    border-radius: 3px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #059669, #0891b2);
+}
+
+.harvesting-spreadsheet {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px; /* Increased from 13px */
+    table-layout: fixed;
+    background: transparent;
+}
+
+.spreadsheet-header-row {
+    background: linear-gradient(135deg, #0b1220, #152232); /* darker than before */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.spreadsheet-header-row th {
+    padding: 12px 8px; /* Reduced horizontal padding */
+    text-align: center; /* Center align headers */
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    font-size: 13px; /* Increased from 12px */
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.spreadsheet-row {
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease; /* slightly faster */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spreadsheet-row:hover {
+    background: rgba(16, 185, 129, 0.10); /* subtle */
+    border-color: rgba(16, 185, 129, 0.18);
+}
+
+.spreadsheet-row td {
+    padding: 12px 8px; /* Reduced horizontal padding */
+    text-align: center; /* Center align content */
+    color: var(--text-primary);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spreadsheet-row:last-child td {
+    border-bottom: none;
+}
+
+/* Column widths - more compact and centered */
+.col-id { width: 8%; }
+.col-date { width: 16%; }
+.col-time { width: 14%; }
+.col-img-sold { width: 20%; }
+.col-reward-pool { width: 21%; }
+.col-sol-distributed { width: 21%; }
+
+/* Pagination spacing compact */
+.spreadsheet-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px; /* was 24px */
+    padding-top: 12px; /* was 20px */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0; /* Don't shrink pagination */
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 12px;
+    color: var(--accent-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.control-btn .btn-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+
+/* Professional Spreadsheet Pagination */
+.spreadsheet-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.2);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Mobile Responsive Design for Harvesting Page - Matching Events */
+@media (max-width: 768px) {
+    .harvesting-page {
+        padding: 4px 12px 0px 12px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .harvesting-content {
+        gap: 0px; /* Remove gap on mobile too */
+    }
+    
+    .harvesting-spreadsheet-container {
+        padding: 16px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 16px !important;
+        backdrop-filter: blur(20px) !important;
+    }
+    
+    .spreadsheet-header h1 {
+        font-size: 20px !important;
+    }
+    
+    .spreadsheet-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    .spreadsheet-controls {
+        justify-content: center;
+    }
+    
+    .control-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 12px 16px;
+    }
+    
+    .spreadsheet-wrapper {
+        border-radius: 12px;
+    }
+    
+    .spreadsheet-header-row th,
+    .spreadsheet-row td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+    
+    .spreadsheet-header-row th {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+    
+    .spreadsheet-pagination {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px !important;
+        padding-top: 16px !important;
+    }
+    
+    .pagination-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .harvesting-page {
+        padding: 4px 8px 0px 8px;
+    }
+    
+    .harvesting-spreadsheet-container {
+        padding: 12px !important;
+        border-radius: 14px !important;
+    }
+    
+    .spreadsheet-header h1 {
+        font-size: 18px !important;
+    }
+    
+    .spreadsheet-header {
+        margin-bottom: 12px !important;
+        padding-bottom: 8px !important;
+    }
+    
+    .control-btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .spreadsheet-wrapper {
+        border-radius: 10px;
+    }
+    
+    .spreadsheet-header-row th,
+    .spreadsheet-row td {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+    
+    .spreadsheet-header-row th {
+        font-size: 10px;
+        letter-spacing: 0.3px;
+    }
+    
+    .spreadsheet-pagination {
+        margin-top: 12px !important;
+        padding-top: 12px !important;
     }
 }

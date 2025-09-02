@@ -116,7 +116,7 @@
                     <div class="banner-header">
                         <span class="banner-title">Premium Dashboard</span>
                     </div>
-                    <div class="banner-subtitle">Must hold 50k IMG</div>
+                    <div class="banner-subtitle">Must hold 50k</div>
                     <div class="banner-action">Connect Wallet to unlock</div>
                 </div>
             `}
@@ -281,7 +281,7 @@
                                 <text x="277" y="240" fill="rgba(148, 184, 184, 0.9)" font-size="12" text-anchor="middle">3R</text>
                                 <text x="367" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">4R</text>
                                 
-                                <!-- IMG Watermark larger and centered -->
+                                <!-- Watermark larger and centered -->
                                 <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
                                 
                                 <!-- Gradients -->
@@ -355,7 +355,7 @@
                                 <text x="277" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">3W</text>
                                 <text x="367" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">4W</text>
                                 
-                                <!-- IMG Watermark larger and centered -->
+                                <!-- Watermark larger and centered -->
                                 <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
                                 
                                 <!-- Gradients -->
@@ -441,7 +441,7 @@
                                 <text x="312" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Aug</text>
                                 <text x="372" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Sep</text>
                                 
-                                <!-- IMG Watermark larger and centered -->
+                                <!-- Watermark larger and centered -->
                                 <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
                                 
                                 <!-- Gradients -->
@@ -482,28 +482,28 @@
                                         <div class="daily-color-dot" style="background: #10b981;"></div>
                                         <span>TREASURY INFLOW</span>
                                     </div>
-                                    <span class="daily-breakdown-value treasury-value">0.22441 SOL</span>
+                                    <span class="daily-breakdown-value treasury-value">0.22441</span>
                                 </div>
                                 <div class="daily-breakdown-item">
                                     <div class="daily-breakdown-label">
                                         <div class="daily-color-dot" style="background: #3b82f6;"></div>
                                         <span>HOLDER EARNINGS</span>
                                     </div>
-                                    <span class="daily-breakdown-value holders-value">0.17742 SOL</span>
+                                    <span class="daily-breakdown-value holders-value">0.17742</span>
                                 </div>
                                 <div class="daily-breakdown-item">
                                     <div class="daily-breakdown-label">
                                         <div class="daily-color-dot" style="background: #f59e0b;"></div>
                                         <span>INFRA WALLET</span>
                                     </div>
-                                    <span class="daily-breakdown-value infra-value">0.02191 SOL</span>
+                                    <span class="daily-breakdown-value infra-value">0.02191</span>
                                 </div>
                                 <div class="daily-breakdown-item">
                                     <div class="daily-breakdown-label">
                                         <div class="daily-color-dot" style="background: #ef4444;"></div>
                                         <span>NET BALANCE</span>
                                     </div>
-                                    <span class="daily-breakdown-value net-value">0.00500 SOL</span>
+                                    <span class="daily-breakdown-value net-value">0.00500</span>
                                 </div>
                             </div>
                         </div>
@@ -557,14 +557,14 @@
 
 
     </div>
-`;function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)} SOL`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)} SOL`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)} SOL`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)} SOL`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color");z();const n=document.createElement("div");n.id="donut-tooltip",n.className="donut-tooltip",n.innerHTML=`
+`;function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)}`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color");z();const n=document.createElement("div");n.id="donut-tooltip",n.className="donut-tooltip",n.innerHTML=`
         <div class="tooltip-header" style="background: ${s}; color: #ffffff; text-align: center;">
             <span class="tooltip-label" style="color: #ffffff;">${a}</span>
         </div>
         <div class="tooltip-content" style="text-align: center;">
             <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${i}</div>
         </div>
-    `;const o=e.target.getBoundingClientRect(),l=200,c=100;let r=o.left+o.width/2,u=o.top-c-20;r<l/2?r=l/2+10:r>window.innerWidth-l/2&&(r=window.innerWidth-l/2-10),u<10&&(u=o.bottom+20),n.style.left=`${r}px`,n.style.top=`${u}px`,n.style.transform="translateX(-50%)",document.body.appendChild(n),setTimeout(()=>{n.style.opacity="1",n.style.transform="translateX(-50%) translateY(-10px)"},10)}function z(){const e=document.getElementById("donut-tooltip");e&&e.remove()}function N(){console.log("🎯 Initializing donut chart...");const e=document.getElementById("clean-donut-chart");if(e){const n=e.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",n.length),n.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const t=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(t&&a&&i&&s){const n=parseFloat(t.textContent.replace(" SOL","")),o=parseFloat(a.textContent.replace(" SOL","")),l=parseFloat(i.textContent.replace(" SOL","")),c=parseFloat(s.textContent.replace(" SOL","")),r={treasury:n,holders:o,infra:l,net:c};console.log("🎯 Reading actual data from Box 1:",r),X(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),X({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function H(e){return e>=1e6?(e/1e6).toFixed(2)+"M":e>=1e3?(e/1e3).toFixed(2)+"K":e.toFixed(2)}function Ee(e){return e<.01?"$"+e.toFixed(6):"$"+e.toFixed(4)}function Se(e){return(e>=0?"+":"")+e.toFixed(2)+"%"}async function Me(){var e,t,a;try{console.log("🔍 Fetching IMG token metrics from DexScreener...");const i=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!i.ok)throw new Error(`HTTP error! status: ${i.status}`);const s=await i.json();if(console.log("📊 DexScreener data received:",s),s.pairs&&s.pairs.length>0){const n=s.pairs[0];document.getElementById("img-price").textContent=Ee(parseFloat(n.priceUsd||0)),document.getElementById("price-change").textContent=Se(parseFloat(((e=n.priceChange)==null?void 0:e.h24)||0)),document.getElementById("volume-24h").textContent="$"+H(parseFloat(((t=n.volume)==null?void 0:t.h24)||0)),document.getElementById("market-cap").textContent="$"+H(parseFloat(n.marketCap||0)),document.getElementById("liquidity").textContent="$"+H(parseFloat(((a=n.liquidity)==null?void 0:a.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(i){console.error("❌ Failed to fetch token metrics:",i),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Ae=()=>`
+    `;const o=e.target.getBoundingClientRect(),l=200,c=100;let r=o.left+o.width/2,u=o.top-c-20;r<l/2?r=l/2+10:r>window.innerWidth-l/2&&(r=window.innerWidth-l/2-10),u<10&&(u=o.bottom+20),n.style.left=`${r}px`,n.style.top=`${u}px`,n.style.transform="translateX(-50%)",document.body.appendChild(n),setTimeout(()=>{n.style.opacity="1",n.style.transform="translateX(-50%) translateY(-10px)"},10)}function z(){const e=document.getElementById("donut-tooltip");e&&e.remove()}function N(){console.log("🎯 Initializing donut chart...");const e=document.getElementById("clean-donut-chart");if(e){const n=e.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",n.length),n.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const t=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(t&&a&&i&&s){const n=parseFloat(t.textContent.replace("","")),o=parseFloat(a.textContent.replace("","")),l=parseFloat(i.textContent.replace("","")),c=parseFloat(s.textContent.replace("","")),r={treasury:n,holders:o,infra:l,net:c};console.log("🎯 Reading actual data from Box 1:",r),X(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),X({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function H(e){return e>=1e6?(e/1e6).toFixed(2)+"M":e>=1e3?(e/1e3).toFixed(2)+"K":e.toFixed(2)}function Ee(e){return e<.01?"$"+e.toFixed(6):"$"+e.toFixed(4)}function Se(e){return(e>=0?"+":"")+e.toFixed(2)+"%"}async function Me(){var e,t,a;try{console.log("🔍 Fetching token metrics from DexScreener...");const i=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!i.ok)throw new Error(`HTTP error! status: ${i.status}`);const s=await i.json();if(console.log("📊 DexScreener data received:",s),s.pairs&&s.pairs.length>0){const n=s.pairs[0];document.getElementById("img-price").textContent=Ee(parseFloat(n.priceUsd||0)),document.getElementById("price-change").textContent=Se(parseFloat(((e=n.priceChange)==null?void 0:e.h24)||0)),document.getElementById("volume-24h").textContent="$"+H(parseFloat(((t=n.volume)==null?void 0:t.h24)||0)),document.getElementById("market-cap").textContent="$"+H(parseFloat(n.marketCap||0)),document.getElementById("liquidity").textContent="$"+H(parseFloat(((a=n.liquidity)==null?void 0:a.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(i){console.error("❌ Failed to fetch token metrics:",i),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Ae=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -641,7 +641,7 @@
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Blacklist Wallets</h3>
-                                <p class="update-description">The IMG Rewards script now blacklists several wallets, including CoinEx hot wallet, Raydium, Phantom, and others that were unfairly collecting fees and rewards. This update protects the project ensuring fairer distribution and increased earnings for real $IMG holders.</p>
+                                <p class="update-description">The Rewards script now blacklists several wallets, including CoinEx hot wallet, Raydium, Phantom, and others that were unfairly collecting fees and rewards. This update protects the project ensuring fairer distribution and increased earnings for real $IMG holders.</p>
                                 <div class="update-date">Completed Aug 11</div>
                             </div>
                         </div>
@@ -703,7 +703,7 @@
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">IMG Giveaway</h3>
-                            <p class="event-description">The IMG Buy Competition is live! Three winners will be selected: 50,000 $IMG for the biggest buy and 2x 25,000 $IMG raffled. Every $25 buy counts as one entry. To qualify, you must hold at least 5,000 $IMG.</p>
+                            <p class="event-description">The Buy Competition is live! Three winners will be selected: 50,000 $IMG for the biggest buy and 2x 25,000 $IMG raffled. Every $25 buy counts as one entry. To qualify, you must hold at least 5,000 $IMG.</p>
                         </div>
                         <div class="event-date">Aug 28, 2025</div>
                         <a href="https://x.com/img_protocol/status/1961158265284559011" class="event-link-icon" title="Read Article" target="_blank" rel="noopener noreferrer">
@@ -751,7 +751,7 @@
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">Bitrue Listing</h3>
-                            <p class="event-description">$IMG is now listed on Bitrue! Trade IMG/USDT directly at bitrue.com. To celebrate, Bitrue is hosting a trading competition with a $2,000 USDT prize pool. Event runs from Aug 20 – 27, 2025 (UTC+7).</p>
+                            <p class="event-description">$IMG is now listed on Bitrue! Trade/USDT directly at bitrue.com. To celebrate, Bitrue is hosting a trading competition with a $2,000 USDT prize pool. Event runs from Aug 20 – 27, 2025 (UTC+7).</p>
                         </div>
                         <div class="event-date">Aug 20, 2025</div>
                         <a href="https://x.com/BitrueOfficial/status/1958129391231545534" class="event-link-icon" title="Read Article" target="_blank" rel="noopener noreferrer">
@@ -810,35 +810,292 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="harvesting-page">
-        <div class="page-header">
-            <h1>Harvesting Dashboard</h1>
-            <p>Manage your IMG token harvesting operations</p>
-        </div>
-        
         <div class="harvesting-content">
-            <div class="harvesting-stats">
-                <div class="stat-card">
-                    <h3>Your Harvested Tokens</h3>
-                    <div class="stat-value">0 IMG</div>
-                    <div class="stat-label">Available for collection</div>
+            <!-- Harvesting Spreadsheet Container - Matching Events Design -->
+            <div class="harvesting-spreadsheet-container">
+                <!-- Professional Spreadsheet Header -->
+                <div class="spreadsheet-header">
+                    <h1>Harvesting</h1>
+                    <div class="spreadsheet-controls">
+                        <button class="control-btn refresh-btn">
+                            <img src="/refresh.png" alt="Refresh" class="btn-icon">
+                            Refresh Data
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <h3>Harvesting Rate</h3>
-                    <div class="stat-value">5%</div>
-                    <div class="stat-label">Per transaction</div>
+                <!-- Professional Spreadsheet -->
+                <div class="spreadsheet-wrapper">
+                    <div class="table-scroll-container">
+                        <table class="harvesting-spreadsheet">
+                            <thead>
+                                                            <tr class="spreadsheet-header-row">
+                                <th class="col-id">ID</th>
+                                <th class="col-date">DATE</th>
+                                <th class="col-time">TIME</th>
+                                <th class="col-img-sold">IMGD</th>
+                                <th class="col-reward-pool">REWARD POOL (SOL)</th>
+                                <th class="col-sol-distributed">SOL DISTRIBUTED</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#001</td>
+                                    <td class="col-date">2024-01-15</td>
+                                    <td class="col-time">14:32:18</td>
+                                    <td class="col-img-sold">45,230</td>
+                                    <td class="col-reward-pool">2,261.5</td>
+                                    <td class="col-sol-distributed">2,261.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#002</td>
+                                    <td class="col-date">2024-01-14</td>
+                                    <td class="col-time">09:15:42</td>
+                                    <td class="col-img-sold">38,750</td>
+                                    <td class="col-reward-pool">1,937.5</td>
+                                    <td class="col-sol-distributed">1,937.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#003</td>
+                                    <td class="col-date">2024-01-13</td>
+                                    <td class="col-time">16:48:27</td>
+                                    <td class="col-img-sold">52,180</td>
+                                    <td class="col-reward-pool">2,609.0</td>
+                                    <td class="col-sol-distributed">2,609.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#004</td>
+                                    <td class="col-date">2024-01-12</td>
+                                    <td class="col-time">11:23:56</td>
+                                    <td class="col-img-sold">41,920</td>
+                                    <td class="col-reward-pool">2,096.0</td>
+                                    <td class="col-sol-distributed">2,096.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#005</td>
+                                    <td class="col-date">2024-01-11</td>
+                                    <td class="col-time">20:07:33</td>
+                                    <td class="col-img-sold">67,340</td>
+                                    <td class="col-reward-pool">3,367.0</td>
+                                    <td class="col-sol-distributed">3,367.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#006</td>
+                                    <td class="col-date">2024-01-10</td>
+                                    <td class="col-time">07:41:19</td>
+                                    <td class="col-img-sold">29,850</td>
+                                    <td class="col-reward-pool">1,492.5</td>
+                                    <td class="col-sol-distributed">1,492.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#007</td>
+                                    <td class="col-date">2024-01-09</td>
+                                    <td class="col-time">18:55:44</td>
+                                    <td class="col-img-sold">73,210</td>
+                                    <td class="col-reward-pool">3,660.5</td>
+                                    <td class="col-sol-distributed">3,660.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#008</td>
+                                    <td class="col-date">2024-01-08</td>
+                                    <td class="col-time">13:28:07</td>
+                                    <td class="col-img-sold">56,780</td>
+                                    <td class="col-reward-pool">2,839.0</td>
+                                    <td class="col-sol-distributed">2,839.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#009</td>
+                                    <td class="col-date">2024-01-07</td>
+                                    <td class="col-time">10:12:51</td>
+                                    <td class="col-img-sold">48,920</td>
+                                    <td class="col-reward-pool">2,446.0</td>
+                                    <td class="col-sol-distributed">2,446.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#010</td>
+                                    <td class="col-date">2024-01-06</td>
+                                    <td class="col-time">15:36:28</td>
+                                    <td class="col-img-sold">61,750</td>
+                                    <td class="col-reward-pool">3,087.5</td>
+                                    <td class="col-sol-distributed">3,087.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#011</td>
+                                    <td class="col-date">2024-01-05</td>
+                                    <td class="col-time">08:44:15</td>
+                                    <td class="col-img-sold">34,680</td>
+                                    <td class="col-reward-pool">1,734.0</td>
+                                    <td class="col-sol-distributed">1,734.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#012</td>
+                                    <td class="col-date">2024-01-04</td>
+                                    <td class="col-time">19:17:39</td>
+                                    <td class="col-img-sold">79,340</td>
+                                    <td class="col-reward-pool">3,967.0</td>
+                                    <td class="col-sol-distributed">3,967.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#013</td>
+                                    <td class="col-date">2024-01-03</td>
+                                    <td class="col-time">12:03:22</td>
+                                    <td class="col-img-sold">42,150</td>
+                                    <td class="col-reward-pool">2,107.5</td>
+                                    <td class="col-sol-distributed">2,107.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#014</td>
+                                    <td class="col-date">2024-01-02</td>
+                                    <td class="col-time">17:49:46</td>
+                                    <td class="col-img-sold">55,890</td>
+                                    <td class="col-reward-pool">2,794.5</td>
+                                    <td class="col-sol-distributed">2,794.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#015</td>
+                                    <td class="col-date">2024-01-01</td>
+                                    <td class="col-time">06:25:13</td>
+                                    <td class="col-img-sold">68,420</td>
+                                    <td class="col-reward-pool">3,421.0</td>
+                                    <td class="col-sol-distributed">3,421.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#016</td>
+                                    <td class="col-date">2023-12-31</td>
+                                    <td class="col-time">23:45:18</td>
+                                    <td class="col-img-sold">71,230</td>
+                                    <td class="col-reward-pool">3,561.5</td>
+                                    <td class="col-sol-distributed">3,561.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#017</td>
+                                    <td class="col-date">2023-12-30</td>
+                                    <td class="col-time">14:18:42</td>
+                                    <td class="col-img-sold">59,780</td>
+                                    <td class="col-reward-pool">2,989.0</td>
+                                    <td class="col-sol-distributed">2,989.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#018</td>
+                                    <td class="col-date">2023-12-29</td>
+                                    <td class="col-time">09:33:27</td>
+                                    <td class="col-img-sold">46,920</td>
+                                    <td class="col-reward-pool">2,346.0</td>
+                                    <td class="col-sol-distributed">2,346.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#019</td>
+                                    <td class="col-date">2023-12-28</td>
+                                    <td class="col-time">18:07:55</td>
+                                    <td class="col-img-sold">63,450</td>
+                                    <td class="col-reward-pool">3,172.5</td>
+                                    <td class="col-sol-distributed">3,172.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#020</td>
+                                    <td class="col-date">2023-12-27</td>
+                                    <td class="col-time">11:52:14</td>
+                                    <td class="col-img-sold">52,180</td>
+                                    <td class="col-reward-pool">2,609.0</td>
+                                    <td class="col-sol-distributed">2,609.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#021</td>
+                                    <td class="col-date">2023-12-26</td>
+                                    <td class="col-time">16:24:38</td>
+                                    <td class="col-img-sold">74,690</td>
+                                    <td class="col-reward-pool">3,734.5</td>
+                                    <td class="col-sol-distributed">3,734.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#022</td>
+                                    <td class="col-date">2023-12-25</td>
+                                    <td class="col-time">08:15:21</td>
+                                    <td class="col-img-sold">38,750</td>
+                                    <td class="col-reward-pool">1,937.5</td>
+                                    <td class="col-sol-distributed">1,937.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#023</td>
+                                    <td class="col-date">2023-12-24</td>
+                                    <td class="col-time">20:41:47</td>
+                                    <td class="col-img-sold">67,340</td>
+                                    <td class="col-reward-pool">3,367.0</td>
+                                    <td class="col-sol-distributed">3,367.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#024</td>
+                                    <td class="col-date">2023-12-23</td>
+                                    <td class="col-time">13:28:09</td>
+                                    <td class="col-img-sold">45,230</td>
+                                    <td class="col-reward-pool">2,261.5</td>
+                                    <td class="col-sol-distributed">2,261.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#025</td>
+                                    <td class="col-date">2023-12-22</td>
+                                    <td class="col-time">07:56:33</td>
+                                    <td class="col-img-sold">56,780</td>
+                                    <td class="col-reward-pool">2,839.0</td>
+                                    <td class="col-sol-distributed">2,839.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#026</td>
+                                    <td class="col-date">2023-12-21</td>
+                                    <td class="col-time">19:12:45</td>
+                                    <td class="col-img-sold">73,210</td>
+                                    <td class="col-reward-pool">3,660.5</td>
+                                    <td class="col-sol-distributed">3,660.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#027</td>
+                                    <td class="col-date">2023-12-20</td>
+                                    <td class="col-time">10:37:18</td>
+                                    <td class="col-img-sold">41,920</td>
+                                    <td class="col-reward-pool">2,096.0</td>
+                                    <td class="col-sol-distributed">2,096.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#028</td>
+                                    <td class="col-date">2023-12-19</td>
+                                    <td class="col-time">15:44:52</td>
+                                    <td class="col-img-sold">61,750</td>
+                                    <td class="col-reward-pool">3,087.5</td>
+                                    <td class="col-sol-distributed">3,087.5</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#029</td>
+                                    <td class="col-date">2023-12-18</td>
+                                    <td class="col-time">12:19:26</td>
+                                    <td class="col-img-sold">48,920</td>
+                                    <td class="col-reward-pool">2,446.0</td>
+                                    <td class="col-sol-distributed">2,446.0</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-id">#030</td>
+                                    <td class="col-date">2023-12-17</td>
+                                    <td class="col-time">17:03:41</td>
+                                    <td class="col-img-sold">69,580</td>
+                                    <td class="col-reward-pool">3,479.0</td>
+                                    <td class="col-sol-distributed">3,479.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <h3>Next Harvest</h3>
-                    <div class="stat-value">24h</div>
-                    <div class="stat-label">Time remaining</div>
+                <!-- Professional Pagination -->
+                <div class="spreadsheet-pagination">
+                    <button class="pagination-btn prev-btn" disabled>
+                        < Previous
+                    </button>
+                    <div class="pagination-info">
+                        Showing 1-30 of 30 entries
+                    </div>
+                    <button class="pagination-btn next-btn">
+                        Next >
+                    </button>
                 </div>
-            </div>
-            
-            <div class="harvesting-actions">
-                <button class="action-btn primary">Start Harvesting</button>
-                <button class="action-btn secondary">View History</button>
             </div>
         </div>
     </div>
@@ -875,13 +1132,13 @@
             <div class="distribution-stats">
                 <div class="stat-card">
                     <h3>Total Distributed</h3>
-                    <div class="stat-value">847,392 IMG</div>
+                    <div class="stat-value">847,392</div>
                     <div class="stat-label">All time</div>
                 </div>
                 
                 <div class="stat-card">
                     <h3>This Month</h3>
-                    <div class="stat-value">23,847 IMG</div>
+                    <div class="stat-value">23,847</div>
                     <div class="stat-label">Distributed</div>
                 </div>
                 
@@ -964,7 +1221,7 @@
     <div class="reward-calculator-page">
         <div class="page-header">
             <h1>Reward Calculator</h1>
-            <p>Calculate your potential IMG token rewards</p>
+            <p>Calculate your potential token rewards</p>
         </div>
         
         <div class="calculator-content">
@@ -1013,7 +1270,7 @@
     <div class="vote-page">
         <div class="page-header">
             <h1>Vote</h1>
-            <p>Participate in IMG Protocol governance and community decisions</p>
+            <p>Participate in Protocol governance and community decisions</p>
         </div>
         
         <div class="vote-content">
@@ -1054,7 +1311,7 @@
                             <span class="proposal-status active">Active</span>
                         </div>
                         <p class="proposal-description">
-                            Proposal to launch a new high-yield staking pool with 12% APY for IMG token holders.
+                            Proposal to launch a new high-yield staking pool with 12% APY for token holders.
                         </p>
                         <div class="proposal-stats">
                             <div class="stat-item">
@@ -1082,7 +1339,7 @@
                 <h2>Voting Information</h2>
                 <div class="info-card">
                     <h3>Your Voting Power</h3>
-                    <p>Your voting power is determined by your IMG token balance. Each IMG token equals 1 vote.</p>
+                    <p>Your voting power is determined by your token balance. Each token equals 1 vote.</p>
                     <div class="voting-power">
                         <span class="power-amount">47,500 Votes</span>
                         <span class="power-label">Available</span>
@@ -1091,7 +1348,7 @@
             </div>
         </div>
     </div>
-`;class Re{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const a=t.target.closest("[id], [data-provider]");if(!a)return;if(t.preventDefault(),t.stopPropagation(),a.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(a.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=a.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(a.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const a=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",a.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const a=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",a),await this.handleWalletConnection(a,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const a=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",a),await this.handleWalletConnection(a,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,a){try{console.log(`🔍 Verifying IMG tokens for ${a}: ${t}`);const i=await this.verifyImgTokens(t),s=i>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${s}`),console.log(`   Premium Access Granted: ${s?"YES ✅":"NO ❌"}`);let n=s;i>0&&i>=47500&&(n=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+ IMG")),this.isConnected=!0,this.isPremium=n,this.walletAddress=t,d.isConnected=!0,d.isPremium=n,d.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",n.toString()),localStorage.setItem("walletProvider",a),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${a} connected successfully!`),console.log(`💰 IMG Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${n?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",d.isConnected=!1,d.isPremium=!1,d.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),d.currentPage!=="dashboard"&&d.currentPage!=="metrics"&&p.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying IMG token balance for:",t);try{console.log("🔄 Checking IMG balance via Render backend...");const a=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${a}`),a}catch(a){return console.error("❌ Render backend verification failed:",a.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const a=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!a.ok)throw new Error(`Render backend error: ${a.status} ${a.statusText}`);const i=await a.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
+`;class Re{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const a=t.target.closest("[id], [data-provider]");if(!a)return;if(t.preventDefault(),t.stopPropagation(),a.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(a.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=a.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(a.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const a=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",a.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const a=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",a),await this.handleWalletConnection(a,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const a=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",a),await this.handleWalletConnection(a,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,a){try{console.log(`🔍 Verifying tokens for ${a}: ${t}`);const i=await this.verifyImgTokens(t),s=i>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${s}`),console.log(`   Premium Access Granted: ${s?"YES ✅":"NO ❌"}`);let n=s;i>0&&i>=47500&&(n=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=n,this.walletAddress=t,d.isConnected=!0,d.isPremium=n,d.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",n.toString()),localStorage.setItem("walletProvider",a),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${a} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${n?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",d.isConnected=!1,d.isPremium=!1,d.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),d.currentPage!=="dashboard"&&d.currentPage!=="metrics"&&p.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying token balance for:",t);try{console.log("🔄 Checking balance via Render backend...");const a=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${a}`),a}catch(a){return console.error("❌ Render backend verification failed:",a.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const a=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!a.ok)throw new Error(`Render backend error: ${a.status} ${a.statusText}`);const i=await a.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
                 <div class="connection-indicator">
                     <div class="loading-spinner"></div>
                     <span class="connection-text">Connecting...</span>
@@ -1104,7 +1361,7 @@
                 <span class="nav-text connect-wallet-text">
                     ${this.isConnected?"DISCONNECT WALLET":"CONNECT WALLET"}
                 </span>
-            `)}updateSidebar(){d.isConnected=this.isConnected,d.isPremium=this.isPremium,d.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",d);const t=document.getElementById("sidebar-container");if(t){const a=Y(d);t.innerHTML=a,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function f(){console.log("🔧 updateSidebar called with state:",d);const e=document.getElementById("sidebar-container");if(e){const t=Y(d);console.log("🔧 Generated sidebar HTML length:",t.length),console.log("🔧 Sidebar HTML preview:",t.substring(0,300)+"..."),e.innerHTML=t,e.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const a=e.querySelector(".financial-sidebar");if(console.log(a?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(i){console.error("❌ Failed to attach event listeners:",i)}}else console.error("❌ Sidebar container not found!")}function S(e){const t=document.getElementById("main-content");t&&(t.innerHTML=e)}function Be(){d.currentPage="terminal",f(),S(xe()),setTimeout(()=>{Me(),$e()},100)}function $e(){console.log("🔧 Initializing chart interactivity..."),Ge()}function Ge(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#3b82f6")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#10b981")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#f59e0b")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"})}function _e(e){const t=parseFloat(e.replace(/[^0-9.-]/g,""));return e.includes("%")?`${t}%`:t>=1e6?`${(t/1e6).toFixed(1)}M IMG`:t>=1e3?`${(t/1e3).toFixed(1)}K IMG`:`${t.toLocaleString()} IMG`}function O(e,t,a,i){$();const s=document.createElement("div");s.id="universal-chart-tooltip",s.className="donut-tooltip",s.innerHTML=`
+            `)}updateSidebar(){d.isConnected=this.isConnected,d.isPremium=this.isPremium,d.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",d);const t=document.getElementById("sidebar-container");if(t){const a=Y(d);t.innerHTML=a,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function f(){console.log("🔧 updateSidebar called with state:",d);const e=document.getElementById("sidebar-container");if(e){const t=Y(d);console.log("🔧 Generated sidebar HTML length:",t.length),console.log("🔧 Sidebar HTML preview:",t.substring(0,300)+"..."),e.innerHTML=t,e.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const a=e.querySelector(".financial-sidebar");if(console.log(a?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(i){console.error("❌ Failed to attach event listeners:",i)}}else console.error("❌ Sidebar container not found!")}function S(e){const t=document.getElementById("main-content");t&&(t.innerHTML=e)}function Be(){d.currentPage="terminal",f(),S(xe()),setTimeout(()=>{Me(),$e()},100)}function $e(){console.log("🔧 Initializing chart interactivity..."),Ge()}function Ge(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#3b82f6")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#10b981")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(i=>{i.addEventListener("mouseenter",s=>{O(s,s.target.dataset.value,s.target.dataset.label,"#f59e0b")}),i.addEventListener("mouseleave",()=>{$()}),i.style.cursor="pointer"})}function _e(e){const t=parseFloat(e.replace(/[^0-9.-]/g,""));return e.includes("%")?`${t}%`:t>=1e6?`${(t/1e6).toFixed(1)}M`:t>=1e3?`${(t/1e3).toFixed(1)}K`:`${t.toLocaleString()}`}function O(e,t,a,i){$();const s=document.createElement("div");s.id="universal-chart-tooltip",s.className="donut-tooltip",s.innerHTML=`
         <div class="tooltip-header" style="background: ${i}; color: #ffffff; text-align: center;">
             <span class="tooltip-label" style="color: #ffffff;">${a}</span>
         </div>
@@ -1142,7 +1399,7 @@ const eventsData = [
     {
         id: 3,
         title: "Liquidity Mining Program",
-        description: "New rewards program for providing liquidity to IMG pairs",
+        description: "New rewards program for providing liquidity to pairs",
         category: "launch",
         status: "ongoing",
         date: "2024-03-12",
@@ -1165,7 +1422,7 @@ const eventsData = [
     {
         id: 5,
         title: "Community AMA Session",
-        description: "Live Q&A with the IMG development team",
+        description: "Live Q&A with the development team",
         category: "community",
         status: "upcoming",
         date: "2024-03-25",
@@ -1176,7 +1433,7 @@ const eventsData = [
     {
         id: 6,
         title: "Technical Update Release",
-        description: "Bug fixes and performance improvements for the IMG wallet",
+        description: "Bug fixes and performance improvements for the wallet",
         category: "update",
         status: "upcoming",
         date: "2024-03-28",
@@ -1464,4 +1721,4 @@ function setupEventsScrollers() {
     });
 }
 
-document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 IMG Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),We(),setupEventIcons(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ IMG Protocol SPA Ready!")});
+document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),We(),setupEventIcons(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
