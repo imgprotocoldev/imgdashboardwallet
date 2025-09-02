@@ -641,7 +641,7 @@
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Blacklist Wallets</h3>
-                                <p class="update-description">The IMG Rewards script now blacklists several wallets, including CoinEx hot wallet, Raydium, Phantom, and others that were unfairly collecting fees and rewards. This update protects the project by preventing large DEX wallets from clipping the chart, ensuring fairer distribution and increased earnings for real $IMG holders.</p>
+                                <p class="update-description">The IMG Rewards script now blacklists several wallets, including CoinEx hot wallet, Raydium, Phantom, and others that were unfairly collecting fees and rewards. This update protects the project ensuring fairer distribution and increased earnings for real $IMG holders.</p>
                                 <div class="update-date">Completed Aug 11</div>
                             </div>
                         </div>
