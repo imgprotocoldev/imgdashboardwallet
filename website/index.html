@@ -2,423 +2,2051 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMG Protocol - Dashboard</title>
     <meta name="description" content="Main dashboard for IMG Protocol financial platform" />
-    <link rel="stylesheet" href="./style.css?v=266">
+    
+    <!-- Enhanced Page-Level Wallet Status Manager -->
+    <script>
+        // ENHANCED PAGE-LEVEL WALLET STATUS: Robust wallet state management
+        (function() {
+            try {
+                // Check multiple sources for wallet state
+                const walletConnected = localStorage.getItem('walletConnected') === 'true';
+                const storedWalletState = localStorage.getItem('imgProtocolWalletState');
+                const walletPublicKey = localStorage.getItem('walletPublicKey');
+                const walletPremium = localStorage.getItem('walletPremium') === 'true';
+                
+                let isConnected = false;
+                let publicKey = null;
+                let isPremium = false;
+                
+                // Primary check: direct wallet connected flag
+                if (walletConnected) {
+                    isConnected = true;
+                    publicKey = walletPublicKey || 'connected';
+                    isPremium = walletPremium;
+                    console.log('🚀 PAGE WALLET: Direct connection detected');
+                }
+                // Secondary check: stored wallet state
+                else if (storedWalletState) {
+                    try {
+                        const parsed = JSON.parse(storedWalletState);
+                        if (parsed.isConnected && parsed.walletPublicKey) {
+                            isConnected = true;
+                            publicKey = parsed.walletPublicKey;
+                            isPremium = parsed.isPremium || false;
+                            console.log('🔄 PAGE WALLET: Stored state restored');
+                        }
+                    } catch (error) {
+                        console.error('❌ PAGE WALLET: Error parsing stored state:', error);
+                    }
+                }
+                
+                // Set page-level wallet status
+                window.pageWalletStatus = {
+                    isConnected,
+                    publicKey,
+                    isPremium,
+                    timestamp: Date.now(),
+                    source: isConnected ? (walletConnected ? 'direct' : 'stored') : 'none'
+                };
+                
+                if (isConnected) {
+                    console.log('🚀 PAGE WALLET: Status set before page load:', window.pageWalletStatus);
+                } else {
+                    console.log('🔒 PAGE WALLET: No wallet connected');
+                }
+                
+                // Also set a global flag for immediate access
+                window.walletStateReady = true;
+                
+            } catch (error) {
+                console.error('❌ PAGE WALLET: Error setting wallet status:', error);
+                // Set safe defaults
+                window.pageWalletStatus = {
+                    isConnected: false,
+                    publicKey: null,
+                    isPremium: false,
+                    timestamp: Date.now(),
+                    source: 'error'
+                };
+                window.walletStateReady = true;
+            }
+        })();
+    </script>
+    
+    
+    <!-- Debug CSS for Sidebar Visibility -->
+    <style>
+        /* Prevent double scrollbars and ensure proper layout */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+            background-color: #0f172a !important;
+        }
+
+        /* Ensure proper layout structure */
+        body {
+            display: flex !important;
+            flex-direction: row !important;
+        }
+
+        /* FORCE sidebar container to be visible - override ALL other CSS */
+        #sidebar-container, 
+        #sidebar-container:not(.loaded),
+        #sidebar-container.loaded,
+        body #sidebar-container,
+        html body #sidebar-container {
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 300px !important;
+            height: 100vh !important;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
+            border-right: 1px solid #334155 !important;
+            z-index: 9999 !important;
+            display: block !important;
+            overflow-y: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        /* Professional Financial Sidebar Styling */
+        .financial-sidebar {
+            width: 100% !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 0 !important;
+            color: white !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        }
+
+        /* Professional Header */
+        .sidebar-header {
+            padding: 24px 20px !important;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3) !important;
+            background: rgba(15, 23, 42, 0.5) !important;
+        }
+
+        .brand-section {
+            display: flex !important;
+            align-items: center !important;
+            gap: 16px !important;
+        }
+
+        /* .brand-logo styling moved to CSS file for better organization */
+
+        .brand-info {
+            flex: 1 !important;
+        }
+
+        .brand-title {
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: #f8fafc !important;
+            margin: 0 0 4px 0 !important;
+            letter-spacing: -0.025em !important;
+        }
+
+        .brand-subtitle {
+            font-size: 12px !important;
+            color: #94a3b8 !important;
+            margin: 0 !important;
+            font-weight: 500 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        /* Professional Tab Navigation */
+        .tab-navigation {
+            flex: 1 !important;
+            padding: 8px 0 !important;
+        }
+
+        .tab-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 2px !important;
+        }
+
+        .tab-item {
+            width: 100% !important;
+            position: relative !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .tab-link {
+            display: flex !important;
+            align-items: center !important;
+            gap: 14px !important;
+            padding: 18px 24px !important;
+            color: #94a3b8 !important;
+            text-decoration: none !important;
+            background: transparent !important;
+            transition: all 0.3s ease !important;
+            border-left: 3px solid transparent !important;
+            position: relative !important;
+            font-weight: 500 !important;
+        }
+
+        .tab-link::before {
+            content: '' !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            width: 100% !important;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.05), transparent) !important;
+            opacity: 0 !important;
+            transition: opacity 0.3s ease !important;
+        }
+
+        .tab-link:hover {
+            color: #e2e8f0 !important;
+            background: rgba(59, 130, 246, 0.05) !important;
+            border-left-color: rgba(59, 130, 246, 0.3) !important;
+        }
+
+        .tab-link:hover::before {
+            opacity: 1 !important;
+        }
+
+        .tab-item.active .tab-link {
+            color: #f8fafc !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+            border-left-color: #3b82f6 !important;
+            font-weight: 600 !important;
+        }
+
+        .tab-item.active .tab-link::before {
+            opacity: 1 !important;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), transparent) !important;
+        }
+
+        .tab-icon {
+            width: 20px !important;
+            height: 20px !important;
+            object-fit: contain !important;
+            filter: brightness(0) invert(1) opacity(0.8) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .tab-item.active .tab-icon {
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .tab-label {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            flex: 1 !important;
+        }
+
+        .premium-badge {
+            font-size: 10px !important;
+            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+            color: white !important;
+            padding: 2px 8px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.025em !important;
+        }
+
+        .lock-badge {
+            font-size: 14px !important;
+            opacity: 0.6 !important;
+        }
+
+        .shield-icon {
+            width: 16px !important;
+            height: 16px !important;
+            object-fit: contain !important;
+            filter: brightness(0) invert(1) opacity(0.5) !important;
+        }
+
+        .locked-tab {
+            opacity: 0.7 !important; /* Increased from 0.4 to 0.7 for better visibility */
+            cursor: not-allowed !important;
+            color: #94a3b8 !important; /* Lighter color for better visibility */
+            border-left: 3px solid rgba(251, 191, 36, 0.2) !important; /* Subtle gold border */
+            background: rgba(251, 191, 36, 0.02) !important; /* Very subtle gold background */
+        }
+
+        .locked-tab:hover {
+            background: rgba(251, 191, 36, 0.05) !important; /* Subtle gold hover */
+            border-left-color: rgba(251, 191, 36, 0.3) !important;
+            color: #cbd5e1 !important; /* Brighter on hover */
+            opacity: 0.8 !important;
+        }
+
+        .locked-icon {
+            opacity: 0.6 !important;
+            filter: grayscale(1) !important;
+        }
+
+        /* Professional Wallet Section */
+        .wallet-section {
+            padding: 20px 16px !important;
+            border-top: 1px solid rgba(51, 65, 85, 0.2) !important;
+            background: rgba(15, 23, 42, 0.2) !important;
+        }
+
+        /* Premium Info Banner - Compact Version */
+        .premium-info-banner {
+            margin-bottom: 16px !important;
+            padding: 12px 14px !important; /* Reduced padding for thinner look */
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.06), rgba(251, 191, 36, 0.02)) !important;
+            border: 1px solid rgba(251, 191, 36, 0.15) !important;
+            border-radius: 8px !important; /* Smaller border radius */
+            text-align: center !important;
+            backdrop-filter: blur(8px) !important;
+        }
+
+        .banner-header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-bottom: 4px !important; /* Reduced spacing */
+        }
+
+        .banner-title {
+            font-size: 13px !important; /* Slightly smaller */
+            font-weight: 700 !important;
+            color: #fbbf24 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        .banner-subtitle {
+            font-size: 11px !important; /* Smaller text */
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            margin-bottom: 3px !important; /* Reduced spacing */
+        }
+
+        .banner-action {
+            font-size: 10px !important; /* Smaller text */
+            color: #cbd5e1 !important;
+            font-weight: 500 !important;
+            opacity: 0.8 !important;
+        }
+
+        /* Compact Wallet Status (when connected) */
+        .wallet-status-compact {
+            margin-bottom: 16px !important;
+            padding: 12px 16px !important;
+            background: rgba(30, 41, 59, 0.4) !important;
+            border-radius: 10px !important;
+            border: 1px solid rgba(51, 65, 85, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .wallet-info-row, .premium-status-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+
+        .wallet-info-row {
+            margin-bottom: 8px !important;
+        }
+
+        .wallet-label, .premium-label {
+            font-size: 11px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+        }
+
+        .wallet-address-short {
+            font-size: 12px !important;
+            color: #f1f5f9 !important;
+            font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+            font-weight: 600 !important;
+            background: rgba(51, 65, 85, 0.4) !important;
+            padding: 4px 8px !important;
+            border-radius: 6px !important;
+        }
+
+        .premium-badge {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 4px 8px !important;
+            border-radius: 6px !important;
+        }
+
+        .premium-badge.premium-active {
+            background: rgba(251, 191, 36, 0.1) !important;
+            border: 1px solid rgba(251, 191, 36, 0.3) !important;
+        }
+
+        .premium-badge.standard-active {
+            background: rgba(107, 114, 128, 0.1) !important;
+            border: 1px solid rgba(107, 114, 128, 0.3) !important;
+        }
+
+        .premium-dot {
+            width: 6px !important;
+            height: 6px !important;
+            border-radius: 50% !important;
+            background: #fbbf24 !important;
+            box-shadow: 0 0 6px rgba(251, 191, 36, 0.5) !important;
+        }
+
+        .standard-dot {
+            width: 6px !important;
+            height: 6px !important;
+            border-radius: 50% !important;
+            background: #6b7280 !important;
+        }
+
+        .premium-text {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+        }
+
+        .premium-badge.premium-active .premium-text {
+            color: #fbbf24 !important;
+        }
+
+        .premium-badge.standard-active .premium-text {
+            color: #9ca3af !important;
+        }
+
+        /* Clean Wallet Connect Button */
+        .wallet-connect-btn {
+            width: 100% !important;
+            padding: 16px 20px !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            color: #e2e8f0 !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .wallet-connect-btn:hover {
+            background: rgba(59, 130, 246, 0.12) !important;
+            border-color: rgba(59, 130, 246, 0.3) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15) !important;
+            color: #f8fafc !important;
+        }
+
+        .wallet-connect-btn.connected {
+            background: rgba(239, 68, 68, 0.08) !important;
+            border-color: rgba(239, 68, 68, 0.2) !important;
+            color: #fecaca !important;
+        }
+
+        .wallet-connect-btn.connected:hover {
+            background: rgba(239, 68, 68, 0.12) !important;
+            border-color: rgba(239, 68, 68, 0.3) !important;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15) !important;
+            color: #fef2f2 !important;
+        }
+
+        .wallet-text {
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.025em !important;
+        }
+
+
+
+        /* Social Media Footer */
+        .social-footer {
+            padding: 16px !important;
+            border-top: 1px solid rgba(51, 65, 85, 0.3) !important;
+            background: rgba(15, 23, 42, 0.5) !important;
+        }
+
+        .social-title {
+            font-size: 11px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            margin-bottom: 12px !important;
+            text-align: center !important;
+        }
+
+        .social-links {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 12px !important;
+        }
+
+        .social-link {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 40px !important;
+            height: 40px !important;
+            background: rgba(30, 41, 59, 0.6) !important;
+            border: 1px solid rgba(51, 65, 85, 0.3) !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease !important;
+            text-decoration: none !important;
+        }
+
+        .social-link:hover {
+            background: rgba(59, 130, 246, 0.1) !important;
+            border-color: rgba(59, 130, 246, 0.3) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+        }
+
+        .social-icon {
+            width: 20px !important;
+            height: 20px !important;
+            object-fit: contain !important;
+            filter: brightness(0) invert(1) opacity(0.8) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .social-link:hover .social-icon {
+            filter: brightness(0) invert(1) !important;
+        }
+
+        /* Professional Wallet Modal Styling */
+        .wallet-modal {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: blur(8px) !important;
+            z-index: 10000 !important;
+            display: none !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+        }
+
+        .wallet-modal.show {
+            display: flex !important;
+        }
+
+        .wallet-modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border-radius: 16px !important;
+            padding: 0 !important;
+            max-width: 480px !important;
+            width: 100% !important;
+            border: 1px solid rgba(51, 65, 85, 0.5) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+            overflow: hidden !important;
+        }
+
+        .wallet-modal-header {
+            padding: 24px 28px 20px !important;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3) !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            background: rgba(15, 23, 42, 0.5) !important;
+        }
+
+        .wallet-modal-title {
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            color: #f8fafc !important;
+            margin: 0 !important;
+            letter-spacing: -0.025em !important;
+        }
+
+        .wallet-modal-close {
+            background: rgba(51, 65, 85, 0.3) !important;
+            border: 1px solid rgba(51, 65, 85, 0.5) !important;
+            border-radius: 8px !important;
+            width: 32px !important;
+            height: 32px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #94a3b8 !important;
+            font-size: 20px !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .wallet-modal-close:hover {
+            background: rgba(239, 68, 68, 0.1) !important;
+            border-color: rgba(239, 68, 68, 0.3) !important;
+            color: #ef4444 !important;
+        }
+
+        .wallet-modal-body {
+            padding: 28px !important;
+        }
+
+        .wallet-info-section {
+            margin-bottom: 24px !important;
+            padding: 20px !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+        }
+
+        .wallet-info-text {
+            font-size: 14px !important;
+            color: #cbd5e1 !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            text-align: center !important;
+        }
+
+        .img-token-info {
+            margin-bottom: 28px !important;
+        }
+
+        .token-info-label {
+            font-size: 14px !important;
+            color: #f8fafc !important;
+            font-weight: 600 !important;
+            margin-bottom: 8px !important;
+            text-align: center !important;
+        }
+
+        .token-address-box {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(251, 191, 36, 0.3) !important;
+            border-radius: 8px !important;
+            padding: 12px 16px !important;
+            font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            color: #fbbf24 !important;
+            font-weight: 600 !important;
+            text-align: center !important;
+            word-break: break-all !important;
+            letter-spacing: 0.025em !important;
+        }
+
+        .wallet-providers {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .wallet-provider-btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 16px !important;
+            padding: 16px 20px !important;
+            background: rgba(30, 41, 59, 0.6) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            color: #e2e8f0 !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            text-align: left !important;
+            width: 100% !important;
+        }
+
+        .wallet-provider-btn:hover {
+            background: rgba(59, 130, 246, 0.1) !important;
+            border-color: rgba(59, 130, 246, 0.3) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15) !important;
+        }
+
+        .provider-icon {
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 8px !important;
+        }
+
+        .provider-name {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            color: #f8fafc !important;
+        }
+
+        .wallet-connection-status {
+            margin-top: 20px !important;
+            padding: 16px !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            text-align: center !important;
+        }
+
+        .connection-indicator {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 12px !important;
+        }
+
+        .loading-spinner {
+            width: 20px !important;
+            height: 20px !important;
+            border: 2px solid rgba(59, 130, 246, 0.2) !important;
+            border-top: 2px solid #3b82f6 !important;
+            border-radius: 50% !important;
+            animation: spin 1s linear infinite !important;
+        }
+
+        .connection-text {
+            font-size: 14px !important;
+            color: #3b82f6 !important;
+            font-weight: 600 !important;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Ensure main content is positioned correctly */
+        #main-content {
+            margin-left: 300px !important;
+            padding: 20px !important;
+            background: #0f172a !important;
+            height: 100vh !important;
+            color: white !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Token Metrics Section - Professional & Compact */
+        .token-metrics-section {
+            padding: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .metrics-grid {
+            display: grid !important;
+            grid-template-columns: repeat(6, 1fr) !important; /* Force single row with 6 equal columns */
+            gap: 12px !important; /* Reduced gap for more compact layout */
+            margin: 0 !important;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important; /* Smaller border radius for sleeker look */
+            padding: 12px 8px !important; /* Even more compact padding for thinner container */
+            text-align: center !important;
+            position: relative !important;
+            overflow: hidden !important;
+            min-height: auto !important; /* Allow natural height */
+        }
+
+        .metric-card::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important; /* Thinner accent line */
+            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+        }
+
+        .metric-label {
+            font-size: 11px !important; /* Modern, professional size */
+            font-weight: 600 !important; /* Professional weight */
+            color: #94a3b8 !important; /* Professional color */
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            margin-bottom: 4px !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important; /* Modern font stack */
+        }
+
+        .metric-value {
+            font-size: 20px !important; /* Modern, professional size */
+            font-weight: 700 !important; /* Professional weight */
+            color: #f8fafc !important; /* Professional color */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important; /* Modern font stack */
+            letter-spacing: -0.02em !important; /* Professional letter spacing */
+            line-height: 1.1 !important; /* Professional line height */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 1400px) {
+            .metrics-grid {
+                grid-template-columns: repeat(6, 1fr) !important; /* Keep single row on medium screens */
+                gap: 10px !important;
+            }
+            
+            .metric-card {
+                padding: 10px 8px !important; /* More compact for medium screens */
+            }
+            
+            .metric-value {
+                font-size: 18px !important; /* Increased from 16px */
+            }
+            
+            .metric-label {
+                font-size: 10px !important; /* Increased from 9px */
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(3, 1fr) !important; /* 2 rows of 3 on tablets */
+                gap: 12px !important;
+            }
+            
+            .metric-card {
+                padding: 12px 10px !important; /* More compact for tablets */
+            }
+            
+            .metric-value {
+                font-size: 19px !important; /* Increased from 18px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr) !important; /* 3 rows of 2 on mobile */
+                gap: 10px !important;
+            }
+            
+            .metric-card {
+                padding: 10px 8px !important; /* More compact for mobile */
+            }
+            
+            .metric-value {
+                font-size: 17px !important; /* Increased from 16px */
+            }
+        }
+
+        /* Charts Section */
+        .charts-section {
+            margin-top: 2px !important; /* Reduced from 24px for closer positioning to token metrics */
+        }
+
+        .charts-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px !important; /* Aligned with token metrics spacing */
+        }
+
+        .chart-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            padding: 16px !important; /* Reduced padding to give more space to charts */
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .chart-card::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+        }
+
+        .chart-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 12px !important; /* Reduced margin to give more space to charts */
+        }
+
+        .chart-title {
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            color: #94a3b8 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            margin: 0 !important;
+        }
+
+        .chart-dropdown {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 6px !important;
+            padding: 6px 12px !important;
+            color: #e2e8f0 !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+        }
+
+        .chart-content {
+            height: 320px !important; /* Expanded height to match distribution container for bigger chart display */
+            display: flex !important;
+            align-items: center !important;
+            position: relative !important;
+            padding: 8px !important; /* Padding for inner box */
+        }
+
+        /* Inner Chart Box Styling */
+        .chart-inner-box {
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%) !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            position: relative !important;
+            overflow: hidden !important;
+            padding: 12px !important; /* Equal padding on all sides for perfect centering */
+            box-sizing: border-box !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .chart-inner-box::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent) !important;
+        }
+
+        /* Professional Chart Styling */
+        .professional-chart {
+            width: 100% !important;
+            height: 100% !important;
+            position: relative !important;
+        }
+
+        .chart-svg {
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            max-width: 100% !important;
+            overflow: visible !important;
+        }
+
+        /* Responsive Chart Adaptations */
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important; /* Maintain consistent spacing with token metrics */
+            }
+            
+            .chart-content {
+                height: 280px !important; /* Proportionally larger for tablet screens */
+                padding: 6px !important;
+            }
+            
+            .chart-inner-box {
+                border-radius: 6px !important;
+                padding: 10px !important; /* Slightly reduced padding for smaller screens */
+            }
+
+            /* Distribution responsive - separate pie chart on medium screens */
+            .distribution-grid {
+                grid-template-columns: 1fr 1fr !important; /* Two columns */
+                gap: 12px !important;
+            }
+
+            .distribution-chart {
+                grid-column: 1 / -1 !important; /* Span full width below */
+                margin-top: 12px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            
+            .chart-content {
+                height: 250px !important; /* Larger for mobile tablets */
+                padding: 6px !important;
+            }
+            
+            .chart-inner-box {
+                border-radius: 6px !important;
+                padding: 8px !important; /* Reduced padding for tablet */
+            }
+            
+            .chart-card {
+                padding: 12px !important;
+            }
+            
+            .chart-header {
+                margin-bottom: 8px !important;
+            }
+            
+            .chart-title {
+                font-size: 11px !important;
+            }
+            
+            .chart-dropdown {
+                font-size: 10px !important;
+                padding: 4px 8px !important;
+            }
+
+            /* Distribution mobile - stack all columns */
+            .distribution-grid {
+                grid-template-columns: 1fr !important; /* Single column */
+                gap: 12px !important;
+            }
+
+            .distribution-chart {
+                margin-top: 0 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-content {
+                height: 220px !important; /* Larger even for mobile phones */
+                padding: 4px !important;
+            }
+            
+            .chart-inner-box {
+                border-radius: 4px !important;
+                border-width: 1px !important;
+                padding: 6px !important; /* Minimal padding for mobile */
+            }
+            
+            .chart-card {
+                padding: 8px !important;
+            }
+            
+            .chart-title {
+                font-size: 10px !important;
+            }
+        }
+
+        /* Interactive Chart Elements */
+        .chart-bar {
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .chart-bar:hover {
+            filter: brightness(1.1) !important;
+            stroke: rgba(59, 130, 246, 0.5) !important;
+            stroke-width: 1 !important;
+        }
+
+        .chart-dot {
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .chart-dot:hover {
+            r: 7 !important;
+            filter: brightness(1.2) drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
+        }
+
+        /* Chart Tooltip */
+        .chart-tooltip {
+            position: absolute !important;
+            background: linear-gradient(135deg, #1e293b, #334155) !important;
+            border: 1px solid rgba(59, 130, 246, 0.3) !important;
+            border-radius: 8px !important;
+            padding: 8px 12px !important;
+            color: #f8fafc !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
+            transform: translate(-50%, -100%) !important;
+            transition: all 0.2s ease !important;
+            z-index: 1000 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .chart-tooltip.show {
+            opacity: 1 !important;
+        }
+
+        .tooltip-label {
+            font-size: 10px !important;
+            color: #94a3b8 !important;
+            margin-bottom: 2px !important;
+        }
+
+        .tooltip-value {
+            font-size: 12px !important;
+            color: #3b82f6 !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+
+
+        /* Distribution Section */
+        .distribution-section {
+            margin-top: 2px !important; /* Aligned with charts section for consistent 2px spacing */
+        }
+
+        /* NEW FRESH DAILY DISTRIBUTION SECTION */
+        .daily-distribution-section {
+            margin-top: 2px !important; /* Aligned with charts section for consistent 2px spacing */
+            margin-bottom: 0 !important; /* Remove any bottom spacing */
+        }
+
+        .daily-distribution-container {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 16px !important;
+            padding: 16px !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .daily-distribution-header {
+            margin-top: 0 !important;
+            margin-bottom: 12px !important;
+        }
+
+        .daily-distribution-title {
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            color: #94a3b8 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            margin: 0 !important;
+        }
+        
+        /* Mobile Daily Distribution Title - Match Process Line Header Size */
+        @media (max-width: 1024px) {
+            .daily-distribution-title {
+                font-size: 10px !important; /* Match process line header size */
+            }
+            
+            /* Mobile Daily Distribution - Stacked Layout */
+            .daily-distribution-row {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+            
+            .daily-distribution-box {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+
+        .daily-distribution-row {
+            display: flex !important;
+            gap: 12px !important;
+            align-items: flex-start !important;
+            justify-content: space-between !important;
+        }
+
+        .daily-distribution-box {
+            flex: 1 !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            height: 300px !important;
+            position: relative !important;
+            overflow: hidden !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        }
+
+
+
+
+
+        .daily-box-content {
+            padding: 24px !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .daily-metrics {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            width: 100% !important;
+        }
+
+        .daily-metric-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 12px 12px !important;
+            background: rgba(30, 41, 59, 0.4) !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(59, 130, 246, 0.1) !important;
+            width: 80% !important;
+            margin: 0 auto !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .daily-metric-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .daily-metric-label {
+            font-size: 12px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .daily-metric-value {
+            font-size: 15px !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .daily-breakdown {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            width: 100% !important;
+        }
+
+        .daily-breakdown-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 12px 12px !important;
+            background: rgba(30, 41, 59, 0.4) !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(59, 130, 246, 0.1) !important;
+            width: 80% !important;
+            margin: 0 auto !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .daily-breakdown-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .daily-breakdown-label {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            font-size: 12px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .daily-color-dot {
+            width: 10px !important;
+            height: 10px !important;
+            border-radius: 50% !important;
+            flex-shrink: 0 !important;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .daily-breakdown-value {
+            font-size: 15px !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .daily-chart-placeholder {
+            text-align: center !important;
+            color: #94a3b8 !important;
+        }
+
+        .daily-chart-placeholder h4 {
+            font-size: 14px !important;
+            margin: 0 0 8px 0 !important;
+            color: #f8fafc !important;
+        }
+
+        .daily-chart-placeholder p {
+            font-size: 12px !important;
+            margin: 0 0 16px 0 !important;
+        }
+
+        .placeholder-info {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 4px !important;
+            font-size: 11px !important;
+        }
+
+        /* Pie Chart Styles for Daily Distribution */
+        .daily-pie-chart-container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 100% !important;
+            position: relative !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .daily-pie-chart {
+            position: relative !important;
+            width: 320px !important;
+            height: 320px !important;
+            margin: 0 !important;
+        }
+
+        .daily-pie-svg {
+            width: 100% !important;
+            height: 100% !important;
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4)) !important;
+        }
+
+        .daily-pie-segment {
+            filter: brightness(1) !important;
+            stroke: rgba(255, 255, 255, 0.1) !important;
+            stroke-width: 1 !important;
+        }
+
+
+
+        .daily-pie-center {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            text-align: center !important;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+            border-radius: 50% !important;
+            width: 120px !important;
+            height: 120px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: 2px solid rgba(59, 130, 246, 0.4) !important;
+            backdrop-filter: blur(15px) !important;
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 4px 16px rgba(59, 130, 246, 0.2) !important;
+            z-index: 10 !important;
+            pointer-events: none !important;
+        }
+
+        .daily-pie-total {
+            font-size: 20px !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            font-family: 'Inter', sans-serif !important;
+            line-height: 1.1 !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            letter-spacing: -0.02em !important;
+        }
+
+        .daily-pie-label {
+            font-size: 10px !important;
+            font-weight: 600 !important;
+            color: #cbd5e1 !important;
+            font-family: 'Inter', sans-serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            margin-top: 4px !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .distribution-container {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; /* Lighter background (was on boxes) */
+            border: 1px solid rgba(51, 65, 85, 0.4) !important; /* Restore border */
+            border-radius: 16px !important; /* Restore border radius */
+            padding: 20px !important; /* Reduced padding for more compact height */
+            position: relative !important;
+            overflow: hidden !important;
+            display: flex !important; /* Added for better alignment control */
+            flex-direction: column !important; /* Added for better alignment control */
+            align-items: stretch !important; /* Added for better alignment control */
+        }
+
+        .distribution-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 16px !important;
+        }
+
+        .distribution-title {
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            color: #94a3b8 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            margin: 0 !important;
+        }
+
+        .distribution-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important; /* Three equal columns - match charts exactly */
+            gap: 12px !important; /* Match charts section gap exactly */
+            width: 100% !important; /* Use full container width */
+            align-items: start !important; /* Ensure all items start at the top */
+            justify-items: center !important; /* Center boxes horizontally within their columns */
+            align-content: start !important; /* Force all grid rows to start at the top */
+        }
+        
+        /* Column order: 1st=Key Metrics, 2nd=Pie Chart, 3rd=Breakdown Data */
+        .distribution-data {
+            grid-column: 1 !important; /* First column - align with Weekly Chart */
+            width: 95% !important; /* Increased width for better box utilization */
+            max-width: 320px !important; /* Increased maximum width constraint */
+            margin: 0 !important; /* Remove any default margins */
+            padding: 8px !important; /* Padding for inner box */
+            vertical-align: top !important; /* Force top alignment */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; /* Lighter background for container */
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            height: 320px !important; /* Match chart content height exactly */
+            position: relative !important;
+            overflow: hidden !important;
+            align-self: start !important; /* Force grid item to start at the top */
+        }
+        
+        .distribution-chart {
+            grid-column: 2 !important; /* Second column - align with Monthly Chart */
+            width: 95% !important; /* Increased width for better box utilization */
+            max-width: 340px !important; /* Increased maximum width constraint for chart */
+            margin: 0 !important; /* Remove any default margins */
+            padding: 8px !important; /* Padding for inner box */
+            vertical-align: top !important; /* Force top alignment */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; /* Lighter background for container */
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            height: 320px !important; /* Match chart content height exactly */
+            position: relative !important;
+            overflow: hidden !important;
+            align-self: start !important; /* Force grid item to start at the top */
+        }
+        
+        .distribution-breakdown {
+            grid-column: 3 !important; /* Third column - align with Process Line Chart */
+            width: 95% !important; /* Increased width for better box utilization */
+            max-width: 320px !important; /* Increased maximum width constraint */
+            margin: 0 !important; /* Remove any default margins */
+            padding: 8px !important; /* Padding for inner box */
+            vertical-align: top !important; /* Force top alignment */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; /* Lighter background for container */
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            height: 320px !important; /* Match chart content height exactly */
+            position: relative !important;
+            overflow: hidden !important;
+            align-self: start !important; /* Force grid item to start at the top */
+        }
+
+        /* Inner Box for Distribution Data */
+        .distribution-inner-box {
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important; /* Darker background for inner box */
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            position: relative !important;
+            overflow: hidden !important;
+            padding: 12px !important; /* Equal padding on all sides for perfect centering */
+            box-sizing: border-box !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .distribution-inner-box::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent) !important;
+        }
+
+        .distribution-metrics {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important; /* Comfortable spacing for full space usage */
+        }
+
+        .metric-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 0 !important; /* Comfortable padding for full space usage */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.2) !important;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none !important;
+        }
+
+        .distribution-metric-label {
+            font-size: 11px !important;
+            color: #cbd5e1 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        .distribution-metric-value {
+            font-size: 13px !important;
+            color: #f8fafc !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .distribution-data::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+        }
+
+        .section-title {
+            font-size: 13px !important; /* Increased for better readability */
+            font-weight: 700 !important; /* Bolder for section headers */
+            color: #e2e8f0 !important; /* Brighter for better contrast */
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            margin: 0 0 18px 0 !important; /* Slightly more spacing */
+        }
+
+        .distribution-date {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3) !important;
+        }
+
+        .date-label {
+            font-size: 11px !important;
+            color: #cbd5e1 !important; /* Brighter for consistency */
+            font-weight: 600 !important;
+        }
+
+        .date-value {
+            font-size: 15px !important; /* Increased from 14px */
+            color: #f8fafc !important;
+            font-weight: 700 !important; /* Bolder for emphasis */
+        }
+
+        .distribution-stats {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .stat-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+        }
+
+        .stat-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+
+        .stat-label {
+            font-size: 11px !important; /* Increased from 10px */
+            color: #cbd5e1 !important; /* Brighter for better readability */
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        .stat-value {
+            font-size: 13px !important; /* Increased from 12px */
+            color: #f8fafc !important;
+            font-weight: 700 !important; /* Bolder for values */
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+
+
+        /* Inner Box for Distribution Breakdown */
+        .breakdown-inner-box {
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important; /* Darker background for inner box */
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            position: relative !important;
+            overflow: hidden !important;
+            padding: 12px !important; /* Equal padding on all sides for perfect centering */
+            box-sizing: border-box !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .breakdown-inner-box::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent) !important;
+        }
+
+        .breakdown-metrics {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important; /* Comfortable spacing for full space usage */
+        }
+
+        .breakdown-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 0 !important; /* Comfortable padding for full space usage */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.2) !important;
+        }
+
+        .breakdown-row:last-child {
+            border-bottom: none !important;
+        }
+
+        .breakdown-label {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            font-size: 11px !important;
+            color: #cbd5e1 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+
+        .breakdown-color {
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+            flex-shrink: 0 !important;
+        }
+
+        .breakdown-value {
+            font-size: 13px !important;
+            color: #f8fafc !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+
+
+        /* Inner Box for Distribution Chart */
+        .chart-inner-box {
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important; /* Darker background for inner box */
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            border-radius: 8px !important;
+            position: relative !important;
+            overflow: hidden !important;
+            padding: 12px !important; /* Equal padding on all sides for perfect centering */
+            box-sizing: border-box !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 2px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .chart-inner-box::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent) !important;
+        }
+
+        .distribution-chart::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+        }
+
+
+
+        .legend-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+        }
+
+        .legend-color {
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 2px !important;
+        }
+
+        .legend-label {
+            font-size: 12px !important; /* Increased from 11px */
+            color: #e2e8f0 !important; /* Brighter for better readability */
+            font-weight: 600 !important; /* Bolder for emphasis */
+        }
+
+        /* Activity Section */
+        .activity-section {
+            margin-top: 24px !important;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border: 1px solid rgba(51, 65, 85, 0.4) !important;
+            border-radius: 8px !important;
+            padding: 24px !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .activity-section::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+        }
+
+        .activity-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .activity-item {
+            display: grid !important;
+            grid-template-columns: 2fr 1fr 1fr !important;
+            gap: 20px !important;
+            padding: 12px 0 !important;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.2) !important;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .activity-type {
+            font-size: 12px !important;
+            color: #f8fafc !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+        }
+
+        .activity-amount {
+            font-size: 12px !important;
+            color: #3b82f6 !important;
+            font-weight: 600 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .activity-time {
+            font-size: 11px !important;
+            color: #94a3b8 !important;
+            font-weight: 500 !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .distribution-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .activity-item {
+                grid-template-columns: 1fr !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 100% !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 20px !important;
+            color: white !important;
+        }
+
+        /* Logo styling removed to prevent conflicts with sidebar */
+
+o        /* Logo sizing moved to CSS file to prevent conflicts */
+
+        .logo-text {
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: #10b981 !important;
+        }
+
+        /* Navigation styling */
+        .sidebar-nav {
+            flex: 1 !important;
+            display: block !important;
+        }
+
+        .nav-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .nav-item {
+            display: block !important;
+            margin: 5px 0 !important;
+        }
+
+        .nav-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 12px 15px !important;
+            color: #d1d5db !important;
+            text-decoration: none !important;
+            border-radius: 8px !important;
+            transition: all 0.2s !important;
+        }
+
+        .nav-link:hover {
+            background: #374151 !important;
+            color: white !important;
+        }
+
+        .nav-item.active .nav-link {
+            background: #10b981 !important;
+            color: white !important;
+        }
+
+        .nav-icon {
+            margin-right: 10px !important;
+            font-size: 16px !important;
+        }
+
+        .nav-text {
+            font-size: 14px !important;
+            font-weight: 500 !important;
+        }
+
+        /* Footer styling */
+        .sidebar-footer {
+            margin-top: auto !important;
+            padding-top: 20px !important;
+            border-top: 1px solid #374151 !important;
+        }
+
+        /* Connect wallet button */
+        .connect-wallet-btn {
+            display: block !important;
+            width: 100% !important;
+            padding: 12px 16px !important;
+            background: #10b981 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            transition: all 0.2s !important;
+        }
+
+        .connect-wallet-btn:hover {
+            background: #059669 !important;
+        }
+
+        /* Wallet info */
+        .wallet-info {
+            margin-top: 10px !important;
+            padding: 10px !important;
+            background: #374151 !important;
+            border-radius: 8px !important;
+            font-size: 12px !important;
+        }
+
+        .wallet-address {
+            color: #d1d5db !important;
+            margin-bottom: 5px !important;
+        }
+
+        .premium-status {
+            font-weight: bold !important;
+        }
+
+        .premium-status.premium {
+            color: #fbbf24 !important;
+        }
+
+        .premium-status.standard {
+            color: #6b7280 !important;
+        }
+
+        /* Page content styling */
+        .dashboard-page, .metrics-page, .harvesting-page, .distribution-page,
+        .wallet-lookup-page, .reward-calculator-page {
+            color: white !important;
+        }
+
+        .page-header h1 {
+            color: white !important;
+            font-size: 2rem !important;
+            margin-bottom: 10px !important;
+        }
+
+        .page-header p {
+            color: #9ca3af !important;
+            margin-bottom: 30px !important;
+        }
+
+        /* Dashboard grid */
+        .dashboard-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+            gap: 20px !important;
+            margin-bottom: 30px !important;
+        }
+
+        .dashboard-card {
+            background: #1f2937 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            border: 1px solid #374151 !important;
+        }
+
+        .dashboard-card h3 {
+            color: #9ca3af !important;
+            font-size: 14px !important;
+            margin-bottom: 10px !important;
+        }
+
+        .card-value {
+            color: white !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin-bottom: 5px !important;
+        }
+
+        .card-change {
+            font-size: 14px !important;
+            font-weight: 500 !important;
+        }
+
+        .card-change.positive {
+            color: #10b981 !important;
+        }
+
+        /* Charts */
+        .dashboard-charts {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+        }
+
+        .chart-container {
+            background: #1f2937 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            border: 1px solid #374151 !important;
+        }
+
+        .chart-container h3 {
+            color: white !important;
+            margin-bottom: 15px !important;
+        }
+
+        .chart-placeholder {
+            text-align: center !important;
+            padding: 40px !important;
+            color: #6b7280 !important;
+        }
+    </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <div class="mobile-logo">
-            <img src="/public/imglogo.png" alt="IMG Logo" class="mobile-logo-icon" />
-            <span class="mobile-logo-text">IMG Protocol</span>
-        </div>
-        <button class="burger-menu-btn" id="burger-menu-btn">
-            ☰
-        </button>
-    </header>
-
-    <div id="sidebar-container" data-page="dashboard">
-        <div class="sidebar-loading">
-            <div class="loading-spinner"></div>
-            <p>Loading Navigation...</p>
-        </div>
-    </div>
+    <!-- Sidebar Container -->
+    <div id="sidebar-container"></div>
     
-    <main class="main-content">
-        <div class="dashboard-content">
-            <!-- Token Metrics Section -->
-            <section class="token-metrics">
-                    <div class="token-metrics-grid">
-                    <!-- IMG PRICE USD -->
-                        <div class="token-metric-card" id="price-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">IMG PRICE USD</h3>
-                        </div>
-                            <div class="token-metric-value" id="price-value">$0.0042</div>
-                    </div>
-
-                    <!-- 24H CHANGE -->
-                        <div class="token-metric-card" id="change-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">24H CHANGE</h3>
-                        </div>
-                            <div class="token-metric-value" id="change-value">+2.4%</div>
-                    </div>
-
-                    <!-- 24H VOLUME -->
-                        <div class="token-metric-card" id="volume-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">24H VOLUME</h3>
-                        </div>
-                            <div class="token-metric-value" id="volume-value">$847.2K</div>
-                    </div>
-
-                    <!-- TOTAL MARKET CAP -->
-                        <div class="token-metric-card" id="mcap-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">TOTAL MARKET CAP</h3>
-                        </div>
-                            <div class="token-metric-value" id="mcap-value">$42.1M</div>
-                    </div>
-
-                    <!-- LIQUIDITY -->
-                        <div class="token-metric-card" id="liquidity-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">LIQUIDITY</h3>
-                        </div>
-                            <div class="token-metric-value" id="liquidity-value">$2.8M</div>
-                    </div>
-
-                    <!-- IMG HOLDERS -->
-                        <div class="token-metric-card" id="holders-card">
-                            <div class="token-metric-header">
-                                <h3 class="token-metric-title">IMG HOLDERS</h3>
-                        </div>
-                            <div class="token-metric-value" id="holders-value">22.80k</div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Charts Section -->
-            <section class="charts-section">
-                <div class="charts-grid">
-                    <!-- Weekly Rewards Chart -->
-                    <div class="chart-card" id="weekly-rewards-chart">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Weekly Rewards</h3>
-                            <div class="chart-period-selector">
-                                <select class="period-dropdown" id="weekly-period">
-                                    <option value="august-2025">August 2025</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="weekly-rewards-canvas" width="400" height="300"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Monthly Rewards Chart -->
-                    <div class="chart-card" id="monthly-rewards-chart">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Monthly Rewards</h3>
-                            <div class="chart-period-selector">
-                                <select class="period-dropdown" id="monthly-period">
-                                    <option value="q3-2025">Q3 2025</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="monthly-rewards-canvas" width="400" height="300"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Process Line Chart -->
-                    <div class="chart-card" id="process-line-chart">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Process Line</h3>
-                            <div class="chart-period-selector">
-                                <select class="period-dropdown" id="process-period">
-                                    <option value="q3-2025">Q3 2025</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="process-line-canvas" width="400" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Reward Distribution Overview Section -->
-            <section class="reward-distribution-section">
-                <div class="distribution-grid">
-                    <!-- Reward Distribution Overview Chart with Data -->
-                    <div class="chart-card overview-chart">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Daily Distribution</h3>
-                        </div>
-                        <div class="chart-container">
-                            <div class="overview-content">
-                                                                <!-- Column 1: Other Details (was Column 2) -->
-                                <div class="overview-column details-column">
-                                    <div class="overview-data">
-                                        <div class="data-item">
-                                            <span class="data-label">Date</span>
-                                            <span class="data-value">Aug 20, 2025</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-label">Total Harvest</span>
-                                            <span class="data-value">$12,847.32</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-label">TOTAL DISTRIBUTION</span>
-                                            <span class="data-value">$12,847.32</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-label">Total Rewards</span>
-                                            <span class="data-value">$11,562.59</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Column 2: Pie Data (was Column 1) -->
-                                <div class="overview-column data-column">
-                                    <div class="overview-data">
-                                        <div class="data-item">
-                                            <span class="data-dot user-rewards"></span>
-                                            <span class="data-label">Treasury Inflow</span>
-                                            <span class="data-value">0.22441 SOL</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-dot infra-wallet"></span>
-                                            <span class="data-label">Holder Earnings</span>
-                                            <span class="data-value">0.17742 SOL</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-dot platform-fee"></span>
-                                            <span class="data-label">Infra Wallet</span>
-                                            <span class="data-value">0.02191 SOL</span>
-                                        </div>
-                                        <div class="data-item">
-                                            <span class="data-dot network-cost"></span>
-                                            <span class="data-label">Net Balance</span>
-                                            <span class="data-value">0.00500 SOL</span>
-                                        </div>
-                                    </div>
-                                                                </div>
-                                
-                                <!-- Column 3: Pie Chart -->
-                                <div class="overview-column chart-column">
-                                    <div class="donut-chart-wrapper">
-                                        <canvas id="rewardDistributionChart" width="200" height="200"></canvas>
-                                        <div class="donut-center">
-                                            <div class="center-value">$12.8K</div>
-                                            <div class="center-label">Total Rewards</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    
-                    <!-- Recent Activity Section -->
-                    <div class="snapshot-card">
-                        <div class="snapshot-header">
-                            <h3 class="snapshot-title">Recent Activity</h3>
-                        </div>
-                        <div class="recent-activity-content">
-                            <div class="recent-metric-item">
-                                <div class="metric-header">
-                                    <span class="metric-label">Harvesting</span>
-                                </div>
-                                <div class="metric-value">100k IMG</div>
-                            </div>
-                            <div class="recent-metric-item">
-                                <div class="metric-header">
-                                    <span class="metric-label">Distribution</span>
-                                </div>
-                                <div class="metric-value">2.1 SOL</div>
-                            </div>
-                            <div class="recent-metric-item">
-                                <div class="metric-header">
-                                    <span class="metric-label">Holder Earnings</span>
-                                </div>
-                                <div class="metric-value">2 SOL</div>
-                            </div>
-                            <div class="recent-metric-item">
-                                <div class="metric-header">
-                                    <span class="metric-label">Time</span>
-                                </div>
-                                <div class="metric-value">Aug 20, 2025</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Distribution and Harvesting Snapshots Section -->
-            <section class="snapshots-section">
-                <div class="snapshots-grid">
-                    <!-- Distribution Snapshot Spreadsheet -->
-                    <div class="snapshot-card">
-                        <div class="snapshot-header">
-                            <h3 class="snapshot-title">Distribution Snapshot</h3>
-                        </div>
-                        <div class="spreadsheet-container">
-                            <table class="snapshot-table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Transaction ID</th>
-                                        <th>Solscan</th>
-                                    </tr>
-                                </thead>
-                                                                    <tbody id="distribution-snapshot-tbody">
-                                        <tr>
-                                            <td>Aug 20, 2025</td>
-                                            <td>DvJ5...z2X9</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug 20, 2025</td>
-                                            <td>KpL8...mN3Q</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug 20, 2025</td>
-                                            <td>RfT2...vB7H</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug 19, 2025</td>
-                                            <td>XyZ9...cF4M</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug 19, 2025</td>
-                                            <td>QwE1...hJ6K</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug 19, 2025</td>
-                                            <td>AsD3...lP8O</td>
-                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                        </tr>
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Harvesting Snapshot Spreadsheet -->
-                    <div class="snapshot-card">
-                        <div class="snapshot-header">
-                            <h3 class="snapshot-title">Harvesting Snapshot</h3>
-                        </div>
-                        <div class="spreadsheet-container">
-                            <table class="snapshot-table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Transaction ID</th>
-                                        <th>Solscan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="harvesting-snapshot-tbody">
-                                    <tr>
-                                        <td>Aug 20, 2025</td>
-                                        <td>HvJ5...z2X9</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aug 20, 2025</td>
-                                        <td>KpL8...mN3Q</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aug 20, 2025</td>
-                                        <td>RfT2...vB7H</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aug 19, 2025</td>
-                                        <td>XyZ9...cF4M</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aug 19, 2025</td>
-                                        <td>QwE1...hJ6K</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Aug 19, 2025</td>
-                                        <td>AsD3...lP8O</td>
-                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                                            <!-- Benefits Card -->
-                        <div class="snapshot-card benefits-card">
-                                                         <div class="benefits-header">
-                                 <img src="./public/imglogo.png" alt="IMG Protocol Logo" class="benefits-logo">
-                                 <h3 class="benefits-title">Premium Dashboard</h3>
-                                 <div class="premium-requirement">
-                                     <p>Hold 50K IMG and Connect Wallet to Unlock</p>
-                        </div>
-                            </div>
-                                                                                     <div class="benefits-content">
-                                 <div class="benefit-item">
-                                     <span class="benefit-text">Advanced Analytics & Real-time Data</span>
-                            </div>
-                                 <div class="benefit-item">
-                                     <span class="benefit-text">Exclusive IMG Protocol Insights</span>
-                            </div>
-                                 <div class="benefit-item">
-                                     <span class="benefit-text">Community Voting</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-        </div>
-    </main>
+    <!-- Main Content Container -->
+    <div id="main-content"></div>
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./script.js"></script>
-    
-    <!-- Wallet Connection Modal -->
-    <div class="wallet-modal" id="wallet-modal">
+        <!-- Professional Wallet Connection Modal -->
+    <div id="wallet-modal" class="wallet-modal">
         <div class="wallet-modal-content">
             <div class="wallet-modal-header">
                 <h3 class="wallet-modal-title">Connect Solana Wallet</h3>
-                <button class="wallet-modal-close" id="wallet-modal-close">×</button>
-            </div>
-            
+                <button id="wallet-modal-close" class="wallet-modal-close">×</button>
+                            </div>
             <div class="wallet-modal-body">
-                <div class="wallet-info">
+                <div class="wallet-info-section">
                     <p class="wallet-info-text">
                         This dashboard only verifies wallets holding $IMG.<br>
-                        To unlock Premium features, you must hold at least 50,000 $IMG in your connected wallet.
-                        <br><br>
-                        <strong>IMG Token Address:</strong><br>
-                        <code class="token-address">znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh</code>
+                        To unlock Premium features, you must hold at least 50,000<br>
+                        $IMG in your connected wallet.
                     </p>
-                </div>
+                    </div>
+
+                <div class="img-token-info">
+                    <div class="token-info-label">IMG Token Address:</div>
+                    <div class="token-address-box">
+                        znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh
+                            </div>
+                        </div>
                 
                 <div class="wallet-providers">
                     <button class="wallet-provider-btn" data-provider="phantom">
-                        <img src="./public/phantom.svg" alt="Phantom" class="provider-icon">
+                        <img src="/phantom.svg" alt="Phantom" class="provider-icon">
                         <span class="provider-name">Phantom</span>
                     </button>
-                    
                     <button class="wallet-provider-btn" data-provider="solflare">
-                        <img src="./public/solflare.svg" alt="Solflare" class="provider-icon">
+                        <img src="/solflare.svg" alt="Solflare" class="provider-icon">
                         <span class="provider-name">Solflare</span>
-                    </button>
-                </div>
-                
-                <div class="wallet-status" id="wallet-status" style="display: none;">
-                    <div class="status-indicator">
-                        <span class="status-icon">⏳</span>
-                        <span class="status-text">Checking wallet for IMG tokens...</span>
+                            </button>
                     </div>
-                </div>
-                
-                <div class="wallet-result" id="wallet-result" style="display: none;">
-                    <div class="result-indicator">
-                        <span class="result-icon"></span>
-                        <span class="result-text"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+                <div id="wallet-connection-status" class="wallet-connection-status" style="display: none;">
+                    <div class="connection-indicator">
+                        <div class="loading-spinner"></div>
+                        <span class="connection-text">Connecting...</span>
+                        </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+            
+    
+    <!-- Solana Web3.js Library -->
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    
+    <!-- SPA App Script -->
+    <script type="module" src="src/app.js"></script>
 </body>
 </html>

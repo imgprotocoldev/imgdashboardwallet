@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>IMG Protocol - Dashboard</title>
+    <meta name="description" content="Main dashboard for IMG Protocol financial platform" />
+    <link rel="stylesheet" href="./style.css?v=282">
+    
+    <!-- Enhanced Page-Level Wallet Status Manager -->
+    <script>
+        // ENHANCED PAGE-LEVEL WALLET STATUS: Robust wallet state management
+        (function() {
+            try {
+                // Check multiple sources for wallet state
+                const walletConnected = localStorage.getItem('walletConnected') === 'true';
+                const storedWalletState = localStorage.getItem('imgProtocolWalletState');
+                const walletPublicKey = localStorage.getItem('walletPublicKey');
+                const walletPremium = localStorage.getItem('walletPremium') === 'true';
+                
+                let isConnected = false;
+                let publicKey = null;
+                let isPremium = false;
+                
+                // Primary check: direct wallet connected flag
+                if (walletConnected) {
+                    isConnected = true;
+                    publicKey = walletPublicKey || 'connected';
+                    isPremium = walletPremium;
+                    console.log('🚀 PAGE WALLET: Direct connection detected');
+                }
+                // Secondary check: stored wallet state
+                else if (storedWalletState) {
+                    try {
+                        const parsed = JSON.parse(storedWalletState);
+                        if (parsed.isConnected && parsed.walletPublicKey) {
+                            isConnected = true;
+                            publicKey = parsed.walletPublicKey;
+                            isPremium = parsed.isPremium || false;
+                            console.log('🔄 PAGE WALLET: Stored state restored');
+                        }
+                    } catch (error) {
+                        console.error('❌ PAGE WALLET: Error parsing stored state:', error);
+                    }
+                }
+                
+                // Set page-level wallet status
+                window.pageWalletStatus = {
+                    isConnected,
+                    publicKey,
+                    isPremium,
+                    timestamp: Date.now(),
+                    source: isConnected ? (walletConnected ? 'direct' : 'stored') : 'none'
+                };
+                
+                if (isConnected) {
+                    console.log('🚀 PAGE WALLET: Status set before page load:', window.pageWalletStatus);
+                } else {
+                    console.log('🔒 PAGE WALLET: No wallet connected');
+                }
+                
+                // Also set a global flag for immediate access
+                window.walletStateReady = true;
+                
+            } catch (error) {
+                console.error('❌ PAGE WALLET: Error setting wallet status:', error);
+                // Set safe defaults
+                window.pageWalletStatus = {
+                    isConnected: false,
+                    publicKey: null,
+                    isPremium: false,
+                    timestamp: Date.now(),
+                    source: 'error'
+                };
+                window.walletStateReady = true;
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-logo">
+            <img src="/public/imglogo.png" alt="IMG Logo" class="mobile-logo-icon" />
+            <span class="mobile-logo-text">IMG Protocol</span>
+        </div>
+        <button class="burger-menu-btn" id="burger-menu-btn">
+            ☰
+        </button>
+    </header>
+
+    <div id="sidebar-container" data-page="dashboard">
+        <div class="sidebar-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading Navigation...</p>
+        </div>
+    </div>
+    
+    <main class="main-content">
+        <div class="dashboard-content">
+            <!-- Token Metrics Section -->
+            <section class="token-metrics">
+                    <div class="token-metrics-grid">
+                    <!-- IMG PRICE USD -->
+                        <div class="token-metric-card" id="price-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">IMG PRICE USD</h3>
+                        </div>
+                            <div class="token-metric-value" id="price-value">$0.0042</div>
+                    </div>
+
+                    <!-- 24H CHANGE -->
+                        <div class="token-metric-card" id="change-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">24H CHANGE</h3>
+                        </div>
+                            <div class="token-metric-value" id="change-value">+2.4%</div>
+                    </div>
+
+                    <!-- 24H VOLUME -->
+                        <div class="token-metric-card" id="volume-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">24H VOLUME</h3>
+                        </div>
+                            <div class="token-metric-value" id="volume-value">$847.2K</div>
+                    </div>
+
+                    <!-- TOTAL MARKET CAP -->
+                        <div class="token-metric-card" id="mcap-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">TOTAL MARKET CAP</h3>
+                        </div>
+                            <div class="token-metric-value" id="mcap-value">$42.1M</div>
+                    </div>
+
+                    <!-- LIQUIDITY -->
+                        <div class="token-metric-card" id="liquidity-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">LIQUIDITY</h3>
+                        </div>
+                            <div class="token-metric-value" id="liquidity-value">$2.8M</div>
+                    </div>
+
+                    <!-- IMG HOLDERS -->
+                        <div class="token-metric-card" id="holders-card">
+                            <div class="token-metric-header">
+                                <h3 class="token-metric-title">IMG HOLDERS</h3>
+                        </div>
+                            <div class="token-metric-value" id="holders-value">22.80k</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="charts-grid">
+                    <!-- Weekly Rewards Chart -->
+                    <div class="chart-card" id="weekly-rewards-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Weekly Rewards</h3>
+                            <div class="chart-period-selector">
+                                <select class="period-dropdown" id="weekly-period">
+                                    <option value="august-2025">August 2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="weekly-rewards-canvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Rewards Chart -->
+                    <div class="chart-card" id="monthly-rewards-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Monthly Rewards</h3>
+                            <div class="chart-period-selector">
+                                <select class="period-dropdown" id="monthly-period">
+                                    <option value="q3-2025">Q3 2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="monthly-rewards-canvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Process Line Chart -->
+                    <div class="chart-card" id="process-line-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Process Line</h3>
+                            <div class="chart-period-selector">
+                                <select class="period-dropdown" id="process-period">
+                                    <option value="q3-2025">Q3 2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="process-line-canvas" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Reward Distribution Overview Section -->
+            <section class="reward-distribution-section">
+                <div class="distribution-grid">
+                    <!-- Reward Distribution Overview Chart with Data -->
+                    <div class="chart-card overview-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Daily Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="overview-content">
+                                                                <!-- Column 1: Other Details (was Column 2) -->
+                                <div class="overview-column details-column">
+                                    <div class="overview-data">
+                                        <div class="data-item">
+                                            <span class="data-label">Date</span>
+                                            <span class="data-value">Aug 20, 2025</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-label">Total Harvest</span>
+                                            <span class="data-value">$12,847.32</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-label">TOTAL DISTRIBUTION</span>
+                                            <span class="data-value">$12,847.32</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-label">Total Rewards</span>
+                                            <span class="data-value">$11,562.59</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Pie Data (was Column 1) -->
+                                <div class="overview-column data-column">
+                                    <div class="overview-data">
+                                        <div class="data-item">
+                                            <span class="data-dot user-rewards"></span>
+                                            <span class="data-label">Treasury Inflow</span>
+                                            <span class="data-value">0.22441 SOL</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-dot infra-wallet"></span>
+                                            <span class="data-label">Holder Earnings</span>
+                                            <span class="data-value">0.17742 SOL</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-dot platform-fee"></span>
+                                            <span class="data-label">Infra Wallet</span>
+                                            <span class="data-value">0.02191 SOL</span>
+                                        </div>
+                                        <div class="data-item">
+                                            <span class="data-dot network-cost"></span>
+                                            <span class="data-label">Net Balance</span>
+                                            <span class="data-value">0.00500 SOL</span>
+                                        </div>
+                                    </div>
+                                                                </div>
+                                
+                                <!-- Column 3: Pie Chart -->
+                                <div class="overview-column chart-column">
+                                    <div class="donut-chart-wrapper">
+                                        <canvas id="rewardDistributionChart" width="200" height="200"></canvas>
+                                        <div class="donut-center">
+                                            <div class="center-value">$12.8K</div>
+                                            <div class="center-label">Total Rewards</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+                    <!-- Recent Activity Section -->
+                    <div class="snapshot-card">
+                        <div class="snapshot-header">
+                            <h3 class="snapshot-title">Recent Activity</h3>
+                        </div>
+                        <div class="recent-activity-content">
+                            <div class="recent-metric-item">
+                                <div class="metric-header">
+                                    <span class="metric-label">Harvesting</span>
+                                </div>
+                                <div class="metric-value">100k IMG</div>
+                            </div>
+                            <div class="recent-metric-item">
+                                <div class="metric-header">
+                                    <span class="metric-label">Distribution</span>
+                                </div>
+                                <div class="metric-value">2.1 SOL</div>
+                            </div>
+                            <div class="recent-metric-item">
+                                <div class="metric-header">
+                                    <span class="metric-label">Holder Earnings</span>
+                                </div>
+                                <div class="metric-value">2 SOL</div>
+                            </div>
+                            <div class="recent-metric-item">
+                                <div class="metric-header">
+                                    <span class="metric-label">Time</span>
+                                </div>
+                                <div class="metric-value">Aug 20, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Distribution and Harvesting Snapshots Section -->
+            <section class="snapshots-section">
+                <div class="snapshots-grid">
+                    <!-- Distribution Snapshot Spreadsheet -->
+                    <div class="snapshot-card">
+                        <div class="snapshot-header">
+                            <h3 class="snapshot-title">Distribution Snapshot</h3>
+                        </div>
+                        <div class="spreadsheet-container">
+                            <table class="snapshot-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Solscan</th>
+                                    </tr>
+                                </thead>
+                                                                    <tbody id="distribution-snapshot-tbody">
+                                        <tr>
+                                            <td>Aug 20, 2025</td>
+                                            <td>DvJ5...z2X9</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aug 20, 2025</td>
+                                            <td>KpL8...mN3Q</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aug 20, 2025</td>
+                                            <td>RfT2...vB7H</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aug 19, 2025</td>
+                                            <td>XyZ9...cF4M</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aug 19, 2025</td>
+                                            <td>QwE1...hJ6K</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aug 19, 2025</td>
+                                            <td>AsD3...lP8O</td>
+                                            <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Harvesting Snapshot Spreadsheet -->
+                    <div class="snapshot-card">
+                        <div class="snapshot-header">
+                            <h3 class="snapshot-title">Harvesting Snapshot</h3>
+                        </div>
+                        <div class="spreadsheet-container">
+                            <table class="snapshot-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Solscan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="harvesting-snapshot-tbody">
+                                    <tr>
+                                        <td>Aug 20, 2025</td>
+                                        <td>HvJ5...z2X9</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aug 20, 2025</td>
+                                        <td>KpL8...mN3Q</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aug 20, 2025</td>
+                                        <td>RfT2...vB7H</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aug 19, 2025</td>
+                                        <td>XyZ9...cF4M</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aug 19, 2025</td>
+                                        <td>QwE1...hJ6K</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aug 19, 2025</td>
+                                        <td>AsD3...lP8O</td>
+                                        <td><button class="row-solscan-btn" onclick="window.open('https://solscan.io', '_blank')">View on Solscan</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                                            <!-- Benefits Card -->
+                        <div class="snapshot-card benefits-card">
+                                                         <div class="benefits-header">
+                                 <img src="./public/imglogo.png" alt="IMG Protocol Logo" class="benefits-logo">
+                                 <h3 class="benefits-title">Premium Dashboard</h3>
+                                 <div class="premium-requirement">
+                                     <p>Hold 50K IMG and Connect Wallet to Unlock</p>
+                        </div>
+                            </div>
+                                                                                     <div class="benefits-content">
+                                 <div class="benefit-item">
+                                     <span class="benefit-text">Advanced Analytics & Real-time Data</span>
+                            </div>
+                                 <div class="benefit-item">
+                                     <span class="benefit-text">Exclusive IMG Protocol Insights</span>
+                            </div>
+                                 <div class="benefit-item">
+                                     <span class="benefit-text">Community Voting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./script.js"></script>
+    
+    <!-- Wallet Connection Modal -->
+    <div class="wallet-modal" id="wallet-modal">
+        <div class="wallet-modal-content">
+            <div class="wallet-modal-header">
+                <h3 class="wallet-modal-title">Connect Solana Wallet</h3>
+                <button class="wallet-modal-close" id="wallet-modal-close">×</button>
+            </div>
+            
+            <div class="wallet-modal-body">
+                <div class="wallet-info">
+                    <p class="wallet-info-text">
+                        This dashboard only verifies wallets holding $IMG.<br>
+                        To unlock Premium features, you must hold at least 50,000 $IMG in your connected wallet.
+                        <br><br>
+                        <strong>IMG Token Address:</strong><br>
+                        <code class="token-address">znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh</code>
+                    </p>
+                </div>
+                
+                <div class="wallet-providers">
+                    <button class="wallet-provider-btn" data-provider="phantom">
+                        <img src="./public/phantom.svg" alt="Phantom" class="provider-icon">
+                        <span class="provider-name">Phantom</span>
+                    </button>
+                    
+                    <button class="wallet-provider-btn" data-provider="solflare">
+                        <img src="./public/solflare.svg" alt="Solflare" class="provider-icon">
+                        <span class="provider-name">Solflare</span>
+                    </button>
+                </div>
+                
+                <div class="wallet-status" id="wallet-status" style="display: none;">
+                    <div class="status-indicator">
+                        <span class="status-icon">⏳</span>
+                        <span class="status-text">Checking wallet for IMG tokens...</span>
+                    </div>
+                </div>
+                
+                <div class="wallet-result" id="wallet-result" style="display: none;">
+                    <div class="result-indicator">
+                        <span class="result-icon"></span>
+                        <span class="result-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
