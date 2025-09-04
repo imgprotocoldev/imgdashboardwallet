@@ -1954,11 +1954,13 @@ class DistributionAPI {
                 time: `${hour}:${minute}:${second}`,
                 recipient: this.generateRandomAddress(),
                 amount: (Math.random() * 0.5 + 0.05).toFixed(3),
-                status: statuses[Math.floor(Math.random() * statuses.length)]
+                status: statuses[Math.floor(Math.random() * statuses.length)],
+                timestamp: new Date(`2025-${month}-${day}T${hour}:${minute}:${second}`).getTime()
             });
         }
         
-        return data.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+        // Sort by timestamp descending (newest first)
+        return data.sort((a, b) => b.timestamp - a.timestamp);
     }
 
     // Generate random Solana address
@@ -2067,7 +2069,8 @@ class DistributionAPI {
 
     // Refresh data
     async refreshData() {
-        await this.fetchDistributionData(this.currentMonth, this.searchTerm, this.currentPage);
+        // Reset to first page to show newest data at top
+        await this.fetchDistributionData(this.currentMonth, this.searchTerm, 1);
     }
 
     // Search functionality
@@ -2174,11 +2177,13 @@ class HarvestingAPI {
                 time: `${hour}:${minute}:${second}`,
                 imgSold: (Math.random() * 1000 + 100).toFixed(0),
                 rewardPool: (Math.random() * 50 + 10).toFixed(3),
-                solDistributed: (Math.random() * 30 + 5).toFixed(3)
+                solDistributed: (Math.random() * 30 + 5).toFixed(3),
+                timestamp: new Date(`2025-${month}-${day}T${hour}:${minute}:${second}`).getTime()
             });
         }
         
-        return data.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+        // Sort by timestamp descending (newest first)
+        return data.sort((a, b) => b.timestamp - a.timestamp);
     }
 
     // Render harvesting table
@@ -2271,7 +2276,8 @@ class HarvestingAPI {
 
     // Refresh data
     async refreshData() {
-        await this.fetchHarvestingData(this.currentMonth, this.currentPage);
+        // Reset to first page to show newest data at top
+        await this.fetchHarvestingData(this.currentMonth, 1);
     }
 
     // Filter by month
