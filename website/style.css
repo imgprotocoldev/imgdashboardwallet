@@ -1392,7 +1392,7 @@
     }
     
     .update-description {
-    font-size: 14px;
+        font-size: 14px;
         line-height: 1.5;
         margin: 0;
         color: var(--text-secondary);
@@ -1684,7 +1684,7 @@
     }
     
     .update-date {
-        font-size: 11px;
+    font-size: 11px;
         font-weight: 600;
         color: var(--accent-primary);
         margin: 0;
@@ -1842,11 +1842,11 @@
     }
     
     .split-hero-title {
-        font-size: 14px;
+    font-size: 14px;
     }
     
     .split-hero-subtext {
-        font-size: 11px;
+    font-size: 11px;
     }
     
     .update-title {
@@ -1936,11 +1936,17 @@
     flex-shrink: 0; /* Don't shrink header */
 }
 
+.spreadsheet-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .spreadsheet-header h1 {
     font-size: 20px; /* was 24px */
     font-weight: 700;
     color: var(--text-primary);
-        margin: 0;
+    margin: 0;
     padding-left: 5px; /* Add left padding to move text right */
     background: linear-gradient(135deg, var(--text-primary), rgba(248, 250, 252, 0.8));
     -webkit-background-clip: text;
@@ -2083,6 +2089,43 @@
     opacity: 0.8;
 }
 
+/* Month Dropdown - Harvesting */
+.month-dropdown {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+.month-dropdown:focus {
+    outline: none;
+    border-color: rgba(16, 185, 129, 0.5);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.month-dropdown:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.month-dropdown option {
+    background: #1e293b;
+    color: var(--text-primary);
+    padding: 8px;
+}
+
 
 .pagination-btn {
     display: flex;
@@ -2156,6 +2199,14 @@
     
     .spreadsheet-controls {
         justify-content: flex-end !important;
+        gap: 8px !important;
+    }
+    
+    .month-dropdown {
+        min-width: 120px !important;
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        padding-right: 28px !important;
     }
     
     .control-btn {
@@ -2237,6 +2288,14 @@
     
     .spreadsheet-controls {
         justify-content: flex-end !important;
+        gap: 6px !important;
+    }
+    
+    .month-dropdown {
+        min-width: 100px !important;
+        font-size: 12px !important;
+        padding: 5px 8px !important;
+        padding-right: 24px !important;
     }
     
     .control-btn {
@@ -2281,4 +2340,622 @@
         justify-content: space-between !important;
     }
     
+}
+
+/* ========================================
+   DISTRIBUTION SPREADSHEET STYLES
+   ======================================== */
+
+/* Distribution Page Layout - Matching Harvesting */
+.distribution-page {
+    padding: 4px 8px 0px 8px;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.distribution-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Distribution Spreadsheet Container - Matching Harvesting Design */
+.distribution-spreadsheet-container {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 6px;
+    backdrop-filter: blur(20px);
+    width: 100%;
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+}
+
+/* Distribution Refresh Button - Icon Only, Smaller */
+.distribution-spreadsheet-container .distribution-refresh-btn {
+    background: none !important;
+    border: none !important;
+    padding: 4px !important;
+    border-radius: 4px !important;
+    min-width: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.distribution-spreadsheet-container .distribution-refresh-btn .distribution-btn-icon {
+    width: 22px !important;
+    height: 22px !important;
+    filter: none !important;
+}
+
+/* Distribution Spreadsheet Header - Matching Harvesting Style */
+.distribution-spreadsheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.distribution-spreadsheet-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    padding-left: 5px;
+    background: linear-gradient(135deg, var(--text-primary), rgba(248, 250, 252, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Distribution Spreadsheet Controls */
+.distribution-spreadsheet-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.distribution-spreadsheet-controls .signature-search {
+    display: flex;
+    align-items: center;
+}
+
+.distribution-spreadsheet-controls .search-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+
+.distribution-spreadsheet-controls .search-input:focus {
+    outline: none;
+    border-color: rgba(16, 185, 129, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.distribution-spreadsheet-controls .search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Mobile Search Bar - Hidden on Desktop */
+.distribution-mobile-search {
+    display: none;
+}
+
+/* Distribution Spreadsheet Wrapper - Full Width */
+.distribution-spreadsheet-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.15);
+    width: 100%;
+        max-width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Distribution Scrollable table body with sticky header */
+.distribution-table-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Distribution Custom Scrollbar - Gradient Green */
+.distribution-table-scroll-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.distribution-table-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.distribution-table-scroll-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #10b981, #06b6d4);
+    border-radius: 3px;
+}
+
+.distribution-table-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #059669, #0891b2);
+}
+
+.distribution-spreadsheet {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+    background: transparent;
+}
+
+.distribution-spreadsheet-header-row {
+    background: linear-gradient(135deg, #0b1220, #152232);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.distribution-spreadsheet-header-row th {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.distribution-spreadsheet-row {
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.distribution-spreadsheet-row:hover {
+    background: rgba(16, 185, 129, 0.10);
+    border-color: rgba(16, 185, 129, 0.18);
+}
+
+.distribution-spreadsheet-row td {
+    padding: 12px 8px;
+    text-align: center;
+    color: var(--text-primary);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.distribution-spreadsheet-row:last-child td {
+    border-bottom: none;
+}
+
+/* Distribution Column widths - adapted for distribution data */
+.distribution-col-id { width: 8%; }
+.distribution-col-date { width: 16%; }
+.distribution-col-time { width: 14%; }
+.distribution-col-recipient { width: 25%; }
+.distribution-col-amount { width: 20%; }
+.distribution-col-status { width: 17%; }
+
+/* Distribution Pagination spacing compact */
+.distribution-spreadsheet-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.distribution-control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 12px;
+    color: var(--accent-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.distribution-control-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.distribution-control-btn .distribution-btn-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+
+/* Month Dropdown - Distribution */
+.distribution-month-dropdown {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+.distribution-month-dropdown:focus {
+    outline: none;
+    border-color: rgba(16, 185, 129, 0.5);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.distribution-month-dropdown:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.distribution-month-dropdown option {
+    background: #1e293b;
+    color: var(--text-primary);
+    padding: 8px;
+}
+
+.distribution-pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    color: var(--text-primary);
+        font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 40px;
+}
+
+.distribution-pagination-btn:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.distribution-pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    background: none;
+}
+
+.distribution-pagination-info {
+    font-size: 12px !important;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.distribution-arrow-icon {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+/* Mobile Responsive Design for Distribution Page - Matching Harvesting */
+@media (max-width: 768px) {
+    .distribution-page {
+        padding: 55px 3px 0px 3px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+    }
+    
+    .distribution-content {
+        gap: 0px;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+    
+    .distribution-spreadsheet-container {
+        padding: 4px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 16px !important;
+        backdrop-filter: blur(20px) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+    }
+    
+    .distribution-spreadsheet-header h1 {
+        font-size: 20px !important;
+    }
+    
+    .distribution-spreadsheet-header {
+        flex-direction: column !important;
+        gap: 12px;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    .distribution-spreadsheet-header h1 {
+        text-align: center !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .distribution-spreadsheet-controls {
+        justify-content: center !important;
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .distribution-spreadsheet-controls .signature-search {
+        display: none !important;
+    }
+    
+    .distribution-mobile-search {
+        display: block !important;
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        padding: 0 4px;
+    }
+    
+    .distribution-mobile-search .search-input {
+        width: 100% !important;
+        max-width: none !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        color: var(--text-primary) !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .distribution-mobile-search .search-input:focus {
+        outline: none !important;
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .distribution-mobile-search .search-input::placeholder {
+        color: var(--text-secondary) !important;
+    }
+    
+    .distribution-month-dropdown {
+        min-width: 120px !important;
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        padding-right: 28px !important;
+    }
+    
+    .distribution-control-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 12px 16px;
+    }
+    
+    /* Mobile refresh button - smaller icon, less padding */
+    .distribution-spreadsheet-container .distribution-refresh-btn {
+        padding: 4px !important;
+    }
+    
+    .distribution-spreadsheet-container .distribution-refresh-btn .distribution-btn-icon {
+        width: 22px !important;
+        height: 22px !important;
+    }
+    
+    .distribution-spreadsheet-wrapper {
+        border-radius: 12px;
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .distribution-spreadsheet {
+        min-width: 800px !important;
+    }
+    
+    .distribution-table-scroll-container {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .distribution-spreadsheet-header-row th,
+    .distribution-spreadsheet-row td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+    
+    .distribution-spreadsheet-header-row th {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+    
+    .distribution-spreadsheet-pagination {
+        flex-direction: row !important;
+        gap: 12px !important;
+        margin-top: 16px !important;
+        padding-top: 16px !important;
+        justify-content: space-between !important;
+    }
+    
+    .distribution-pagination-btn {
+        max-width: 25% !important;
+        padding: 3px 4px !important;
+        font-size: 11px !important;
+        min-width: 30px !important;
+    }
+    
+    .distribution-arrow-icon {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .distribution-page {
+        padding: 55px 2px 0px 2px;
+        margin: 0 !important;
+    }
+    
+    .distribution-spreadsheet-container {
+        padding: 3px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+    }
+    
+    .distribution-spreadsheet-header h1 {
+        font-size: 18px !important;
+    }
+    
+    .distribution-spreadsheet-header {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 8px !important;
+    }
+    
+    .distribution-spreadsheet-controls {
+        justify-content: center !important;
+        gap: 6px !important;
+    }
+    
+    .distribution-spreadsheet-controls .signature-search {
+        display: none !important;
+    }
+    
+    .distribution-mobile-search {
+        display: block !important;
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        padding: 0 4px;
+    }
+    
+    .distribution-mobile-search .search-input {
+        width: 100% !important;
+        max-width: none !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        color: var(--text-primary) !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .distribution-mobile-search .search-input:focus {
+        outline: none !important;
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .distribution-mobile-search .search-input::placeholder {
+        color: var(--text-secondary) !important;
+    }
+    
+    .distribution-month-dropdown {
+        min-width: 100px !important;
+        font-size: 12px !important;
+        padding: 5px 8px !important;
+        padding-right: 24px !important;
+    }
+    
+    .distribution-control-btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .distribution-spreadsheet-wrapper {
+        border-radius: 10px;
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .distribution-spreadsheet {
+        min-width: 750px !important;
+    }
+    
+    .distribution-table-scroll-container {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .distribution-spreadsheet-header-row th,
+    .distribution-spreadsheet-row td {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+    
+    .distribution-spreadsheet-header-row th {
+        font-size: 10px;
+        letter-spacing: 0.3px;
+    }
+    
+    .distribution-spreadsheet-pagination {
+        flex-direction: row !important;
+        gap: 8px !important;
+        margin-top: 12px !important;
+        padding-top: 12px !important;
+        justify-content: space-between !important;
+    }
+    
+    .distribution-pagination-btn {
+        max-width: 25% !important;
+        padding: 2px 3px !important;
+        font-size: 10px !important;
+        min-width: 25px !important;
+    }
+    
+    .distribution-arrow-icon {
+        width: 12px;
+        height: 12px;
+    }
 }

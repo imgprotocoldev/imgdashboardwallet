@@ -828,6 +828,20 @@
                 <div class="spreadsheet-header">
                     <h1>Harvesting</h1>
                     <div class="spreadsheet-controls">
+                        <select class="month-dropdown">
+                            <option value="2025-01">January 2025</option>
+                            <option value="2025-02">February 2025</option>
+                            <option value="2025-03">March 2025</option>
+                            <option value="2025-04">April 2025</option>
+                            <option value="2025-05">May 2025</option>
+                            <option value="2025-06">June 2025</option>
+                            <option value="2025-07">July 2025</option>
+                            <option value="2025-08">August 2025</option>
+                            <option value="2025-09">September 2025</option>
+                            <option value="2025-10">October 2025</option>
+                            <option value="2025-11">November 2025</option>
+                            <option value="2025-12">December 2025</option>
+                        </select>
                         <button class="control-btn refresh-btn">
                             <img src="/refresh.png" alt="Refresh" class="btn-icon">
                         </button>
@@ -1133,35 +1147,233 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="distribution-page">
-        <div class="page-header">
-            <h1>Distribution Center</h1>
-            <p>Manage token distribution and rewards</p>
-        </div>
-        
         <div class="distribution-content">
-            <div class="distribution-stats">
-                <div class="stat-card">
-                    <h3>Total Distributed</h3>
-                    <div class="stat-value">847,392</div>
-                    <div class="stat-label">All time</div>
+            <!-- Distribution Spreadsheet Container - Matching Harvesting Design -->
+            <div class="distribution-spreadsheet-container">
+                <!-- Professional Spreadsheet Header -->
+                <div class="distribution-spreadsheet-header">
+                    <h1>Distribution</h1>
+                    <div class="distribution-spreadsheet-controls">
+                        <div class="signature-search">
+                            <input type="text" placeholder="Search by signature..." class="search-input">
+                        </div>
+                        <select class="distribution-month-dropdown">
+                            <option value="2025-01">January 2025</option>
+                            <option value="2025-02">February 2025</option>
+                            <option value="2025-03">March 2025</option>
+                            <option value="2025-04">April 2025</option>
+                            <option value="2025-05">May 2025</option>
+                            <option value="2025-06">June 2025</option>
+                            <option value="2025-07">July 2025</option>
+                            <option value="2025-08">August 2025</option>
+                            <option value="2025-09">September 2025</option>
+                            <option value="2025-10">October 2025</option>
+                            <option value="2025-11">November 2025</option>
+                            <option value="2025-12">December 2025</option>
+                        </select>
+                        <button class="distribution-control-btn distribution-refresh-btn">
+                            <img src="/refresh.png" alt="Refresh" class="distribution-btn-icon">
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <h3>This Month</h3>
-                    <div class="stat-value">23,847</div>
-                    <div class="stat-label">Distributed</div>
+                <!-- Mobile Search Bar -->
+                <div class="distribution-mobile-search">
+                    <input type="text" placeholder="Search by signature..." class="search-input">
                 </div>
                 
-                <div class="stat-card">
-                    <h3>Active Recipients</h3>
-                    <div class="stat-value">1,247</div>
-                    <div class="stat-label">Wallets</div>
+                <!-- Professional Spreadsheet -->
+                <div class="distribution-spreadsheet-wrapper">
+                    <div class="distribution-table-scroll-container">
+                        <table class="distribution-spreadsheet">
+                            <thead>
+                                <tr class="distribution-spreadsheet-header-row">
+                                    <th class="distribution-col-id">ID</th>
+                                    <th class="distribution-col-date">DATE</th>
+                                    <th class="distribution-col-time">TIME</th>
+                                    <th class="distribution-col-recipient">RECIPIENT</th>
+                                    <th class="distribution-col-amount">AMOUNT (SOL)</th>
+                                    <th class="distribution-col-status">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#001</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7xK9...mN2P</td>
+                                    <td class="distribution-col-amount">0.125</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#002</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9mP3...kL8Q</td>
+                                    <td class="distribution-col-amount">0.089</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#003</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">4nR7...hJ9W</td>
+                                    <td class="distribution-col-amount">0.156</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#004</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">2bT5...vX3M</td>
+                                    <td class="distribution-col-amount">0.203</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#005</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">8qW1...zN6K</td>
+                                    <td class="distribution-col-amount">0.078</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#006</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">5cY4...pL2H</td>
+                                    <td class="distribution-col-amount">0.134</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#007</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">3fG8...rT9S</td>
+                                    <td class="distribution-col-amount">0.167</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#008</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">6dH7...uE4A</td>
+                                    <td class="distribution-col-amount">0.092</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#009</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">1aB9...iQ5C</td>
+                                    <td class="distribution-col-amount">0.145</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#010</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7jK3...oM8D</td>
+                                    <td class="distribution-col-amount">0.118</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#011</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9nP6...lQ2F</td>
+                                    <td class="distribution-col-amount">0.176</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#012</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">4rT8...hW7G</td>
+                                    <td class="distribution-col-amount">0.103</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#013</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">2vX5...bM3H</td>
+                                    <td class="distribution-col-amount">0.189</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#014</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">8zN1...qK6I</td>
+                                    <td class="distribution-col-amount">0.127</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#015</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">5pL4...cJ2K</td>
+                                    <td class="distribution-col-amount">0.154</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#016</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">3rT8...fG9L</td>
+                                    <td class="distribution-col-amount">0.081</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#017</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">6uE7...dH4M</td>
+                                    <td class="distribution-col-amount">0.142</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#018</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">1iQ9...aB5N</td>
+                                    <td class="distribution-col-amount">0.165</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#019</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7oM3...jK8O</td>
+                                    <td class="distribution-col-amount">0.098</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#020</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9lQ6...nP2P</td>
+                                    <td class="distribution-col-amount">0.173</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="distribution-actions">
-                <button class="action-btn primary">Distribute Tokens</button>
-                <button class="action-btn secondary">View Recipients</button>
+                
+                <!-- Professional Pagination -->
+                <div class="distribution-spreadsheet-pagination">
+                    <button class="distribution-pagination-btn distribution-prev-btn" disabled>
+                        <img src="/left-arrow.png" alt="Previous" class="distribution-arrow-icon">
+                    </button>
+                    <div class="distribution-pagination-info">
+                        1/1 pages
+                    </div>
+                    <button class="distribution-pagination-btn distribution-next-btn">
+                        <img src="/right-arrow.png" alt="Next" class="distribution-arrow-icon">
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))s(i);new MutationObserver(i=>{for(const o of i)if(o.type==="childList")for(const l of o.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&s(l)}).observe(document,{childList:!0,subtree:!0});function a(i){const o={};return i.integrity&&(o.integrity=i.integrity),i.referrerPolicy&&(o.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?o.credentials="include":i.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function s(i){if(i.ep)return;i.ep=!0;const o=a(i);fetch(i.href,o)}})();(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))a(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const o of i.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&a(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function a(s){if(s.ep)return;s.ep=!0;const i=t(s);fetch(s.href,i)}})();var W=Array.isArray||function(e){return Object.prototype.toString.call(e)=="[object Array]"},I=ae,ce=q,pe=ge,ue=Z,ve=te,he=new RegExp(["(\\\\.)","([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))"].join("|"),"g");function q(e){for(var t=[],a=0,s=0,i="",o;(o=he.exec(e))!=null;){var l=o[0],n=o[1],d=o.index;if(i+=e.slice(s,d),s=d+l.length,n){i+=n[1];continue}i&&(t.push(i),i="");var r=o[2],p=o[3],x=o[4],h=o[5],f=o[6],C=o[7],g=f==="+"||f==="*",A=f==="?"||f==="*",T=r||"/",b=x||h||(C?".*":"[^"+T+"]+?");t.push({name:p||a++,prefix:r||"",delimiter:T,optional:A,repeat:g,pattern:me(b)})}return s<e.length&&(i+=e.substr(s)),i&&t.push(i),t}function ge(e){return Z(q(e))}function Z(e){for(var t=new Array(e.length),a=0;a<e.length;a++)typeof e[a]=="object"&&(t[a]=new RegExp("^"+e[a].pattern+"$"));return function(s){for(var i="",o=s||{},l=0;l<e.length;l++){var n=e[l];if(typeof n=="string"){i+=n;continue}var d=o[n.name],r;if(d==null){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to be defined')}if(W(d)){if(!n.repeat)throw new TypeError('Expected "'+n.name+'" to not repeat, but received "'+d+'"');if(d.length===0){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to not be empty')}for(var p=0;p<d.length;p++){if(r=encodeURIComponent(d[p]),!t[l].test(r))throw new TypeError('Expected all "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');i+=(p===0?n.prefix:n.delimiter)+r}continue}if(r=encodeURIComponent(d),!t[l].test(r))throw new TypeError('Expected "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');i+=n.prefix+r}return i}}function J(e){return e.replace(/([.+*?=^!:${}()[\]|\/])/g,"\\$1")}function me(e){return e.replace(/([=!:$\/()])/g,"\\$1")}function j(e,t){return e.keys=t,e}function ee(e){return e.sensitive?"":"i"}function be(e,t){var a=e.source.match(/\((?!\?)/g);if(a)for(var s=0;s<a.length;s++)t.push({name:s,prefix:null,delimiter:null,optional:!1,repeat:!1,pattern:null});return j(e,t)}function fe(e,t,a){for(var s=[],i=0;i<e.length;i++)s.push(ae(e[i],t,a).source);var o=new RegExp("(?:"+s.join("|")+")",ee(a));return j(o,t)}function ye(e,t,a){for(var s=q(e),i=te(s,a),o=0;o<s.length;o++)typeof s[o]!="string"&&t.push(s[o]);return j(i,t)}function te(e,t){t=t||{};for(var a=t.strict,s=t.end!==!1,i="",o=e[e.length-1],l=typeof o=="string"&&/\/$/.test(o),n=0;n<e.length;n++){var d=e[n];if(typeof d=="string")i+=J(d);else{var r=J(d.prefix),p=d.pattern;d.repeat&&(p+="(?:"+r+p+")*"),d.optional?r?p="(?:"+r+"("+p+"))?":p="("+p+")?":p=r+"("+p+")",i+=p}}return a||(i=(l?i.slice(0,-2):i)+"(?:\\/(?=$))?"),s?i+="$":i+=a&&l?"":"(?=\\/|$)",new RegExp("^"+i,ee(t))}function ae(e,t,a){return t=t||[],W(t)?a||(a={}):(a=t,t=[]),e instanceof RegExp?be(e,t):W(e)?fe(e,t,a):ye(e,t,a)}I.parse=ce;I.compile=pe;I.tokensToFunction=ue;I.tokensToRegExp=ve;var L=typeof document<"u",m=typeof window<"u",G=typeof history<"u",we=typeof process<"u",U=L&&document.ontouchstart?"touchstart":"click",y=m&&!!(window.history.location||window.location);function u(){this.callbacks=[],this.exits=[],this.current="",this.len=0,this._decodeURLComponents=!0,this._base="",this._strict=!1,this._running=!1,this._hashbang=!1,this.clickHandler=this.clickHandler.bind(this),this._onpopstate=this._onpopstate.bind(this)}u.prototype.configure=function(e){var t=e||{};this._window=t.window||m&&window,this._decodeURLComponents=t.decodeURLComponents!==!1,this._popstate=t.popstate!==!1&&m,this._click=t.click!==!1&&L,this._hashbang=!!t.hashbang;var a=this._window;this._popstate?a.addEventListener("popstate",this._onpopstate,!1):m&&a.removeEventListener("popstate",this._onpopstate,!1),this._click?a.document.addEventListener(U,this.clickHandler,!1):L&&a.document.removeEventListener(U,this.clickHandler,!1),this._hashbang&&m&&!G?a.addEventListener("hashchange",this._onpopstate,!1):m&&a.removeEventListener("hashchange",this._onpopstate,!1)};u.prototype.base=function(e){if(arguments.length===0)return this._base;this._base=e};u.prototype._getBase=function(){var e=this._base;if(e)return e;var t=m&&this._window&&this._window.location;return m&&this._hashbang&&t&&t.protocol==="file:"&&(e=t.pathname),e};u.prototype.strict=function(e){if(arguments.length===0)return this._strict;this._strict=e};u.prototype.start=function(e){var t=e||{};if(this.configure(t),t.dispatch!==!1){this._running=!0;var a;if(y){var s=this._window,i=s.location;this._hashbang&&~i.hash.indexOf("#!")?a=i.hash.substr(2)+i.search:this._hashbang?a=i.search+i.hash:a=i.pathname+i.search+i.hash}this.replace(a,null,!0,t.dispatch)}};u.prototype.stop=function(){if(this._running){this.current="",this.len=0,this._running=!1;var e=this._window;this._click&&e.document.removeEventListener(U,this.clickHandler,!1),m&&e.removeEventListener("popstate",this._onpopstate,!1),m&&e.removeEventListener("hashchange",this._onpopstate,!1)}};u.prototype.show=function(e,t,a,s){var i=new M(e,t,this),o=this.prevContext;return this.prevContext=i,this.current=i.path,a!==!1&&this.dispatch(i,o),i.handled!==!1&&s!==!1&&i.pushState(),i};u.prototype.back=function(e,t){var a=this;if(this.len>0){var s=this._window;G&&s.history.back(),this.len--}else setTimeout(e?function(){a.show(e,t)}:function(){a.show(a._getBase(),t)})};u.prototype.redirect=function(e,t){var a=this;typeof e=="string"&&typeof t=="string"&&H.call(this,e,function(s){setTimeout(function(){a.replace(t)},0)}),typeof e=="string"&&typeof t>"u"&&setTimeout(function(){a.replace(e)},0)};u.prototype.replace=function(e,t,a,s){var i=new M(e,t,this),o=this.prevContext;return this.prevContext=i,this.current=i.path,i.init=a,i.save(),s!==!1&&this.dispatch(i,o),i};u.prototype.dispatch=function(e,t){var a=0,s=0,i=this;function o(){var n=i.exits[s++];if(!n)return l();n(t,o)}function l(){var n=i.callbacks[a++];if(e.path!==i.current){e.handled=!1;return}if(!n)return xe.call(i,e);n(e,l)}t?o():l()};u.prototype.exit=function(e,t){if(typeof e=="function")return this.exit("*",e);for(var a=new P(e,null,this),s=1;s<arguments.length;++s)this.exits.push(a.middleware(arguments[s]))};u.prototype.clickHandler=function(e){if(this._which(e)===1&&!(e.metaKey||e.ctrlKey||e.shiftKey)&&!e.defaultPrevented){var t=e.target,a=e.path||(e.composedPath?e.composedPath():null);if(a){for(var s=0;s<a.length;s++)if(a[s].nodeName&&a[s].nodeName.toUpperCase()==="A"&&a[s].href){t=a[s];break}}for(;t&&t.nodeName.toUpperCase()!=="A";)t=t.parentNode;if(!(!t||t.nodeName.toUpperCase()!=="A")){var i=typeof t.href=="object"&&t.href.constructor.name==="SVGAnimatedString";if(!(t.hasAttribute("download")||t.getAttribute("rel")==="external")){var o=t.getAttribute("href");if(!(!this._hashbang&&this._samePath(t)&&(t.hash||o==="#"))&&!(o&&o.indexOf("mailto:")>-1)&&!(i?t.target.baseVal:t.target)&&!(!i&&!this.sameOrigin(t.href))){var l=i?t.href.baseVal:t.pathname+t.search+(t.hash||"");l=l[0]!=="/"?"/"+l:l,we&&l.match(/^\/[a-zA-Z]:\//)&&(l=l.replace(/^\/[a-zA-Z]:\//,"/"));var n=l,d=this._getBase();l.indexOf(d)===0&&(l=l.substr(d.length)),this._hashbang&&(l=l.replace("#!","")),!(d&&n===l&&(!y||this._window.location.protocol!=="file:"))&&(e.preventDefault(),this.show(n))}}}}};u.prototype._onpopstate=(function(){var e=!1;return m?(L&&document.readyState==="complete"?e=!0:window.addEventListener("load",function(){setTimeout(function(){e=!0},0)}),function(t){if(e){var a=this;if(t.state){var s=t.state.path;a.replace(s,t.state)}else if(y){var i=a._window.location;a.show(i.pathname+i.search+i.hash,void 0,void 0,!1)}}}):function(){}})();u.prototype._which=function(e){return e=e||m&&this._window.event,e.which==null?e.button:e.which};u.prototype._toURL=function(e){var t=this._window;if(typeof URL=="function"&&y)return new URL(e,t.location.toString());if(L){var a=t.document.createElement("a");return a.href=e,a}};u.prototype.sameOrigin=function(e){if(!e||!y)return!1;var t=this._toURL(e),a=this._window,s=a.location;return s.protocol===t.protocol&&s.hostname===t.hostname&&(s.port===t.port||s.port===""&&(t.port==80||t.port==443))};u.prototype._samePath=function(e){if(!y)return!1;var t=this._window,a=t.location;return e.pathname===a.pathname&&e.search===a.search};u.prototype._decodeURLEncodedURIComponent=function(e){return typeof e!="string"?e:this._decodeURLComponents?decodeURIComponent(e.replace(/\+/g," ")):e};function se(){var e=new u;function t(){return H.apply(e,arguments)}return t.callbacks=e.callbacks,t.exits=e.exits,t.base=e.base.bind(e),t.strict=e.strict.bind(e),t.start=e.start.bind(e),t.stop=e.stop.bind(e),t.show=e.show.bind(e),t.back=e.back.bind(e),t.redirect=e.redirect.bind(e),t.replace=e.replace.bind(e),t.dispatch=e.dispatch.bind(e),t.exit=e.exit.bind(e),t.configure=e.configure.bind(e),t.sameOrigin=e.sameOrigin.bind(e),t.clickHandler=e.clickHandler.bind(e),t.create=se,Object.defineProperty(t,"len",{get:function(){return e.len},set:function(a){e.len=a}}),Object.defineProperty(t,"current",{get:function(){return e.current},set:function(a){e.current=a}}),t.Context=M,t.Route=P,t}function H(e,t){if(typeof e=="function")return H.call(this,"*",e);if(typeof t=="function")for(var a=new P(e,null,this),s=1;s<arguments.length;++s)this.callbacks.push(a.middleware(arguments[s]));else typeof e=="string"?this[typeof t=="string"?"redirect":"show"](e,t):this.start(e)}function xe(e){if(!e.handled){var t,a=this,s=a._window;a._hashbang?t=y&&this._getBase()+s.location.hash.replace("#!",""):t=y&&s.location.pathname+s.location.search,t!==e.canonicalPath&&(a.stop(),e.handled=!1,y&&(s.location.href=e.canonicalPath))}}function ke(e){return e.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function M(e,t,a){var s=this.page=a||H,i=s._window,o=s._hashbang,l=s._getBase();e[0]==="/"&&e.indexOf(l)!==0&&(e=l+(o?"#!":"")+e);var n=e.indexOf("?");this.canonicalPath=e;var d=new RegExp("^"+ke(l));if(this.path=e.replace(d,"")||"/",o&&(this.path=this.path.replace("#!","")||"/"),this.title=L&&i.document.title,this.state=t||{},this.state.path=e,this.querystring=~n?s._decodeURLEncodedURIComponent(e.slice(n+1)):"",this.pathname=s._decodeURLEncodedURIComponent(~n?e.slice(0,n):e),this.params={},this.hash="",!o){if(!~this.path.indexOf("#"))return;var r=this.path.split("#");this.path=this.pathname=r[0],this.hash=s._decodeURLEncodedURIComponent(r[1])||"",this.querystring=this.querystring.split("#")[0]}}M.prototype.pushState=function(){var e=this.page,t=e._window,a=e._hashbang;e.len++,G&&t.history.pushState(this.state,this.title,a&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};M.prototype.save=function(){var e=this.page;G&&e._window.history.replaceState(this.state,this.title,e._hashbang&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};function P(e,t,a){var s=this.page=a||V,i=t||{};i.strict=i.strict||s._strict,this.path=e==="*"?"(.*)":e,this.method="GET",this.regexp=I(this.path,this.keys=[],i)}P.prototype.middleware=function(e){var t=this;return function(a,s){if(t.match(a.path,a.params))return a.routePath=t.path,e(a,s);s()}};P.prototype.match=function(e,t){var a=this.keys,s=e.indexOf("?"),i=~s?e.slice(0,s):e,o=this.regexp.exec(decodeURIComponent(i));if(!o)return!1;delete t[0];for(var l=1,n=o.length;l<n;++l){var d=a[l-1],r=this.page._decodeURLEncodedURIComponent(o[l]);(r!==void 0||!hasOwnProperty.call(t,d.name))&&(t[d.name]=r)}return!0};var V=se(),v=V,Ee=V;v.default=Ee;let c={isConnected:!1,isPremium:!1,walletAddress:"",currentPage:"dashboard"};const Y=e=>`
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))i(a);new MutationObserver(a=>{for(const l of a)if(l.type==="childList")for(const o of l.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&i(o)}).observe(document,{childList:!0,subtree:!0});function s(a){const l={};return a.integrity&&(l.integrity=a.integrity),a.referrerPolicy&&(l.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?l.credentials="include":a.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function i(a){if(a.ep)return;a.ep=!0;const l=s(a);fetch(a.href,l)}})();(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))s(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const l of a.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&s(l)}).observe(document,{childList:!0,subtree:!0});function e(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(i){if(i.ep)return;i.ep=!0;const a=e(i);fetch(i.href,a)}})();var W=Array.isArray||function(t){return Object.prototype.toString.call(t)=="[object Array]"},I=st,ct=q,ut=mt,pt=Z,ht=et,vt=new RegExp(["(\\\\.)","([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))"].join("|"),"g");function q(t){for(var e=[],s=0,i=0,a="",l;(l=vt.exec(t))!=null;){var o=l[0],d=l[1],n=l.index;if(a+=t.slice(i,n),i=n+o.length,d){a+=d[1];continue}a&&(e.push(a),a="");var r=l[2],u=l[3],x=l[4],v=l[5],f=l[6],L=l[7],m=f==="+"||f==="*",A=f==="?"||f==="*",T=r||"/",b=x||v||(L?".*":"[^"+T+"]+?");e.push({name:u||s++,prefix:r||"",delimiter:T,optional:A,repeat:m,pattern:gt(b)})}return i<t.length&&(a+=t.substr(i)),a&&e.push(a),e}function mt(t){return Z(q(t))}function Z(t){for(var e=new Array(t.length),s=0;s<t.length;s++)typeof t[s]=="object"&&(e[s]=new RegExp("^"+t[s].pattern+"$"));return function(i){for(var a="",l=i||{},o=0;o<t.length;o++){var d=t[o];if(typeof d=="string"){a+=d;continue}var n=l[d.name],r;if(n==null){if(d.optional)continue;throw new TypeError('Expected "'+d.name+'" to be defined')}if(W(n)){if(!d.repeat)throw new TypeError('Expected "'+d.name+'" to not repeat, but received "'+n+'"');if(n.length===0){if(d.optional)continue;throw new TypeError('Expected "'+d.name+'" to not be empty')}for(var u=0;u<n.length;u++){if(r=encodeURIComponent(n[u]),!e[o].test(r))throw new TypeError('Expected all "'+d.name+'" to match "'+d.pattern+'", but received "'+r+'"');a+=(u===0?d.prefix:d.delimiter)+r}continue}if(r=encodeURIComponent(n),!e[o].test(r))throw new TypeError('Expected "'+d.name+'" to match "'+d.pattern+'", but received "'+r+'"');a+=d.prefix+r}return a}}function J(t){return t.replace(/([.+*?=^!:${}()[\]|\/])/g,"\\$1")}function gt(t){return t.replace(/([=!:$\/()])/g,"\\$1")}function j(t,e){return t.keys=e,t}function tt(t){return t.sensitive?"":"i"}function bt(t,e){var s=t.source.match(/\((?!\?)/g);if(s)for(var i=0;i<s.length;i++)e.push({name:i,prefix:null,delimiter:null,optional:!1,repeat:!1,pattern:null});return j(t,e)}function ft(t,e,s){for(var i=[],a=0;a<t.length;a++)i.push(st(t[a],e,s).source);var l=new RegExp("(?:"+i.join("|")+")",tt(s));return j(l,e)}function yt(t,e,s){for(var i=q(t),a=et(i,s),l=0;l<i.length;l++)typeof i[l]!="string"&&e.push(i[l]);return j(a,e)}function et(t,e){e=e||{};for(var s=e.strict,i=e.end!==!1,a="",l=t[t.length-1],o=typeof l=="string"&&/\/$/.test(l),d=0;d<t.length;d++){var n=t[d];if(typeof n=="string")a+=J(n);else{var r=J(n.prefix),u=n.pattern;n.repeat&&(u+="(?:"+r+u+")*"),n.optional?r?u="(?:"+r+"("+u+"))?":u="("+u+")?":u=r+"("+u+")",a+=u}}return s||(a=(o?a.slice(0,-2):a)+"(?:\\/(?=$))?"),i?a+="$":a+=s&&o?"":"(?=\\/|$)",new RegExp("^"+a,tt(e))}function st(t,e,s){return e=e||[],W(e)?s||(s={}):(s=e,e=[]),t instanceof RegExp?bt(t,e):W(t)?ft(t,e,s):yt(t,e,s)}I.parse=ct;I.compile=ut;I.tokensToFunction=pt;I.tokensToRegExp=ht;var C=typeof document<"u",g=typeof window<"u",N=typeof history<"u",wt=typeof process<"u",U=C&&document.ontouchstart?"touchstart":"click",y=g&&!!(window.history.location||window.location);function p(){this.callbacks=[],this.exits=[],this.current="",this.len=0,this._decodeURLComponents=!0,this._base="",this._strict=!1,this._running=!1,this._hashbang=!1,this.clickHandler=this.clickHandler.bind(this),this._onpopstate=this._onpopstate.bind(this)}p.prototype.configure=function(t){var e=t||{};this._window=e.window||g&&window,this._decodeURLComponents=e.decodeURLComponents!==!1,this._popstate=e.popstate!==!1&&g,this._click=e.click!==!1&&C,this._hashbang=!!e.hashbang;var s=this._window;this._popstate?s.addEventListener("popstate",this._onpopstate,!1):g&&s.removeEventListener("popstate",this._onpopstate,!1),this._click?s.document.addEventListener(U,this.clickHandler,!1):C&&s.document.removeEventListener(U,this.clickHandler,!1),this._hashbang&&g&&!N?s.addEventListener("hashchange",this._onpopstate,!1):g&&s.removeEventListener("hashchange",this._onpopstate,!1)};p.prototype.base=function(t){if(arguments.length===0)return this._base;this._base=t};p.prototype._getBase=function(){var t=this._base;if(t)return t;var e=g&&this._window&&this._window.location;return g&&this._hashbang&&e&&e.protocol==="file:"&&(t=e.pathname),t};p.prototype.strict=function(t){if(arguments.length===0)return this._strict;this._strict=t};p.prototype.start=function(t){var e=t||{};if(this.configure(e),e.dispatch!==!1){this._running=!0;var s;if(y){var i=this._window,a=i.location;this._hashbang&&~a.hash.indexOf("#!")?s=a.hash.substr(2)+a.search:this._hashbang?s=a.search+a.hash:s=a.pathname+a.search+a.hash}this.replace(s,null,!0,e.dispatch)}};p.prototype.stop=function(){if(this._running){this.current="",this.len=0,this._running=!1;var t=this._window;this._click&&t.document.removeEventListener(U,this.clickHandler,!1),g&&t.removeEventListener("popstate",this._onpopstate,!1),g&&t.removeEventListener("hashchange",this._onpopstate,!1)}};p.prototype.show=function(t,e,s,i){var a=new M(t,e,this),l=this.prevContext;return this.prevContext=a,this.current=a.path,s!==!1&&this.dispatch(a,l),a.handled!==!1&&i!==!1&&a.pushState(),a};p.prototype.back=function(t,e){var s=this;if(this.len>0){var i=this._window;N&&i.history.back(),this.len--}else setTimeout(t?function(){s.show(t,e)}:function(){s.show(s._getBase(),e)})};p.prototype.redirect=function(t,e){var s=this;typeof t=="string"&&typeof e=="string"&&G.call(this,t,function(i){setTimeout(function(){s.replace(e)},0)}),typeof t=="string"&&typeof e>"u"&&setTimeout(function(){s.replace(t)},0)};p.prototype.replace=function(t,e,s,i){var a=new M(t,e,this),l=this.prevContext;return this.prevContext=a,this.current=a.path,a.init=s,a.save(),i!==!1&&this.dispatch(a,l),a};p.prototype.dispatch=function(t,e){var s=0,i=0,a=this;function l(){var d=a.exits[i++];if(!d)return o();d(e,l)}function o(){var d=a.callbacks[s++];if(t.path!==a.current){t.handled=!1;return}if(!d)return xt.call(a,t);d(t,o)}e?l():o()};p.prototype.exit=function(t,e){if(typeof t=="function")return this.exit("*",t);for(var s=new P(t,null,this),i=1;i<arguments.length;++i)this.exits.push(s.middleware(arguments[i]))};p.prototype.clickHandler=function(t){if(this._which(t)===1&&!(t.metaKey||t.ctrlKey||t.shiftKey)&&!t.defaultPrevented){var e=t.target,s=t.path||(t.composedPath?t.composedPath():null);if(s){for(var i=0;i<s.length;i++)if(s[i].nodeName&&s[i].nodeName.toUpperCase()==="A"&&s[i].href){e=s[i];break}}for(;e&&e.nodeName.toUpperCase()!=="A";)e=e.parentNode;if(!(!e||e.nodeName.toUpperCase()!=="A")){var a=typeof e.href=="object"&&e.href.constructor.name==="SVGAnimatedString";if(!(e.hasAttribute("download")||e.getAttribute("rel")==="external")){var l=e.getAttribute("href");if(!(!this._hashbang&&this._samePath(e)&&(e.hash||l==="#"))&&!(l&&l.indexOf("mailto:")>-1)&&!(a?e.target.baseVal:e.target)&&!(!a&&!this.sameOrigin(e.href))){var o=a?e.href.baseVal:e.pathname+e.search+(e.hash||"");o=o[0]!=="/"?"/"+o:o,wt&&o.match(/^\/[a-zA-Z]:\//)&&(o=o.replace(/^\/[a-zA-Z]:\//,"/"));var d=o,n=this._getBase();o.indexOf(n)===0&&(o=o.substr(n.length)),this._hashbang&&(o=o.replace("#!","")),!(n&&d===o&&(!y||this._window.location.protocol!=="file:"))&&(t.preventDefault(),this.show(d))}}}}};p.prototype._onpopstate=(function(){var t=!1;return g?(C&&document.readyState==="complete"?t=!0:window.addEventListener("load",function(){setTimeout(function(){t=!0},0)}),function(e){if(t){var s=this;if(e.state){var i=e.state.path;s.replace(i,e.state)}else if(y){var a=s._window.location;s.show(a.pathname+a.search+a.hash,void 0,void 0,!1)}}}):function(){}})();p.prototype._which=function(t){return t=t||g&&this._window.event,t.which==null?t.button:t.which};p.prototype._toURL=function(t){var e=this._window;if(typeof URL=="function"&&y)return new URL(t,e.location.toString());if(C){var s=e.document.createElement("a");return s.href=t,s}};p.prototype.sameOrigin=function(t){if(!t||!y)return!1;var e=this._toURL(t),s=this._window,i=s.location;return i.protocol===e.protocol&&i.hostname===e.hostname&&(i.port===e.port||i.port===""&&(e.port==80||e.port==443))};p.prototype._samePath=function(t){if(!y)return!1;var e=this._window,s=e.location;return t.pathname===s.pathname&&t.search===s.search};p.prototype._decodeURLEncodedURIComponent=function(t){return typeof t!="string"?t:this._decodeURLComponents?decodeURIComponent(t.replace(/\+/g," ")):t};function it(){var t=new p;function e(){return G.apply(t,arguments)}return e.callbacks=t.callbacks,e.exits=t.exits,e.base=t.base.bind(t),e.strict=t.strict.bind(t),e.start=t.start.bind(t),e.stop=t.stop.bind(t),e.show=t.show.bind(t),e.back=t.back.bind(t),e.redirect=t.redirect.bind(t),e.replace=t.replace.bind(t),e.dispatch=t.dispatch.bind(t),e.exit=t.exit.bind(t),e.configure=t.configure.bind(t),e.sameOrigin=t.sameOrigin.bind(t),e.clickHandler=t.clickHandler.bind(t),e.create=it,Object.defineProperty(e,"len",{get:function(){return t.len},set:function(s){t.len=s}}),Object.defineProperty(e,"current",{get:function(){return t.current},set:function(s){t.current=s}}),e.Context=M,e.Route=P,e}function G(t,e){if(typeof t=="function")return G.call(this,"*",t);if(typeof e=="function")for(var s=new P(t,null,this),i=1;i<arguments.length;++i)this.callbacks.push(s.middleware(arguments[i]));else typeof t=="string"?this[typeof e=="string"?"redirect":"show"](t,e):this.start(t)}function xt(t){if(!t.handled){var e,s=this,i=s._window;s._hashbang?e=y&&this._getBase()+i.location.hash.replace("#!",""):e=y&&i.location.pathname+i.location.search,e!==t.canonicalPath&&(s.stop(),t.handled=!1,y&&(i.location.href=t.canonicalPath))}}function kt(t){return t.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function M(t,e,s){var i=this.page=s||G,a=i._window,l=i._hashbang,o=i._getBase();t[0]==="/"&&t.indexOf(o)!==0&&(t=o+(l?"#!":"")+t);var d=t.indexOf("?");this.canonicalPath=t;var n=new RegExp("^"+kt(o));if(this.path=t.replace(n,"")||"/",l&&(this.path=this.path.replace("#!","")||"/"),this.title=C&&a.document.title,this.state=e||{},this.state.path=t,this.querystring=~d?i._decodeURLEncodedURIComponent(t.slice(d+1)):"",this.pathname=i._decodeURLEncodedURIComponent(~d?t.slice(0,d):t),this.params={},this.hash="",!l){if(!~this.path.indexOf("#"))return;var r=this.path.split("#");this.path=this.pathname=r[0],this.hash=i._decodeURLEncodedURIComponent(r[1])||"",this.querystring=this.querystring.split("#")[0]}}M.prototype.pushState=function(){var t=this.page,e=t._window,s=t._hashbang;t.len++,N&&e.history.pushState(this.state,this.title,s&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};M.prototype.save=function(){var t=this.page;N&&t._window.history.replaceState(this.state,this.title,t._hashbang&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};function P(t,e,s){var i=this.page=s||V,a=e||{};a.strict=a.strict||i._strict,this.path=t==="*"?"(.*)":t,this.method="GET",this.regexp=I(this.path,this.keys=[],a)}P.prototype.middleware=function(t){var e=this;return function(s,i){if(e.match(s.path,s.params))return s.routePath=e.path,t(s,i);i()}};P.prototype.match=function(t,e){var s=this.keys,i=t.indexOf("?"),a=~i?t.slice(0,i):t,l=this.regexp.exec(decodeURIComponent(a));if(!l)return!1;delete e[0];for(var o=1,d=l.length;o<d;++o){var n=s[o-1],r=this.page._decodeURLEncodedURIComponent(l[o]);(r!==void 0||!hasOwnProperty.call(e,n.name))&&(e[n.name]=r)}return!0};var V=it(),h=V,Et=V;h.default=Et;let c={isConnected:!1,isPremium:!1,walletAddress:"",currentPage:"dashboard"};const K=t=>`
     <div class="financial-sidebar">
         <!-- Professional Header with Logo & Branding -->
         <div class="sidebar-header">
@@ -10,22 +10,22 @@
         <!-- Professional Tab Navigation -->
         <nav class="tab-navigation">
             <div class="tab-list">
-                <div class="tab-item ${e.currentPage==="terminal"?"active":""}" data-page="terminal">
+                <div class="tab-item ${t.currentPage==="terminal"?"active":""}" data-page="terminal">
                     <a href="/terminal" class="tab-link">
                         <img src="/dashboard.png" alt="" class="tab-icon">
                         <span class="tab-label">Terminal</span>
                     </a>
                 </div>
 
-                <div class="tab-item ${e.currentPage==="events"?"active":""}" data-page="events">
+                <div class="tab-item ${t.currentPage==="events"?"active":""}" data-page="events">
                     <a href="/events" class="tab-link">
                         <img src="/calendar.png" alt="" class="tab-icon">
                         <span class="tab-label">Events</span>
                     </a>
                 </div>
 
-                ${e.isPremium?`
-                    <div class="tab-item ${e.currentPage==="harvesting"?"active":""}" data-page="harvesting">
+                ${t.isPremium?`
+                    <div class="tab-item ${t.currentPage==="harvesting"?"active":""}" data-page="harvesting">
                         <a href="/harvesting" class="tab-link premium-tab">
                             <img src="/harvesting.png" alt="" class="tab-icon">
                             <span class="tab-label">Harvesting</span>
@@ -33,7 +33,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="distribution"?"active":""}" data-page="distribution">
+                    <div class="tab-item ${t.currentPage==="distribution"?"active":""}" data-page="distribution">
                         <a href="/distribution" class="tab-link premium-tab">
                             <img src="/distribution.png" alt="" class="tab-icon">
                             <span class="tab-label">Distribution</span>
@@ -41,7 +41,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="wallet-lookup"?"active":""}" data-page="wallet-lookup">
+                    <div class="tab-item ${t.currentPage==="wallet-lookup"?"active":""}" data-page="wallet-lookup">
                         <a href="/wallet-lookup" class="tab-link premium-tab">
                             <img src="/wallet.png" alt="" class="tab-icon">
                             <span class="tab-label">Wallet Lookup</span>
@@ -49,7 +49,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="reward-calculator"?"active":""}" data-page="reward-calculator">
+                    <div class="tab-item ${t.currentPage==="reward-calculator"?"active":""}" data-page="reward-calculator">
                         <a href="/reward-calculator" class="tab-link premium-tab">
                             <img src="/calculator.png" alt="" class="tab-icon">
                             <span class="tab-label">Rewards</span>
@@ -57,7 +57,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="vote"?"active":""}" data-page="vote">
+                    <div class="tab-item ${t.currentPage==="vote"?"active":""}" data-page="vote">
                         <a href="/vote" class="tab-link premium-tab">
                             <img src="/vote.png" alt="" class="tab-icon">
                             <span class="tab-label">Vote</span>
@@ -110,7 +110,7 @@
 
         <!-- Wallet Section -->
         <div class="wallet-section">
-            ${e.isConnected?"":`
+            ${t.isConnected?"":`
                 <!-- Premium Info Banner (only when not connected) -->
                 <div class="premium-info-banner">
                     <div class="banner-header">
@@ -121,27 +121,27 @@
                 </div>
             `}
             
-            ${e.isConnected?`
+            ${t.isConnected?`
                 <div class="wallet-status-compact">
                     <div class="wallet-info-row">
                         <span class="wallet-label">Wallet</span>
                         <span class="wallet-address-short">
-                            ${e.walletAddress.length>8?e.walletAddress.substring(0,4)+"..."+e.walletAddress.substring(e.walletAddress.length-4):e.walletAddress}
+                            ${t.walletAddress.length>8?t.walletAddress.substring(0,4)+"..."+t.walletAddress.substring(t.walletAddress.length-4):t.walletAddress}
                         </span>
                     </div>
                     <div class="premium-status-row">
                         <span class="premium-label">Access</span>
-                        <div class="premium-badge ${e.isPremium?"premium-active":"standard-active"}">
-                            <div class="premium-indicator ${e.isPremium?"premium-dot":"standard-dot"}"></div>
-                            <span class="premium-text">${e.isPremium?"Premium":"Standard"}</span>
+                        <div class="premium-badge ${t.isPremium?"premium-active":"standard-active"}">
+                            <div class="premium-indicator ${t.isPremium?"premium-dot":"standard-dot"}"></div>
+                            <span class="premium-text">${t.isPremium?"Premium":"Standard"}</span>
                         </div>
                     </div>
                 </div>
             `:""}
             
-            <button id="connect-wallet-btn" class="wallet-connect-btn ${e.isConnected?"connected":"disconnected"}">
+            <button id="connect-wallet-btn" class="wallet-connect-btn ${t.isConnected?"connected":"disconnected"}">
                 <span class="wallet-text">
-                    ${e.isConnected?"Disconnect Wallet":"Connect Wallet"}
+                    ${t.isConnected?"Disconnect Wallet":"Connect Wallet"}
                 </span>
             </button>
         </div>
@@ -165,7 +165,7 @@
             </div>
         </div>
     </div>
-`,Ae=()=>`
+`,At=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -557,14 +557,14 @@
 
 
     </div>
-`;function $(e,t,a,s,i,o){const l=(i-90)*Math.PI/180,n=(o-90)*Math.PI/180,d=e+a*Math.cos(l),r=t+a*Math.sin(l),p=e+a*Math.cos(n),x=t+a*Math.sin(n),h=e+s*Math.cos(n),f=t+s*Math.sin(n),C=e+s*Math.cos(l),g=t+s*Math.sin(l),A=Math.abs(o-i)>180?1:0;return`M ${d} ${r} A ${a} ${a} 0 ${A} 1 ${p} ${x} L ${h} ${f} A ${s} ${s} 0 ${A} 0 ${C} ${g} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,s=e.holders/t*100,i=e.infra/t*100,o=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:s,infraPercent:i,netPercent:o});const l=document.getElementById("clean-donut-chart");if(l){l.querySelectorAll(".daily-pie-segment").forEach(re=>re.remove());const d=160,r=160,p=120,x=80;let h=0;const f=a/100*360,C=$(d,r,p,x,h,h+f),g=document.createElementNS("http://www.w3.org/2000/svg","path");g.setAttribute("d",C),g.setAttribute("fill","#10b981"),g.setAttribute("class","daily-pie-segment treasury-segment"),g.setAttribute("data-label","TREASURY INFLOW"),g.setAttribute("data-value",`${e.treasury.toFixed(5)}`),g.setAttribute("data-percentage",`${Math.round(a)}%`),g.setAttribute("data-color","#10b981"),l.appendChild(g),h+=f;const A=s/100*360,T=$(d,r,p,x,h,h+A),b=document.createElementNS("http://www.w3.org/2000/svg","path");b.setAttribute("d",T),b.setAttribute("fill","#3b82f6"),b.setAttribute("class","daily-pie-segment holders-segment"),b.setAttribute("data-label","HOLDER EARNINGS"),b.setAttribute("data-value",`${e.holders.toFixed(5)}`),b.setAttribute("data-percentage",`${Math.round(s)}%`),b.setAttribute("data-color","#3b82f6"),l.appendChild(b),h+=A;const K=i/100*360,oe=$(d,r,p,x,h,h+K),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",oe),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(i)}%`),k.setAttribute("data-color","#f59e0b"),l.appendChild(k),h+=K;const ne=o/100*360,de=$(d,r,p,x,h,h+ne),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",de),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(o)}%`),E.setAttribute("data-color","#ef4444"),l.appendChild(E)}const n=document.querySelector(".daily-pie-total");n&&(n.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),Se()}function Se(){document.querySelectorAll(".daily-pie-segment").forEach(e=>{e.style.cursor="pointer",e.addEventListener("mouseenter",t=>{Q(t,e),e.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),e.addEventListener("mouseleave",t=>{D(),e.style.filter="none"}),e.addEventListener("click",t=>{Q(t,e),setTimeout(()=>{D()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),s=t.getAttribute("data-value");t.getAttribute("data-percentage");const i=t.getAttribute("data-color");D();const o=document.createElement("div");o.id="donut-tooltip",o.className="donut-tooltip",o.innerHTML=`
-        <div class="tooltip-header" style="background: ${i}; color: #ffffff; text-align: center;">
-            <span class="tooltip-label" style="color: #ffffff;">${a}</span>
+`;function $(t,e,s,i,a,l){const o=(a-90)*Math.PI/180,d=(l-90)*Math.PI/180,n=t+s*Math.cos(o),r=e+s*Math.sin(o),u=t+s*Math.cos(d),x=e+s*Math.sin(d),v=t+i*Math.cos(d),f=e+i*Math.sin(d),L=t+i*Math.cos(o),m=e+i*Math.sin(o),A=Math.abs(l-a)>180?1:0;return`M ${n} ${r} A ${s} ${s} 0 ${A} 1 ${u} ${x} L ${v} ${f} A ${i} ${i} 0 ${A} 0 ${L} ${m} Z`}function Q(t){const e=t.treasury+t.holders+t.infra+t.net;console.log("🔄 Updating donut chart with data:",t),console.log("📊 Total:",e);const s=t.treasury/e*100,i=t.holders/e*100,a=t.infra/e*100,l=t.net/e*100;console.log("🎯 Percentages:",{treasuryPercent:s,holdersPercent:i,infraPercent:a,netPercent:l});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(rt=>rt.remove());const n=160,r=160,u=120,x=80;let v=0;const f=s/100*360,L=$(n,r,u,x,v,v+f),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${t.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(s)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),v+=f;const A=i/100*360,T=$(n,r,u,x,v,v+A),b=document.createElementNS("http://www.w3.org/2000/svg","path");b.setAttribute("d",T),b.setAttribute("fill","#3b82f6"),b.setAttribute("class","daily-pie-segment holders-segment"),b.setAttribute("data-label","HOLDER EARNINGS"),b.setAttribute("data-value",`${t.holders.toFixed(5)}`),b.setAttribute("data-percentage",`${Math.round(i)}%`),b.setAttribute("data-color","#3b82f6"),o.appendChild(b),v+=A;const Y=a/100*360,lt=$(n,r,u,x,v,v+Y),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",lt),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${t.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(a)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),v+=Y;const dt=l/100*360,nt=$(n,r,u,x,v,v+dt),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",nt),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${t.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(l)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const d=document.querySelector(".daily-pie-total");d&&(d.textContent="IMG"),console.log("✅ Donut chart updated with new data:",t),St()}function St(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",e=>{X(e,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",e=>{D(),t.style.filter="none"}),t.addEventListener("click",e=>{X(e,t),setTimeout(()=>{D()},3e3)})})}function X(t,e){const s=e.getAttribute("data-label"),i=e.getAttribute("data-value");e.getAttribute("data-percentage");const a=e.getAttribute("data-color");D();const l=document.createElement("div");l.id="donut-tooltip",l.className="donut-tooltip",l.innerHTML=`
+        <div class="tooltip-header" style="background: ${a}; color: #ffffff; text-align: center;">
+            <span class="tooltip-label" style="color: #ffffff;">${s}</span>
         </div>
         <div class="tooltip-content" style="text-align: center;">
-            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${s}</div>
+            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${i}</div>
         </div>
-    `;const l=e.target.getBoundingClientRect(),n=200,d=100;let r=l.left+l.width/2,p=l.top-d-20;r<n/2?r=n/2+10:r>window.innerWidth-n/2&&(r=window.innerWidth-n/2-10),p<10&&(p=l.bottom+20),o.style.left=`${r}px`,o.style.top=`${p}px`,o.style.transform="translateX(-50%)",document.body.appendChild(o),setTimeout(()=>{o.style.opacity="1",o.style.transform="translateX(-50%) translateY(-10px)"},10)}function D(){const e=document.getElementById("donut-tooltip");e&&e.remove()}function _(){console.log("🎯 Initializing donut chart...");const e=document.getElementById("clean-donut-chart");if(e){const o=e.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",o.length),o.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const t=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(t&&a&&s&&i){const o=parseFloat(t.textContent.replace("","")),l=parseFloat(a.textContent.replace("","")),n=parseFloat(s.textContent.replace("","")),d=parseFloat(i.textContent.replace("","")),r={treasury:o,holders:l,infra:n,net:d};console.log("🎯 Reading actual data from Box 1:",r),X(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),X({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function N(e){return e>=1e6?(e/1e6).toFixed(2)+"M":e>=1e3?(e/1e3).toFixed(2)+"K":e.toFixed(2)}function Le(e){return e<.01?"$"+e.toFixed(6):"$"+e.toFixed(4)}function Ce(e){return(e>=0?"+":"")+e.toFixed(2)+"%"}async function Ie(){var e,t,a;try{console.log("🔍 Fetching token metrics from DexScreener...");const s=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!s.ok)throw new Error(`HTTP error! status: ${s.status}`);const i=await s.json();if(console.log("📊 DexScreener data received:",i),i.pairs&&i.pairs.length>0){const o=i.pairs[0];document.getElementById("img-price").textContent=Le(parseFloat(o.priceUsd||0)),document.getElementById("price-change").textContent=Ce(parseFloat(((e=o.priceChange)==null?void 0:e.h24)||0)),document.getElementById("volume-24h").textContent="$"+N(parseFloat(((t=o.volume)==null?void 0:t.h24)||0)),document.getElementById("market-cap").textContent="$"+N(parseFloat(o.marketCap||0)),document.getElementById("liquidity").textContent="$"+N(parseFloat(((a=o.liquidity)==null?void 0:a.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(s){console.error("❌ Failed to fetch token metrics:",s),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Me=()=>`
+    `;const o=t.target.getBoundingClientRect(),d=200,n=100;let r=o.left+o.width/2,u=o.top-n-20;r<d/2?r=d/2+10:r>window.innerWidth-d/2&&(r=window.innerWidth-d/2-10),u<10&&(u=o.bottom+20),l.style.left=`${r}px`,l.style.top=`${u}px`,l.style.transform="translateX(-50%)",document.body.appendChild(l),setTimeout(()=>{l.style.opacity="1",l.style.transform="translateX(-50%) translateY(-10px)"},10)}function D(){const t=document.getElementById("donut-tooltip");t&&t.remove()}function H(){console.log("🎯 Initializing donut chart...");const t=document.getElementById("clean-donut-chart");if(t){const l=t.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",l.length),l.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const e=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(e&&s&&i&&a){const l=parseFloat(e.textContent.replace("","")),o=parseFloat(s.textContent.replace("","")),d=parseFloat(i.textContent.replace("","")),n=parseFloat(a.textContent.replace("","")),r={treasury:l,holders:o,infra:d,net:n};console.log("🎯 Reading actual data from Box 1:",r),Q(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),Q({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function _(t){return t>=1e6?(t/1e6).toFixed(2)+"M":t>=1e3?(t/1e3).toFixed(2)+"K":t.toFixed(2)}function Ct(t){return t<.01?"$"+t.toFixed(6):"$"+t.toFixed(4)}function Lt(t){return(t>=0?"+":"")+t.toFixed(2)+"%"}async function It(){var t,e,s;try{console.log("🔍 Fetching token metrics from DexScreener...");const i=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!i.ok)throw new Error(`HTTP error! status: ${i.status}`);const a=await i.json();if(console.log("📊 DexScreener data received:",a),a.pairs&&a.pairs.length>0){const l=a.pairs[0];document.getElementById("img-price").textContent=Ct(parseFloat(l.priceUsd||0)),document.getElementById("price-change").textContent=Lt(parseFloat(((t=l.priceChange)==null?void 0:t.h24)||0)),document.getElementById("volume-24h").textContent="$"+_(parseFloat(((e=l.volume)==null?void 0:e.h24)||0)),document.getElementById("market-cap").textContent="$"+_(parseFloat(l.marketCap||0)),document.getElementById("liquidity").textContent="$"+_(parseFloat(((s=l.liquidity)==null?void 0:s.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(i){console.error("❌ Failed to fetch token metrics:",i),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Mt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -797,7 +797,7 @@
 
         </div>
     </div>
-`,Pe=()=>`
+`,Pt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -828,6 +828,20 @@
                 <div class="spreadsheet-header">
                     <h1>Harvesting</h1>
                     <div class="spreadsheet-controls">
+                        <select class="month-dropdown">
+                            <option value="2025-01">January 2025</option>
+                            <option value="2025-02">February 2025</option>
+                            <option value="2025-03">March 2025</option>
+                            <option value="2025-04">April 2025</option>
+                            <option value="2025-05">May 2025</option>
+                            <option value="2025-06">June 2025</option>
+                            <option value="2025-07">July 2025</option>
+                            <option value="2025-08">August 2025</option>
+                            <option value="2025-09">September 2025</option>
+                            <option value="2025-10">October 2025</option>
+                            <option value="2025-11">November 2025</option>
+                            <option value="2025-12">December 2025</option>
+                        </select>
                         <button class="control-btn refresh-btn">
                             <img src="/refresh.png" alt="Refresh" class="btn-icon">
                         </button>
@@ -1109,7 +1123,7 @@
             </div>
         </div>
     </div>
-`,Te=()=>`
+`,Tt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1133,39 +1147,237 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="distribution-page">
-        <div class="page-header">
-            <h1>Distribution Center</h1>
-            <p>Manage token distribution and rewards</p>
-        </div>
-        
         <div class="distribution-content">
-            <div class="distribution-stats">
-                <div class="stat-card">
-                    <h3>Total Distributed</h3>
-                    <div class="stat-value">847,392</div>
-                    <div class="stat-label">All time</div>
+            <!-- Distribution Spreadsheet Container - Matching Harvesting Design -->
+            <div class="distribution-spreadsheet-container">
+                <!-- Professional Spreadsheet Header -->
+                <div class="distribution-spreadsheet-header">
+                    <h1>Distribution</h1>
+                    <div class="distribution-spreadsheet-controls">
+                        <div class="signature-search">
+                            <input type="text" placeholder="Search by signature..." class="search-input">
+                        </div>
+                        <select class="distribution-month-dropdown">
+                            <option value="2025-01">January 2025</option>
+                            <option value="2025-02">February 2025</option>
+                            <option value="2025-03">March 2025</option>
+                            <option value="2025-04">April 2025</option>
+                            <option value="2025-05">May 2025</option>
+                            <option value="2025-06">June 2025</option>
+                            <option value="2025-07">July 2025</option>
+                            <option value="2025-08">August 2025</option>
+                            <option value="2025-09">September 2025</option>
+                            <option value="2025-10">October 2025</option>
+                            <option value="2025-11">November 2025</option>
+                            <option value="2025-12">December 2025</option>
+                        </select>
+                        <button class="distribution-control-btn distribution-refresh-btn">
+                            <img src="/refresh.png" alt="Refresh" class="distribution-btn-icon">
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="stat-card">
-                    <h3>This Month</h3>
-                    <div class="stat-value">23,847</div>
-                    <div class="stat-label">Distributed</div>
+                <!-- Mobile Search Bar -->
+                <div class="distribution-mobile-search">
+                    <input type="text" placeholder="Search by signature..." class="search-input">
                 </div>
                 
-                <div class="stat-card">
-                    <h3>Active Recipients</h3>
-                    <div class="stat-value">1,247</div>
-                    <div class="stat-label">Wallets</div>
+                <!-- Professional Spreadsheet -->
+                <div class="distribution-spreadsheet-wrapper">
+                    <div class="distribution-table-scroll-container">
+                        <table class="distribution-spreadsheet">
+                            <thead>
+                                <tr class="distribution-spreadsheet-header-row">
+                                    <th class="distribution-col-id">ID</th>
+                                    <th class="distribution-col-date">DATE</th>
+                                    <th class="distribution-col-time">TIME</th>
+                                    <th class="distribution-col-recipient">RECIPIENT</th>
+                                    <th class="distribution-col-amount">AMOUNT (SOL)</th>
+                                    <th class="distribution-col-status">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#001</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7xK9...mN2P</td>
+                                    <td class="distribution-col-amount">0.125</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#002</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9mP3...kL8Q</td>
+                                    <td class="distribution-col-amount">0.089</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#003</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">4nR7...hJ9W</td>
+                                    <td class="distribution-col-amount">0.156</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#004</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">2bT5...vX3M</td>
+                                    <td class="distribution-col-amount">0.203</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#005</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">8qW1...zN6K</td>
+                                    <td class="distribution-col-amount">0.078</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#006</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">5cY4...pL2H</td>
+                                    <td class="distribution-col-amount">0.134</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#007</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">3fG8...rT9S</td>
+                                    <td class="distribution-col-amount">0.167</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#008</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">6dH7...uE4A</td>
+                                    <td class="distribution-col-amount">0.092</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#009</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">1aB9...iQ5C</td>
+                                    <td class="distribution-col-amount">0.145</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#010</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7jK3...oM8D</td>
+                                    <td class="distribution-col-amount">0.118</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#011</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9nP6...lQ2F</td>
+                                    <td class="distribution-col-amount">0.176</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#012</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">4rT8...hW7G</td>
+                                    <td class="distribution-col-amount">0.103</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#013</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">2vX5...bM3H</td>
+                                    <td class="distribution-col-amount">0.189</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#014</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">8zN1...qK6I</td>
+                                    <td class="distribution-col-amount">0.127</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#015</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">5pL4...cJ2K</td>
+                                    <td class="distribution-col-amount">0.154</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#016</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">3rT8...fG9L</td>
+                                    <td class="distribution-col-amount">0.081</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#017</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">6uE7...dH4M</td>
+                                    <td class="distribution-col-amount">0.142</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#018</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">1iQ9...aB5N</td>
+                                    <td class="distribution-col-amount">0.165</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#019</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">7oM3...jK8O</td>
+                                    <td class="distribution-col-amount">0.098</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                                <tr class="distribution-spreadsheet-row">
+                                    <td class="distribution-col-id">#020</td>
+                                    <td class="distribution-col-date">2024-01-15</td>
+                                    <td class="distribution-col-time">14:32:18</td>
+                                    <td class="distribution-col-recipient">9lQ6...nP2P</td>
+                                    <td class="distribution-col-amount">0.173</td>
+                                    <td class="distribution-col-status">Completed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="distribution-actions">
-                <button class="action-btn primary">Distribute Tokens</button>
-                <button class="action-btn secondary">View Recipients</button>
+                
+                <!-- Professional Pagination -->
+                <div class="distribution-spreadsheet-pagination">
+                    <button class="distribution-pagination-btn distribution-prev-btn" disabled>
+                        <img src="/left-arrow.png" alt="Previous" class="distribution-arrow-icon">
+                    </button>
+                    <div class="distribution-pagination-info">
+                        1/1 pages
+                    </div>
+                    <button class="distribution-pagination-btn distribution-next-btn">
+                        <img src="/right-arrow.png" alt="Next" class="distribution-arrow-icon">
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-`,$e=()=>`
+`,$t=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1205,7 +1417,7 @@
             </div>
         </div>
     </div>
-`,Re=()=>`
+`,Bt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1254,7 +1466,7 @@
             </div>
         </div>
     </div>
-`,Be=()=>`
+`,Rt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1358,44 +1570,44 @@
             </div>
         </div>
     </div>
-`;class Ge{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const a=t.target.closest("[id], [data-provider]");if(!a)return;if(t.preventDefault(),t.stopPropagation(),a.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(a.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const s=a.getAttribute("data-provider");if(s==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(s==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(a.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const a=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",a.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const t=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",t),await this.handleWalletConnection(t,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const t=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",t),await this.handleWalletConnection(t,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,a){try{console.log(`🔍 Verifying tokens for ${a}: ${t}`);const s=await this.verifyImgTokens(t),i=s>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${s}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${s} >= ${this.requiredImgAmount} = ${i}`),console.log(`   Premium Access Granted: ${i?"YES ✅":"NO ❌"}`);let o=i;s>0&&s>=47500&&(o=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=o,this.walletAddress=t,c.isConnected=!0,c.isPremium=o,c.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",o.toString()),localStorage.setItem("walletProvider",a),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${a} connected successfully!`),console.log(`💰 Balance: ${s.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${o?"YES ✅":"NO ❌"}`)}catch(s){console.error("❌ Failed to verify wallet:",s),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",c.isConnected=!1,c.isPremium=!1,c.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),c.currentPage!=="dashboard"&&c.currentPage!=="metrics"&&v.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying token balance for:",t);try{console.log("🔄 Checking balance via Render backend...");const a=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${a}`),a}catch(a){return console.error("❌ Render backend verification failed:",a.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const a=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!a.ok)throw new Error(`Render backend error: ${a.status} ${a.statusText}`);const s=await a.json();return console.log("✅ Render backend verification successful:",s),s.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
+`;class Nt{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const e=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(e[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(e){console.error("❌ Failed to initialize Solana connection:",e)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=e=>{const s=e.target.closest("[id], [data-provider]");if(!s)return;if(e.preventDefault(),e.stopPropagation(),s.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(s.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=s.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(s.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const e=document.getElementById("wallet-modal");if(e)console.log("✅ Modal found, showing..."),e.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const s=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",s.length)}}hideWalletModal(){const e=document.getElementById("wallet-modal");e&&e.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const e=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",e),await this.handleWalletConnection(e,"Phantom")}catch(e){console.error("❌ Phantom connection failed:",e),this.showConnectionError(e.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const e=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",e),await this.handleWalletConnection(e,"Solflare")}catch(e){console.error("❌ Solflare connection failed:",e),this.showConnectionError(e.message)}}async handleWalletConnection(e,s){try{console.log(`🔍 Verifying tokens for ${s}: ${e}`);const i=await this.verifyImgTokens(e),a=i>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${a}`),console.log(`   Premium Access Granted: ${a?"YES ✅":"NO ❌"}`);let l=a;i>0&&i>=47500&&(l=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=l,this.walletAddress=e,c.isConnected=!0,c.isPremium=l,c.walletAddress=e,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",e),localStorage.setItem("walletPremium",l.toString()),localStorage.setItem("walletProvider",s),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${s} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${l?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",c.isConnected=!1,c.isPremium=!1,c.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),c.currentPage!=="dashboard"&&c.currentPage!=="metrics"&&h.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(e){console.log("🔍 Verifying token balance for:",e);try{console.log("🔄 Checking balance via Render backend...");const s=await this.checkRenderBackend(e);return console.log(`✅ Token verification successful! Balance: ${s}`),s}catch(s){return console.error("❌ Render backend verification failed:",s.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(e)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(e){console.log("🔄 Trying Render backend verification...");const s=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:e}),timeout:1e4});if(!s.ok)throw new Error(`Render backend error: ${s.status} ${s.statusText}`);const i=await s.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const e=document.getElementById("wallet-connection-status");e&&(e.style.display="block",e.innerHTML=`
                 <div class="connection-indicator">
                     <div class="loading-spinner"></div>
                     <span class="connection-text">Connecting...</span>
                 </div>
-            `)}showConnectionError(t){const a=document.getElementById("wallet-connection-status");a&&(a.style.display="block",a.innerHTML=`
+            `)}showConnectionError(e){const s=document.getElementById("wallet-connection-status");s&&(s.style.display="block",s.innerHTML=`
                 <div class="connection-indicator">
-                    <span class="connection-text" style="color: #ef4444;">❌ ${t}</span>
+                    <span class="connection-text" style="color: #ef4444;">❌ ${e}</span>
                 </div>
-            `,setTimeout(()=>{a&&(a.style.display="none")},5e3))}saveWalletState(){try{const t={isConnected:this.isConnected,walletAddress:this.walletAddress,isPremium:this.isPremium,timestamp:Date.now()};localStorage.setItem("imgProtocolWalletState",JSON.stringify(t)),localStorage.setItem("walletConnected",this.isConnected.toString()),localStorage.setItem("walletPremium",this.isPremium.toString()),console.log("💾 Wallet state saved:",t)}catch(t){console.error("Error saving wallet state:",t)}}clearWalletState(){try{localStorage.removeItem("imgProtocolWalletState"),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),console.log("🗑️ Wallet state cleared")}catch(t){console.error("Error clearing wallet state:",t)}}updateUI(){this.updateSidebar();const t=document.getElementById("connect-wallet-btn");t&&(t.innerHTML=`
+            `,setTimeout(()=>{s&&(s.style.display="none")},5e3))}saveWalletState(){try{const e={isConnected:this.isConnected,walletAddress:this.walletAddress,isPremium:this.isPremium,timestamp:Date.now()};localStorage.setItem("imgProtocolWalletState",JSON.stringify(e)),localStorage.setItem("walletConnected",this.isConnected.toString()),localStorage.setItem("walletPremium",this.isPremium.toString()),console.log("💾 Wallet state saved:",e)}catch(e){console.error("Error saving wallet state:",e)}}clearWalletState(){try{localStorage.removeItem("imgProtocolWalletState"),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),console.log("🗑️ Wallet state cleared")}catch(e){console.error("Error clearing wallet state:",e)}}updateUI(){this.updateSidebar();const e=document.getElementById("connect-wallet-btn");e&&(e.innerHTML=`
                 <span class="nav-text connect-wallet-text">
                     ${this.isConnected?"DISCONNECT WALLET":"CONNECT WALLET"}
                 </span>
-            `)}updateSidebar(){c.isConnected=this.isConnected,c.isPremium=this.isPremium,c.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",c);const t=document.getElementById("sidebar-container");if(t){const a=Y(c);t.innerHTML=a,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function w(){console.log("🔧 updateSidebar called with state:",c);const e=document.getElementById("sidebar-container");if(e){const t=Y(c);console.log("🔧 Generated sidebar HTML length:",t.length),console.log("🔧 Sidebar HTML preview:",t.substring(0,300)+"..."),e.innerHTML=t,e.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const a=e.querySelector(".financial-sidebar");if(console.log(a?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(s){console.error("❌ Failed to attach event listeners:",s)}}else console.error("❌ Sidebar container not found!")}function S(e){const t=document.getElementById("main-content");t&&(t.innerHTML=e)}function He(){c.currentPage="terminal",w(),S(Ae()),setTimeout(()=>{Ie(),_e()},100)}function _e(){console.log("🔧 Initializing chart interactivity..."),Ne()}function Ne(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(e=>{e.addEventListener("mouseenter",t=>{z(t,t.target.dataset.value,t.target.dataset.label,"#3b82f6")}),e.addEventListener("mouseleave",()=>{B()}),e.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(e=>{e.addEventListener("mouseenter",t=>{z(t,t.target.dataset.value,t.target.dataset.label,"#10b981")}),e.addEventListener("mouseleave",()=>{B()}),e.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(e=>{e.addEventListener("mouseenter",t=>{z(t,t.target.dataset.value,t.target.dataset.label,"#f59e0b")}),e.addEventListener("mouseleave",()=>{B()}),e.style.cursor="pointer"})}function ze(e){const t=parseFloat(e.replace(/[^0-9.-]/g,""));return e.includes("%")?`${t}%`:t>=1e6?`${(t/1e6).toFixed(1)}M`:t>=1e3?`${(t/1e3).toFixed(1)}K`:`${t.toLocaleString()}`}function z(e,t,a,s){B();const i=document.createElement("div");i.id="universal-chart-tooltip",i.className="donut-tooltip",i.innerHTML=`
-        <div class="tooltip-header" style="background: ${s}; color: #ffffff; text-align: center;">
-            <span class="tooltip-label" style="color: #ffffff;">${a}</span>
+            `)}updateSidebar(){c.isConnected=this.isConnected,c.isPremium=this.isPremium,c.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",c);const e=document.getElementById("sidebar-container");if(e){const s=K(c);e.innerHTML=s,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function w(){console.log("🔧 updateSidebar called with state:",c);const t=document.getElementById("sidebar-container");if(t){const e=K(c);console.log("🔧 Generated sidebar HTML length:",e.length),console.log("🔧 Sidebar HTML preview:",e.substring(0,300)+"..."),t.innerHTML=e,t.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const s=t.querySelector(".financial-sidebar");if(console.log(s?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(i){console.error("❌ Failed to attach event listeners:",i)}}else console.error("❌ Sidebar container not found!")}function S(t){const e=document.getElementById("main-content");e&&(e.innerHTML=t)}function Gt(){c.currentPage="terminal",w(),S(At()),setTimeout(()=>{It(),Ht()},100)}function Ht(){console.log("🔧 Initializing chart interactivity..."),_t()}function _t(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(t=>{t.addEventListener("mouseenter",e=>{z(e,e.target.dataset.value,e.target.dataset.label,"#3b82f6")}),t.addEventListener("mouseleave",()=>{R()}),t.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(t=>{t.addEventListener("mouseenter",e=>{z(e,e.target.dataset.value,e.target.dataset.label,"#10b981")}),t.addEventListener("mouseleave",()=>{R()}),t.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(t=>{t.addEventListener("mouseenter",e=>{z(e,e.target.dataset.value,e.target.dataset.label,"#f59e0b")}),t.addEventListener("mouseleave",()=>{R()}),t.style.cursor="pointer"})}function zt(t){const e=parseFloat(t.replace(/[^0-9.-]/g,""));return t.includes("%")?`${e}%`:e>=1e6?`${(e/1e6).toFixed(1)}M`:e>=1e3?`${(e/1e3).toFixed(1)}K`:`${e.toLocaleString()}`}function z(t,e,s,i){R();const a=document.createElement("div");a.id="universal-chart-tooltip",a.className="donut-tooltip",a.innerHTML=`
+        <div class="tooltip-header" style="background: ${i}; color: #ffffff; text-align: center;">
+            <span class="tooltip-label" style="color: #ffffff;">${s}</span>
         </div>
         <div class="tooltip-content" style="text-align: center;">
-            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${ze(t)}</div>
+            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${zt(e)}</div>
         </div>
-    `;const o=e.target.getBoundingClientRect(),l=200,n=100;let d=o.left+o.width/2,r=o.top-n-20;d<l/2?d=l/2+10:d>window.innerWidth-l/2&&(d=window.innerWidth-l/2-10),r<10&&(r=o.bottom+20),i.style.left=`${d}px`,i.style.top=`${r}px`,i.style.transform="translateX(-50%)",document.body.appendChild(i),setTimeout(()=>{i.style.opacity="1",i.style.transform="translateX(-50%) translateY(-10px)"},10)}function We(){let e=document.getElementById("mobile-sidebar");e||(e=document.createElement("div"),e.id="mobile-sidebar",e.className="mobile-sidebar-container",e.innerHTML=Y(c),document.body.appendChild(e),console.log("📱 Mobile sidebar created"),window.innerWidth>1024&&(e.style.display="none")),document.addEventListener("click",t=>{t.target.closest("#mobile-menu-btn")&&(console.log("Burger button clicked!"),Ue()),(t.target.closest("#sidebar-overlay")||window.innerWidth<=1024&&!t.target.closest("#mobile-sidebar")&&!t.target.closest("#mobile-menu-btn"))&&R()}),document.addEventListener("keydown",t=>{t.key==="Escape"&&R()}),window.addEventListener("resize",()=>{const t=window.innerWidth<=1024,a=document.getElementById("mobile-sidebar");a&&(t?(a.style.display="block",a.classList.remove("mobile-open"),R()):(a.classList.remove("mobile-open"),a.style.display="none"))}),setTimeout(()=>{const t=window.innerWidth<=1024,a=document.getElementById("mobile-sidebar");a&&(t?(a.classList.remove("mobile-open"),a.style.display="block",console.log("📱 Mobile mode activated - mobile sidebar hidden by default")):(a.classList.remove("mobile-open"),a.style.display="none",console.log("🖥️ Desktop mode activated - mobile sidebar hidden")))},100)}function Ue(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),a=document.getElementById("mobile-menu-btn");e&&t&&a&&(e.classList.contains("mobile-open")?R():De())}function De(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),a=document.getElementById("mobile-menu-btn");if(e&&t&&a){e.classList.add("mobile-open"),t.classList.add("active"),a.classList.add("active"),document.body.style.overflow="hidden",console.log("✅ Mobile menu opened successfully"),console.log("📱 Mobile sidebar classes:",e.className),console.log("🎯 Mobile sidebar content length:",e.innerHTML.length),console.log("📄 Mobile sidebar HTML preview:",e.innerHTML.substring(0,300)+"...");const s=e.querySelector(".financial-sidebar");s?(console.log("✅ Mobile financial sidebar found"),console.log("🎨 Mobile sidebar background:",getComputedStyle(s).background),console.log("👁️ Mobile sidebar visibility:",getComputedStyle(s).visibility)):console.log("❌ Mobile financial sidebar NOT found!")}}function R(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),a=document.getElementById("mobile-menu-btn");e&&t&&a&&(e.classList.remove("mobile-open"),t.classList.remove("active"),a.classList.remove("active"),document.body.style.overflow="",console.log("✅ Mobile menu closed successfully"))}function B(){const e=document.getElementById("universal-chart-tooltip");e&&e.remove()}function Fe(){c.currentPage="events",w(),S(Me()),setTimeout(()=>{Xe()},100)}function Oe(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="harvesting",w(),S(Pe())}function qe(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="distribution",w(),S(Te())}function je(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="wallet-lookup",w(),S($e())}function Ve(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="reward-calculator",w(),S(Re())}function Ye(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="vote",w(),S(Be())}v("/terminal",He);v("/events",Fe);v("/harvesting",Oe);v("/distribution",qe);v("/wallet-lookup",je);v("/reward-calculator",Ve);v("/vote",Ye);v("*",()=>v.redirect("/terminal"));const ie=[{id:1,title:"IMG Protocol v2.0 Launch",description:"Major protocol upgrade with enhanced security features and improved performance",category:"launch",status:"ongoing",date:"2024-03-15",time:"14:00 UTC",image:"/dashboard.png",priority:"high",progress:75},{id:2,title:"Community Governance Vote",description:"Vote on the new staking rewards distribution mechanism",category:"governance",status:"ongoing",date:"2024-03-10",time:"12:00 UTC",image:"/vote.png",priority:"high",progress:60},{id:3,title:"Liquidity Mining Program",description:"New rewards program for providing liquidity to pairs",category:"launch",status:"ongoing",date:"2024-03-12",time:"15:00 UTC",image:"/mining.png",priority:"medium",progress:45},{id:4,title:"Strategic Partnership Announcement",description:"New collaboration with major DeFi protocol for enhanced liquidity",category:"partnership",status:"upcoming",date:"2024-03-20",time:"16:00 UTC",image:"/partnership.png",priority:"high"},{id:5,title:"Community AMA Session",description:"Live Q&A with the development team",category:"community",status:"upcoming",date:"2024-03-25",time:"18:00 UTC",image:"/community.png",priority:"medium"},{id:6,title:"Technical Update Release",description:"Bug fixes and performance improvements for the wallet",category:"update",status:"upcoming",date:"2024-03-28",time:"10:00 UTC",image:"/update.png",priority:"low"},{id:7,title:"Staking Rewards Distribution",description:"Monthly staking rewards distribution to all participants",category:"community",status:"upcoming",date:"2024-04-01",time:"00:00 UTC",image:"/staking.png",priority:"medium"},{id:8,title:"Protocol Security Audit",description:"Comprehensive security audit by leading blockchain security firm",category:"update",status:"upcoming",date:"2024-04-05",time:"09:00 UTC",image:"/audit.png",priority:"high"}];let F=1;const Ke=8;function le(e=ie,t=1){const a=document.getElementById("ongoing-events-grid"),s=document.getElementById("upcoming-events-grid");if(!a||!s)return;const i=e.filter(l=>l.status==="ongoing"),o=e.filter(l=>l.status==="upcoming");document.getElementById("ongoing-count").textContent=i.length,document.getElementById("upcoming-count").textContent=o.length,a.innerHTML=i.map(l=>`
-        <div class="event-card ongoing ${l.priority}" data-category="${l.category}">
+    `;const l=t.target.getBoundingClientRect(),o=200,d=100;let n=l.left+l.width/2,r=l.top-d-20;n<o/2?n=o/2+10:n>window.innerWidth-o/2&&(n=window.innerWidth-o/2-10),r<10&&(r=l.bottom+20),a.style.left=`${n}px`,a.style.top=`${r}px`,a.style.transform="translateX(-50%)",document.body.appendChild(a),setTimeout(()=>{a.style.opacity="1",a.style.transform="translateX(-50%) translateY(-10px)"},10)}function Wt(){let t=document.getElementById("mobile-sidebar");t||(t=document.createElement("div"),t.id="mobile-sidebar",t.className="mobile-sidebar-container",t.innerHTML=K(c),document.body.appendChild(t),console.log("📱 Mobile sidebar created"),window.innerWidth>1024&&(t.style.display="none")),document.addEventListener("click",e=>{e.target.closest("#mobile-menu-btn")&&(console.log("Burger button clicked!"),Ut()),(e.target.closest("#sidebar-overlay")||window.innerWidth<=1024&&!e.target.closest("#mobile-sidebar")&&!e.target.closest("#mobile-menu-btn"))&&B()}),document.addEventListener("keydown",e=>{e.key==="Escape"&&B()}),window.addEventListener("resize",()=>{const e=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(e?(s.style.display="block",s.classList.remove("mobile-open"),B()):(s.classList.remove("mobile-open"),s.style.display="none"))}),setTimeout(()=>{const e=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(e?(s.classList.remove("mobile-open"),s.style.display="block",console.log("📱 Mobile mode activated - mobile sidebar hidden by default")):(s.classList.remove("mobile-open"),s.style.display="none",console.log("🖥️ Desktop mode activated - mobile sidebar hidden")))},100)}function Ut(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");t&&e&&s&&(t.classList.contains("mobile-open")?B():Dt())}function Dt(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");if(t&&e&&s){t.classList.add("mobile-open"),e.classList.add("active"),s.classList.add("active"),document.body.style.overflow="hidden",console.log("✅ Mobile menu opened successfully"),console.log("📱 Mobile sidebar classes:",t.className),console.log("🎯 Mobile sidebar content length:",t.innerHTML.length),console.log("📄 Mobile sidebar HTML preview:",t.innerHTML.substring(0,300)+"...");const i=t.querySelector(".financial-sidebar");i?(console.log("✅ Mobile financial sidebar found"),console.log("🎨 Mobile sidebar background:",getComputedStyle(i).background),console.log("👁️ Mobile sidebar visibility:",getComputedStyle(i).visibility)):console.log("❌ Mobile financial sidebar NOT found!")}}function B(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");t&&e&&s&&(t.classList.remove("mobile-open"),e.classList.remove("active"),s.classList.remove("active"),document.body.style.overflow="",console.log("✅ Mobile menu closed successfully"))}function R(){const t=document.getElementById("universal-chart-tooltip");t&&t.remove()}function Ot(){c.currentPage="events",w(),S(Mt()),setTimeout(()=>{Qt()},100)}function Ft(){if(!c.isPremium){h.redirect("/dashboard");return}c.currentPage="harvesting",w(),S(Pt())}function qt(){if(!c.isPremium){h.redirect("/dashboard");return}c.currentPage="distribution",w(),S(Tt())}function jt(){if(!c.isPremium){h.redirect("/dashboard");return}c.currentPage="wallet-lookup",w(),S($t())}function Vt(){if(!c.isPremium){h.redirect("/dashboard");return}c.currentPage="reward-calculator",w(),S(Bt())}function Kt(){if(!c.isPremium){h.redirect("/dashboard");return}c.currentPage="vote",w(),S(Rt())}h("/terminal",Gt);h("/events",Ot);h("/harvesting",Ft);h("/distribution",qt);h("/wallet-lookup",jt);h("/reward-calculator",Vt);h("/vote",Kt);h("*",()=>h.redirect("/terminal"));const at=[{id:1,title:"IMG Protocol v2.0 Launch",description:"Major protocol upgrade with enhanced security features and improved performance",category:"launch",status:"ongoing",date:"2024-03-15",time:"14:00 UTC",image:"/dashboard.png",priority:"high",progress:75},{id:2,title:"Community Governance Vote",description:"Vote on the new staking rewards distribution mechanism",category:"governance",status:"ongoing",date:"2024-03-10",time:"12:00 UTC",image:"/vote.png",priority:"high",progress:60},{id:3,title:"Liquidity Mining Program",description:"New rewards program for providing liquidity to pairs",category:"launch",status:"ongoing",date:"2024-03-12",time:"15:00 UTC",image:"/mining.png",priority:"medium",progress:45},{id:4,title:"Strategic Partnership Announcement",description:"New collaboration with major DeFi protocol for enhanced liquidity",category:"partnership",status:"upcoming",date:"2024-03-20",time:"16:00 UTC",image:"/partnership.png",priority:"high"},{id:5,title:"Community AMA Session",description:"Live Q&A with the development team",category:"community",status:"upcoming",date:"2024-03-25",time:"18:00 UTC",image:"/community.png",priority:"medium"},{id:6,title:"Technical Update Release",description:"Bug fixes and performance improvements for the wallet",category:"update",status:"upcoming",date:"2024-03-28",time:"10:00 UTC",image:"/update.png",priority:"low"},{id:7,title:"Staking Rewards Distribution",description:"Monthly staking rewards distribution to all participants",category:"community",status:"upcoming",date:"2024-04-01",time:"00:00 UTC",image:"/staking.png",priority:"medium"},{id:8,title:"Protocol Security Audit",description:"Comprehensive security audit by leading blockchain security firm",category:"update",status:"upcoming",date:"2024-04-05",time:"09:00 UTC",image:"/audit.png",priority:"high"}];let O=1;const Yt=8;function ot(t=at,e=1){const s=document.getElementById("ongoing-events-grid"),i=document.getElementById("upcoming-events-grid");if(!s||!i)return;const a=t.filter(o=>o.status==="ongoing"),l=t.filter(o=>o.status==="upcoming");document.getElementById("ongoing-count").textContent=a.length,document.getElementById("upcoming-count").textContent=l.length,s.innerHTML=a.map(o=>`
+        <div class="event-card ongoing ${o.priority}" data-category="${o.category}">
             <div class="event-header">
-                <div class="event-category ${l.category}">${l.category}</div>
-                <div class="event-priority ${l.priority}">${l.priority}</div>
+                <div class="event-category ${o.category}">${o.category}</div>
+                <div class="event-priority ${o.priority}">${o.priority}</div>
             </div>
             <div class="event-image">
-                <img src="${l.image}" alt="${l.title}" onerror="this.src='/dashboard.png'">
+                <img src="${o.image}" alt="${o.title}" onerror="this.src='/dashboard.png'">
                 <div class="progress-overlay">
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${l.progress}%"></div>
+                        <div class="progress-fill" style="width: ${o.progress}%"></div>
                     </div>
-                    <span class="progress-text">${l.progress}% Complete</span>
+                    <span class="progress-text">${o.progress}% Complete</span>
                 </div>
             </div>
             <div class="event-content">
-                <h3 class="event-title">${l.title}</h3>
-                <p class="event-description">${l.description}</p>
+                <h3 class="event-title">${o.title}</h3>
+                <p class="event-description">${o.description}</p>
                 <div class="event-meta">
                     <div class="event-date">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1404,33 +1616,33 @@
                             <line x1="8" y1="2" x2="8" y2="6"/>
                             <line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
-                        ${new Date(l.date).toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})}
+                        ${new Date(o.date).toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})}
                     </div>
                     <div class="event-time">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <polyline points="12,6 12,12 16,14"/>
                         </svg>
-                        ${l.time}
+                        ${o.time}
                     </div>
                 </div>
             </div>
         </div>
-    `).join(""),s.innerHTML=o.map(l=>`
-        <div class="event-card upcoming ${l.priority}" data-category="${l.category}">
+    `).join(""),i.innerHTML=l.map(o=>`
+        <div class="event-card upcoming ${o.priority}" data-category="${o.category}">
             <div class="event-header">
-                <div class="event-category ${l.category}">${l.category}</div>
-                <div class="event-priority ${l.priority}">${l.priority}</div>
+                <div class="event-category ${o.category}">${o.category}</div>
+                <div class="event-priority ${o.priority}">${o.priority}</div>
             </div>
             <div class="event-image">
-                <img src="${l.image}" alt="${l.title}" onerror="this.src='/dashboard.png'">
+                <img src="${o.image}" alt="${o.title}" onerror="this.src='/dashboard.png'">
                 <div class="countdown-overlay">
                     <span class="countdown-text">Starting Soon</span>
                 </div>
             </div>
             <div class="event-content">
-                <h3 class="event-title">${l.title}</h3>
-                <p class="event-description">${l.description}</p>
+                <h3 class="event-title">${o.title}</h3>
+                <p class="event-description">${o.description}</p>
                 <div class="event-meta">
                     <div class="event-date">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1439,16 +1651,16 @@
                             <line x1="8" y1="2" x2="8" y2="6"/>
                             <line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
-                        ${new Date(l.date).toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})}
+                        ${new Date(o.date).toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})}
                     </div>
                     <div class="event-time">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/>
                             <polyline points="12,6 12,12 16,14"/>
                         </svg>
-                        ${l.time}
+                        ${o.time}
                     </div>
                 </div>
             </div>
         </div>
-    `).join(""),Je(e.length,t)}function Je(e,t){const a=Math.ceil(e/Ke),s=document.getElementById("page-numbers"),i=document.getElementById("prev-page"),o=document.getElementById("next-page");if(!(!s||!i||!o)){s.innerHTML="";for(let l=1;l<=a;l++){const n=document.createElement("span");n.className=`page-number ${l===t?"active":""}`,n.textContent=l,n.onclick=()=>O(l),s.appendChild(n)}i.disabled=t===1,o.disabled=t===a}}function O(e){F=e,le(ie,e)}function Xe(){le();const e=document.getElementById("prev-page"),t=document.getElementById("next-page");e&&e.addEventListener("click",()=>O(F-1)),t&&t.addEventListener("click",()=>O(F+1))}function Qe(){document.addEventListener("click",function(e){if(e.target.closest(".event-link-icon")){e.preventDefault(),e.stopPropagation();const a=e.target.closest(".event-link-icon").getAttribute("href");a&&a!=="#"&&window.open(a,"_blank","noopener,noreferrer")}})}document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),c.isConnected=!1,c.isPremium=!1,c.walletAddress="",c.currentPage="dashboard",console.log("🔄 App state reset:",c),w(),console.log("🔧 Sidebar initialized"),window.walletManager=new Ge,v.start(),v("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{_()}),setInterval(()=>{const a=document.getElementById("clean-donut-chart");a&&a.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),_())},500);const e=new MutationObserver(a=>{a.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(i=>{i.nodeType===Node.ELEMENT_NODE&&i.querySelector&&i.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{_()}))})})}),t=document.getElementById("main-content");t&&e.observe(t,{childList:!0,subtree:!0}),We(),Qe(),setTimeout(()=>{const a=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",a),console.log("🔍 Sidebar content:",a?a.innerHTML.length:"null"),a&&!a.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",c),w())},50),console.log("✅ Protocol SPA Ready!")});
+    `).join(""),Jt(t.length,e)}function Jt(t,e){const s=Math.ceil(t/Yt),i=document.getElementById("page-numbers"),a=document.getElementById("prev-page"),l=document.getElementById("next-page");if(!(!i||!a||!l)){i.innerHTML="";for(let o=1;o<=s;o++){const d=document.createElement("span");d.className=`page-number ${o===e?"active":""}`,d.textContent=o,d.onclick=()=>F(o),i.appendChild(d)}a.disabled=e===1,l.disabled=e===s}}function F(t){O=t,ot(at,t)}function Qt(){ot();const t=document.getElementById("prev-page"),e=document.getElementById("next-page");t&&t.addEventListener("click",()=>F(O-1)),e&&e.addEventListener("click",()=>F(O+1))}function Xt(){document.addEventListener("click",function(t){if(t.target.closest(".event-link-icon")){t.preventDefault(),t.stopPropagation();const s=t.target.closest(".event-link-icon").getAttribute("href");s&&s!=="#"&&window.open(s,"_blank","noopener,noreferrer")}})}document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),c.isConnected=!1,c.isPremium=!1,c.walletAddress="",c.currentPage="dashboard",console.log("🔄 App state reset:",c),w(),console.log("🔧 Sidebar initialized"),window.walletManager=new Nt,h.start(),h("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{H()}),setInterval(()=>{const s=document.getElementById("clean-donut-chart");s&&s.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),H())},500);const t=new MutationObserver(s=>{s.forEach(i=>{i.type==="childList"&&i.addedNodes.forEach(a=>{a.nodeType===Node.ELEMENT_NODE&&a.querySelector&&a.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{H()}))})})}),e=document.getElementById("main-content");e&&t.observe(e,{childList:!0,subtree:!0}),Wt(),Xt(),setTimeout(()=>{const s=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",s),console.log("🔍 Sidebar content:",s?s.innerHTML.length:"null"),s&&!s.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",c),w())},50),console.log("✅ Protocol SPA Ready!")});
