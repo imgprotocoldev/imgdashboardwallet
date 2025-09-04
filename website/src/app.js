@@ -613,14 +613,25 @@
                 <div class="events-column">
                     <h2 class="section-title">Recent Project Updates</h2>
                     <div class="project-updates-container">
-                        <div class="project-update-banner in-progress">
+                        <div class="project-update-banner completed">
+                            <div class="update-image">
+                                <img src="/Imgupdate6.png" alt="Server Optimization Upgrade">
+                            </div>
+                            <div class="update-content">
+                                <h3 class="update-title">Server Optimization Upgrade</h3>
+                                <p class="update-description">The server has been upgraded to improve stability and support the growing database. Next milestone: optimizing the database to reduce bandwidth and memory usage. Auditing tools are also in development to strengthen reliability.</p>
+                                <div class="update-date">Completed Sept 4</div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-update-banner completed">
                             <div class="update-image">
                                 <img src="/Imgupdate5.png" alt="Rewards Update">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Rewards Update</h3>
                                 <p class="update-description">Due to Solana congestion, rewards didn't process automatically. All rewards were recorded and will be distributed within 72 hours. Our developer is currently performing an internal audit to ensure all accounts are fully reconciled before triggering payouts.</p>
-                                <div class="update-date">In progress</div>
+                                <div class="update-date">Completed Sept 3</div>
                             </div>
                         </div>
                         
