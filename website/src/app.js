@@ -819,7 +819,6 @@
                     <div class="spreadsheet-controls">
                         <button class="control-btn refresh-btn">
                             <img src="/refresh.png" alt="Refresh" class="btn-icon">
-                            Refresh Data
                         </button>
                     </div>
                 </div>
@@ -1087,13 +1086,13 @@
                 <!-- Professional Pagination -->
                 <div class="spreadsheet-pagination">
                     <button class="pagination-btn prev-btn" disabled>
-                        < Previous
+                        <img src="/left-arrow.png" alt="Previous" class="arrow-icon">
                     </button>
                     <div class="pagination-info">
-                        Showing 1-30 of 30 entries
+                        1/1 pages
                     </div>
                     <button class="pagination-btn next-btn">
-                        Next >
+                        <img src="/right-arrow.png" alt="Next" class="arrow-icon">
                     </button>
                 </div>
             </div>
