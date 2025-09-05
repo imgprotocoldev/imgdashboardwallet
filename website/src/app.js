@@ -2947,15 +2947,15 @@ function showPollResults(pollId) {
     
     // Create Telegram-style results display
     const resultsHTML = `
-        <div class="poll-results-telegram" style="margin-bottom: 0; padding: 16px 16px 8px 16px; background: rgba(59, 130, 246, 0.05); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1); width: 100%; box-sizing: border-box;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div class="poll-results-telegram" style="margin-bottom: 0; padding: 12px 14px 6px 14px; background: rgba(59, 130, 246, 0.05); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1); width: 100%; box-sizing: border-box;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <span style="color: #3b82f6; font-size: 16px; font-weight: 600;">Poll Results</span>
                 <span style="color: #9ca3af; font-size: 14px;">${results.total} votes</span>
             </div>
             
             <!-- Yes Option -->
-            <div style="margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <div style="margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="color: #10b981; font-size: 14px; font-weight: 600;">${yesPercent}% Yes</span>
                         ${userVote === 'yes' ? '<span style="color: #10b981; font-size: 16px;">✓</span>' : ''}
@@ -2967,8 +2967,8 @@ function showPollResults(pollId) {
             </div>
             
             <!-- No Option -->
-            <div style="margin-bottom: 8px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <div style="margin-bottom: 4px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="color: #ef4444; font-size: 14px; font-weight: 600;">${noPercent}% No</span>
                         ${userVote === 'no' ? '<span style="color: #ef4444; font-size: 16px;">✓</span>' : ''}
