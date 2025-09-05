@@ -1665,7 +1665,9 @@
         
         <!-- Completed Polls Spreadsheet -->
         <div class="completed-polls-section">
-            <div class="polls-spreadsheet">
+            <div class="polls-spreadsheet-wrapper">
+                <div class="polls-table-scroll-container">
+                    <div class="polls-spreadsheet">
                 <div class="spreadsheet-header">
                     <div class="header-cell">Voting History</div>
                     <div class="header-cell">Status</div>
@@ -1728,6 +1730,41 @@
                     <div class="data-cell poll-no">61.5%</div>
                     <div class="data-cell poll-votes">3.7M</div>
                     <div class="data-cell poll-date">Nov 2, 2024</div>
+                </div>
+                
+                <div class="spreadsheet-row">
+                    <div class="data-cell poll-question">Governance Token Distribution</div>
+                    <div class="data-cell poll-result">
+                        <span class="result-badge passed">Passed</span>
+                    </div>
+                    <div class="data-cell poll-yes">85.3%</div>
+                    <div class="data-cell poll-no">14.7%</div>
+                    <div class="data-cell poll-votes">2.4M</div>
+                    <div class="data-cell poll-date">Oct 20, 2024</div>
+                </div>
+                
+                <div class="spreadsheet-row">
+                    <div class="data-cell poll-question">Liquidity Pool Expansion</div>
+                    <div class="data-cell poll-result">
+                        <span class="result-badge passed">Passed</span>
+                    </div>
+                    <div class="data-cell poll-yes">92.1%</div>
+                    <div class="data-cell poll-no">7.9%</div>
+                    <div class="data-cell poll-votes">3.8M</div>
+                    <div class="data-cell poll-date">Oct 5, 2024</div>
+                </div>
+                
+                <div class="spreadsheet-row">
+                    <div class="data-cell poll-question">Security Audit Implementation</div>
+                    <div class="data-cell poll-result">
+                        <span class="result-badge rejected">Rejected</span>
+                    </div>
+                    <div class="data-cell poll-yes">41.2%</div>
+                    <div class="data-cell poll-no">58.8%</div>
+                    <div class="data-cell poll-votes">1.9M</div>
+                    <div class="data-cell poll-date">Sep 18, 2024</div>
+                </div>
+                    </div>
                 </div>
             </div>
         </div>
