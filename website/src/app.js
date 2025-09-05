@@ -2673,56 +2673,517 @@ function setupEventsScrollers() {
     });
 }
 
+// Voting System State Management
+const votingState = {
+    walletAddress: null,
+    votedPolls: new Set(),
+    pollResults: {
+        1: { yes: 1247, no: 423, abstain: 182, total: 1852 },
+        2: { yes: 892, no: 634, abstain: 156, total: 1682 },
+        3: { yes: 1103, no: 445, abstain: 234, total: 1782 }
+    }
+};
+
 // Voting functionality
 function setupVotingSystem() {
-    // Setup voting for each poll
+    console.log('Setting up voting system...');
+    // Generate a unique wallet address for this session
+    votingState.walletAddress = '0x' + Math.random().toString(16).substr(2, 40);
+    console.log('Wallet address:', votingState.walletAddress);
+    loadVotingHistory();
+    
+    // Wait for voting page elements to be available
+    const checkForVotingElements = () => {
+        const pollOptions = document.getElementById('poll-options-1');
+        if (pollOptions) {
+            console.log('Voting elements found, setting up interactions...');
+            setupPollInteractions();
+        } else {
+            console.log('Voting elements not found, retrying in 100ms...');
+            setTimeout(checkForVotingElements, 100);
+        }
+    };
+    
+    checkForVotingElements();
+    
+    // Also add event delegation for dynamically loaded content
+    document.addEventListener('click', (e) => {
+        // Check if clicked element is a poll option
+        const pollOption = e.target.closest('.poll-option');
+        if (pollOption) {
+            console.log('Poll option clicked via delegation!', pollOption);
+            
+            const pollOptions = pollOption.closest('.poll-options');
+            const pollId = pollOptions ? pollOptions.id.replace('poll-options-', '') : null;
+            const submitBtn = document.getElementById(`submit-vote-btn-${pollId}`);
+            
+            if (pollOptions && submitBtn && !votingState.votedPolls.has(parseInt(pollId))) {
+                // Remove previous selection in this poll
+                pollOptions.querySelectorAll('.poll-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const circle = opt.querySelector('.option-circle');
+                    if (circle) circle.classList.remove('selected');
+                });
+                
+                // Add selection to clicked option
+                pollOption.classList.add('selected');
+                const circle = pollOption.querySelector('.option-circle');
+                if (circle) circle.classList.add('selected');
+                
+                // Store selection and enable submit button
+                const selectedOption = pollOption.dataset.option;
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Vote';
+                submitBtn.style.background = '#3b82f6';
+                
+                // Store in a way that submit button can access
+                submitBtn.dataset.selectedOption = selectedOption;
+                
+                console.log(`Option selected for poll ${pollId}: ${selectedOption}`);
+            }
+        }
+        
+        // Check if clicked element is a submit button
+        const submitBtn = e.target.closest('.submit-vote-btn');
+        if (submitBtn) {
+            console.log('Submit button clicked via delegation!', submitBtn);
+            const pollId = submitBtn.id.replace('submit-vote-btn-', '');
+            const selectedOption = submitBtn.dataset.selectedOption;
+            
+            if (selectedOption) {
+                console.log(`Submitting vote for poll ${pollId}: ${selectedOption}`);
+                submitVote(parseInt(pollId), selectedOption);
+            } else {
+                console.log('No option selected for submission');
+            }
+        }
+        
+        // Check if clicked element is a VIEW RESULTS button
+        const viewResultsBtn = e.target.closest('.view-results-btn');
+        if (viewResultsBtn) {
+            console.log('VIEW RESULTS button clicked via delegation!', viewResultsBtn);
+            e.preventDefault();
+            
+            const pollId = viewResultsBtn.dataset.pollId;
+            console.log('Poll ID from button:', pollId);
+            
+            if (pollId) {
+                // Get the results from the poll state
+                const results = votingState.pollResults[parseInt(pollId)];
+                console.log('Results for poll:', results);
+                
+                // Get user vote from the submit button
+                const pollCard = viewResultsBtn.closest('.poll-card');
+                const submitBtn = pollCard.querySelector('.submit-vote-btn');
+                const userVote = submitBtn ? submitBtn.dataset.selectedOption : null;
+                
+                console.log('Opening popup for poll:', pollId, 'with results:', results, 'userVote:', userVote);
+                showVotersPopup(parseInt(pollId), results, userVote);
+            } else {
+                console.log('No poll ID found on button');
+            }
+        }
+    });
+    
+    console.log('Voting system setup complete');
+}
+
+// Load voting history from localStorage
+function loadVotingHistory() {
+    const savedVotes = localStorage.getItem(`voting_history_${votingState.walletAddress}`);
+    if (savedVotes) {
+        const votes = JSON.parse(savedVotes);
+        votingState.votedPolls = new Set(votes);
+        updateVotedPollsUI();
+    }
+}
+
+// Save voting history to localStorage
+function saveVotingHistory() {
+    const votes = Array.from(votingState.votedPolls);
+    localStorage.setItem(`voting_history_${votingState.walletAddress}`, JSON.stringify(votes));
+}
+
+// Update UI for already voted polls
+function updateVotedPollsUI() {
+    votingState.votedPolls.forEach(pollId => {
+        const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
+        const submitBtn = pollCard.querySelector('.submit-vote-btn');
+        const pollOptions = pollCard.querySelector('.poll-options');
+        
+        if (pollOptions && submitBtn) {
+            pollOptions.style.pointerEvents = 'none';
+            pollOptions.style.opacity = '0.6';
+            submitBtn.disabled = true;
+            submitBtn.textContent = '✓ Already Voted';
+            submitBtn.style.background = '#10b981';
+        }
+    });
+}
+
+// Setup poll interactions
+function setupPollInteractions() {
+    console.log('Setting up poll interactions...');
     for (let i = 1; i <= 3; i++) {
         const pollOptions = document.getElementById(`poll-options-${i}`);
         const submitBtn = document.getElementById(`submit-vote-btn-${i}`);
         
-        if (!pollOptions || !submitBtn) continue;
+        console.log(`Poll ${i} - Options element:`, pollOptions);
+        console.log(`Poll ${i} - Submit button:`, submitBtn);
         
-        let selectedOption = null;
+        if (!pollOptions || !submitBtn) {
+            console.log(`Poll ${i} - Missing elements, skipping`);
+            continue;
+        }
+        
+        // Skip if already voted
+        if (votingState.votedPolls.has(i)) {
+            continue;
+        }
+        
+        // Store selected option in a way that's accessible to both event listeners
+        const pollData = { selectedOption: null };
         
         // Handle option selection
         pollOptions.addEventListener('click', (e) => {
+            console.log('Poll options clicked!', e.target);
             const option = e.target.closest('.poll-option');
+            console.log('Closest poll option:', option);
             if (!option) return;
             
             // Remove previous selection in this poll
             pollOptions.querySelectorAll('.poll-option').forEach(opt => {
                 opt.classList.remove('selected');
                 const circle = opt.querySelector('.option-circle');
-                circle.classList.remove('selected');
+                if (circle) circle.classList.remove('selected');
             });
             
             // Add selection to clicked option
             option.classList.add('selected');
             const circle = option.querySelector('.option-circle');
-            circle.classList.add('selected');
+            if (circle) circle.classList.add('selected');
             
-            selectedOption = option.dataset.option;
+            pollData.selectedOption = option.dataset.option;
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Vote';
+            submitBtn.style.background = '#3b82f6';
+            
+            console.log(`Option selected for poll ${i}: ${pollData.selectedOption}`);
         });
         
         // Handle vote submission
-        submitBtn.addEventListener('click', () => {
-            if (!selectedOption) return;
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(`Submit button clicked for poll ${i}, selected option: ${pollData.selectedOption}`);
             
-            // Disable the poll
-            pollOptions.style.pointerEvents = 'none';
-            pollOptions.style.opacity = '0.6';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Vote Submitted';
+            if (!pollData.selectedOption) {
+                console.log('No option selected');
+                return;
+            }
             
-            // Show success message
-            setTimeout(() => {
-                submitBtn.textContent = '✓ Vote Recorded';
-                submitBtn.style.background = '#10b981';
-            }, 500);
+            submitVote(i, pollData.selectedOption);
         });
     }
+}
+
+// Submit vote function
+function submitVote(pollId, option) {
+    // Add to voted polls
+    votingState.votedPolls.add(pollId);
+    saveVotingHistory();
+    
+    // Update poll results (simulate vote)
+    updatePollResults(pollId, option);
+    
+    // Update UI
+    const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
+    const pollOptions = pollCard.querySelector('.poll-options');
+    const submitBtn = pollCard.querySelector('.submit-vote-btn');
+    
+    // Disable the poll
+    pollOptions.style.pointerEvents = 'none';
+    pollOptions.style.opacity = '0.6';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Vote Submitted';
+    
+    // Show success message
+    setTimeout(() => {
+        submitBtn.textContent = '✓ Vote Recorded';
+        submitBtn.style.background = '#10b981';
+        
+        // Show results for this poll
+        showPollResults(pollId);
+    }, 500);
+    
+    // Note: Voting history only shows completed polls, not active polls
+    // Active polls that users vote on should not appear in the history until finished
+    
+    console.log(`Vote submitted for poll ${pollId}: ${option}`);
+}
+
+// Update poll results (simulate adding a vote)
+function updatePollResults(pollId, option) {
+    if (votingState.pollResults[pollId]) {
+        votingState.pollResults[pollId][option]++;
+        votingState.pollResults[pollId].total++;
+    }
+}
+
+// Show poll results
+function showPollResults(pollId) {
+    const results = votingState.pollResults[pollId];
+    if (!results) return;
+    
+    const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
+    const pollOptions = pollCard.querySelector('.poll-options');
+    const pollActions = pollCard.querySelector('.poll-actions');
+    
+    // Calculate percentages
+    const yesPercent = ((results.yes / results.total) * 100).toFixed(1);
+    const noPercent = ((results.no / results.total) * 100).toFixed(1);
+    
+    // Get the user's vote to show checkmark
+    const userVote = pollActions.querySelector('.submit-vote-btn').dataset.selectedOption;
+    
+    // Create Telegram-style results display
+    const resultsHTML = `
+        <div class="poll-results-telegram" style="margin-bottom: 0; padding: 16px 16px 8px 16px; background: rgba(59, 130, 246, 0.05); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1); width: 100%; box-sizing: border-box;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span style="color: #3b82f6; font-size: 16px; font-weight: 600;">Poll Results</span>
+                <span style="color: #9ca3af; font-size: 14px;">${results.total} votes</span>
+            </div>
+            
+            <!-- Yes Option -->
+            <div style="margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="color: #10b981; font-size: 14px; font-weight: 600;">${yesPercent}% Yes</span>
+                        ${userVote === 'yes' ? '<span style="color: #10b981; font-size: 16px;">✓</span>' : ''}
+                    </div>
+                </div>
+                <div style="background: #374151; height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div style="background: #10b981; height: 100%; width: ${yesPercent}%; transition: width 0.8s ease;"></div>
+                </div>
+            </div>
+            
+            <!-- No Option -->
+            <div style="margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="color: #ef4444; font-size: 14px; font-weight: 600;">${noPercent}% No</span>
+                        ${userVote === 'no' ? '<span style="color: #ef4444; font-size: 16px;">✓</span>' : ''}
+                    </div>
+                </div>
+                <div style="background: #374151; height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div style="background: #ef4444; height: 100%; width: ${noPercent}%; transition: width 0.8s ease;"></div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Hide the poll options (like Telegram)
+    pollOptions.style.display = 'none';
+    
+    // Remove existing results if any
+    const existingResults = pollCard.querySelector('.poll-results-display, .poll-results-compact, .poll-results-telegram');
+    if (existingResults) {
+        existingResults.remove();
+    }
+    
+    // Insert results above the submit button
+    pollActions.insertAdjacentHTML('afterbegin', resultsHTML);
+    
+    // Add VIEW RESULTS text outside the poll results box
+    const viewResultsHTML = `
+        <div style="text-align: center;">
+            <button class="view-results-btn" data-poll-id="${pollId}" style="background: none; border: none; color: #3b82f6; font-size: 11px; font-weight: 500; cursor: pointer; text-decoration: underline; transition: color 0.2s ease; opacity: 0.8;">
+                VIEW RESULTS
+            </button>
+        </div>
+    `;
+    
+    // Remove any existing VIEW RESULTS first
+    const existingViewResults = pollCard.querySelector('.view-results-btn');
+    if (existingViewResults) {
+        existingViewResults.closest('div').remove();
+    }
+    
+    // Insert VIEW RESULTS after the poll results box
+    const pollResultsBox = pollCard.querySelector('.poll-results-telegram');
+    if (pollResultsBox) {
+        pollResultsBox.insertAdjacentHTML('afterend', viewResultsHTML);
+    }
+    
+    // Add event listener for VIEW RESULTS button using event delegation
+    setTimeout(() => {
+        const viewResultsBtn = pollCard.querySelector('.view-results-btn');
+        console.log('VIEW RESULTS button found:', viewResultsBtn);
+        if (viewResultsBtn) {
+            viewResultsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('VIEW RESULTS clicked!');
+                showVotersPopup(pollId, results, userVote);
+            });
+        } else {
+            console.log('VIEW RESULTS button not found!');
+        }
+    }, 100);
+}
+
+// Show voters popup with detailed results
+function showVotersPopup(pollId, results, userVote) {
+    console.log('showVotersPopup called with:', { pollId, results, userVote });
+    
+    // Calculate percentages
+    const yesPercent = ((results.yes / results.total) * 100).toFixed(1);
+    const noPercent = ((results.no / results.total) * 100).toFixed(1);
+    
+    console.log('Calculated percentages:', { yesPercent, noPercent });
+    
+    // Generate mock voter data for demonstration
+    const generateMockVoters = (count, voteType) => {
+        const voters = [];
+        for (let i = 1; i <= count; i++) {
+            voters.push({
+                address: `0x${Math.random().toString(16).substr(2, 40)}`,
+                vote: voteType,
+                timestamp: new Date(Date.now() - Math.random() * 86400000).toLocaleString()
+            });
+        }
+        return voters;
+    };
+    
+    const yesVoters = generateMockVoters(results.yes, 'yes');
+    const noVoters = generateMockVoters(results.no, 'no');
+    
+    // Create popup HTML
+    const popupHTML = `
+        <div class="voters-popup-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <div class="voters-popup" style="background: #1f2937; border-radius: 16px; padding: 24px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: #3b82f6; font-size: 18px; font-weight: 600; margin: 0;">Poll Results</h3>
+                    <button class="close-popup-btn" style="background: none; border: none; color: #9ca3af; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
+                </div>
+                
+                <!-- Yes Voters -->
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="color: #10b981; font-size: 16px; font-weight: 600;">${yesPercent}% | ${results.yes}</span>
+                        <div style="background: #10b981; height: 4px; border-radius: 2px; flex: 1; max-width: 200px;">
+                            <div style="background: #10b981; height: 100%; width: 100%; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                    <div style="max-height: 200px; overflow-y: auto; background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px;">
+                        ${yesVoters.map(voter => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(16, 185, 129, 0.2);">
+                                <div style="color: #10b981; font-size: 12px; font-weight: 600; font-family: monospace;">
+                                    ${voter.address.substring(0, 6)}...${voter.address.substring(voter.address.length - 4)}
+                                </div>
+                                <span style="color: #10b981; font-size: 14px;">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- No Voters -->
+                <div style="margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="color: #ef4444; font-size: 16px; font-weight: 600;">${noPercent}% | ${results.no}</span>
+                        <div style="background: #374151; height: 4px; border-radius: 2px; flex: 1; max-width: 200px;">
+                            <div style="background: #ef4444; height: 100%; width: 100%; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                    <div style="max-height: 200px; overflow-y: auto; background: rgba(239, 68, 68, 0.1); border-radius: 8px; padding: 12px;">
+                        ${noVoters.map(voter => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(239, 68, 68, 0.2);">
+                                <div style="color: #ef4444; font-size: 12px; font-weight: 600; font-family: monospace;">
+                                    ${voter.address.substring(0, 6)}...${voter.address.substring(voter.address.length - 4)}
+                                </div>
+                                <span style="color: #ef4444; font-size: 14px;">✓</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Summary -->
+                <div style="text-align: center; padding-top: 16px; border-top: 1px solid rgba(59, 130, 246, 0.2);">
+                    <span style="color: #9ca3af; font-size: 14px;">Total: ${results.total} votes</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing popup if any
+    const existingPopup = document.querySelector('.voters-popup-overlay');
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+    
+    // Add popup to page
+    console.log('Adding popup to page...');
+    document.body.insertAdjacentHTML('beforeend', popupHTML);
+    console.log('Popup HTML added to page');
+    
+    // Test if popup is visible
+    setTimeout(() => {
+        const testOverlay = document.querySelector('.voters-popup-overlay');
+        console.log('Test overlay found:', testOverlay);
+        if (testOverlay) {
+            console.log('Overlay is visible:', testOverlay.offsetHeight > 0);
+            console.log('Overlay style display:', testOverlay.style.display);
+        }
+    }, 100);
+    
+    // Add event listeners
+    const closeBtn = document.querySelector('.close-popup-btn');
+    const overlay = document.querySelector('.voters-popup-overlay');
+    console.log('Close button found:', closeBtn);
+    console.log('Overlay found:', overlay);
+    
+    closeBtn.addEventListener('click', () => {
+        overlay.remove();
+    });
+    
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+    
+    // Close on Escape key
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            overlay.remove();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+}
+
+// Update voting spreadsheet with current data
+function updateVotingSpreadsheet() {
+    const spreadsheet = document.querySelector('.polls-spreadsheet');
+    if (!spreadsheet) return;
+    
+    // Only update the voting history for completed polls
+    // Active polls should not appear in the voting history until they are finished
+    const dataRows = spreadsheet.querySelectorAll('.spreadsheet-row');
+    dataRows.forEach((row, index) => {
+        const pollId = index + 1;
+        const results = votingState.pollResults[pollId];
+        if (!results) return;
+        
+        const cells = row.querySelectorAll('.data-cell');
+        if (cells.length >= 6) {
+            // Only show completed polls in voting history
+            // For now, we'll keep the original static data for completed polls
+            // Active polls that users vote on should not appear in the history
+            
+            // Update Status - only show "Completed" for finished polls
+            const statusCell = cells[1];
+            statusCell.innerHTML = '<span class="result-badge" style="background: #6b7280; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Completed</span>';
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setupVotingSystem(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});

@@ -3067,11 +3067,6 @@
     transition: all 0.3s ease;
 }
 
-.poll-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    border-color: rgba(16, 185, 129, 0.3);
-}
 
 .poll-header {
     display: flex;
@@ -3171,10 +3166,6 @@
     background: rgba(255, 255, 255, 0.05);
 }
 
-.poll-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-}
 
 .poll-option.selected {
     background: rgba(16, 185, 129, 0.1);
@@ -3276,9 +3267,106 @@
 /* Poll Results */
 .poll-results {
     max-width: 600px;
-    margin: 30px auto;
+    margin: 15px auto 10px auto;
     padding: 0 20px;
 }
+
+/* Poll Option Selection Styles */
+.poll-option {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: rgba(31, 41, 55, 0.5);
+    border: 1px solid transparent;
+}
+
+
+.poll-option.selected {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.poll-option.selected .option-circle {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.poll-option.selected .option-circle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.option-circle {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #6b7280;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.option-circle.selected {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Submit Vote Button Styles */
+.submit-vote-btn {
+    background: #6b7280;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.submit-vote-btn:not(:disabled) {
+    background: #3b82f6;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.submit-vote-btn:not(:disabled):hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+}
+
+.submit-vote-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Poll Results Display */
+.poll-results-display {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .results-card {
     background: #ffffff;
@@ -3389,7 +3477,7 @@
 .completed-polls-section {
     padding: 0;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 24px;
     margin-bottom: 0;
 }
 
@@ -3414,7 +3502,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
         margin: 0;
-    max-height: 360px;
+    max-height: 330px;
     overflow-y: auto;
 }
 
@@ -3584,8 +3672,12 @@
     }
     
     .poll-results {
-        margin: 20px auto;
+        margin: 10px auto 5px auto;
         padding: 0 16px;
+    }
+    
+    .completed-polls-section {
+        margin-top: 20px;
     }
     
     .poll-card,
@@ -3659,10 +3751,9 @@
     /* Header cells - first row */
     .polls-spreadsheet .header-cell {
         background: #1e293b !important;
-
-border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         position: sticky !important;
-        top: 0 !important;
+    top: 0 !important;
         z-index: 10 !important;
     }
     
@@ -3723,7 +3814,7 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
-        max-height: 450px;
+        max-height: 350px;
     }
     
     /* Custom scrollbar styling for tablet */
@@ -3774,6 +3865,10 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 @media (max-width: 480px) {
     .vote-page {
         padding: 55px 2px 0px 2px;
+    }
+    
+    .completed-polls-section {
+        margin-top: 16px;
     }
     
     /* Mobile spreadsheet - using same scroller approach as harvesting */
