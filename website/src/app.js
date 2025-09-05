@@ -2804,19 +2804,47 @@ function saveVotingHistory() {
     localStorage.setItem(`voting_history_${votingState.walletAddress}`, JSON.stringify(votes));
 }
 
-// Update UI for already voted polls
+// Save user's vote choice
+function saveUserVote(pollId, option) {
+    const userVotes = JSON.parse(localStorage.getItem(`user_votes_${votingState.walletAddress}`) || '{}');
+    userVotes[pollId] = option;
+    localStorage.setItem(`user_votes_${votingState.walletAddress}`, JSON.stringify(userVotes));
+}
+
+// Load user's vote choices
+function loadUserVotes() {
+    const userVotes = JSON.parse(localStorage.getItem(`user_votes_${votingState.walletAddress}`) || '{}');
+    return userVotes;
+}
+
+// Update UI for already voted polls (optimized)
 function updateVotedPollsUI() {
+    if (votingState.votedPolls.size === 0) return;
+    
+    const userVotes = loadUserVotes();
+    
+    // Process all voted polls in one batch
     votingState.votedPolls.forEach(pollId => {
-        const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
-        const submitBtn = pollCard.querySelector('.submit-vote-btn');
-        const pollOptions = pollCard.querySelector('.poll-options');
+        const pollOptions = document.getElementById(`poll-options-${pollId}`);
+        if (!pollOptions) return;
+        
+        const pollCard = pollOptions.closest('.poll-card');
+        const submitBtn = pollCard?.querySelector('.submit-vote-btn');
         
         if (pollOptions && submitBtn) {
-            pollOptions.style.pointerEvents = 'none';
-            pollOptions.style.opacity = '0.6';
+            // Hide poll options and show results
+            pollOptions.style.display = 'none';
             submitBtn.disabled = true;
             submitBtn.textContent = '✓ Already Voted';
             submitBtn.style.background = '#10b981';
+            
+            // Set the selected option for the results display
+            if (userVotes[pollId]) {
+                submitBtn.dataset.selectedOption = userVotes[pollId];
+            }
+            
+            // Show poll results for already voted polls
+            showPollResults(pollId);
         }
     });
 }
@@ -2891,6 +2919,9 @@ function submitVote(pollId, option) {
     // Add to voted polls
     votingState.votedPolls.add(pollId);
     saveVotingHistory();
+    
+    // Save user's vote choice
+    saveUserVote(pollId, option);
     
     // Update poll results (simulate vote)
     updatePollResults(pollId, option);
@@ -3186,4 +3217,25 @@ function updateVotingSpreadsheet() {
     });
 }
 
-document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setupVotingSystem(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
+// Function to reinitialize voting system when vote page is shown
+function reinitializeVotingSystem() {
+    // Reload voting history
+    loadVotingHistory();
+    
+    // Update UI for already voted polls
+    updateVotedPollsUI();
+}
+
+// Optimized function to check and restore voting state
+function checkAndRestoreVotingState() {
+    const votePage = document.querySelector('.vote-page');
+    if (votePage) {
+        reinitializeVotingSystem();
+    }
+}
+
+// Make functions globally available for debugging
+window.reinitializeVotingSystem = reinitializeVotingSystem;
+window.checkAndRestoreVotingState = checkAndRestoreVotingState;
+
+document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0});const u=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector(".vote-page")&&(reinitializeVotingSystem())})})});a&&u.observe(a,{childList:!0,subtree:!0});setInterval(()=>{checkAndRestoreVotingState()},500),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setupVotingSystem(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
