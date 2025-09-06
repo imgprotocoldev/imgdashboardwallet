@@ -2832,6 +2832,9 @@ async function initializeVotingSystem() {
     
     // Check if we're on voting page
     const votePage = document.getElementById('vote');
+    console.log('🗳️ Vote page element:', votePage);
+    console.log('🗳️ Vote page display:', votePage?.style.display);
+    
     if (!votePage || votePage.style.display === 'none') {
         console.log('🗳️ Not on voting page');
         return;
@@ -2887,30 +2890,49 @@ function updatePollCards(polls) {
 
 // Setup voting event listeners
 function setupVotingEventListeners() {
+    console.log('🗳️ Setting up voting event listeners...');
+    
     // Use event delegation for poll options
     document.addEventListener('click', async (e) => {
+        console.log('🗳️ Click detected on:', e.target);
+        console.log('🗳️ Target classes:', e.target.classList);
+        console.log('🗳️ Target dataset:', e.target.dataset);
+        
         // Handle poll option selection
         if (e.target.classList.contains('poll-option')) {
+            console.log('🗳️ Poll option clicked!');
             const pollId = e.target.closest('[data-poll-id]')?.dataset.pollId;
             const option = e.target.dataset.option;
             
+            console.log('🗳️ Poll ID:', pollId);
+            console.log('🗳️ Option:', option);
+            
             if (pollId && option) {
                 selectPollOption(pollId, option);
+            } else {
+                console.log('🗳️ Missing pollId or option');
             }
         }
         
         // Handle vote submission
         if (e.target.classList.contains('submit-vote-btn')) {
+            console.log('🗳️ Submit button clicked!');
             const pollId = e.target.dataset.pollId;
             const selectedOption = e.target.dataset.selectedOption;
             
+            console.log('🗳️ Submit - Poll ID:', pollId);
+            console.log('🗳️ Submit - Selected option:', selectedOption);
+            
             if (pollId && selectedOption) {
                 await submitVote(pollId, selectedOption);
+            } else {
+                console.log('🗳️ Missing pollId or selectedOption for submit');
             }
         }
         
         // Handle view results
         if (e.target.classList.contains('view-results-btn')) {
+            console.log('🗳️ View results clicked!');
             const pollId = e.target.dataset.pollId;
             if (pollId) {
                 await showPollResults(pollId);
@@ -3051,6 +3073,19 @@ function displayPollResults(pollId, results) {
 // Global functions for voting system
 window.initializeVotingSystem = initializeVotingSystem;
 window.reinitializeVotingSystem = () => {
+    votingState.initialized = false;
+    initializeVotingSystem();
+};
+
+// Manual test function
+window.testVotingSystem = () => {
+    console.log('🧪 MANUAL TEST: Testing voting system...');
+    console.log('🧪 Vote page element:', document.getElementById('vote'));
+    console.log('🧪 Poll options found:', document.querySelectorAll('.poll-option').length);
+    console.log('🧪 Submit buttons found:', document.querySelectorAll('.submit-vote-btn').length);
+    console.log('🧪 Poll cards found:', document.querySelectorAll('[data-poll-id]').length);
+    
+    // Try to initialize
     votingState.initialized = false;
     initializeVotingSystem();
 };
