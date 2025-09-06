@@ -3089,6 +3089,10 @@ function setupPollInteractions() {
         // Store selected option in a way that's accessible to both event listeners
         const pollData = { selectedOption: null };
         
+        // Remove any existing click listeners to prevent duplicates
+        const newSubmitBtn = submitBtn.cloneNode(true);
+        submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+        
         // Handle option selection
         pollOptions.addEventListener('click', (e) => {
             const option = e.target.closest('.poll-option');
@@ -3109,25 +3113,29 @@ function setupPollInteractions() {
             if (circle) circle.classList.add('selected');
             
             pollData.selectedOption = option.dataset.option;
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Vote';
-            submitBtn.style.background = '#3b82f6';
             
-            console.log(`🗳️ Poll ${i}: Submit button enabled for option ${option.dataset.option}`);
+            // Find the current submit button in the DOM (in case it was replaced)
+            const currentSubmitBtn = document.getElementById(`submit-vote-btn-${i}`);
+            if (currentSubmitBtn) {
+                currentSubmitBtn.disabled = false;
+                currentSubmitBtn.textContent = 'Submit Vote';
+                currentSubmitBtn.style.background = '#3b82f6';
+                console.log(`🗳️ Poll ${i}: Submit button enabled for option ${option.dataset.option}`);
+            } else {
+                console.error(`🗳️ Poll ${i}: Could not find submit button to enable`);
+            }
         });
-        
-        // Remove any existing click listeners to prevent duplicates
-        const newSubmitBtn = submitBtn.cloneNode(true);
-        submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
         
         // Handle vote submission
         newSubmitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
             if (!pollData.selectedOption) {
+                console.log(`🗳️ Poll ${i}: No option selected, cannot submit vote`);
                 return;
             }
             
+            console.log(`🗳️ Poll ${i}: Submitting vote for option ${pollData.selectedOption}`);
             submitVote(i, pollData.selectedOption);
         });
         
