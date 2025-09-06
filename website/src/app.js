@@ -2681,6 +2681,14 @@ const votingState = {
     apiBaseUrl: 'https://img-protocol-backend.onrender.com'
 };
 
+// Function to get the current wallet address
+function getCurrentWalletAddress() {
+    if (window.walletManager && window.walletManager.walletAddress) {
+        return window.walletManager.walletAddress;
+    }
+    return null;
+}
+
 // API Functions
 async function fetchActivePolls() {
     try {
@@ -2715,12 +2723,18 @@ async function fetchActivePolls() {
 
 async function submitVoteToAPI(pollId, voteOption) {
     try {
+        // Always get the current wallet address
+        const currentWalletAddress = getCurrentWalletAddress();
+        if (!currentWalletAddress) {
+            throw new Error('No wallet connected');
+        }
+        
         console.log(`🗳️ Attempting to submit vote for poll ${pollId} with option ${voteOption}`);
         console.log(`🗳️ API URL: ${votingState.apiBaseUrl}/api/polls/${pollId}/vote`);
-        console.log(`🗳️ Wallet address: ${votingState.walletAddress}`);
+        console.log(`🗳️ Wallet address: ${currentWalletAddress}`);
         
         const requestBody = {
-            walletAddress: votingState.walletAddress,
+            walletAddress: currentWalletAddress,
             voteOption: voteOption
         };
         console.log(`🗳️ Request body:`, requestBody);

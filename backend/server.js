@@ -23,8 +23,22 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Solana connection (using public RPC endpoint)
-const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+// Solana connection (using multiple RPC endpoints for better reliability)
+const rpcEndpoints = [
+    'https://api.mainnet-beta.solana.com',
+    'https://rpc.ankr.com/solana',
+    'https://solana-api.projectserum.com'
+];
+
+let currentRpcIndex = 0;
+const connection = new Connection(rpcEndpoints[currentRpcIndex], 'confirmed');
+
+// Function to switch RPC endpoint on rate limit
+function switchRpcEndpoint() {
+    currentRpcIndex = (currentRpcIndex + 1) % rpcEndpoints.length;
+    console.log(`🔄 Switching to RPC endpoint: ${rpcEndpoints[currentRpcIndex]}`);
+    return new Connection(rpcEndpoints[currentRpcIndex], 'confirmed');
+}
 
 // IMG token mint address
 const IMG_TOKEN_MINT = 'znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh';
@@ -389,10 +403,27 @@ app.post('/api/polls/:id/vote', async (req, res) => {
     try {
         // First verify the wallet has enough IMG tokens
         const publicKey = new PublicKey(walletAddress);
-        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
-            publicKey,
-            { mint: new PublicKey(IMG_TOKEN_MINT) }
-        );
+        
+        let tokenAccounts;
+        let currentConnection = connection;
+        
+        try {
+            tokenAccounts = await currentConnection.getParsedTokenAccountsByOwner(
+                publicKey,
+                { mint: new PublicKey(IMG_TOKEN_MINT) }
+            );
+        } catch (rpcError) {
+            if (rpcError.message.includes('429') || rpcError.message.includes('Too many requests')) {
+                console.log('🔄 RPC rate limited, switching endpoint...');
+                currentConnection = switchRpcEndpoint();
+                tokenAccounts = await currentConnection.getParsedTokenAccountsByOwner(
+                    publicKey,
+                    { mint: new PublicKey(IMG_TOKEN_MINT) }
+                );
+            } else {
+                throw rpcError;
+            }
+        }
 
         let totalBalance = 0;
         tokenAccounts.value.forEach(account => {
