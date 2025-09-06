@@ -2732,6 +2732,9 @@ function resetVotingUI() {
             if (existingResults) {
                 existingResults.remove();
             }
+            
+            // Clear event listener markers
+            pollOptions.removeAttribute('data-listeners-attached');
         }
     }
 }
@@ -2899,79 +2902,7 @@ async function setupVotingSystem() {
     
     checkForVotingElements();
     
-    // Also add event delegation for dynamically loaded content
-    document.addEventListener('click', (e) => {
-        // Check if clicked element is a poll option
-        const pollOption = e.target.closest('.poll-option');
-        if (pollOption) {
-            console.log('Poll option clicked via delegation!', pollOption);
-            
-            const pollOptions = pollOption.closest('.poll-options');
-            const pollId = pollOptions ? pollOptions.id.replace('poll-options-', '') : null;
-            const submitBtn = document.getElementById(`submit-vote-btn-${pollId}`);
-            
-            if (pollOptions && submitBtn && !votingState.votedPolls.has(parseInt(pollId))) {
-                // Remove previous selection in this poll
-                pollOptions.querySelectorAll('.poll-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                    const circle = opt.querySelector('.option-circle');
-                    if (circle) circle.classList.remove('selected');
-                });
-                
-                // Add selection to clicked option
-                pollOption.classList.add('selected');
-                const circle = pollOption.querySelector('.option-circle');
-                if (circle) circle.classList.add('selected');
-                
-                // Store selection and enable submit button
-                const selectedOption = pollOption.dataset.option;
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Vote';
-                submitBtn.style.background = '#3b82f6';
-                
-                // Store in a way that submit button can access
-                submitBtn.dataset.selectedOption = selectedOption;
-                
-            }
-        }
-        
-        // Check if clicked element is a submit button
-        const submitBtn = e.target.closest('.submit-vote-btn');
-        if (submitBtn) {
-            const pollId = submitBtn.id.replace('submit-vote-btn-', '');
-            const selectedOption = submitBtn.dataset.selectedOption;
-            
-            if (selectedOption) {
-                submitVote(parseInt(pollId), selectedOption);
-            }
-        }
-        
-        // Check if clicked element is a VIEW RESULTS button
-        const viewResultsBtn = e.target.closest('.view-results-btn');
-        if (viewResultsBtn) {
-            console.log('VIEW RESULTS button clicked via delegation!', viewResultsBtn);
-            e.preventDefault();
-            
-            const pollId = viewResultsBtn.dataset.pollId;
-            console.log('Poll ID from button:', pollId);
-            
-            if (pollId) {
-                // Get the results from the poll state
-                const results = votingState.pollResults[parseInt(pollId)];
-                console.log('Results for poll:', results);
-                
-                // Get user vote from the submit button
-                const pollCard = viewResultsBtn.closest('.poll-card');
-                const submitBtn = pollCard.querySelector('.submit-vote-btn');
-                const userVote = submitBtn ? submitBtn.dataset.selectedOption : null;
-                
-                console.log('Opening popup for poll:', pollId, 'with results:', results, 'userVote:', userVote);
-                showVotersPopup(parseInt(pollId), results, userVote);
-            } else {
-                console.log('No poll ID found on button');
-            }
-        }
-    });
+    // Event delegation is handled by setupPollInteractions() now
     
     console.log('Voting system setup complete');
 }
@@ -3052,6 +2983,11 @@ function setupPollInteractions() {
             continue;
         }
         
+        // Skip if event listeners are already attached
+        if (pollOptions.hasAttribute('data-listeners-attached')) {
+            continue;
+        }
+        
         // Store selected option in a way that's accessible to both event listeners
         const pollData = { selectedOption: null };
         
@@ -3089,6 +3025,9 @@ function setupPollInteractions() {
             
             submitVote(i, pollData.selectedOption);
         });
+        
+        // Mark that event listeners are attached
+        pollOptions.setAttribute('data-listeners-attached', 'true');
     }
 }
 
@@ -3421,7 +3360,9 @@ async function reinitializeVotingSystem() {
 function checkAndRestoreVotingState() {
     const votePage = document.querySelector('.vote-page');
     if (votePage) {
-        reinitializeVotingSystem();
+        // Don't reinitialize if voting system is already set up
+        // This prevents clearing selected options
+        return;
     }
 }
 
