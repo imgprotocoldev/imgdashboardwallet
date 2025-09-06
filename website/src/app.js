@@ -2681,6 +2681,10 @@ const votingState = {
     apiBaseUrl: 'https://img-protocol-backend.onrender.com'
 };
 
+// Clear voting history on page load to start fresh
+localStorage.removeItem('votingHistory');
+localStorage.removeItem('userVotes');
+
 // Function to get the current wallet address
 function getCurrentWalletAddress() {
     if (window.walletManager && window.walletManager.walletAddress) {
@@ -3372,8 +3376,7 @@ function checkAndRestoreVotingState() {
 }
 
 // Initialize voting system when page loads
-async function initializeVotingOnPageLoad() {
-    const votePage = document.querySelector('.vote-page');
+async function initializeVotingOnPageLoad() {    const votePage = document.querySelector('.vote-page');
     if (votePage) {
         await setupVotingSystem();
     }

@@ -404,6 +404,7 @@ app.post('/api/polls/:id/vote', async (req, res) => {
         // Skip wallet verification since we already know the wallet is connected and has premium access
         // The frontend already verifies wallet connection and premium access before allowing voting
         console.log(`🗳️ Vote submission for wallet: ${walletAddress}`);
+        console.log(`🗳️ Poll ID: ${id}, Vote Option: ${voteOption}`);
 
         // Check if poll exists and is active
         db.get('SELECT * FROM polls WHERE id = ? AND status = "active"', [id], (err, poll) => {
@@ -424,12 +425,14 @@ app.post('/api/polls/:id/vote', async (req, res) => {
             }
 
             // Insert vote (will fail if wallet already voted due to UNIQUE constraint)
+            console.log(`🗳️ Inserting vote: poll_id=${id}, wallet_address=${walletAddress}, vote_option=${voteOption}`);
             db.run(`
                 INSERT INTO votes (poll_id, wallet_address, vote_option)
                 VALUES (?, ?, ?)
             `, [id, walletAddress, voteOption], function(err) {
                 if (err) {
                     if (err.message.includes('UNIQUE constraint failed')) {
+                        console.log(`❌ UNIQUE constraint failed: Wallet ${walletAddress} already voted on poll ${id}`);
                         return res.status(400).json({ error: 'You have already voted on this poll' });
                     }
                     console.error('❌ Error submitting vote:', err.message);
@@ -446,6 +449,7 @@ app.post('/api/polls/:id/vote', async (req, res) => {
                         console.error('❌ Error updating poll results:', err.message);
                     }
 
+                    console.log(`✅ Vote successfully recorded: poll_id=${id}, wallet_address=${walletAddress}, vote_option=${voteOption}`);
                     res.json({ 
                         success: true, 
                         message: 'Vote submitted successfully',
