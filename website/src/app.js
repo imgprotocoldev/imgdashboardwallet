@@ -2821,50 +2821,6 @@ async function fetchPollResults(pollId) {
     }
 }
 
-// Update poll cards with real data from API
-async function updatePollCardsWithRealData() {
-    const polls = await fetchActivePolls();
-    
-    polls.forEach(poll => {
-        // Find the poll card by ID (assuming poll IDs match the hardcoded ones)
-        const pollCard = document.querySelector(`#poll-options-${poll.id}`)?.closest('.poll-card');
-        if (!pollCard) return;
-        
-        // Update poll title
-        const pollQuestion = pollCard.querySelector('.poll-question');
-        if (pollQuestion) {
-            pollQuestion.textContent = poll.title;
-        }
-        
-        // Update poll description
-        const pollExplanation = pollCard.querySelector('.poll-explanation');
-        if (pollExplanation) {
-            pollExplanation.textContent = poll.description;
-        }
-        
-        // Update poll category
-        const pollCreator = pollCard.querySelector('.poll-creator');
-        if (pollCreator) {
-            pollCreator.textContent = poll.category;
-        }
-        
-        // Update end date
-        const pollTimestamp = pollCard.querySelector('.poll-timestamp');
-        if (pollTimestamp) {
-            const endDate = new Date(poll.end_date);
-            const formattedDate = endDate.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                timeZoneName: 'short'
-            });
-            pollTimestamp.textContent = `End Date: ${formattedDate}`;
-        }
-        
-    });
-}
 
 // SIMPLE VOTING SYSTEM
 
