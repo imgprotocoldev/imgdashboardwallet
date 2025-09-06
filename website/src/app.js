@@ -2673,24 +2673,12 @@ function setupEventsScrollers() {
     });
 }
 
-// Voting System State Management
+// Simple Voting System State Management
 const votingState = {
-    walletAddress: null,
-    votedPolls: new Set(),
-    pollResults: {},
-    apiBaseUrl: 'https://img-protocol-backend.onrender.com',
-    submittingVote: false
+    apiBaseUrl: 'https://img-protocol-backend.onrender.com'
 };
 
-// Clear voting history on page load to start fresh
-localStorage.removeItem('votingHistory');
-localStorage.removeItem('userVotes');
-// Clear all voting history for any wallet address
-Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('voting_history_') || key.startsWith('user_votes_')) {
-        localStorage.removeItem(key);
-    }
-});
+// Simple voting system - no complex state management needed
 
 // Function to get the current wallet address
 function getCurrentWalletAddress() {
@@ -2700,15 +2688,9 @@ function getCurrentWalletAddress() {
     return null;
 }
 
-// Function to reset voting UI to show voting options instead of results
+// Simple function to reset voting UI
 function resetVotingUI() {
     console.log('🗳️ Resetting voting UI...');
-    console.log('🗳️ VotedPolls before clear:', Array.from(votingState.votedPolls));
-    
-    // Clear voted polls set
-    votingState.votedPolls.clear();
-    
-    console.log('🗳️ VotedPolls after clear:', Array.from(votingState.votedPolls));
     
     // Reset all poll cards to show voting options
     for (let i = 1; i <= 3; i++) {
@@ -2716,18 +2698,15 @@ function resetVotingUI() {
         const submitBtn = document.getElementById(`submit-vote-btn-${i}`);
         
         if (pollOptions && submitBtn) {
-            console.log(`🗳️ Resetting poll ${i} UI`);
-            
             // Reset poll options
             pollOptions.style.pointerEvents = 'auto';
             pollOptions.style.opacity = '1';
-            pollOptions.style.display = 'flex'; // Make sure it's visible
+            pollOptions.style.display = 'flex';
             
             // Reset submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submit Vote';
             submitBtn.style.background = '#6b82f6';
-            submitBtn.dataset.selectedOption = '';
             
             // Clear any selected options
             pollOptions.querySelectorAll('.poll-option').forEach(option => {
@@ -2741,75 +2720,27 @@ function resetVotingUI() {
             if (existingResults) {
                 existingResults.remove();
             }
-            
-            // Clear event listener markers
-            pollOptions.removeAttribute('data-listeners-attached');
         }
     }
 }
 
-// Function to clear voting state when wallet changes
-function clearVotingStateForNewWallet() {
-    console.log('🗳️ Clearing voting state for new wallet...');
+// Simple function to check if user has voted on a poll
+async function hasUserVoted(pollId) {
+    const walletAddress = getCurrentWalletAddress();
+    if (!walletAddress) return false;
     
-    // Clear voted polls set
-    votingState.votedPolls.clear();
-    
-    // Clear poll results
-    votingState.pollResults = {};
-    
-    // Reset voting UI
-    resetVotingUI();
-    
-    console.log('🗳️ Voting state cleared for new wallet');
-}
-
-// Function to check if wallet has changed and clear voting state if needed
-function checkWalletChange() {
-    const currentWalletAddress = getCurrentWalletAddress();
-    const previousWalletAddress = votingState.walletAddress;
-    
-    if (currentWalletAddress && currentWalletAddress !== previousWalletAddress) {
-        console.log('🗳️ Wallet changed from', previousWalletAddress, 'to', currentWalletAddress);
-        clearVotingStateForNewWallet();
-        votingState.walletAddress = currentWalletAddress;
-        return true;
-    }
-    return false;
-}
-
-// Function to sync voting state with backend
-async function syncVotingStateWithBackend() {
     try {
-        console.log('🗳️ Syncing voting state with backend...');
-        
-        // Get current poll results from backend
-        const response = await fetch(`${votingState.apiBaseUrl}/api/polls/active`);
-        if (!response.ok) {
-            console.log('🗳️ Failed to fetch polls from backend');
-            return;
-        }
+        const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/votes`);
+        if (!response.ok) return false;
         
         const data = await response.json();
-        if (data.success && data.polls) {
-            // Check if any polls have votes
-            const hasVotes = data.polls.some(poll => poll.options.total > 0);
-            
-            if (!hasVotes) {
-                console.log('🗳️ Backend has no votes, clearing frontend state');
-                clearVotingStateForNewWallet();
-                
-                // Clear localStorage for this wallet
-                if (votingState.walletAddress) {
-                    localStorage.removeItem(`voting_history_${votingState.walletAddress}`);
-                    localStorage.removeItem(`user_votes_${votingState.walletAddress}`);
-                }
-            } else {
-                console.log('🗳️ Backend has votes, keeping frontend state');
-            }
+        if (data.success && data.votes) {
+            return data.votes.some(vote => vote.wallet_address === walletAddress);
         }
+        return false;
     } catch (error) {
-        console.error('🗳️ Error syncing with backend:', error);
+        console.error('Error checking if user voted:', error);
+        return false;
     }
 }
 
@@ -2817,22 +2748,12 @@ async function syncVotingStateWithBackend() {
 async function fetchActivePolls() {
     try {
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/active`);
-        
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
-        
-        if (data.success && data.polls) {
-            // Convert polls to the format expected by the frontend
-            data.polls.forEach(poll => {
-                votingState.pollResults[poll.id] = poll.options;
-            });
-            return data.polls;
-        } else {
-            return [];
-        }
+        return data.success ? data.polls : [];
     } catch (error) {
         console.error('❌ Error fetching polls:', error);
         return [];
@@ -2945,123 +2866,51 @@ async function updatePollCardsWithRealData() {
     });
 }
 
-// Voting functionality
+// SIMPLE VOTING SYSTEM
+
+// Simple voting system setup
 async function setupVotingSystem() {
-    // Check if wallet has changed and clear state if needed
-    const walletChanged = checkWalletChange();
+    console.log('🗳️ Setting up simple voting system...');
     
-    // Use the real connected wallet address instead of generating a fake one
-    if (window.walletManager && window.walletManager.walletAddress) {
-        votingState.walletAddress = window.walletManager.walletAddress;
-    } else {
-        // Fallback: generate a unique wallet address for this session
-        votingState.walletAddress = '0x' + Math.random().toString(16).substr(2, 40);
-    }
-    
-    // Sync voting state with backend to ensure consistency
-    await syncVotingStateWithBackend();
-    
-    // Reset voting UI to show voting options instead of results
+    // Reset UI to show voting options
     resetVotingUI();
     
-    // Fetch real poll data from API and update poll cards
+    // Fetch poll data and update UI
     await updatePollCardsWithRealData();
     
-    // Load voting history only if wallet didn't change
-    if (!walletChanged) {
-        loadVotingHistory();
-        updateVotedPollsUI();
-    }
+    // Setup poll interactions
+    setupPollInteractions();
     
-    // Wait for voting page elements to be available
-    const checkForVotingElements = () => {
-        const pollOptions = document.getElementById('poll-options-1');
-        if (pollOptions) {
-            setupPollInteractions();
-        } else {
-            setTimeout(checkForVotingElements, 100);
-        }
-    };
-    
-    checkForVotingElements();
-    
-    // Event delegation is handled by setupPollInteractions() now
-    
-    console.log('Voting system setup complete');
+    console.log('🗳️ Simple voting system setup complete');
 }
 
-// Load voting history from localStorage
-function loadVotingHistory() {
-    const savedVotes = localStorage.getItem(`voting_history_${votingState.walletAddress}`);
-    if (savedVotes) {
-        const votes = JSON.parse(savedVotes);
-        votingState.votedPolls = new Set(votes);
-        console.log('🗳️ Loaded voting history:', Array.from(votingState.votedPolls));
-    }
-}
-
-// Save voting history to localStorage
-function saveVotingHistory() {
-    const votes = Array.from(votingState.votedPolls);
-    localStorage.setItem(`voting_history_${votingState.walletAddress}`, JSON.stringify(votes));
-}
-
-// Save user's vote choice
-function saveUserVote(pollId, option) {
-    const userVotes = JSON.parse(localStorage.getItem(`user_votes_${votingState.walletAddress}`) || '{}');
-    userVotes[pollId] = option;
-    localStorage.setItem(`user_votes_${votingState.walletAddress}`, JSON.stringify(userVotes));
-}
-
-// Load user's vote choices
-function loadUserVotes() {
-    const userVotes = JSON.parse(localStorage.getItem(`user_votes_${votingState.walletAddress}`) || '{}');
-    return userVotes;
-}
-
-// Update UI for already voted polls (optimized)
-function updateVotedPollsUI() {
-    console.log('🗳️ updateVotedPollsUI called, votedPolls:', Array.from(votingState.votedPolls));
-    if (votingState.votedPolls.size === 0) return;
-    
-    const userVotes = loadUserVotes();
-    console.log('🗳️ User votes:', userVotes);
-    
-    // Process all voted polls in one batch
-    votingState.votedPolls.forEach(pollId => {
-        console.log(`🗳️ Processing voted poll ${pollId}`);
-        const pollOptions = document.getElementById(`poll-options-${pollId}`);
-        if (!pollOptions) {
-            console.log(`🗳️ Poll options not found for poll ${pollId}`);
-            return;
-        }
+// Simple function to update poll cards with real data
+async function updatePollCardsWithRealData() {
+    try {
+        const polls = await fetchActivePolls();
+        console.log('🗳️ Fetched polls:', polls);
         
-        const pollCard = pollOptions.closest('.poll-card');
-        const submitBtn = pollCard?.querySelector('.submit-vote-btn');
-        
-        if (pollOptions && submitBtn) {
-            console.log(`🗳️ Updating UI for voted poll ${pollId}`);
-            // Hide poll options and show results
-            pollOptions.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.textContent = '✓ Already Voted';
-            submitBtn.style.background = '#10b981';
-            
-            // Set the selected option for the results display
-            if (userVotes[pollId]) {
-                submitBtn.dataset.selectedOption = userVotes[pollId];
+        polls.forEach(poll => {
+            const pollCard = document.querySelector(`#poll-options-${poll.id}`)?.closest('.poll-card');
+            if (pollCard) {
+                // Update poll title and description
+                const titleElement = pollCard.querySelector('.poll-title');
+                const descElement = pollCard.querySelector('.poll-description');
+                
+                if (titleElement) titleElement.textContent = poll.title;
+                if (descElement) descElement.textContent = poll.description;
+                
+                console.log(`✅ Updated poll card ${poll.id} with real data`);
             }
-            
-            // Show poll results for already voted polls
-            showPollResults(pollId);
-        }
-    });
+        });
+    } catch (error) {
+        console.error('❌ Error updating poll cards:', error);
+    }
 }
 
-// Setup poll interactions
+// Simple poll interactions setup
 function setupPollInteractions() {
     console.log('🗳️ Setting up poll interactions...');
-    console.log('🗳️ Current votedPolls:', Array.from(votingState.votedPolls));
     
     for (let i = 1; i <= 3; i++) {
         const pollOptions = document.getElementById(`poll-options-${i}`);
@@ -3072,26 +2921,10 @@ function setupPollInteractions() {
             continue;
         }
         
-        // Skip if already voted
-        if (votingState.votedPolls.has(i)) {
-            console.log(`🗳️ Poll ${i}: Already voted, skipping`);
-            continue;
-        }
-        
-        // Skip if event listeners are already attached
-        if (pollOptions.hasAttribute('data-listeners-attached')) {
-            console.log(`🗳️ Poll ${i}: Event listeners already attached, skipping`);
-            continue;
-        }
-        
         console.log(`🗳️ Poll ${i}: Setting up interactions`);
         
-        // Store selected option in a way that's accessible to both event listeners
+        // Store selected option
         const pollData = { selectedOption: null };
-        
-        // Remove any existing click listeners to prevent duplicates
-        const newSubmitBtn = submitBtn.cloneNode(true);
-        submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
         
         // Handle option selection
         pollOptions.addEventListener('click', (e) => {
@@ -3100,7 +2933,7 @@ function setupPollInteractions() {
             
             console.log(`🗳️ Poll ${i}: Option clicked - ${option.dataset.option}`);
             
-            // Remove previous selection in this poll
+            // Remove previous selection
             pollOptions.querySelectorAll('.poll-option').forEach(opt => {
                 opt.classList.remove('selected');
                 const circle = opt.querySelector('.option-circle');
@@ -3114,20 +2947,16 @@ function setupPollInteractions() {
             
             pollData.selectedOption = option.dataset.option;
             
-            // Find the current submit button in the DOM (in case it was replaced)
-            const currentSubmitBtn = document.getElementById(`submit-vote-btn-${i}`);
-            if (currentSubmitBtn) {
-                currentSubmitBtn.disabled = false;
-                currentSubmitBtn.textContent = 'Submit Vote';
-                currentSubmitBtn.style.background = '#3b82f6';
-                console.log(`🗳️ Poll ${i}: Submit button enabled for option ${option.dataset.option}`);
-            } else {
-                console.error(`🗳️ Poll ${i}: Could not find submit button to enable`);
-            }
+            // Enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Vote';
+            submitBtn.style.background = '#3b82f6';
+            
+            console.log(`🗳️ Poll ${i}: Submit button enabled for option ${option.dataset.option}`);
         });
         
         // Handle vote submission
-        newSubmitBtn.addEventListener('click', (e) => {
+        submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             
             if (!pollData.selectedOption) {
@@ -3136,408 +2965,200 @@ function setupPollInteractions() {
             }
             
             console.log(`🗳️ Poll ${i}: Submitting vote for option ${pollData.selectedOption}`);
-            submitVote(i, pollData.selectedOption);
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.style.background = '#6b7280';
+            
+            // Submit vote
+            const success = await submitVoteToAPI(i, pollData.selectedOption);
+            
+            if (success) {
+                // Show success state
+                submitBtn.textContent = '✓ Vote Recorded';
+                submitBtn.style.background = '#10b981';
+                
+                // Disable poll options
+                pollOptions.style.pointerEvents = 'none';
+                pollOptions.style.opacity = '0.6';
+                
+                // Show results
+                await showPollResults(i);
+                
+                console.log(`✅ Vote submitted successfully for poll ${i}: ${pollData.selectedOption}`);
+            } else {
+                // Reset button on failure
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Vote';
+                submitBtn.style.background = '#3b82f6';
+            }
         });
-        
-        // Mark that event listeners are attached
-        pollOptions.setAttribute('data-listeners-attached', 'true');
     }
 }
 
-// Submit vote function
-async function submitVote(pollId, option) {
-    // Prevent multiple submissions
-    if (votingState.submittingVote) {
-        console.log('⚠️ Vote submission already in progress, ignoring duplicate');
-        return;
-    }
-    
-    // Check if already voted
-    if (votingState.votedPolls.has(pollId)) {
-        console.log('⚠️ Already voted on this poll, ignoring submission');
-        return;
-    }
-    
-    // Set submission flag
-    votingState.submittingVote = true;
-    
-    // Show loading state
-    const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
-    const pollOptions = pollCard.querySelector('.poll-options');
-    const submitBtn = pollCard.querySelector('.submit-vote-btn');
-    
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-    submitBtn.style.background = '#6b7280';
-    
-    // Submit vote to API
-    const success = await submitVoteToAPI(pollId, option);
-    
-    if (success) {
-        // Add to voted polls
-        votingState.votedPolls.add(pollId);
-        saveVotingHistory();
+// Simple function to show poll results
+async function showPollResults(pollId) {
+    try {
+        const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/results`);
+        if (!response.ok) return;
         
-        // Save user's vote choice
-        saveUserVote(pollId, option);
+        const data = await response.json();
+        if (!data.success) return;
         
-        // Update poll results from API
-        await fetchPollResults(pollId);
+        const results = data.results;
+        const pollCard = document.querySelector(`#poll-options-${pollId}`)?.closest('.poll-card');
+        if (!pollCard) return;
         
-        // Disable the poll
-        pollOptions.style.pointerEvents = 'none';
-        pollOptions.style.opacity = '0.6';
-        submitBtn.textContent = '✓ Vote Recorded';
-        submitBtn.style.background = '#10b981';
+        // Calculate percentages
+        const total = results.total || 1;
+        const yesPercent = ((results.yes / total) * 100).toFixed(1);
+        const noPercent = ((results.no / total) * 100).toFixed(1);
+        const abstainPercent = ((results.abstain / total) * 100).toFixed(1);
         
-        // Show results for this poll
-        showPollResults(pollId);
-        
-        console.log(`✅ Vote submitted successfully for poll ${pollId}: ${option}`);
-    } else {
-        // Reset button on failure
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Vote';
-        submitBtn.style.background = '#3b82f6';
-    }
-    
-    // Clear submission flag
-    votingState.submittingVote = false;
-}
-
-// Update poll results (simulate adding a vote)
-function updatePollResults(pollId, option) {
-    if (votingState.pollResults[pollId]) {
-        votingState.pollResults[pollId][option]++;
-        votingState.pollResults[pollId].total++;
-    }
-}
-
-// Show poll results
-function showPollResults(pollId) {
-    const results = votingState.pollResults[pollId];
-    if (!results) return;
-    
-    const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
-    const pollOptions = pollCard.querySelector('.poll-options');
-    const pollActions = pollCard.querySelector('.poll-actions');
-    
-    // Calculate percentages
-    const yesPercent = ((results.yes / results.total) * 100).toFixed(1);
-    const noPercent = ((results.no / results.total) * 100).toFixed(1);
-    
-    // Get the user's vote to show checkmark
-    const userVote = pollActions.querySelector('.submit-vote-btn').dataset.selectedOption;
-    
-    // Create Telegram-style results display
-    const resultsHTML = `
-        <div class="poll-results-telegram" style="margin-bottom: 0; padding: 12px 14px 6px 14px; background: rgba(59, 130, 246, 0.05); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1); width: 100%; box-sizing: border-box;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span style="color: #3b82f6; font-size: 16px; font-weight: 600;">Poll Results</span>
-                <span style="color: #9ca3af; font-size: 14px;">${results.total} votes</span>
-            </div>
-            
-            <!-- Yes Option -->
-            <div style="margin-bottom: 8px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="color: #10b981; font-size: 14px; font-weight: 600;">${yesPercent}% Yes</span>
-                        ${userVote === 'yes' ? '<span style="color: #10b981; font-size: 16px;">✓</span>' : ''}
+        // Create results HTML
+        const resultsHTML = `
+            <div class="poll-results" style="margin-top: 15px; padding: 15px; background: #1f2937; border-radius: 8px; border: 1px solid #374151;">
+                <h4 style="color: #3b82f6; margin: 0 0 10px 0; font-size: 14px;">Poll Results (${total} vote${total !== 1 ? 's' : ''})</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #10b981; font-size: 12px;">✓ Yes</span>
+                        <span style="color: #ffffff; font-size: 12px; font-weight: 600;">${yesPercent}% (${results.yes})</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #ef4444; font-size: 12px;">✗ No</span>
+                        <span style="color: #ffffff; font-size: 12px; font-weight: 600;">${noPercent}% (${results.no})</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #6b7280; font-size: 12px;">○ Abstain</span>
+                        <span style="color: #ffffff; font-size: 12px; font-weight: 600;">${abstainPercent}% (${results.abstain})</span>
                     </div>
                 </div>
-                <div style="background: #374151; height: 8px; border-radius: 4px; overflow: hidden;">
-                    <div style="background: #10b981; height: 100%; width: ${yesPercent}%; transition: width 0.8s ease;"></div>
-                </div>
+                <button class="view-results-btn" data-poll-id="${pollId}" style="background: none; border: none; color: #3b82f6; font-size: 11px; font-weight: 500; cursor: pointer; text-decoration: underline; transition: color 0.2s ease; opacity: 0.8; margin-top: 10px; padding: 0;">VIEW RESULTS</button>
             </div>
-            
-            <!-- No Option -->
-            <div style="margin-bottom: 4px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="color: #ef4444; font-size: 14px; font-weight: 600;">${noPercent}% No</span>
-                        ${userVote === 'no' ? '<span style="color: #ef4444; font-size: 16px;">✓</span>' : ''}
-                    </div>
-                </div>
-                <div style="background: #374151; height: 8px; border-radius: 4px; overflow: hidden;">
-                    <div style="background: #ef4444; height: 100%; width: ${noPercent}%; transition: width 0.8s ease;"></div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Hide the poll options (like Telegram)
-    pollOptions.style.display = 'none';
-    
-    // Remove existing results if any
-    const existingResults = pollCard.querySelector('.poll-results-display, .poll-results-compact, .poll-results-telegram');
-    if (existingResults) {
-        existingResults.remove();
-    }
-    
-    // Insert results above the submit button
-    pollActions.insertAdjacentHTML('afterbegin', resultsHTML);
-    
-    // Add VIEW RESULTS text outside the poll results box
-    const viewResultsHTML = `
-        <div style="text-align: center;">
-            <button class="view-results-btn" data-poll-id="${pollId}" style="background: none; border: none; color: #3b82f6; font-size: 11px; font-weight: 500; cursor: pointer; text-decoration: underline; transition: color 0.2s ease; opacity: 0.8;">
-                VIEW RESULTS
-            </button>
-        </div>
-    `;
-    
-    // Remove any existing VIEW RESULTS first
-    const existingViewResults = pollCard.querySelector('.view-results-btn');
-    if (existingViewResults) {
-        existingViewResults.closest('div').remove();
-    }
-    
-    // Insert VIEW RESULTS after the poll results box
-    const pollResultsBox = pollCard.querySelector('.poll-results-telegram');
-    if (pollResultsBox) {
-        pollResultsBox.insertAdjacentHTML('afterend', viewResultsHTML);
-    }
-    
-    // Add event listener for VIEW RESULTS button using event delegation
-    setTimeout(() => {
+        `;
+        
+        // Add results to poll card
+        pollCard.insertAdjacentHTML('beforeend', resultsHTML);
+        
+        // Add click handler for view results button
         const viewResultsBtn = pollCard.querySelector('.view-results-btn');
         if (viewResultsBtn) {
-            viewResultsBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                showVotersPopup(pollId, results, userVote);
+            viewResultsBtn.addEventListener('click', () => {
+                showVotersPopup(pollId, results);
             });
         }
-    }, 100);
+        
+    } catch (error) {
+        console.error('❌ Error showing poll results:', error);
+    }
 }
 
-// Show voters popup with detailed results
-function showVotersPopup(pollId, results, userVote) {
-    console.log('showVotersPopup called with:', { pollId, results, userVote });
-    
-    // Calculate percentages
-    const yesPercent = ((results.yes / results.total) * 100).toFixed(1);
-    const noPercent = ((results.no / results.total) * 100).toFixed(1);
-    
-    console.log('Calculated percentages:', { yesPercent, noPercent });
-    
-    // Generate mock voter data for demonstration
-    const generateMockVoters = (count, voteType) => {
-        const voters = [];
-        for (let i = 1; i <= count; i++) {
-            // Use the current wallet address only for the first voter, generate unique addresses for others
-            let address;
-            if (i === 1) {
-                address = getCurrentWalletAddress() || `0x${Math.random().toString(16).substr(2, 40)}`;
-            } else {
-                // Generate unique Solana-style addresses for additional voters
-                const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-                let result = '';
-                for (let j = 0; j < 44; j++) {
-                    result += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                address = result;
-            }
-            
-            voters.push({
-                address: address,
-                vote: voteType,
-                timestamp: new Date(Date.now() - Math.random() * 86400000).toLocaleString()
-            });
-        }
-        return voters;
-    };
-    
-    const yesVoters = generateMockVoters(results.yes, 'yes');
-    const noVoters = generateMockVoters(results.no, 'no');
-    
-    // Create popup HTML
-    const popupHTML = `
-        <div class="voters-popup-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-            <div class="voters-popup" style="background: #1f2937; border-radius: 16px; padding: 24px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="color: #3b82f6; font-size: 18px; font-weight: 600; margin: 0;">Poll Results</h3>
-                    <button class="close-popup-btn" style="background: none; border: none; color: #9ca3af; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
-                </div>
-                
-                <!-- Yes Voters -->
-                <div style="margin-bottom: 24px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="color: #10b981; font-size: 16px; font-weight: 600;">${yesPercent}% | ${results.yes}</span>
-                        <div style="background: #10b981; height: 4px; border-radius: 2px; flex: 1; max-width: 200px;">
-                            <div style="background: #10b981; height: 100%; width: 100%; border-radius: 2px;"></div>
+// Simple function to show voters popup
+async function showVotersPopup(pollId, results) {
+    try {
+        const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/votes`);
+        if (!response.ok) return;
+        
+        const data = await response.json();
+        if (!data.success || !data.votes) return;
+        
+        const votes = data.votes;
+        const total = results.total || 1;
+        
+        // Calculate percentages
+        const yesPercent = ((results.yes / total) * 100).toFixed(1);
+        const noPercent = ((results.no / total) * 100).toFixed(1);
+        const abstainPercent = ((results.abstain / total) * 100).toFixed(1);
+        
+        // Group votes by type
+        const yesVotes = votes.filter(v => v.vote_option === 'yes');
+        const noVotes = votes.filter(v => v.vote_option === 'no');
+        const abstainVotes = votes.filter(v => v.vote_option === 'abstain');
+        
+        // Create popup HTML
+        const popupHTML = `
+            <div class="voters-popup-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                <div class="voters-popup" style="background: #1f2937; border-radius: 16px; padding: 24px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: #3b82f6; font-size: 18px; font-weight: 600; margin: 0;">Poll Results</h3>
+                        <button class="close-popup-btn" style="background: none; border: none; color: #9ca3af; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="color: #10b981; font-weight: 600;">Yes (${yesPercent}%)</span>
+                            <span style="color: #ffffff;">${results.yes} vote${results.yes !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="color: #ef4444; font-weight: 600;">No (${noPercent}%)</span>
+                            <span style="color: #ffffff;">${results.no} vote${results.no !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <span style="color: #6b7280; font-weight: 600;">Abstain (${abstainPercent}%)</span>
+                            <span style="color: #ffffff;">${results.abstain} vote${results.abstain !== 1 ? 's' : ''}</span>
                         </div>
                     </div>
-                    <div style="max-height: 200px; overflow-y: auto; background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px;">
-                        ${yesVoters.map(voter => `
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(16, 185, 129, 0.2);">
-                                <div style="color: #10b981; font-size: 12px; font-weight: 600; font-family: monospace;">
-                                    ${voter.address.substring(0, 6)}...${voter.address.substring(voter.address.length - 4)}
+                    
+                    <div style="border-top: 1px solid #374151; padding-top: 20px;">
+                        <h4 style="color: #ffffff; margin: 0 0 15px 0; font-size: 14px;">Voters</h4>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            ${votes.map(vote => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #374151;">
+                                    <span style="color: #d1d5db; font-size: 12px; font-family: monospace;">${vote.wallet_address.substring(0, 8)}...${vote.wallet_address.substring(vote.wallet_address.length - 8)}</span>
+                                    <span style="color: ${vote.vote_option === 'yes' ? '#10b981' : vote.vote_option === 'no' ? '#ef4444' : '#6b7280'}; font-size: 12px; font-weight: 600; text-transform: uppercase;">${vote.vote_option}</span>
                                 </div>
-                                <span style="color: #10b981; font-size: 14px;">✓</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                
-                <!-- No Voters -->
-                <div style="margin-bottom: 16px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="color: #ef4444; font-size: 16px; font-weight: 600;">${noPercent}% | ${results.no}</span>
-                        <div style="background: #374151; height: 4px; border-radius: 2px; flex: 1; max-width: 200px;">
-                            <div style="background: #ef4444; height: 100%; width: 100%; border-radius: 2px;"></div>
+                            `).join('')}
                         </div>
                     </div>
-                    <div style="max-height: 200px; overflow-y: auto; background: rgba(239, 68, 68, 0.1); border-radius: 8px; padding: 12px;">
-                        ${noVoters.map(voter => `
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(239, 68, 68, 0.2);">
-                                <div style="color: #ef4444; font-size: 12px; font-weight: 600; font-family: monospace;">
-                                    ${voter.address.substring(0, 6)}...${voter.address.substring(voter.address.length - 4)}
-                                </div>
-                                <span style="color: #ef4444; font-size: 14px;">✓</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                
-                <!-- Summary -->
-                <div style="text-align: center; padding-top: 16px; border-top: 1px solid rgba(59, 130, 246, 0.2);">
-                    <span style="color: #9ca3af; font-size: 14px;">Total: ${results.total} votes</span>
                 </div>
             </div>
-        </div>
-    `;
-    
-    // Remove existing popup if any
-    const existingPopup = document.querySelector('.voters-popup-overlay');
-    if (existingPopup) {
-        existingPopup.remove();
-    }
-    
-    // Add popup to page
-    console.log('Adding popup to page...');
-    document.body.insertAdjacentHTML('beforeend', popupHTML);
-    console.log('Popup HTML added to page');
-    
-    // Test if popup is visible
-    setTimeout(() => {
-        const testOverlay = document.querySelector('.voters-popup-overlay');
-        console.log('Test overlay found:', testOverlay);
-        if (testOverlay) {
-            console.log('Overlay is visible:', testOverlay.offsetHeight > 0);
-            console.log('Overlay style display:', testOverlay.style.display);
-        }
-    }, 100);
-    
-    // Add event listeners
-    const closeBtn = document.querySelector('.close-popup-btn');
-    const overlay = document.querySelector('.voters-popup-overlay');
-    console.log('Close button found:', closeBtn);
-    console.log('Overlay found:', overlay);
-    
-    closeBtn.addEventListener('click', () => {
-        overlay.remove();
-    });
-    
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.remove();
-        }
-    });
-    
-    // Close on Escape key
-    const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-            overlay.remove();
-            document.removeEventListener('keydown', handleEscape);
-        }
-    };
-    document.addEventListener('keydown', handleEscape);
-}
-
-// Update voting spreadsheet with current data
-function updateVotingSpreadsheet() {
-    const spreadsheet = document.querySelector('.polls-spreadsheet');
-    if (!spreadsheet) return;
-    
-    // Only update the voting history for completed polls
-    // Active polls should not appear in the voting history until they are finished
-    const dataRows = spreadsheet.querySelectorAll('.spreadsheet-row');
-    dataRows.forEach((row, index) => {
-        const pollId = index + 1;
-        const results = votingState.pollResults[pollId];
-        if (!results) return;
+        `;
         
-        const cells = row.querySelectorAll('.data-cell');
-        if (cells.length >= 6) {
-            // Only show completed polls in voting history
-            // For now, we'll keep the original static data for completed polls
-            // Active polls that users vote on should not appear in the history
-            
-            // Update Status - only show "Completed" for finished polls
-            const statusCell = cells[1];
-            statusCell.innerHTML = '<span class="result-badge" style="background: #6b7280; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Completed</span>';
+        // Add popup to page
+        document.body.insertAdjacentHTML('beforeend', popupHTML);
+        
+        // Add close button handler
+        const closeBtn = document.querySelector('.close-popup-btn');
+        const overlay = document.querySelector('.voters-popup-overlay');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                overlay.remove();
+            });
         }
-    });
+        
+        if (overlay) {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            });
+        }
+        
+    } catch (error) {
+        console.error('❌ Error showing voters popup:', error);
+    }
 }
 
-// Function to reinitialize voting system when vote page is shown
+// Simple reinitialize function
 async function reinitializeVotingSystem() {
-    console.log('🗳️ Reinitializing voting system...');
-    
-    // Check if wallet has changed and clear state if needed
-    const walletChanged = checkWalletChange();
-    
-    // Update wallet address if wallet is connected
-    if (window.walletManager && window.walletManager.walletAddress) {
-        votingState.walletAddress = window.walletManager.walletAddress;
-        console.log('🗳️ Wallet address:', votingState.walletAddress);
-    }
-    
-    // Sync voting state with backend to ensure consistency
-    await syncVotingStateWithBackend();
-    
-    // Fetch fresh data from API and update poll cards first
-    await updatePollCardsWithRealData();
-    
-    // Load voting history to restore state (only if wallet didn't change)
-    if (!walletChanged) {
-        loadVotingHistory();
-        // Update UI for already voted polls
-        updateVotedPollsUI();
-    }
-    
-    // Setup poll interactions for non-voted polls
-    setupPollInteractions();
-    
-    console.log('🗳️ Voting system reinitialized');
+    console.log('🗳️ Reinitializing simple voting system...');
+    await setupVotingSystem();
 }
 
-// Optimized function to check and restore voting state
-function checkAndRestoreVotingState() {
-    const votePage = document.querySelector('.vote-page');
-    if (votePage) {
-        // Check if voting system needs to be reinitialized
-        const pollOptions = document.getElementById('poll-options-1');
-        if (pollOptions && !pollOptions.hasAttribute('data-listeners-attached')) {
-            reinitializeVotingSystem();
-        }
-    }
-}
-
-// Initialize voting system when page loads
-async function initializeVotingOnPageLoad() {    const votePage = document.querySelector('.vote-page');
+// Simple check and restore function
+async function checkAndRestoreVotingState() {
+    const votePage = document.getElementById('vote');
     if (votePage) {
         await setupVotingSystem();
     }
 }
 
-// Make functions globally available for debugging
+// Make functions globally available
+window.setupVotingSystem = setupVotingSystem;
 window.reinitializeVotingSystem = reinitializeVotingSystem;
 window.checkAndRestoreVotingState = checkAndRestoreVotingState;
-window.setupVotingSystem = setupVotingSystem;
 window.resetVotingUI = resetVotingUI;
-window.clearVotingStateForNewWallet = clearVotingStateForNewWallet;
-window.checkWalletChange = checkWalletChange;
-window.syncVotingStateWithBackend = syncVotingStateWithBackend;
 
 document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0});const u=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector(".vote-page")&&(reinitializeVotingSystem())})})});a&&u.observe(a,{childList:!0,subtree:!0});setInterval(()=>{checkAndRestoreVotingState()},500),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setupVotingSystem(),initializeVotingOnPageLoad(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
