@@ -2692,31 +2692,25 @@ function getCurrentWalletAddress() {
 // API Functions
 async function fetchActivePolls() {
     try {
-        console.log(`🗳️ Fetching active polls from: ${votingState.apiBaseUrl}/api/polls/active`);
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/active`);
-        console.log(`🗳️ Polls response status: ${response.status}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         
         const data = await response.json();
-        console.log(`🗳️ Polls response data:`, data);
         
         if (data.success && data.polls) {
             // Convert polls to the format expected by the frontend
             data.polls.forEach(poll => {
                 votingState.pollResults[poll.id] = poll.options;
             });
-            console.log('✅ Fetched active polls:', data.polls);
             return data.polls;
         } else {
-            console.error('❌ Failed to fetch polls:', data.error);
             return [];
         }
     } catch (error) {
         console.error('❌ Error fetching polls:', error);
-        console.error('❌ Error details:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
         return [];
     }
 }
@@ -2729,15 +2723,10 @@ async function submitVoteToAPI(pollId, voteOption) {
             throw new Error('No wallet connected');
         }
         
-        console.log(`🗳️ Attempting to submit vote for poll ${pollId} with option ${voteOption}`);
-        console.log(`🗳️ API URL: ${votingState.apiBaseUrl}/api/polls/${pollId}/vote`);
-        console.log(`🗳️ Wallet address: ${currentWalletAddress}`);
-        
         const requestBody = {
             walletAddress: currentWalletAddress,
             voteOption: voteOption
         };
-        console.log(`🗳️ Request body:`, requestBody);
         
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/vote`, {
             method: 'POST',
@@ -2747,11 +2736,7 @@ async function submitVoteToAPI(pollId, voteOption) {
             body: JSON.stringify(requestBody)
         });
         
-        console.log(`🗳️ Response status: ${response.status}`);
-        console.log(`🗳️ Response headers:`, response.headers);
-        
         const data = await response.json();
-        console.log(`🗳️ Response data:`, data);
         
         if (data.success) {
             console.log('✅ Vote submitted successfully:', data);
@@ -2833,21 +2818,17 @@ async function updatePollCardsWithRealData() {
             pollTimestamp.textContent = `End Date: ${formattedDate}`;
         }
         
-        console.log(`✅ Updated poll card ${poll.id} with real data`);
     });
 }
 
 // Voting functionality
 async function setupVotingSystem() {
-    console.log('Setting up voting system...');
     // Use the real connected wallet address instead of generating a fake one
     if (window.walletManager && window.walletManager.walletAddress) {
         votingState.walletAddress = window.walletManager.walletAddress;
-        console.log('Using real wallet address:', votingState.walletAddress);
     } else {
         // Fallback: generate a unique wallet address for this session
         votingState.walletAddress = '0x' + Math.random().toString(16).substr(2, 40);
-        console.log('Using generated wallet address:', votingState.walletAddress);
     }
     
     // Fetch real poll data from API and update poll cards
@@ -2859,10 +2840,8 @@ async function setupVotingSystem() {
     const checkForVotingElements = () => {
         const pollOptions = document.getElementById('poll-options-1');
         if (pollOptions) {
-            console.log('Voting elements found, setting up interactions...');
             setupPollInteractions();
         } else {
-            console.log('Voting elements not found, retrying in 100ms...');
             setTimeout(checkForVotingElements, 100);
         }
     };
@@ -2902,22 +2881,17 @@ async function setupVotingSystem() {
                 // Store in a way that submit button can access
                 submitBtn.dataset.selectedOption = selectedOption;
                 
-                console.log(`Option selected for poll ${pollId}: ${selectedOption}`);
             }
         }
         
         // Check if clicked element is a submit button
         const submitBtn = e.target.closest('.submit-vote-btn');
         if (submitBtn) {
-            console.log('Submit button clicked via delegation!', submitBtn);
             const pollId = submitBtn.id.replace('submit-vote-btn-', '');
             const selectedOption = submitBtn.dataset.selectedOption;
             
             if (selectedOption) {
-                console.log(`Submitting vote for poll ${pollId}: ${selectedOption}`);
                 submitVote(parseInt(pollId), selectedOption);
-            } else {
-                console.log('No option selected for submission');
             }
         }
         
@@ -3014,16 +2988,11 @@ function updateVotedPollsUI() {
 
 // Setup poll interactions
 function setupPollInteractions() {
-    console.log('Setting up poll interactions...');
     for (let i = 1; i <= 3; i++) {
         const pollOptions = document.getElementById(`poll-options-${i}`);
         const submitBtn = document.getElementById(`submit-vote-btn-${i}`);
         
-        console.log(`Poll ${i} - Options element:`, pollOptions);
-        console.log(`Poll ${i} - Submit button:`, submitBtn);
-        
         if (!pollOptions || !submitBtn) {
-            console.log(`Poll ${i} - Missing elements, skipping`);
             continue;
         }
         
@@ -3037,9 +3006,7 @@ function setupPollInteractions() {
         
         // Handle option selection
         pollOptions.addEventListener('click', (e) => {
-            console.log('Poll options clicked!', e.target);
             const option = e.target.closest('.poll-option');
-            console.log('Closest poll option:', option);
             if (!option) return;
             
             // Remove previous selection in this poll
@@ -3059,16 +3026,13 @@ function setupPollInteractions() {
             submitBtn.textContent = 'Submit Vote';
             submitBtn.style.background = '#3b82f6';
             
-            console.log(`Option selected for poll ${i}: ${pollData.selectedOption}`);
         });
         
         // Handle vote submission
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log(`Submit button clicked for poll ${i}, selected option: ${pollData.selectedOption}`);
             
             if (!pollData.selectedOption) {
-                console.log('No option selected');
                 return;
             }
             
@@ -3079,7 +3043,6 @@ function setupPollInteractions() {
 
 // Submit vote function
 async function submitVote(pollId, option) {
-    console.log(`Submitting vote for poll ${pollId}: ${option}`);
     
     // Show loading state
     const pollCard = document.querySelector(`#poll-options-${pollId}`).closest('.poll-card');
@@ -3218,15 +3181,11 @@ function showPollResults(pollId) {
     // Add event listener for VIEW RESULTS button using event delegation
     setTimeout(() => {
         const viewResultsBtn = pollCard.querySelector('.view-results-btn');
-        console.log('VIEW RESULTS button found:', viewResultsBtn);
         if (viewResultsBtn) {
             viewResultsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log('VIEW RESULTS clicked!');
                 showVotersPopup(pollId, results, userVote);
             });
-        } else {
-            console.log('VIEW RESULTS button not found!');
         }
     }, 100);
 }
@@ -3246,7 +3205,7 @@ function showVotersPopup(pollId, results, userVote) {
         const voters = [];
         for (let i = 1; i <= count; i++) {
             voters.push({
-                address: `0x${Math.random().toString(16).substr(2, 40)}`,
+                address: getCurrentWalletAddress() || `0x${Math.random().toString(16).substr(2, 40)}`,
                 vote: voteType,
                 timestamp: new Date(Date.now() - Math.random() * 86400000).toLocaleString()
             });
@@ -3389,12 +3348,9 @@ function updateVotingSpreadsheet() {
 
 // Function to reinitialize voting system when vote page is shown
 async function reinitializeVotingSystem() {
-    console.log('🗳️ Reinitializing voting system...');
-    
     // Update wallet address if wallet is connected
     if (window.walletManager && window.walletManager.walletAddress) {
         votingState.walletAddress = window.walletManager.walletAddress;
-        console.log('🗳️ Updated wallet address:', votingState.walletAddress);
     }
     
     // Reload voting history
@@ -3417,10 +3373,8 @@ function checkAndRestoreVotingState() {
 
 // Initialize voting system when page loads
 async function initializeVotingOnPageLoad() {
-    console.log('🗳️ Checking if voting page is present...');
     const votePage = document.querySelector('.vote-page');
     if (votePage) {
-        console.log('🗳️ Voting page found, initializing voting system...');
         await setupVotingSystem();
     }
 }
