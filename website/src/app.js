@@ -2684,8 +2684,12 @@ const votingState = {
 // API Functions
 async function fetchActivePolls() {
     try {
+        console.log(`🗳️ Fetching active polls from: ${votingState.apiBaseUrl}/api/polls/active`);
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/active`);
+        console.log(`🗳️ Polls response status: ${response.status}`);
+        
         const data = await response.json();
+        console.log(`🗳️ Polls response data:`, data);
         
         if (data.success && data.polls) {
             // Convert polls to the format expected by the frontend
@@ -2700,24 +2704,40 @@ async function fetchActivePolls() {
         }
     } catch (error) {
         console.error('❌ Error fetching polls:', error);
+        console.error('❌ Error details:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
         return [];
     }
 }
 
 async function submitVoteToAPI(pollId, voteOption) {
     try {
+        console.log(`🗳️ Attempting to submit vote for poll ${pollId} with option ${voteOption}`);
+        console.log(`🗳️ API URL: ${votingState.apiBaseUrl}/api/polls/${pollId}/vote`);
+        console.log(`🗳️ Wallet address: ${votingState.walletAddress}`);
+        
+        const requestBody = {
+            walletAddress: votingState.walletAddress,
+            voteOption: voteOption
+        };
+        console.log(`🗳️ Request body:`, requestBody);
+        
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/vote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                walletAddress: votingState.walletAddress,
-                voteOption: voteOption
-            })
+            body: JSON.stringify(requestBody)
         });
         
+        console.log(`🗳️ Response status: ${response.status}`);
+        console.log(`🗳️ Response headers:`, response.headers);
+        
         const data = await response.json();
+        console.log(`🗳️ Response data:`, data);
         
         if (data.success) {
             console.log('✅ Vote submitted successfully:', data);
@@ -2729,6 +2749,11 @@ async function submitVoteToAPI(pollId, voteOption) {
         }
     } catch (error) {
         console.error('❌ Error submitting vote:', error);
+        console.error('❌ Error details:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
         alert('Failed to submit vote. Please try again.');
         return false;
     }
