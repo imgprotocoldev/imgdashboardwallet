@@ -13,6 +13,7 @@ app.use(cors({
     origin: [
         'https://img-protocol-backend.onrender.com',
         'https://imgdashboardwallet.onrender.com',
+        'https://dashboard.imgsolana.com',
         'http://localhost:3000',
         'http://localhost:5173',
         'http://127.0.0.1:3000',
