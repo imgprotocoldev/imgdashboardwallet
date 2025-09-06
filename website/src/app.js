@@ -2713,11 +2713,12 @@ function resetVotingUI() {
             // Reset poll options
             pollOptions.style.pointerEvents = 'auto';
             pollOptions.style.opacity = '1';
+            pollOptions.style.display = 'flex'; // Make sure it's visible
             
             // Reset submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submit Vote';
-            submitBtn.style.background = '#6b7280';
+            submitBtn.style.background = '#6b82f6';
             submitBtn.dataset.selectedOption = '';
             
             // Clear any selected options
@@ -2737,6 +2738,36 @@ function resetVotingUI() {
             pollOptions.removeAttribute('data-listeners-attached');
         }
     }
+}
+
+// Function to clear voting state when wallet changes
+function clearVotingStateForNewWallet() {
+    console.log('🗳️ Clearing voting state for new wallet...');
+    
+    // Clear voted polls set
+    votingState.votedPolls.clear();
+    
+    // Clear poll results
+    votingState.pollResults = {};
+    
+    // Reset voting UI
+    resetVotingUI();
+    
+    console.log('🗳️ Voting state cleared for new wallet');
+}
+
+// Function to check if wallet has changed and clear voting state if needed
+function checkWalletChange() {
+    const currentWalletAddress = getCurrentWalletAddress();
+    const previousWalletAddress = votingState.walletAddress;
+    
+    if (currentWalletAddress && currentWalletAddress !== previousWalletAddress) {
+        console.log('🗳️ Wallet changed from', previousWalletAddress, 'to', currentWalletAddress);
+        clearVotingStateForNewWallet();
+        votingState.walletAddress = currentWalletAddress;
+        return true;
+    }
+    return false;
 }
 
 // API Functions
@@ -2873,6 +2904,9 @@ async function updatePollCardsWithRealData() {
 
 // Voting functionality
 async function setupVotingSystem() {
+    // Check if wallet has changed and clear state if needed
+    const walletChanged = checkWalletChange();
+    
     // Use the real connected wallet address instead of generating a fake one
     if (window.walletManager && window.walletManager.walletAddress) {
         votingState.walletAddress = window.walletManager.walletAddress;
@@ -2887,8 +2921,11 @@ async function setupVotingSystem() {
     // Fetch real poll data from API and update poll cards
     await updatePollCardsWithRealData();
     
-    // Don't load voting history since we want fresh voting
-    // loadVotingHistory();
+    // Load voting history only if wallet didn't change
+    if (!walletChanged) {
+        loadVotingHistory();
+        updateVotedPollsUI();
+    }
     
     // Wait for voting page elements to be available
     const checkForVotingElements = () => {
@@ -3347,6 +3384,9 @@ function updateVotingSpreadsheet() {
 async function reinitializeVotingSystem() {
     console.log('🗳️ Reinitializing voting system...');
     
+    // Check if wallet has changed and clear state if needed
+    const walletChanged = checkWalletChange();
+    
     // Update wallet address if wallet is connected
     if (window.walletManager && window.walletManager.walletAddress) {
         votingState.walletAddress = window.walletManager.walletAddress;
@@ -3356,11 +3396,12 @@ async function reinitializeVotingSystem() {
     // Fetch fresh data from API and update poll cards first
     await updatePollCardsWithRealData();
     
-    // Load voting history to restore state
-    loadVotingHistory();
-    
-    // Update UI for already voted polls
-    updateVotedPollsUI();
+    // Load voting history to restore state (only if wallet didn't change)
+    if (!walletChanged) {
+        loadVotingHistory();
+        // Update UI for already voted polls
+        updateVotedPollsUI();
+    }
     
     // Setup poll interactions for non-voted polls
     setupPollInteractions();
@@ -3392,5 +3433,7 @@ window.reinitializeVotingSystem = reinitializeVotingSystem;
 window.checkAndRestoreVotingState = checkAndRestoreVotingState;
 window.setupVotingSystem = setupVotingSystem;
 window.resetVotingUI = resetVotingUI;
+window.clearVotingStateForNewWallet = clearVotingStateForNewWallet;
+window.checkWalletChange = checkWalletChange;
 
 document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",console.log("🔄 App state reset:",d),f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0});const u=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector(".vote-page")&&(reinitializeVotingSystem())})})});a&&u.observe(a,{childList:!0,subtree:!0});setInterval(()=>{checkAndRestoreVotingState()},500),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setupVotingSystem(),initializeVotingOnPageLoad(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
