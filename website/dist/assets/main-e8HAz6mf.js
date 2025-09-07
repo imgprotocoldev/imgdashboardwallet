@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))i(a);new MutationObserver(a=>{for(const o of a)if(o.type==="childList")for(const l of o.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&i(l)}).observe(document,{childList:!0,subtree:!0});function s(a){const o={};return a.integrity&&(o.integrity=a.integrity),a.referrerPolicy&&(o.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?o.credentials="include":a.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(a){if(a.ep)return;a.ep=!0;const o=s(a);fetch(a.href,o)}})();(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))s(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&s(o)}).observe(document,{childList:!0,subtree:!0});function t(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(i){if(i.ep)return;i.ep=!0;const a=t(i);fetch(i.href,a)}})();var _=Array.isArray||function(e){return Object.prototype.toString.call(e)=="[object Array]"},A=nt,gt=K,mt=wt,bt=at,ft=lt,yt=new RegExp(["(\\\\.)","([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))"].join("|"),"g");function K(e){for(var t=[],s=0,i=0,a="",o;(o=yt.exec(e))!=null;){var l=o[0],n=o[1],d=o.index;if(a+=e.slice(i,d),i=d+l.length,n){a+=n[1];continue}a&&(t.push(a),a="");var r=o[2],u=o[3],f=o[4],h=o[5],y=o[6],C=o[7],g=y==="+"||y==="*",P=y==="?"||y==="*",B=r||"/",b=f||h||(C?".*":"[^"+B+"]+?");t.push({name:u||s++,prefix:r||"",delimiter:B,optional:P,repeat:g,pattern:xt(b)})}return i<e.length&&(a+=e.substr(i)),a&&t.push(a),t}function wt(e){return at(K(e))}function at(e){for(var t=new Array(e.length),s=0;s<e.length;s++)typeof e[s]=="object"&&(t[s]=new RegExp("^"+e[s].pattern+"$"));return function(i){for(var a="",o=i||{},l=0;l<e.length;l++){var n=e[l];if(typeof n=="string"){a+=n;continue}var d=o[n.name],r;if(d==null){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to be defined')}if(_(d)){if(!n.repeat)throw new TypeError('Expected "'+n.name+'" to not repeat, but received "'+d+'"');if(d.length===0){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to not be empty')}for(var u=0;u<d.length;u++){if(r=encodeURIComponent(d[u]),!t[l].test(r))throw new TypeError('Expected all "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');a+=(u===0?n.prefix:n.delimiter)+r}continue}if(r=encodeURIComponent(d),!t[l].test(r))throw new TypeError('Expected "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');a+=n.prefix+r}return a}}function tt(e){return e.replace(/([.+*?=^!:${}()[\]|\/])/g,"\\$1")}function xt(e){return e.replace(/([=!:$\/()])/g,"\\$1")}function J(e,t){return e.keys=t,e}function ot(e){return e.sensitive?"":"i"}function St(e,t){var s=e.source.match(/\((?!\?)/g);if(s)for(var i=0;i<s.length;i++)t.push({name:i,prefix:null,delimiter:null,optional:!1,repeat:!1,pattern:null});return J(e,t)}function Et(e,t,s){for(var i=[],a=0;a<e.length;a++)i.push(nt(e[a],t,s).source);var o=new RegExp("(?:"+i.join("|")+")",ot(s));return J(o,t)}function kt(e,t,s){for(var i=K(e),a=lt(i,s),o=0;o<i.length;o++)typeof i[o]!="string"&&t.push(i[o]);return J(a,t)}function lt(e,t){t=t||{};for(var s=t.strict,i=t.end!==!1,a="",o=e[e.length-1],l=typeof o=="string"&&/\/$/.test(o),n=0;n<e.length;n++){var d=e[n];if(typeof d=="string")a+=tt(d);else{var r=tt(d.prefix),u=d.pattern;d.repeat&&(u+="(?:"+r+u+")*"),d.optional?r?u="(?:"+r+"("+u+"))?":u="("+u+")?":u=r+"("+u+")",a+=u}}return s||(a=(l?a.slice(0,-2):a)+"(?:\\/(?=$))?"),i?a+="$":a+=s&&l?"":"(?=\\/|$)",new RegExp("^"+a,ot(t))}function nt(e,t,s){return t=t||[],_(t)?s||(s={}):(s=t,t=[]),e instanceof RegExp?St(e,t):_(e)?Et(e,t,s):kt(e,t,s)}A.parse=gt;A.compile=mt;A.tokensToFunction=bt;A.tokensToRegExp=ft;var T=typeof document<"u",m=typeof window<"u",G=typeof history<"u",Lt=typeof process<"u",W=T&&document.ontouchstart?"touchstart":"click",x=m&&!!(window.history.location||window.location);function p(){this.callbacks=[],this.exits=[],this.current="",this.len=0,this._decodeURLComponents=!0,this._base="",this._strict=!1,this._running=!1,this._hashbang=!1,this.clickHandler=this.clickHandler.bind(this),this._onpopstate=this._onpopstate.bind(this)}p.prototype.configure=function(e){var t=e||{};this._window=t.window||m&&window,this._decodeURLComponents=t.decodeURLComponents!==!1,this._popstate=t.popstate!==!1&&m,this._click=t.click!==!1&&T,this._hashbang=!!t.hashbang;var s=this._window;this._popstate?s.addEventListener("popstate",this._onpopstate,!1):m&&s.removeEventListener("popstate",this._onpopstate,!1),this._click?s.document.addEventListener(W,this.clickHandler,!1):T&&s.document.removeEventListener(W,this.clickHandler,!1),this._hashbang&&m&&!G?s.addEventListener("hashchange",this._onpopstate,!1):m&&s.removeEventListener("hashchange",this._onpopstate,!1)};p.prototype.base=function(e){if(arguments.length===0)return this._base;this._base=e};p.prototype._getBase=function(){var e=this._base;if(e)return e;var t=m&&this._window&&this._window.location;return m&&this._hashbang&&t&&t.protocol==="file:"&&(e=t.pathname),e};p.prototype.strict=function(e){if(arguments.length===0)return this._strict;this._strict=e};p.prototype.start=function(e){var t=e||{};if(this.configure(t),t.dispatch!==!1){this._running=!0;var s;if(x){var i=this._window,a=i.location;this._hashbang&&~a.hash.indexOf("#!")?s=a.hash.substr(2)+a.search:this._hashbang?s=a.search+a.hash:s=a.pathname+a.search+a.hash}this.replace(s,null,!0,t.dispatch)}};p.prototype.stop=function(){if(this._running){this.current="",this.len=0,this._running=!1;var e=this._window;this._click&&e.document.removeEventListener(W,this.clickHandler,!1),m&&e.removeEventListener("popstate",this._onpopstate,!1),m&&e.removeEventListener("hashchange",this._onpopstate,!1)}};p.prototype.show=function(e,t,s,i){var a=new $(e,t,this),o=this.prevContext;return this.prevContext=a,this.current=a.path,s!==!1&&this.dispatch(a,o),a.handled!==!1&&i!==!1&&a.pushState(),a};p.prototype.back=function(e,t){var s=this;if(this.len>0){var i=this._window;G&&i.history.back(),this.len--}else setTimeout(e?function(){s.show(e,t)}:function(){s.show(s._getBase(),t)})};p.prototype.redirect=function(e,t){var s=this;typeof e=="string"&&typeof t=="string"&&q.call(this,e,function(i){setTimeout(function(){s.replace(t)},0)}),typeof e=="string"&&typeof t>"u"&&setTimeout(function(){s.replace(e)},0)};p.prototype.replace=function(e,t,s,i){var a=new $(e,t,this),o=this.prevContext;return this.prevContext=a,this.current=a.path,a.init=s,a.save(),i!==!1&&this.dispatch(a,o),a};p.prototype.dispatch=function(e,t){var s=0,i=0,a=this;function o(){var n=a.exits[i++];if(!n)return l();n(t,o)}function l(){var n=a.callbacks[s++];if(e.path!==a.current){e.handled=!1;return}if(!n)return Pt.call(a,e);n(e,l)}t?o():l()};p.prototype.exit=function(e,t){if(typeof e=="function")return this.exit("*",e);for(var s=new D(e,null,this),i=1;i<arguments.length;++i)this.exits.push(s.middleware(arguments[i]))};p.prototype.clickHandler=function(e){if(this._which(e)===1&&!(e.metaKey||e.ctrlKey||e.shiftKey)&&!e.defaultPrevented){var t=e.target,s=e.path||(e.composedPath?e.composedPath():null);if(s){for(var i=0;i<s.length;i++)if(s[i].nodeName&&s[i].nodeName.toUpperCase()==="A"&&s[i].href){t=s[i];break}}for(;t&&t.nodeName.toUpperCase()!=="A";)t=t.parentNode;if(!(!t||t.nodeName.toUpperCase()!=="A")){var a=typeof t.href=="object"&&t.href.constructor.name==="SVGAnimatedString";if(!(t.hasAttribute("download")||t.getAttribute("rel")==="external")){var o=t.getAttribute("href");if(!(!this._hashbang&&this._samePath(t)&&(t.hash||o==="#"))&&!(o&&o.indexOf("mailto:")>-1)&&!(a?t.target.baseVal:t.target)&&!(!a&&!this.sameOrigin(t.href))){var l=a?t.href.baseVal:t.pathname+t.search+(t.hash||"");l=l[0]!=="/"?"/"+l:l,Lt&&l.match(/^\/[a-zA-Z]:\//)&&(l=l.replace(/^\/[a-zA-Z]:\//,"/"));var n=l,d=this._getBase();l.indexOf(d)===0&&(l=l.substr(d.length)),this._hashbang&&(l=l.replace("#!","")),!(d&&n===l&&(!x||this._window.location.protocol!=="file:"))&&(e.preventDefault(),this.show(n))}}}}};p.prototype._onpopstate=(function(){var e=!1;return m?(T&&document.readyState==="complete"?e=!0:window.addEventListener("load",function(){setTimeout(function(){e=!0},0)}),function(t){if(e){var s=this;if(t.state){var i=t.state.path;s.replace(i,t.state)}else if(x){var a=s._window.location;s.show(a.pathname+a.search+a.hash,void 0,void 0,!1)}}}):function(){}})();p.prototype._which=function(e){return e=e||m&&this._window.event,e.which==null?e.button:e.which};p.prototype._toURL=function(e){var t=this._window;if(typeof URL=="function"&&x)return new URL(e,t.location.toString());if(T){var s=t.document.createElement("a");return s.href=e,s}};p.prototype.sameOrigin=function(e){if(!e||!x)return!1;var t=this._toURL(e),s=this._window,i=s.location;return i.protocol===t.protocol&&i.hostname===t.hostname&&(i.port===t.port||i.port===""&&(t.port==80||t.port==443))};p.prototype._samePath=function(e){if(!x)return!1;var t=this._window,s=t.location;return e.pathname===s.pathname&&e.search===s.search};p.prototype._decodeURLEncodedURIComponent=function(e){return typeof e!="string"?e:this._decodeURLComponents?decodeURIComponent(e.replace(/\+/g," ")):e};function dt(){var e=new p;function t(){return q.apply(e,arguments)}return t.callbacks=e.callbacks,t.exits=e.exits,t.base=e.base.bind(e),t.strict=e.strict.bind(e),t.start=e.start.bind(e),t.stop=e.stop.bind(e),t.show=e.show.bind(e),t.back=e.back.bind(e),t.redirect=e.redirect.bind(e),t.replace=e.replace.bind(e),t.dispatch=e.dispatch.bind(e),t.exit=e.exit.bind(e),t.configure=e.configure.bind(e),t.sameOrigin=e.sameOrigin.bind(e),t.clickHandler=e.clickHandler.bind(e),t.create=dt,Object.defineProperty(t,"len",{get:function(){return e.len},set:function(s){e.len=s}}),Object.defineProperty(t,"current",{get:function(){return e.current},set:function(s){e.current=s}}),t.Context=$,t.Route=D,t}function q(e,t){if(typeof e=="function")return q.call(this,"*",e);if(typeof t=="function")for(var s=new D(e,null,this),i=1;i<arguments.length;++i)this.callbacks.push(s.middleware(arguments[i]));else typeof e=="string"?this[typeof t=="string"?"redirect":"show"](e,t):this.start(e)}function Pt(e){if(!e.handled){var t,s=this,i=s._window;s._hashbang?t=x&&this._getBase()+i.location.hash.replace("#!",""):t=x&&i.location.pathname+i.location.search,t!==e.canonicalPath&&(s.stop(),e.handled=!1,x&&(i.location.href=e.canonicalPath))}}function Mt(e){return e.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function $(e,t,s){var i=this.page=s||q,a=i._window,o=i._hashbang,l=i._getBase();e[0]==="/"&&e.indexOf(l)!==0&&(e=l+(o?"#!":"")+e);var n=e.indexOf("?");this.canonicalPath=e;var d=new RegExp("^"+Mt(l));if(this.path=e.replace(d,"")||"/",o&&(this.path=this.path.replace("#!","")||"/"),this.title=T&&a.document.title,this.state=t||{},this.state.path=e,this.querystring=~n?i._decodeURLEncodedURIComponent(e.slice(n+1)):"",this.pathname=i._decodeURLEncodedURIComponent(~n?e.slice(0,n):e),this.params={},this.hash="",!o){if(!~this.path.indexOf("#"))return;var r=this.path.split("#");this.path=this.pathname=r[0],this.hash=i._decodeURLEncodedURIComponent(r[1])||"",this.querystring=this.querystring.split("#")[0]}}$.prototype.pushState=function(){var e=this.page,t=e._window,s=e._hashbang;e.len++,G&&t.history.pushState(this.state,this.title,s&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};$.prototype.save=function(){var e=this.page;G&&e._window.history.replaceState(this.state,this.title,e._hashbang&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};function D(e,t,s){var i=this.page=s||Q,a=t||{};a.strict=a.strict||i._strict,this.path=e==="*"?"(.*)":e,this.method="GET",this.regexp=A(this.path,this.keys=[],a)}D.prototype.middleware=function(e){var t=this;return function(s,i){if(t.match(s.path,s.params))return s.routePath=t.path,e(s,i);i()}};D.prototype.match=function(e,t){var s=this.keys,i=e.indexOf("?"),a=~i?e.slice(0,i):e,o=this.regexp.exec(decodeURIComponent(a));if(!o)return!1;delete t[0];for(var l=1,n=o.length;l<n;++l){var d=s[l-1],r=this.page._decodeURLEncodedURIComponent(o[l]);(r!==void 0||!hasOwnProperty.call(t,d.name))&&(t[d.name]=r)}return!0};var Q=dt(),v=Q,Tt=Q;v.default=Tt;let c={isConnected:!1,isPremium:!1,walletAddress:"",currentPage:"dashboard"};const X=e=>`
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))i(a);new MutationObserver(a=>{for(const o of a)if(o.type==="childList")for(const l of o.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&i(l)}).observe(document,{childList:!0,subtree:!0});function s(a){const o={};return a.integrity&&(o.integrity=a.integrity),a.referrerPolicy&&(o.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?o.credentials="include":a.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(a){if(a.ep)return;a.ep=!0;const o=s(a);fetch(a.href,o)}})();(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))s(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&s(o)}).observe(document,{childList:!0,subtree:!0});function e(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(i){if(i.ep)return;i.ep=!0;const a=e(i);fetch(i.href,a)}})();var _=Array.isArray||function(t){return Object.prototype.toString.call(t)=="[object Array]"},A=dt,ft=Q,yt=Et,wt=ot,xt=nt,St=new RegExp(["(\\\\.)","([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))"].join("|"),"g");function Q(t){for(var e=[],s=0,i=0,a="",o;(o=St.exec(t))!=null;){var l=o[0],n=o[1],d=o.index;if(a+=t.slice(i,d),i=d+l.length,n){a+=n[1];continue}a&&(e.push(a),a="");var r=o[2],u=o[3],f=o[4],h=o[5],y=o[6],T=o[7],g=y==="+"||y==="*",P=y==="?"||y==="*",B=r||"/",b=f||h||(T?".*":"[^"+B+"]+?");e.push({name:u||s++,prefix:r||"",delimiter:B,optional:P,repeat:g,pattern:kt(b)})}return i<t.length&&(a+=t.substr(i)),a&&e.push(a),e}function Et(t){return ot(Q(t))}function ot(t){for(var e=new Array(t.length),s=0;s<t.length;s++)typeof t[s]=="object"&&(e[s]=new RegExp("^"+t[s].pattern+"$"));return function(i){for(var a="",o=i||{},l=0;l<t.length;l++){var n=t[l];if(typeof n=="string"){a+=n;continue}var d=o[n.name],r;if(d==null){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to be defined')}if(_(d)){if(!n.repeat)throw new TypeError('Expected "'+n.name+'" to not repeat, but received "'+d+'"');if(d.length===0){if(n.optional)continue;throw new TypeError('Expected "'+n.name+'" to not be empty')}for(var u=0;u<d.length;u++){if(r=encodeURIComponent(d[u]),!e[l].test(r))throw new TypeError('Expected all "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');a+=(u===0?n.prefix:n.delimiter)+r}continue}if(r=encodeURIComponent(d),!e[l].test(r))throw new TypeError('Expected "'+n.name+'" to match "'+n.pattern+'", but received "'+r+'"');a+=n.prefix+r}return a}}function et(t){return t.replace(/([.+*?=^!:${}()[\]|\/])/g,"\\$1")}function kt(t){return t.replace(/([=!:$\/()])/g,"\\$1")}function J(t,e){return t.keys=e,t}function lt(t){return t.sensitive?"":"i"}function Lt(t,e){var s=t.source.match(/\((?!\?)/g);if(s)for(var i=0;i<s.length;i++)e.push({name:i,prefix:null,delimiter:null,optional:!1,repeat:!1,pattern:null});return J(t,e)}function Pt(t,e,s){for(var i=[],a=0;a<t.length;a++)i.push(dt(t[a],e,s).source);var o=new RegExp("(?:"+i.join("|")+")",lt(s));return J(o,e)}function Mt(t,e,s){for(var i=Q(t),a=nt(i,s),o=0;o<i.length;o++)typeof i[o]!="string"&&e.push(i[o]);return J(a,e)}function nt(t,e){e=e||{};for(var s=e.strict,i=e.end!==!1,a="",o=t[t.length-1],l=typeof o=="string"&&/\/$/.test(o),n=0;n<t.length;n++){var d=t[n];if(typeof d=="string")a+=et(d);else{var r=et(d.prefix),u=d.pattern;d.repeat&&(u+="(?:"+r+u+")*"),d.optional?r?u="(?:"+r+"("+u+"))?":u="("+u+")?":u=r+"("+u+")",a+=u}}return s||(a=(l?a.slice(0,-2):a)+"(?:\\/(?=$))?"),i?a+="$":a+=s&&l?"":"(?=\\/|$)",new RegExp("^"+a,lt(e))}function dt(t,e,s){return e=e||[],_(e)?s||(s={}):(s=e,e=[]),t instanceof RegExp?Lt(t,e):_(t)?Pt(t,e,s):Mt(t,e,s)}A.parse=ft;A.compile=yt;A.tokensToFunction=wt;A.tokensToRegExp=xt;var C=typeof document<"u",m=typeof window<"u",q=typeof history<"u",Ct=typeof process<"u",j=C&&document.ontouchstart?"touchstart":"click",x=m&&!!(window.history.location||window.location);function p(){this.callbacks=[],this.exits=[],this.current="",this.len=0,this._decodeURLComponents=!0,this._base="",this._strict=!1,this._running=!1,this._hashbang=!1,this.clickHandler=this.clickHandler.bind(this),this._onpopstate=this._onpopstate.bind(this)}p.prototype.configure=function(t){var e=t||{};this._window=e.window||m&&window,this._decodeURLComponents=e.decodeURLComponents!==!1,this._popstate=e.popstate!==!1&&m,this._click=e.click!==!1&&C,this._hashbang=!!e.hashbang;var s=this._window;this._popstate?s.addEventListener("popstate",this._onpopstate,!1):m&&s.removeEventListener("popstate",this._onpopstate,!1),this._click?s.document.addEventListener(j,this.clickHandler,!1):C&&s.document.removeEventListener(j,this.clickHandler,!1),this._hashbang&&m&&!q?s.addEventListener("hashchange",this._onpopstate,!1):m&&s.removeEventListener("hashchange",this._onpopstate,!1)};p.prototype.base=function(t){if(arguments.length===0)return this._base;this._base=t};p.prototype._getBase=function(){var t=this._base;if(t)return t;var e=m&&this._window&&this._window.location;return m&&this._hashbang&&e&&e.protocol==="file:"&&(t=e.pathname),t};p.prototype.strict=function(t){if(arguments.length===0)return this._strict;this._strict=t};p.prototype.start=function(t){var e=t||{};if(this.configure(e),e.dispatch!==!1){this._running=!0;var s;if(x){var i=this._window,a=i.location;this._hashbang&&~a.hash.indexOf("#!")?s=a.hash.substr(2)+a.search:this._hashbang?s=a.search+a.hash:s=a.pathname+a.search+a.hash}this.replace(s,null,!0,e.dispatch)}};p.prototype.stop=function(){if(this._running){this.current="",this.len=0,this._running=!1;var t=this._window;this._click&&t.document.removeEventListener(j,this.clickHandler,!1),m&&t.removeEventListener("popstate",this._onpopstate,!1),m&&t.removeEventListener("hashchange",this._onpopstate,!1)}};p.prototype.show=function(t,e,s,i){var a=new $(t,e,this),o=this.prevContext;return this.prevContext=a,this.current=a.path,s!==!1&&this.dispatch(a,o),a.handled!==!1&&i!==!1&&a.pushState(),a};p.prototype.back=function(t,e){var s=this;if(this.len>0){var i=this._window;q&&i.history.back(),this.len--}else setTimeout(t?function(){s.show(t,e)}:function(){s.show(s._getBase(),e)})};p.prototype.redirect=function(t,e){var s=this;typeof t=="string"&&typeof e=="string"&&z.call(this,t,function(i){setTimeout(function(){s.replace(e)},0)}),typeof t=="string"&&typeof e>"u"&&setTimeout(function(){s.replace(t)},0)};p.prototype.replace=function(t,e,s,i){var a=new $(t,e,this),o=this.prevContext;return this.prevContext=a,this.current=a.path,a.init=s,a.save(),i!==!1&&this.dispatch(a,o),a};p.prototype.dispatch=function(t,e){var s=0,i=0,a=this;function o(){var n=a.exits[i++];if(!n)return l();n(e,o)}function l(){var n=a.callbacks[s++];if(t.path!==a.current){t.handled=!1;return}if(!n)return Tt.call(a,t);n(t,l)}e?o():l()};p.prototype.exit=function(t,e){if(typeof t=="function")return this.exit("*",t);for(var s=new R(t,null,this),i=1;i<arguments.length;++i)this.exits.push(s.middleware(arguments[i]))};p.prototype.clickHandler=function(t){if(this._which(t)===1&&!(t.metaKey||t.ctrlKey||t.shiftKey)&&!t.defaultPrevented){var e=t.target,s=t.path||(t.composedPath?t.composedPath():null);if(s){for(var i=0;i<s.length;i++)if(s[i].nodeName&&s[i].nodeName.toUpperCase()==="A"&&s[i].href){e=s[i];break}}for(;e&&e.nodeName.toUpperCase()!=="A";)e=e.parentNode;if(!(!e||e.nodeName.toUpperCase()!=="A")){var a=typeof e.href=="object"&&e.href.constructor.name==="SVGAnimatedString";if(!(e.hasAttribute("download")||e.getAttribute("rel")==="external")){var o=e.getAttribute("href");if(!(!this._hashbang&&this._samePath(e)&&(e.hash||o==="#"))&&!(o&&o.indexOf("mailto:")>-1)&&!(a?e.target.baseVal:e.target)&&!(!a&&!this.sameOrigin(e.href))){var l=a?e.href.baseVal:e.pathname+e.search+(e.hash||"");l=l[0]!=="/"?"/"+l:l,Ct&&l.match(/^\/[a-zA-Z]:\//)&&(l=l.replace(/^\/[a-zA-Z]:\//,"/"));var n=l,d=this._getBase();l.indexOf(d)===0&&(l=l.substr(d.length)),this._hashbang&&(l=l.replace("#!","")),!(d&&n===l&&(!x||this._window.location.protocol!=="file:"))&&(t.preventDefault(),this.show(n))}}}}};p.prototype._onpopstate=(function(){var t=!1;return m?(C&&document.readyState==="complete"?t=!0:window.addEventListener("load",function(){setTimeout(function(){t=!0},0)}),function(e){if(t){var s=this;if(e.state){var i=e.state.path;s.replace(i,e.state)}else if(x){var a=s._window.location;s.show(a.pathname+a.search+a.hash,void 0,void 0,!1)}}}):function(){}})();p.prototype._which=function(t){return t=t||m&&this._window.event,t.which==null?t.button:t.which};p.prototype._toURL=function(t){var e=this._window;if(typeof URL=="function"&&x)return new URL(t,e.location.toString());if(C){var s=e.document.createElement("a");return s.href=t,s}};p.prototype.sameOrigin=function(t){if(!t||!x)return!1;var e=this._toURL(t),s=this._window,i=s.location;return i.protocol===e.protocol&&i.hostname===e.hostname&&(i.port===e.port||i.port===""&&(e.port==80||e.port==443))};p.prototype._samePath=function(t){if(!x)return!1;var e=this._window,s=e.location;return t.pathname===s.pathname&&t.search===s.search};p.prototype._decodeURLEncodedURIComponent=function(t){return typeof t!="string"?t:this._decodeURLComponents?decodeURIComponent(t.replace(/\+/g," ")):t};function rt(){var t=new p;function e(){return z.apply(t,arguments)}return e.callbacks=t.callbacks,e.exits=t.exits,e.base=t.base.bind(t),e.strict=t.strict.bind(t),e.start=t.start.bind(t),e.stop=t.stop.bind(t),e.show=t.show.bind(t),e.back=t.back.bind(t),e.redirect=t.redirect.bind(t),e.replace=t.replace.bind(t),e.dispatch=t.dispatch.bind(t),e.exit=t.exit.bind(t),e.configure=t.configure.bind(t),e.sameOrigin=t.sameOrigin.bind(t),e.clickHandler=t.clickHandler.bind(t),e.create=rt,Object.defineProperty(e,"len",{get:function(){return t.len},set:function(s){t.len=s}}),Object.defineProperty(e,"current",{get:function(){return t.current},set:function(s){t.current=s}}),e.Context=$,e.Route=R,e}function z(t,e){if(typeof t=="function")return z.call(this,"*",t);if(typeof e=="function")for(var s=new R(t,null,this),i=1;i<arguments.length;++i)this.callbacks.push(s.middleware(arguments[i]));else typeof t=="string"?this[typeof e=="string"?"redirect":"show"](t,e):this.start(t)}function Tt(t){if(!t.handled){var e,s=this,i=s._window;s._hashbang?e=x&&this._getBase()+i.location.hash.replace("#!",""):e=x&&i.location.pathname+i.location.search,e!==t.canonicalPath&&(s.stop(),t.handled=!1,x&&(i.location.href=t.canonicalPath))}}function It(t){return t.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function $(t,e,s){var i=this.page=s||z,a=i._window,o=i._hashbang,l=i._getBase();t[0]==="/"&&t.indexOf(l)!==0&&(t=l+(o?"#!":"")+t);var n=t.indexOf("?");this.canonicalPath=t;var d=new RegExp("^"+It(l));if(this.path=t.replace(d,"")||"/",o&&(this.path=this.path.replace("#!","")||"/"),this.title=C&&a.document.title,this.state=e||{},this.state.path=t,this.querystring=~n?i._decodeURLEncodedURIComponent(t.slice(n+1)):"",this.pathname=i._decodeURLEncodedURIComponent(~n?t.slice(0,n):t),this.params={},this.hash="",!o){if(!~this.path.indexOf("#"))return;var r=this.path.split("#");this.path=this.pathname=r[0],this.hash=i._decodeURLEncodedURIComponent(r[1])||"",this.querystring=this.querystring.split("#")[0]}}$.prototype.pushState=function(){var t=this.page,e=t._window,s=t._hashbang;t.len++,q&&e.history.pushState(this.state,this.title,s&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};$.prototype.save=function(){var t=this.page;q&&t._window.history.replaceState(this.state,this.title,t._hashbang&&this.path!=="/"?"#!"+this.path:this.canonicalPath)};function R(t,e,s){var i=this.page=s||X,a=e||{};a.strict=a.strict||i._strict,this.path=t==="*"?"(.*)":t,this.method="GET",this.regexp=A(this.path,this.keys=[],a)}R.prototype.middleware=function(t){var e=this;return function(s,i){if(e.match(s.path,s.params))return s.routePath=e.path,t(s,i);i()}};R.prototype.match=function(t,e){var s=this.keys,i=t.indexOf("?"),a=~i?t.slice(0,i):t,o=this.regexp.exec(decodeURIComponent(a));if(!o)return!1;delete e[0];for(var l=1,n=o.length;l<n;++l){var d=s[l-1],r=this.page._decodeURLEncodedURIComponent(o[l]);(r!==void 0||!hasOwnProperty.call(e,d.name))&&(e[d.name]=r)}return!0};var X=rt(),v=X,At=X;v.default=At;let c={isConnected:!1,isPremium:!1,walletAddress:"",currentPage:"dashboard"};const Z=t=>`
     <div class="financial-sidebar">
         <!-- Professional Header with Logo & Branding -->
         <div class="sidebar-header">
@@ -10,22 +10,22 @@
         <!-- Professional Tab Navigation -->
         <nav class="tab-navigation">
             <div class="tab-list">
-                <div class="tab-item ${e.currentPage==="terminal"?"active":""}" data-page="terminal">
+                <div class="tab-item ${t.currentPage==="terminal"?"active":""}" data-page="terminal">
                     <a href="/terminal" class="tab-link">
                         <img src="/dashboard.png" alt="" class="tab-icon">
                         <span class="tab-label">Terminal</span>
                     </a>
                 </div>
 
-                <div class="tab-item ${e.currentPage==="events"?"active":""}" data-page="events">
+                <div class="tab-item ${t.currentPage==="events"?"active":""}" data-page="events">
                     <a href="/events" class="tab-link">
                         <img src="/calendar.png" alt="" class="tab-icon">
                         <span class="tab-label">Events</span>
                     </a>
                 </div>
 
-                ${e.isPremium?`
-                    <div class="tab-item ${e.currentPage==="harvesting"?"active":""}" data-page="harvesting">
+                ${t.isPremium?`
+                    <div class="tab-item ${t.currentPage==="harvesting"?"active":""}" data-page="harvesting">
                         <a href="/harvesting" class="tab-link premium-tab">
                             <img src="/harvesting.png" alt="" class="tab-icon">
                             <span class="tab-label">Harvesting</span>
@@ -33,7 +33,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="distribution"?"active":""}" data-page="distribution">
+                    <div class="tab-item ${t.currentPage==="distribution"?"active":""}" data-page="distribution">
                         <a href="/distribution" class="tab-link premium-tab">
                             <img src="/distribution.png" alt="" class="tab-icon">
                             <span class="tab-label">Distribution</span>
@@ -41,7 +41,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="wallet-lookup"?"active":""}" data-page="wallet-lookup">
+                    <div class="tab-item ${t.currentPage==="wallet-lookup"?"active":""}" data-page="wallet-lookup">
                         <a href="/wallet-lookup" class="tab-link premium-tab">
                             <img src="/wallet.png" alt="" class="tab-icon">
                             <span class="tab-label">Wallet Lookup</span>
@@ -49,7 +49,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="reward-calculator"?"active":""}" data-page="reward-calculator">
+                    <div class="tab-item ${t.currentPage==="reward-calculator"?"active":""}" data-page="reward-calculator">
                         <a href="/reward-calculator" class="tab-link premium-tab">
                             <img src="/calculator.png" alt="" class="tab-icon">
                             <span class="tab-label">Rewards</span>
@@ -57,7 +57,7 @@
                         </a>
                     </div>
 
-                    <div class="tab-item ${e.currentPage==="vote"?"active":""}" data-page="vote">
+                    <div class="tab-item ${t.currentPage==="vote"?"active":""}" data-page="vote">
                         <a href="/vote" class="tab-link premium-tab">
                             <img src="/vote.png" alt="" class="tab-icon">
                             <span class="tab-label">Vote</span>
@@ -110,7 +110,7 @@
 
         <!-- Wallet Section -->
         <div class="wallet-section">
-            ${e.isConnected?"":`
+            ${t.isConnected?"":`
                 <!-- Premium Info Banner (only when not connected) -->
                 <div class="premium-info-banner">
                     <div class="banner-header">
@@ -121,27 +121,27 @@
                 </div>
             `}
             
-            ${e.isConnected?`
+            ${t.isConnected?`
                 <div class="wallet-status-compact">
                     <div class="wallet-info-row">
                         <span class="wallet-label">Wallet</span>
                         <span class="wallet-address-short">
-                            ${e.walletAddress.length>8?e.walletAddress.substring(0,4)+"..."+e.walletAddress.substring(e.walletAddress.length-4):e.walletAddress}
+                            ${t.walletAddress.length>8?t.walletAddress.substring(0,4)+"..."+t.walletAddress.substring(t.walletAddress.length-4):t.walletAddress}
                         </span>
                     </div>
                     <div class="premium-status-row">
                         <span class="premium-label">Access</span>
-                        <div class="premium-badge ${e.isPremium?"premium-active":"standard-active"}">
-                            <div class="premium-indicator ${e.isPremium?"premium-dot":"standard-dot"}"></div>
-                            <span class="premium-text">${e.isPremium?"Premium":"Standard"}</span>
+                        <div class="premium-badge ${t.isPremium?"premium-active":"standard-active"}">
+                            <div class="premium-indicator ${t.isPremium?"premium-dot":"standard-dot"}"></div>
+                            <span class="premium-text">${t.isPremium?"Premium":"Standard"}</span>
                         </div>
                     </div>
                 </div>
             `:""}
             
-            <button id="connect-wallet-btn" class="wallet-connect-btn ${e.isConnected?"connected":"disconnected"}">
+            <button id="connect-wallet-btn" class="wallet-connect-btn ${t.isConnected?"connected":"disconnected"}">
                 <span class="wallet-text">
-                    ${e.isConnected?"Disconnect Wallet":"Connect Wallet"}
+                    ${t.isConnected?"Disconnect Wallet":"Connect Wallet"}
                 </span>
             </button>
         </div>
@@ -165,7 +165,7 @@
             </div>
         </div>
     </div>
-`,Ct=()=>`
+`,$t=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -557,14 +557,14 @@
 
 
     </div>
-`;function N(e,t,s,i,a,o){const l=(a-90)*Math.PI/180,n=(o-90)*Math.PI/180,d=e+s*Math.cos(l),r=t+s*Math.sin(l),u=e+s*Math.cos(n),f=t+s*Math.sin(n),h=e+i*Math.cos(n),y=t+i*Math.sin(n),C=e+i*Math.cos(l),g=t+i*Math.sin(l),P=Math.abs(o-a)>180?1:0;return`M ${d} ${r} A ${s} ${s} 0 ${P} 1 ${u} ${f} L ${h} ${y} A ${i} ${i} 0 ${P} 0 ${C} ${g} Z`}function et(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const s=e.treasury/t*100,i=e.holders/t*100,a=e.infra/t*100,o=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:s,holdersPercent:i,infraPercent:a,netPercent:o});const l=document.getElementById("clean-donut-chart");if(l){l.querySelectorAll(".daily-pie-segment").forEach(ht=>ht.remove());const d=160,r=160,u=120,f=80;let h=0;const y=s/100*360,C=N(d,r,u,f,h,h+y),g=document.createElementNS("http://www.w3.org/2000/svg","path");g.setAttribute("d",C),g.setAttribute("fill","#10b981"),g.setAttribute("class","daily-pie-segment treasury-segment"),g.setAttribute("data-label","TREASURY INFLOW"),g.setAttribute("data-value",`${e.treasury.toFixed(5)}`),g.setAttribute("data-percentage",`${Math.round(s)}%`),g.setAttribute("data-color","#10b981"),l.appendChild(g),h+=y;const P=i/100*360,B=N(d,r,u,f,h,h+P),b=document.createElementNS("http://www.w3.org/2000/svg","path");b.setAttribute("d",B),b.setAttribute("fill","#3b82f6"),b.setAttribute("class","daily-pie-segment holders-segment"),b.setAttribute("data-label","HOLDER EARNINGS"),b.setAttribute("data-value",`${e.holders.toFixed(5)}`),b.setAttribute("data-percentage",`${Math.round(i)}%`),b.setAttribute("data-color","#3b82f6"),l.appendChild(b),h+=P;const Z=a/100*360,ut=N(d,r,u,f,h,h+Z),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ut),E.setAttribute("fill","#f59e0b"),E.setAttribute("class","daily-pie-segment infra-segment"),E.setAttribute("data-label","INFRA WALLET"),E.setAttribute("data-value",`${e.infra.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(a)}%`),E.setAttribute("data-color","#f59e0b"),l.appendChild(E),h+=Z;const pt=o/100*360,vt=N(d,r,u,f,h,h+pt),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",vt),k.setAttribute("fill","#ef4444"),k.setAttribute("class","daily-pie-segment net-segment"),k.setAttribute("data-label","NET BALANCE"),k.setAttribute("data-value",`${e.net.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(o)}%`),k.setAttribute("data-color","#ef4444"),l.appendChild(k)}const n=document.querySelector(".daily-pie-total");n&&(n.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),It()}function It(){document.querySelectorAll(".daily-pie-segment").forEach(e=>{e.style.cursor="pointer",e.addEventListener("mouseenter",t=>{st(t,e),e.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),e.addEventListener("mouseleave",t=>{V(),e.style.filter="none"}),e.addEventListener("click",t=>{st(t,e),setTimeout(()=>{V()},3e3)})})}function st(e,t){const s=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const a=t.getAttribute("data-color");V();const o=document.createElement("div");o.id="donut-tooltip",o.className="donut-tooltip",o.innerHTML=`
+`;function N(t,e,s,i,a,o){const l=(a-90)*Math.PI/180,n=(o-90)*Math.PI/180,d=t+s*Math.cos(l),r=e+s*Math.sin(l),u=t+s*Math.cos(n),f=e+s*Math.sin(n),h=t+i*Math.cos(n),y=e+i*Math.sin(n),T=t+i*Math.cos(l),g=e+i*Math.sin(l),P=Math.abs(o-a)>180?1:0;return`M ${d} ${r} A ${s} ${s} 0 ${P} 1 ${u} ${f} L ${h} ${y} A ${i} ${i} 0 ${P} 0 ${T} ${g} Z`}function st(t){const e=t.treasury+t.holders+t.infra+t.net;console.log("🔄 Updating donut chart with data:",t),console.log("📊 Total:",e);const s=t.treasury/e*100,i=t.holders/e*100,a=t.infra/e*100,o=t.net/e*100;console.log("🎯 Percentages:",{treasuryPercent:s,holdersPercent:i,infraPercent:a,netPercent:o});const l=document.getElementById("clean-donut-chart");if(l){l.querySelectorAll(".daily-pie-segment").forEach(bt=>bt.remove());const d=160,r=160,u=120,f=80;let h=0;const y=s/100*360,T=N(d,r,u,f,h,h+y),g=document.createElementNS("http://www.w3.org/2000/svg","path");g.setAttribute("d",T),g.setAttribute("fill","#10b981"),g.setAttribute("class","daily-pie-segment treasury-segment"),g.setAttribute("data-label","TREASURY INFLOW"),g.setAttribute("data-value",`${t.treasury.toFixed(5)}`),g.setAttribute("data-percentage",`${Math.round(s)}%`),g.setAttribute("data-color","#10b981"),l.appendChild(g),h+=y;const P=i/100*360,B=N(d,r,u,f,h,h+P),b=document.createElementNS("http://www.w3.org/2000/svg","path");b.setAttribute("d",B),b.setAttribute("fill","#3b82f6"),b.setAttribute("class","daily-pie-segment holders-segment"),b.setAttribute("data-label","HOLDER EARNINGS"),b.setAttribute("data-value",`${t.holders.toFixed(5)}`),b.setAttribute("data-percentage",`${Math.round(i)}%`),b.setAttribute("data-color","#3b82f6"),l.appendChild(b),h+=P;const tt=a/100*360,ht=N(d,r,u,f,h,h+tt),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ht),E.setAttribute("fill","#f59e0b"),E.setAttribute("class","daily-pie-segment infra-segment"),E.setAttribute("data-label","INFRA WALLET"),E.setAttribute("data-value",`${t.infra.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(a)}%`),E.setAttribute("data-color","#f59e0b"),l.appendChild(E),h+=tt;const gt=o/100*360,mt=N(d,r,u,f,h,h+gt),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",mt),k.setAttribute("fill","#ef4444"),k.setAttribute("class","daily-pie-segment net-segment"),k.setAttribute("data-label","NET BALANCE"),k.setAttribute("data-value",`${t.net.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(o)}%`),k.setAttribute("data-color","#ef4444"),l.appendChild(k)}const n=document.querySelector(".daily-pie-total");n&&(n.textContent="IMG"),console.log("✅ Donut chart updated with new data:",t),Rt()}function Rt(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",e=>{it(e,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",e=>{V(),t.style.filter="none"}),t.addEventListener("click",e=>{it(e,t),setTimeout(()=>{V()},3e3)})})}function it(t,e){const s=e.getAttribute("data-label"),i=e.getAttribute("data-value");e.getAttribute("data-percentage");const a=e.getAttribute("data-color");V();const o=document.createElement("div");o.id="donut-tooltip",o.className="donut-tooltip",o.innerHTML=`
         <div class="tooltip-header" style="background: ${a}; color: #ffffff; text-align: center;">
             <span class="tooltip-label" style="color: #ffffff;">${s}</span>
         </div>
         <div class="tooltip-content" style="text-align: center;">
             <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${i}</div>
         </div>
-    `;const l=e.target.getBoundingClientRect(),n=200,d=100;let r=l.left+l.width/2,u=l.top-d-20;r<n/2?r=n/2+10:r>window.innerWidth-n/2&&(r=window.innerWidth-n/2-10),u<10&&(u=l.bottom+20),o.style.left=`${r}px`,o.style.top=`${u}px`,o.style.transform="translateX(-50%)",document.body.appendChild(o),setTimeout(()=>{o.style.opacity="1",o.style.transform="translateX(-50%) translateY(-10px)"},10)}function V(){const e=document.getElementById("donut-tooltip");e&&e.remove()}function U(){console.log("🎯 Initializing donut chart...");const e=document.getElementById("clean-donut-chart");if(e){const o=e.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",o.length),o.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const t=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(t&&s&&i&&a){const o=parseFloat(t.textContent.replace("","")),l=parseFloat(s.textContent.replace("","")),n=parseFloat(i.textContent.replace("","")),d=parseFloat(a.textContent.replace("","")),r={treasury:o,holders:l,infra:n,net:d};console.log("🎯 Reading actual data from Box 1:",r),et(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),et({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function z(e){return e>=1e6?(e/1e6).toFixed(2)+"M":e>=1e3?(e/1e3).toFixed(2)+"K":e.toFixed(2)}function At(e){return e<.01?"$"+e.toFixed(6):"$"+e.toFixed(4)}function $t(e){return(e>=0?"+":"")+e.toFixed(2)+"%"}async function Dt(){var e,t,s;try{console.log("🔍 Fetching token metrics from DexScreener...");const i=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!i.ok)throw new Error(`HTTP error! status: ${i.status}`);const a=await i.json();if(console.log("📊 DexScreener data received:",a),a.pairs&&a.pairs.length>0){const o=a.pairs[0];document.getElementById("img-price").textContent=At(parseFloat(o.priceUsd||0)),document.getElementById("price-change").textContent=$t(parseFloat(((e=o.priceChange)==null?void 0:e.h24)||0)),document.getElementById("volume-24h").textContent="$"+z(parseFloat(((t=o.volume)==null?void 0:t.h24)||0)),document.getElementById("market-cap").textContent="$"+z(parseFloat(o.marketCap||0)),document.getElementById("liquidity").textContent="$"+z(parseFloat(((s=o.liquidity)==null?void 0:s.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(i){console.error("❌ Failed to fetch token metrics:",i),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Rt=()=>`
+    `;const l=t.target.getBoundingClientRect(),n=200,d=100;let r=l.left+l.width/2,u=l.top-d-20;r<n/2?r=n/2+10:r>window.innerWidth-n/2&&(r=window.innerWidth-n/2-10),u<10&&(u=l.bottom+20),o.style.left=`${r}px`,o.style.top=`${u}px`,o.style.transform="translateX(-50%)",document.body.appendChild(o),setTimeout(()=>{o.style.opacity="1",o.style.transform="translateX(-50%) translateY(-10px)"},10)}function V(){const t=document.getElementById("donut-tooltip");t&&t.remove()}function G(){console.log("🎯 Initializing donut chart...");const t=document.getElementById("clean-donut-chart");if(t){const o=t.querySelectorAll(".daily-pie-segment");if(console.log("🔍 Found existing segments:",o.length),o.length>0){console.log("✅ Donut chart already has segments, skipping initialization");return}}const e=document.querySelector(".daily-breakdown-item:nth-child(1) .daily-breakdown-value"),s=document.querySelector(".daily-breakdown-item:nth-child(2) .daily-breakdown-value"),i=document.querySelector(".daily-breakdown-item:nth-child(3) .daily-breakdown-value"),a=document.querySelector(".daily-breakdown-item:nth-child(4) .daily-breakdown-value");if(e&&s&&i&&a){const o=parseFloat(e.textContent.replace("","")),l=parseFloat(s.textContent.replace("","")),n=parseFloat(i.textContent.replace("","")),d=parseFloat(a.textContent.replace("","")),r={treasury:o,holders:l,infra:n,net:d};console.log("🎯 Reading actual data from Box 1:",r),st(r),console.log("🎯 Donut chart initialized with Box 1 data!")}else console.warn("⚠️ Could not find Box 1 data elements, using fallback data"),st({treasury:.22441,holders:.17742,infra:.02191,net:.005})}function U(t){return t>=1e6?(t/1e6).toFixed(2)+"M":t>=1e3?(t/1e3).toFixed(2)+"K":t.toFixed(2)}function Dt(t){return t<.01?"$"+t.toFixed(6):"$"+t.toFixed(4)}function Bt(t){return(t>=0?"+":"")+t.toFixed(2)+"%"}async function Nt(){var t,e,s;try{console.log("🔍 Fetching token metrics from DexScreener...");const i=await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/cxgcuecqdabpvjwh5cweir9y5fy9sktjhgutmc95bgy3");if(!i.ok)throw new Error(`HTTP error! status: ${i.status}`);const a=await i.json();if(console.log("📊 DexScreener data received:",a),a.pairs&&a.pairs.length>0){const o=a.pairs[0];document.getElementById("img-price").textContent=Dt(parseFloat(o.priceUsd||0)),document.getElementById("price-change").textContent=Bt(parseFloat(((t=o.priceChange)==null?void 0:t.h24)||0)),document.getElementById("volume-24h").textContent="$"+U(parseFloat(((e=o.volume)==null?void 0:e.h24)||0)),document.getElementById("market-cap").textContent="$"+U(parseFloat(o.marketCap||0)),document.getElementById("liquidity").textContent="$"+U(parseFloat(((s=o.liquidity)==null?void 0:s.usd)||0)),document.getElementById("img-holders").textContent="22K",console.log("✅ Token metrics updated successfully")}else console.warn("⚠️ No pair data found in DexScreener response")}catch(i){console.error("❌ Failed to fetch token metrics:",i),document.getElementById("img-price").textContent="$0.0000",document.getElementById("price-change").textContent="0.00%",document.getElementById("volume-24h").textContent="$0.00",document.getElementById("market-cap").textContent="$0.00",document.getElementById("liquidity").textContent="$0.00",document.getElementById("img-holders").textContent="22K"}}const Ot=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -797,7 +797,7 @@
 
         </div>
     </div>
-`,Bt=()=>`
+`,Ht=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1123,7 +1123,7 @@
             </div>
         </div>
     </div>
-`,Nt=()=>`
+`,qt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1377,7 +1377,7 @@
             </div>
         </div>
     </div>
-`,Ot=()=>`
+`,zt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1417,7 +1417,7 @@
             </div>
         </div>
     </div>
-`,Ht=()=>`
+`,Gt=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1466,7 +1466,7 @@
             </div>
         </div>
     </div>
-`,Gt=()=>`
+`,Ut=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
         <div class="mobile-header-content">
@@ -1769,27 +1769,27 @@
             </div>
         </div>
     </div>
-`;class qt{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const s=t.target.closest("[id], [data-provider]");if(!s)return;if(t.preventDefault(),t.stopPropagation(),s.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(s.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=s.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(s.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const s=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",s.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const t=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",t),await this.handleWalletConnection(t,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const t=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",t),await this.handleWalletConnection(t,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,s){try{console.log(`🔍 Verifying tokens for ${s}: ${t}`);const i=await this.verifyImgTokens(t),a=i>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${a}`),console.log(`   Premium Access Granted: ${a?"YES ✅":"NO ❌"}`);let o=a;i>0&&i>=47500&&(o=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=o,this.walletAddress=t,c.isConnected=!0,c.isPremium=o,c.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",o.toString()),localStorage.setItem("walletProvider",s),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${s} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${o?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",c.isConnected=!1,c.isPremium=!1,c.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),c.currentPage!=="dashboard"&&c.currentPage!=="metrics"&&v.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying token balance for:",t);try{console.log("🔄 Checking balance via Render backend...");const s=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${s}`),s}catch(s){return console.error("❌ Render backend verification failed:",s.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const s=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!s.ok)throw new Error(`Render backend error: ${s.status} ${s.statusText}`);const i=await s.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
+`;class Ft{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const e=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(e[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(e){console.error("❌ Failed to initialize Solana connection:",e)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=e=>{const s=e.target.closest("[id], [data-provider]");if(!s)return;if(e.preventDefault(),e.stopPropagation(),s.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(s.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=s.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(s.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const e=document.getElementById("wallet-modal");if(e)console.log("✅ Modal found, showing..."),e.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const s=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",s.length)}}hideWalletModal(){const e=document.getElementById("wallet-modal");e&&e.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const e=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",e),await this.handleWalletConnection(e,"Phantom")}catch(e){console.error("❌ Phantom connection failed:",e),this.showConnectionError(e.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const e=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",e),await this.handleWalletConnection(e,"Solflare")}catch(e){console.error("❌ Solflare connection failed:",e),this.showConnectionError(e.message)}}async handleWalletConnection(e,s){try{console.log(`🔍 Verifying tokens for ${s}: ${e}`);const i=await this.verifyImgTokens(e),a=i>=this.requiredImgAmount;console.log("🔍 PREMIUM ACCESS DEBUG:"),console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${a}`),console.log(`   Premium Access Granted: ${a?"YES ✅":"NO ❌"}`);let o=a;i>0&&i>=47500&&(o=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=o,this.walletAddress=e,c.isConnected=!0,c.isPremium=o,c.walletAddress=e,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",e),localStorage.setItem("walletPremium",o.toString()),localStorage.setItem("walletProvider",s),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${s} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${o?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",c.isConnected=!1,c.isPremium=!1,c.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),c.currentPage!=="dashboard"&&c.currentPage!=="metrics"&&v.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(e){console.log("🔍 Verifying token balance for:",e);try{console.log("🔄 Checking balance via Render backend...");const s=await this.checkRenderBackend(e);return console.log(`✅ Token verification successful! Balance: ${s}`),s}catch(s){return console.error("❌ Render backend verification failed:",s.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(e)?(console.log("🎯 TESTING OVERRIDE: Known premium wallet detected, granting access"),47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(e){console.log("🔄 Trying Render backend verification...");const s=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:e}),timeout:1e4});if(!s.ok)throw new Error(`Render backend error: ${s.status} ${s.statusText}`);const i=await s.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const e=document.getElementById("wallet-connection-status");e&&(e.style.display="block",e.innerHTML=`
                 <div class="connection-indicator">
                     <div class="loading-spinner"></div>
                     <span class="connection-text">Connecting...</span>
                 </div>
-            `)}showConnectionError(t){const s=document.getElementById("wallet-connection-status");s&&(s.style.display="block",s.innerHTML=`
+            `)}showConnectionError(e){const s=document.getElementById("wallet-connection-status");s&&(s.style.display="block",s.innerHTML=`
                 <div class="connection-indicator">
-                    <span class="connection-text" style="color: #ef4444;">❌ ${t}</span>
+                    <span class="connection-text" style="color: #ef4444;">❌ ${e}</span>
                 </div>
-            `,setTimeout(()=>{s&&(s.style.display="none")},5e3))}saveWalletState(){try{const t={isConnected:this.isConnected,walletAddress:this.walletAddress,isPremium:this.isPremium,timestamp:Date.now()};localStorage.setItem("imgProtocolWalletState",JSON.stringify(t)),localStorage.setItem("walletConnected",this.isConnected.toString()),localStorage.setItem("walletPremium",this.isPremium.toString()),console.log("💾 Wallet state saved:",t)}catch(t){console.error("Error saving wallet state:",t)}}clearWalletState(){try{localStorage.removeItem("imgProtocolWalletState"),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),console.log("🗑️ Wallet state cleared")}catch(t){console.error("Error clearing wallet state:",t)}}updateUI(){this.updateSidebar();const t=document.getElementById("connect-wallet-btn");t&&(t.innerHTML=`
+            `,setTimeout(()=>{s&&(s.style.display="none")},5e3))}saveWalletState(){try{const e={isConnected:this.isConnected,walletAddress:this.walletAddress,isPremium:this.isPremium,timestamp:Date.now()};localStorage.setItem("imgProtocolWalletState",JSON.stringify(e)),localStorage.setItem("walletConnected",this.isConnected.toString()),localStorage.setItem("walletPremium",this.isPremium.toString()),console.log("💾 Wallet state saved:",e)}catch(e){console.error("Error saving wallet state:",e)}}clearWalletState(){try{localStorage.removeItem("imgProtocolWalletState"),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),console.log("🗑️ Wallet state cleared")}catch(e){console.error("Error clearing wallet state:",e)}}updateUI(){this.updateSidebar();const e=document.getElementById("connect-wallet-btn");e&&(e.innerHTML=`
                 <span class="nav-text connect-wallet-text">
                     ${this.isConnected?"DISCONNECT WALLET":"CONNECT WALLET"}
                 </span>
-            `)}updateSidebar(){c.isConnected=this.isConnected,c.isPremium=this.isPremium,c.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",c);const t=document.getElementById("sidebar-container");if(t){const s=X(c);t.innerHTML=s,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function S(){console.log("🔧 updateSidebar called with state:",c);const e=document.getElementById("sidebar-container");if(e){const t=X(c);console.log("🔧 Generated sidebar HTML length:",t.length),console.log("🔧 Sidebar HTML preview:",t.substring(0,300)+"..."),e.innerHTML=t,e.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const s=e.querySelector(".financial-sidebar");if(console.log(s?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(i){console.error("❌ Failed to attach event listeners:",i)}}else console.error("❌ Sidebar container not found!")}function M(e){const t=document.getElementById("main-content");t&&(t.innerHTML=e)}function Ut(){c.currentPage="terminal",S(),M(Ct()),setTimeout(()=>{Dt(),zt()},100)}function zt(){console.log("🔧 Initializing chart interactivity..."),Ft()}function Ft(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(e=>{e.addEventListener("mouseenter",t=>{F(t,t.target.dataset.value,t.target.dataset.label,"#3b82f6")}),e.addEventListener("mouseleave",()=>{H()}),e.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(e=>{e.addEventListener("mouseenter",t=>{F(t,t.target.dataset.value,t.target.dataset.label,"#10b981")}),e.addEventListener("mouseleave",()=>{H()}),e.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(e=>{e.addEventListener("mouseenter",t=>{F(t,t.target.dataset.value,t.target.dataset.label,"#f59e0b")}),e.addEventListener("mouseleave",()=>{H()}),e.style.cursor="pointer"})}function _t(e){const t=parseFloat(e.replace(/[^0-9.-]/g,""));return e.includes("%")?`${t}%`:t>=1e6?`${(t/1e6).toFixed(1)}M`:t>=1e3?`${(t/1e3).toFixed(1)}K`:`${t.toLocaleString()}`}function F(e,t,s,i){H();const a=document.createElement("div");a.id="universal-chart-tooltip",a.className="donut-tooltip",a.innerHTML=`
+            `)}updateSidebar(){c.isConnected=this.isConnected,c.isPremium=this.isPremium,c.walletAddress=this.walletAddress,console.log("🔧 Wallet manager updating sidebar with state:",c);const e=document.getElementById("sidebar-container");if(e){const s=Z(c);e.innerHTML=s,console.log("🔧 Wallet manager updated sidebar successfully")}this.setupEventListeners()}}function S(){console.log("🔧 updateSidebar called with state:",c);const t=document.getElementById("sidebar-container");if(t){const e=Z(c);console.log("🔧 Generated sidebar HTML length:",e.length),console.log("🔧 Sidebar HTML preview:",e.substring(0,300)+"..."),t.innerHTML=e,t.classList.add("loaded"),console.log("🔧 Sidebar updated successfully and marked as loaded");const s=t.querySelector(".financial-sidebar");if(console.log(s?"✅ Financial sidebar content added successfully":"❌ Financial sidebar content NOT found after update!"),window.walletManager)try{window.walletManager.setupEventListeners(),console.log("🔧 Wallet event listeners attached after sidebar update")}catch(i){console.error("❌ Failed to attach event listeners:",i)}}else console.error("❌ Sidebar container not found!")}function M(t){const e=document.getElementById("main-content");e&&(e.innerHTML=t)}function Wt(){c.currentPage="terminal",S(),M($t()),setTimeout(()=>{Nt(),_t()},100)}function _t(){console.log("🔧 Initializing chart interactivity..."),jt()}function jt(){document.querySelectorAll("#weekly-chart .chart-bar").forEach(t=>{t.addEventListener("mouseenter",e=>{F(e,e.target.dataset.value,e.target.dataset.label,"#3b82f6")}),t.addEventListener("mouseleave",()=>{H()}),t.style.cursor="pointer"}),document.querySelectorAll("#monthly-chart .chart-bar").forEach(t=>{t.addEventListener("mouseenter",e=>{F(e,e.target.dataset.value,e.target.dataset.label,"#10b981")}),t.addEventListener("mouseleave",()=>{H()}),t.style.cursor="pointer"}),document.querySelectorAll("#process-chart .chart-dot").forEach(t=>{t.addEventListener("mouseenter",e=>{F(e,e.target.dataset.value,e.target.dataset.label,"#f59e0b")}),t.addEventListener("mouseleave",()=>{H()}),t.style.cursor="pointer"})}function Vt(t){const e=parseFloat(t.replace(/[^0-9.-]/g,""));return t.includes("%")?`${e}%`:e>=1e6?`${(e/1e6).toFixed(1)}M`:e>=1e3?`${(e/1e3).toFixed(1)}K`:`${e.toLocaleString()}`}function F(t,e,s,i){H();const a=document.createElement("div");a.id="universal-chart-tooltip",a.className="donut-tooltip",a.innerHTML=`
         <div class="tooltip-header" style="background: ${i}; color: #ffffff; text-align: center;">
             <span class="tooltip-label" style="color: #ffffff;">${s}</span>
         </div>
         <div class="tooltip-content" style="text-align: center;">
-            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${_t(t)}</div>
+            <div class="tooltip-value" style="color: #ffffff; font-size: 18px; text-align: center;">${Vt(e)}</div>
         </div>
-    `;const o=e.target.getBoundingClientRect(),l=200,n=100;let d=o.left+o.width/2,r=o.top-n-20;d<l/2?d=l/2+10:d>window.innerWidth-l/2&&(d=window.innerWidth-l/2-10),r<10&&(r=o.bottom+20),a.style.left=`${d}px`,a.style.top=`${r}px`,a.style.transform="translateX(-50%)",document.body.appendChild(a),setTimeout(()=>{a.style.opacity="1",a.style.transform="translateX(-50%) translateY(-10px)"},10)}function Wt(){let e=document.getElementById("mobile-sidebar");e||(e=document.createElement("div"),e.id="mobile-sidebar",e.className="mobile-sidebar-container",e.innerHTML=X(c),document.body.appendChild(e),console.log("📱 Mobile sidebar created"),window.innerWidth>1024&&(e.style.display="none")),document.addEventListener("click",t=>{t.target.closest("#mobile-menu-btn")&&(console.log("Burger button clicked!"),Vt()),(t.target.closest("#sidebar-overlay")||window.innerWidth<=1024&&!t.target.closest("#mobile-sidebar")&&!t.target.closest("#mobile-menu-btn"))&&O()}),document.addEventListener("keydown",t=>{t.key==="Escape"&&O()}),window.addEventListener("resize",()=>{const t=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(t?(s.style.display="block",s.classList.remove("mobile-open"),O()):(s.classList.remove("mobile-open"),s.style.display="none"))}),setTimeout(()=>{const t=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(t?(s.classList.remove("mobile-open"),s.style.display="block",console.log("📱 Mobile mode activated - mobile sidebar hidden by default")):(s.classList.remove("mobile-open"),s.style.display="none",console.log("🖥️ Desktop mode activated - mobile sidebar hidden")))},100)}function Vt(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");e&&t&&s&&(e.classList.contains("mobile-open")?O():jt())}function jt(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");if(e&&t&&s){e.classList.add("mobile-open"),t.classList.add("active"),s.classList.add("active"),document.body.style.overflow="hidden",console.log("✅ Mobile menu opened successfully"),console.log("📱 Mobile sidebar classes:",e.className),console.log("🎯 Mobile sidebar content length:",e.innerHTML.length),console.log("📄 Mobile sidebar HTML preview:",e.innerHTML.substring(0,300)+"...");const i=e.querySelector(".financial-sidebar");i?(console.log("✅ Mobile financial sidebar found"),console.log("🎨 Mobile sidebar background:",getComputedStyle(i).background),console.log("👁️ Mobile sidebar visibility:",getComputedStyle(i).visibility)):console.log("❌ Mobile financial sidebar NOT found!")}}function O(){const e=document.getElementById("mobile-sidebar"),t=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");e&&t&&s&&(e.classList.remove("mobile-open"),t.classList.remove("active"),s.classList.remove("active"),document.body.style.overflow="",console.log("✅ Mobile menu closed successfully"))}function H(){const e=document.getElementById("universal-chart-tooltip");e&&e.remove()}function Yt(){c.currentPage="events",S(),M(Rt()),setTimeout(()=>{se()},100)}function Kt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="harvesting",S(),M(Bt())}function Jt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="distribution",S(),M(Nt())}function Qt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="wallet-lookup",S(),M(Ot())}function Xt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="reward-calculator",S(),M(Ht())}function Zt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="vote",S(),M(Gt())}v("/terminal",Ut);v("/events",Yt);v("/harvesting",Kt);v("/distribution",Jt);v("/wallet-lookup",Qt);v("/reward-calculator",Xt);v("/vote",Zt);v("*",()=>v.redirect("/terminal"));const rt=[{id:1,title:"IMG Protocol v2.0 Launch",description:"Major protocol upgrade with enhanced security features and improved performance",category:"launch",status:"ongoing",date:"2024-03-15",time:"14:00 UTC",image:"/dashboard.png",priority:"high",progress:75},{id:2,title:"Community Governance Vote",description:"Vote on the new staking rewards distribution mechanism",category:"governance",status:"ongoing",date:"2024-03-10",time:"12:00 UTC",image:"/vote.png",priority:"high",progress:60},{id:3,title:"Liquidity Mining Program",description:"New rewards program for providing liquidity to pairs",category:"launch",status:"ongoing",date:"2024-03-12",time:"15:00 UTC",image:"/mining.png",priority:"medium",progress:45},{id:4,title:"Strategic Partnership Announcement",description:"New collaboration with major DeFi protocol for enhanced liquidity",category:"partnership",status:"upcoming",date:"2024-03-20",time:"16:00 UTC",image:"/partnership.png",priority:"high"},{id:5,title:"Community AMA Session",description:"Live Q&A with the development team",category:"community",status:"upcoming",date:"2024-03-25",time:"18:00 UTC",image:"/community.png",priority:"medium"},{id:6,title:"Technical Update Release",description:"Bug fixes and performance improvements for the wallet",category:"update",status:"upcoming",date:"2024-03-28",time:"10:00 UTC",image:"/update.png",priority:"low"},{id:7,title:"Staking Rewards Distribution",description:"Monthly staking rewards distribution to all participants",category:"community",status:"upcoming",date:"2024-04-01",time:"00:00 UTC",image:"/staking.png",priority:"medium"},{id:8,title:"Protocol Security Audit",description:"Comprehensive security audit by leading blockchain security firm",category:"update",status:"upcoming",date:"2024-04-05",time:"09:00 UTC",image:"/audit.png",priority:"high"}];let j=1;const te=8;function ct(e=rt,t=1){const s=document.getElementById("ongoing-events-grid"),i=document.getElementById("upcoming-events-grid");if(!s||!i)return;const a=e.filter(l=>l.status==="ongoing"),o=e.filter(l=>l.status==="upcoming");document.getElementById("ongoing-count").textContent=a.length,document.getElementById("upcoming-count").textContent=o.length,s.innerHTML=a.map(l=>`
+    `;const o=t.target.getBoundingClientRect(),l=200,n=100;let d=o.left+o.width/2,r=o.top-n-20;d<l/2?d=l/2+10:d>window.innerWidth-l/2&&(d=window.innerWidth-l/2-10),r<10&&(r=o.bottom+20),a.style.left=`${d}px`,a.style.top=`${r}px`,a.style.transform="translateX(-50%)",document.body.appendChild(a),setTimeout(()=>{a.style.opacity="1",a.style.transform="translateX(-50%) translateY(-10px)"},10)}function Kt(){let t=document.getElementById("mobile-sidebar");t||(t=document.createElement("div"),t.id="mobile-sidebar",t.className="mobile-sidebar-container",t.innerHTML=Z(c),document.body.appendChild(t),console.log("📱 Mobile sidebar created"),window.innerWidth>1024&&(t.style.display="none")),document.addEventListener("click",e=>{e.target.closest("#mobile-menu-btn")&&(console.log("Burger button clicked!"),Yt()),(e.target.closest("#sidebar-overlay")||window.innerWidth<=1024&&!e.target.closest("#mobile-sidebar")&&!e.target.closest("#mobile-menu-btn"))&&O()}),document.addEventListener("keydown",e=>{e.key==="Escape"&&O()}),window.addEventListener("resize",()=>{const e=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(e?(s.style.display="block",s.classList.remove("mobile-open"),O()):(s.classList.remove("mobile-open"),s.style.display="none"))}),setTimeout(()=>{const e=window.innerWidth<=1024,s=document.getElementById("mobile-sidebar");s&&(e?(s.classList.remove("mobile-open"),s.style.display="block",console.log("📱 Mobile mode activated - mobile sidebar hidden by default")):(s.classList.remove("mobile-open"),s.style.display="none",console.log("🖥️ Desktop mode activated - mobile sidebar hidden")))},100)}function Yt(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");t&&e&&s&&(t.classList.contains("mobile-open")?O():Qt())}function Qt(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");if(t&&e&&s){t.classList.add("mobile-open"),e.classList.add("active"),s.classList.add("active"),document.body.style.overflow="hidden",console.log("✅ Mobile menu opened successfully"),console.log("📱 Mobile sidebar classes:",t.className),console.log("🎯 Mobile sidebar content length:",t.innerHTML.length),console.log("📄 Mobile sidebar HTML preview:",t.innerHTML.substring(0,300)+"...");const i=t.querySelector(".financial-sidebar");i?(console.log("✅ Mobile financial sidebar found"),console.log("🎨 Mobile sidebar background:",getComputedStyle(i).background),console.log("👁️ Mobile sidebar visibility:",getComputedStyle(i).visibility)):console.log("❌ Mobile financial sidebar NOT found!")}}function O(){const t=document.getElementById("mobile-sidebar"),e=document.getElementById("sidebar-overlay"),s=document.getElementById("mobile-menu-btn");t&&e&&s&&(t.classList.remove("mobile-open"),e.classList.remove("active"),s.classList.remove("active"),document.body.style.overflow="",console.log("✅ Mobile menu closed successfully"))}function H(){const t=document.getElementById("universal-chart-tooltip");t&&t.remove()}function Jt(){c.currentPage="events",S(),M(Ot()),setTimeout(()=>{oe()},100)}function Xt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="harvesting",S(),M(Ht())}function Zt(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="distribution",S(),M(qt())}function te(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="wallet-lookup",S(),M(zt())}function ee(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="reward-calculator",S(),M(Gt())}function se(){if(!c.isPremium){v.redirect("/dashboard");return}c.currentPage="vote",S(),M(Ut())}v("/terminal",Wt);v("/events",Jt);v("/harvesting",Xt);v("/distribution",Zt);v("/wallet-lookup",te);v("/reward-calculator",ee);v("/vote",se);v("*",()=>v.redirect("/terminal"));const ct=[{id:1,title:"IMG Protocol v2.0 Launch",description:"Major protocol upgrade with enhanced security features and improved performance",category:"launch",status:"ongoing",date:"2024-03-15",time:"14:00 UTC",image:"/dashboard.png",priority:"high",progress:75},{id:2,title:"Community Governance Vote",description:"Vote on the new staking rewards distribution mechanism",category:"governance",status:"ongoing",date:"2024-03-10",time:"12:00 UTC",image:"/vote.png",priority:"high",progress:60},{id:3,title:"Liquidity Mining Program",description:"New rewards program for providing liquidity to pairs",category:"launch",status:"ongoing",date:"2024-03-12",time:"15:00 UTC",image:"/mining.png",priority:"medium",progress:45},{id:4,title:"Strategic Partnership Announcement",description:"New collaboration with major DeFi protocol for enhanced liquidity",category:"partnership",status:"upcoming",date:"2024-03-20",time:"16:00 UTC",image:"/partnership.png",priority:"high"},{id:5,title:"Community AMA Session",description:"Live Q&A with the development team",category:"community",status:"upcoming",date:"2024-03-25",time:"18:00 UTC",image:"/community.png",priority:"medium"},{id:6,title:"Technical Update Release",description:"Bug fixes and performance improvements for the wallet",category:"update",status:"upcoming",date:"2024-03-28",time:"10:00 UTC",image:"/update.png",priority:"low"},{id:7,title:"Staking Rewards Distribution",description:"Monthly staking rewards distribution to all participants",category:"community",status:"upcoming",date:"2024-04-01",time:"00:00 UTC",image:"/staking.png",priority:"medium"},{id:8,title:"Protocol Security Audit",description:"Comprehensive security audit by leading blockchain security firm",category:"update",status:"upcoming",date:"2024-04-05",time:"09:00 UTC",image:"/audit.png",priority:"high"}];let K=1;const ie=8;function ut(t=ct,e=1){const s=document.getElementById("ongoing-events-grid"),i=document.getElementById("upcoming-events-grid");if(!s||!i)return;const a=t.filter(l=>l.status==="ongoing"),o=t.filter(l=>l.status==="upcoming");document.getElementById("ongoing-count").textContent=a.length,document.getElementById("upcoming-count").textContent=o.length,s.innerHTML=a.map(l=>`
         <div class="event-card ongoing ${l.priority}" data-category="${l.category}">
             <div class="event-header">
                 <div class="event-category ${l.category}">${l.category}</div>
@@ -1862,7 +1862,7 @@
                 </div>
             </div>
         </div>
-    `).join(""),ee(e.length,t)}function ee(e,t){const s=Math.ceil(e/te),i=document.getElementById("page-numbers"),a=document.getElementById("prev-page"),o=document.getElementById("next-page");if(!(!i||!a||!o)){i.innerHTML="";for(let l=1;l<=s;l++){const n=document.createElement("span");n.className=`page-number ${l===t?"active":""}`,n.textContent=l,n.onclick=()=>Y(l),i.appendChild(n)}a.disabled=t===1,o.disabled=t===s}}function Y(e){j=e,ct(rt,e)}function se(){ct();const e=document.getElementById("prev-page"),t=document.getElementById("next-page");e&&e.addEventListener("click",()=>Y(j-1)),t&&t.addEventListener("click",()=>Y(j+1))}function ie(){document.addEventListener("click",function(e){if(e.target.closest(".event-link-icon")){e.preventDefault(),e.stopPropagation();const s=e.target.closest(".event-link-icon").getAttribute("href");s&&s!=="#"&&window.open(s,"_blank","noopener,noreferrer")}})}class ae{constructor(){this.baseURL="/api/distribution",this.currentData=[],this.currentPage=1,this.itemsPerPage=20,this.currentMonth="2025-01",this.searchTerm="",this.isLoading=!1}async fetchDistributionData(t=null,s="",i=1){if(!this.isLoading){this.isLoading=!0,this.showLoadingState();try{const a=this.getPlaceholderData(t,s,i);this.currentData=a.items,this.currentPage=i,this.currentMonth=t||this.currentMonth,this.searchTerm=s,this.renderDistributionTable(),this.updatePagination(a.totalPages,i)}catch(a){console.error("Error fetching distribution data:",a),this.showErrorState("Failed to load distribution data")}finally{this.isLoading=!1,this.hideLoadingState()}}}getPlaceholderData(t,s,i){const a=this.generatePlaceholderData();let o=a;if(t){const r=parseInt(t.split("-")[1]);o=a.filter(u=>parseInt(u.date.split("-")[1])===r)}s&&(o=o.filter(r=>r.recipient.toLowerCase().includes(s.toLowerCase())||r.id.toLowerCase().includes(s.toLowerCase())));const l=(i-1)*this.itemsPerPage,n=l+this.itemsPerPage;return{items:o.slice(l,n),totalPages:Math.ceil(o.length/this.itemsPerPage),totalItems:o.length}}generatePlaceholderData(){const t=[],s=["01","02","03","04","05","06","07","08","09","10","11","12"],i=["Completed","Pending","Failed"];for(let a=1;a<=200;a++){const o=s[Math.floor(Math.random()*s.length)],l=String(Math.floor(Math.random()*28)+1).padStart(2,"0"),n=String(Math.floor(Math.random()*24)).padStart(2,"0"),d=String(Math.floor(Math.random()*60)).padStart(2,"0"),r=String(Math.floor(Math.random()*60)).padStart(2,"0");t.push({id:`#${String(a).padStart(3,"0")}`,date:`2025-${o}-${l}`,time:`${n}:${d}:${r}`,recipient:this.generateRandomAddress(),amount:(Math.random()*.5+.05).toFixed(3),status:i[Math.floor(Math.random()*i.length)],timestamp:new Date(`2025-${o}-${l}T${n}:${d}:${r}`).getTime()})}return t.sort((a,o)=>o.timestamp-a.timestamp)}generateRandomAddress(){const t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";let s="";for(let i=0;i<4;i++)s+=t.charAt(Math.floor(Math.random()*t.length));s+="...";for(let i=0;i<4;i++)s+=t.charAt(Math.floor(Math.random()*t.length));return s}renderDistributionTable(){const t=document.querySelector(".distribution-spreadsheet tbody");if(t){if(t.innerHTML="",this.currentData.length===0){t.innerHTML=`
+    `).join(""),ae(t.length,e)}function ae(t,e){const s=Math.ceil(t/ie),i=document.getElementById("page-numbers"),a=document.getElementById("prev-page"),o=document.getElementById("next-page");if(!(!i||!a||!o)){i.innerHTML="";for(let l=1;l<=s;l++){const n=document.createElement("span");n.className=`page-number ${l===e?"active":""}`,n.textContent=l,n.onclick=()=>Y(l),i.appendChild(n)}a.disabled=e===1,o.disabled=e===s}}function Y(t){K=t,ut(ct,t)}function oe(){ut();const t=document.getElementById("prev-page"),e=document.getElementById("next-page");t&&t.addEventListener("click",()=>Y(K-1)),e&&e.addEventListener("click",()=>Y(K+1))}function le(){document.addEventListener("click",function(t){if(t.target.closest(".event-link-icon")){t.preventDefault(),t.stopPropagation();const s=t.target.closest(".event-link-icon").getAttribute("href");s&&s!=="#"&&window.open(s,"_blank","noopener,noreferrer")}})}class ne{constructor(){this.baseURL="/api/distribution",this.currentData=[],this.currentPage=1,this.itemsPerPage=20,this.currentMonth="2025-01",this.searchTerm="",this.isLoading=!1}async fetchDistributionData(e=null,s="",i=1){if(!this.isLoading){this.isLoading=!0,this.showLoadingState();try{const a=this.getPlaceholderData(e,s,i);this.currentData=a.items,this.currentPage=i,this.currentMonth=e||this.currentMonth,this.searchTerm=s,this.renderDistributionTable(),this.updatePagination(a.totalPages,i)}catch(a){console.error("Error fetching distribution data:",a),this.showErrorState("Failed to load distribution data")}finally{this.isLoading=!1,this.hideLoadingState()}}}getPlaceholderData(e,s,i){const a=this.generatePlaceholderData();let o=a;if(e){const r=parseInt(e.split("-")[1]);o=a.filter(u=>parseInt(u.date.split("-")[1])===r)}s&&(o=o.filter(r=>r.recipient.toLowerCase().includes(s.toLowerCase())||r.id.toLowerCase().includes(s.toLowerCase())));const l=(i-1)*this.itemsPerPage,n=l+this.itemsPerPage;return{items:o.slice(l,n),totalPages:Math.ceil(o.length/this.itemsPerPage),totalItems:o.length}}generatePlaceholderData(){const e=[],s=["01","02","03","04","05","06","07","08","09","10","11","12"],i=["Completed","Pending","Failed"];for(let a=1;a<=200;a++){const o=s[Math.floor(Math.random()*s.length)],l=String(Math.floor(Math.random()*28)+1).padStart(2,"0"),n=String(Math.floor(Math.random()*24)).padStart(2,"0"),d=String(Math.floor(Math.random()*60)).padStart(2,"0"),r=String(Math.floor(Math.random()*60)).padStart(2,"0");e.push({id:`#${String(a).padStart(3,"0")}`,date:`2025-${o}-${l}`,time:`${n}:${d}:${r}`,recipient:this.generateRandomAddress(),amount:(Math.random()*.5+.05).toFixed(3),status:i[Math.floor(Math.random()*i.length)],timestamp:new Date(`2025-${o}-${l}T${n}:${d}:${r}`).getTime()})}return e.sort((a,o)=>o.timestamp-a.timestamp)}generateRandomAddress(){const e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";let s="";for(let i=0;i<4;i++)s+=e.charAt(Math.floor(Math.random()*e.length));s+="...";for(let i=0;i<4;i++)s+=e.charAt(Math.floor(Math.random()*e.length));return s}renderDistributionTable(){const e=document.querySelector(".distribution-spreadsheet tbody");if(e){if(e.innerHTML="",this.currentData.length===0){e.innerHTML=`
                 <tr class="distribution-spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px; color: var(--text-secondary);">
                         No distribution data found
@@ -1877,7 +1877,7 @@
                 <td class="distribution-col-status">
                     <span class="status-badge ${s.status.toLowerCase()}">${s.status}</span>
                 </td>
-            `,t.appendChild(i)})}}updatePagination(t,s){const i=document.querySelector(".distribution-pagination-info"),a=document.querySelector('.distribution-pagination-btn[data-action="prev"]'),o=document.querySelector('.distribution-pagination-btn[data-action="next"]');i&&(i.textContent=`${s}/${t} pages`),a&&(a.disabled=s===1),o&&(o.disabled=s===t)}showLoadingState(){const t=document.querySelector(".distribution-spreadsheet tbody");t&&(t.innerHTML=`
+            `,e.appendChild(i)})}}updatePagination(e,s){const i=document.querySelector(".distribution-pagination-info"),a=document.querySelector('.distribution-pagination-btn[data-action="prev"]'),o=document.querySelector('.distribution-pagination-btn[data-action="next"]');i&&(i.textContent=`${s}/${e} pages`),a&&(a.disabled=s===1),o&&(o.disabled=s===e)}showLoadingState(){const e=document.querySelector(".distribution-spreadsheet tbody");e&&(e.innerHTML=`
                 <tr class="distribution-spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px;">
                         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
@@ -1886,13 +1886,13 @@
                         </div>
                     </td>
                 </tr>
-            `)}hideLoadingState(){}showErrorState(t){const s=document.querySelector(".distribution-spreadsheet tbody");s&&(s.innerHTML=`
+            `)}hideLoadingState(){}showErrorState(e){const s=document.querySelector(".distribution-spreadsheet tbody");s&&(s.innerHTML=`
                 <tr class="distribution-spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px; color: var(--accent-danger);">
-                        ${t}
+                        ${e}
                     </td>
                 </tr>
-            `)}async refreshData(){await this.fetchDistributionData(this.currentMonth,this.searchTerm,1)}async search(t){this.searchTerm=t,await this.fetchDistributionData(this.currentMonth,t,1)}async filterByMonth(t){this.currentMonth=t,await this.fetchDistributionData(t,this.searchTerm,1)}async goToPage(t){await this.fetchDistributionData(this.currentMonth,this.searchTerm,t)}}class oe{constructor(){this.baseURL="/api/harvesting",this.currentData=[],this.currentPage=1,this.itemsPerPage=20,this.currentMonth="2025-01",this.isLoading=!1}async fetchHarvestingData(t=null,s=1){if(!this.isLoading){this.isLoading=!0,this.showLoadingState();try{const i=this.getPlaceholderData(t,s);this.currentData=i.items,this.currentPage=s,this.currentMonth=t||this.currentMonth,this.renderHarvestingTable(),this.updatePagination(i.totalPages,s)}catch(i){console.error("Error fetching harvesting data:",i),this.showErrorState("Failed to load harvesting data")}finally{this.isLoading=!1,this.hideLoadingState()}}}getPlaceholderData(t,s){const i=this.generatePlaceholderData();let a=i;if(t){const d=parseInt(t.split("-")[1]);a=i.filter(r=>parseInt(r.date.split("-")[1])===d)}const o=(s-1)*this.itemsPerPage,l=o+this.itemsPerPage;return{items:a.slice(o,l),totalPages:Math.ceil(a.length/this.itemsPerPage),totalItems:a.length}}generatePlaceholderData(){const t=[],s=["01","02","03","04","05","06","07","08","09","10","11","12"];for(let i=1;i<=150;i++){const a=s[Math.floor(Math.random()*s.length)],o=String(Math.floor(Math.random()*28)+1).padStart(2,"0"),l=String(Math.floor(Math.random()*24)).padStart(2,"0"),n=String(Math.floor(Math.random()*60)).padStart(2,"0"),d=String(Math.floor(Math.random()*60)).padStart(2,"0");t.push({id:`#${String(i).padStart(3,"0")}`,date:`2025-${a}-${o}`,time:`${l}:${n}:${d}`,imgSold:(Math.random()*1e3+100).toFixed(0),rewardPool:(Math.random()*50+10).toFixed(3),solDistributed:(Math.random()*30+5).toFixed(3),timestamp:new Date(`2025-${a}-${o}T${l}:${n}:${d}`).getTime()})}return t.sort((i,a)=>a.timestamp-i.timestamp)}renderHarvestingTable(){const t=document.querySelector(".harvesting-spreadsheet tbody");if(t){if(t.innerHTML="",this.currentData.length===0){t.innerHTML=`
+            `)}async refreshData(){await this.fetchDistributionData(this.currentMonth,this.searchTerm,1)}async search(e){this.searchTerm=e,await this.fetchDistributionData(this.currentMonth,e,1)}async filterByMonth(e){this.currentMonth=e,await this.fetchDistributionData(e,this.searchTerm,1)}async goToPage(e){await this.fetchDistributionData(this.currentMonth,this.searchTerm,e)}}class de{constructor(){this.baseURL="/api/harvesting",this.currentData=[],this.currentPage=1,this.itemsPerPage=20,this.currentMonth="2025-01",this.isLoading=!1}async fetchHarvestingData(e=null,s=1){if(!this.isLoading){this.isLoading=!0,this.showLoadingState();try{const i=this.getPlaceholderData(e,s);this.currentData=i.items,this.currentPage=s,this.currentMonth=e||this.currentMonth,this.renderHarvestingTable(),this.updatePagination(i.totalPages,s)}catch(i){console.error("Error fetching harvesting data:",i),this.showErrorState("Failed to load harvesting data")}finally{this.isLoading=!1,this.hideLoadingState()}}}getPlaceholderData(e,s){const i=this.generatePlaceholderData();let a=i;if(e){const d=parseInt(e.split("-")[1]);a=i.filter(r=>parseInt(r.date.split("-")[1])===d)}const o=(s-1)*this.itemsPerPage,l=o+this.itemsPerPage;return{items:a.slice(o,l),totalPages:Math.ceil(a.length/this.itemsPerPage),totalItems:a.length}}generatePlaceholderData(){const e=[],s=["01","02","03","04","05","06","07","08","09","10","11","12"];for(let i=1;i<=150;i++){const a=s[Math.floor(Math.random()*s.length)],o=String(Math.floor(Math.random()*28)+1).padStart(2,"0"),l=String(Math.floor(Math.random()*24)).padStart(2,"0"),n=String(Math.floor(Math.random()*60)).padStart(2,"0"),d=String(Math.floor(Math.random()*60)).padStart(2,"0");e.push({id:`#${String(i).padStart(3,"0")}`,date:`2025-${a}-${o}`,time:`${l}:${n}:${d}`,imgSold:(Math.random()*1e3+100).toFixed(0),rewardPool:(Math.random()*50+10).toFixed(3),solDistributed:(Math.random()*30+5).toFixed(3),timestamp:new Date(`2025-${a}-${o}T${l}:${n}:${d}`).getTime()})}return e.sort((i,a)=>a.timestamp-i.timestamp)}renderHarvestingTable(){const e=document.querySelector(".harvesting-spreadsheet tbody");if(e){if(e.innerHTML="",this.currentData.length===0){e.innerHTML=`
                 <tr class="spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px; color: var(--text-secondary);">
                         No harvesting data found
@@ -1905,7 +1905,7 @@
                 <td class="col-img-sold">${s.imgSold}</td>
                 <td class="col-reward-pool">${s.rewardPool}</td>
                 <td class="col-sol-distributed">${s.solDistributed}</td>
-            `,t.appendChild(i)})}}updatePagination(t,s){const i=document.querySelector(".pagination-info"),a=document.querySelector('.pagination-btn[data-action="prev"]'),o=document.querySelector('.pagination-btn[data-action="next"]');i&&(i.textContent=`${s}/${t} pages`),a&&(a.disabled=s===1),o&&(o.disabled=s===t)}showLoadingState(){const t=document.querySelector(".harvesting-spreadsheet tbody");t&&(t.innerHTML=`
+            `,e.appendChild(i)})}}updatePagination(e,s){const i=document.querySelector(".pagination-info"),a=document.querySelector('.pagination-btn[data-action="prev"]'),o=document.querySelector('.pagination-btn[data-action="next"]');i&&(i.textContent=`${s}/${e} pages`),a&&(a.disabled=s===1),o&&(o.disabled=s===e)}showLoadingState(){const e=document.querySelector(".harvesting-spreadsheet tbody");e&&(e.innerHTML=`
                 <tr class="spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px;">
                         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
@@ -1914,13 +1914,13 @@
                         </div>
                     </td>
                 </tr>
-            `)}hideLoadingState(){}showErrorState(t){const s=document.querySelector(".harvesting-spreadsheet tbody");s&&(s.innerHTML=`
+            `)}hideLoadingState(){}showErrorState(e){const s=document.querySelector(".harvesting-spreadsheet tbody");s&&(s.innerHTML=`
                 <tr class="spreadsheet-row">
                     <td colspan="6" style="text-align: center; padding: 20px; color: var(--accent-danger);">
-                        ${t}
+                        ${e}
                     </td>
                 </tr>
-            `)}async refreshData(){await this.fetchHarvestingData(this.currentMonth,1)}async filterByMonth(t){this.currentMonth=t,await this.fetchHarvestingData(t,1)}async goToPage(t){await this.fetchHarvestingData(this.currentMonth,t)}}const w=new ae,L=new oe;function le(){L.fetchHarvestingData();const e=document.querySelector(".control-btn.refresh-btn");e&&e.addEventListener("click",()=>{L.refreshData()});const t=document.querySelector(".month-dropdown");t&&t.addEventListener("change",a=>{L.filterByMonth(a.target.value)});const s=document.querySelector('.pagination-btn[data-action="prev"]'),i=document.querySelector('.pagination-btn[data-action="next"]');s&&s.addEventListener("click",()=>{L.currentPage>1&&L.goToPage(L.currentPage-1)}),i&&i.addEventListener("click",()=>{L.goToPage(L.currentPage+1)})}function ne(){w.fetchDistributionData();const e=document.querySelector(".distribution-refresh-btn");e&&e.addEventListener("click",()=>{w.refreshData()});const t=document.querySelector(".distribution-month-dropdown");t&&t.addEventListener("change",o=>{w.filterByMonth(o.target.value)}),document.querySelectorAll(".distribution-mobile-search .search-input, .distribution-spreadsheet-controls .search-input").forEach(o=>{let l;o.addEventListener("input",n=>{clearTimeout(l),l=setTimeout(()=>{w.search(n.target.value)},300)})});const i=document.querySelector('.distribution-pagination-btn[data-action="prev"]'),a=document.querySelector('.distribution-pagination-btn[data-action="next"]');i&&i.addEventListener("click",()=>{w.currentPage>1&&w.goToPage(w.currentPage-1)}),a&&a.addEventListener("click",()=>{w.goToPage(w.currentPage+1)})}const I={apiBaseUrl:"https://img-protocol-backend.onrender.com",initialized:!1};async function R(){console.log("🗳️ Initializing professional voting system...");const e=document.querySelector(".vote-page");if(console.log("🗳️ Vote page element:",e),console.log("🗳️ Vote page display:",e==null?void 0:e.style.display),!e||e.style.display==="none"){console.log("🗳️ Not on voting page");return}if(console.log("✅ Vote page found!",e),I.initialized){console.log("🗳️ Already initialized");return}try{await de(),ce(),I.initialized=!0,console.log("✅ Voting system initialized successfully")}catch(t){console.error("❌ Failed to initialize voting system:",t)}}async function de(){try{const t=await(await fetch(`${I.apiBaseUrl}/api/polls/active`)).json();t.success&&t.polls&&(re(t.polls),console.log("✅ Loaded active polls:",t.polls.length))}catch(e){console.error("❌ Failed to load polls:",e)}}function re(e){e.forEach(t=>{const s=document.querySelector(`[data-poll-id="${t.id}"]`);if(s){const i=s.querySelector(".poll-title"),a=s.querySelector(".poll-description");i&&(i.textContent=t.title),a&&(a.textContent=t.description)}})}function ce(){console.log("✅ SETTING UP IMPROVED VOTING EVENT LISTENERS - BETTER SENSITIVITY!"),document.removeEventListener("click",it),document.addEventListener("click",it),console.log("✅ TESTING CLICK DETECTION - IMPROVED SENSITIVITY!"),document.addEventListener("click",t=>{t.target.closest(".poll-option")&&console.log("✅ POLL OPTION CLICK DETECTED!",t.target)});const e=document.createElement("style");e.textContent=`
+            `)}async refreshData(){await this.fetchHarvestingData(this.currentMonth,1)}async filterByMonth(e){this.currentMonth=e,await this.fetchHarvestingData(e,1)}async goToPage(e){await this.fetchHarvestingData(this.currentMonth,e)}}const w=new ne,L=new de;function re(){L.fetchHarvestingData();const t=document.querySelector(".control-btn.refresh-btn");t&&t.addEventListener("click",()=>{L.refreshData()});const e=document.querySelector(".month-dropdown");e&&e.addEventListener("change",a=>{L.filterByMonth(a.target.value)});const s=document.querySelector('.pagination-btn[data-action="prev"]'),i=document.querySelector('.pagination-btn[data-action="next"]');s&&s.addEventListener("click",()=>{L.currentPage>1&&L.goToPage(L.currentPage-1)}),i&&i.addEventListener("click",()=>{L.goToPage(L.currentPage+1)})}function ce(){w.fetchDistributionData();const t=document.querySelector(".distribution-refresh-btn");t&&t.addEventListener("click",()=>{w.refreshData()});const e=document.querySelector(".distribution-month-dropdown");e&&e.addEventListener("change",o=>{w.filterByMonth(o.target.value)}),document.querySelectorAll(".distribution-mobile-search .search-input, .distribution-spreadsheet-controls .search-input").forEach(o=>{let l;o.addEventListener("input",n=>{clearTimeout(l),l=setTimeout(()=>{w.search(n.target.value)},300)})});const i=document.querySelector('.distribution-pagination-btn[data-action="prev"]'),a=document.querySelector('.distribution-pagination-btn[data-action="next"]');i&&i.addEventListener("click",()=>{w.currentPage>1&&w.goToPage(w.currentPage-1)}),a&&a.addEventListener("click",()=>{w.goToPage(w.currentPage+1)})}const I={apiBaseUrl:"https://img-protocol-backend.onrender.com",initialized:!1};async function D(){console.log("🗳️ Initializing professional voting system...");const t=document.querySelector(".vote-page");if(console.log("🗳️ Vote page element:",t),console.log("🗳️ Vote page display:",t==null?void 0:t.style.display),!t||t.style.display==="none"){console.log("🗳️ Not on voting page");return}if(console.log("✅ Vote page found!",t),I.initialized){console.log("🗳️ Already initialized");return}try{await ue(),ve(),I.initialized=!0,console.log("✅ Voting system initialized successfully")}catch(e){console.error("❌ Failed to initialize voting system:",e)}}async function ue(){try{const e=await(await fetch(`${I.apiBaseUrl}/api/polls/active`)).json();e.success&&e.polls&&(pe(e.polls),console.log("✅ Loaded active polls:",e.polls.length))}catch(t){console.error("❌ Failed to load polls:",t)}}function pe(t){t.forEach(e=>{const s=document.querySelector(`[data-poll-id="${e.id}"]`);if(s){const i=s.querySelector(".poll-title"),a=s.querySelector(".poll-description");i&&(i.textContent=e.title),a&&(a.textContent=e.description)}})}function ve(){console.log("✅ SETTING UP IMPROVED VOTING EVENT LISTENERS - BETTER SENSITIVITY!"),document.removeEventListener("click",at),document.addEventListener("click",at),console.log("✅ TESTING CLICK DETECTION - IMPROVED SENSITIVITY!"),document.addEventListener("click",e=>{e.target.closest(".poll-option")&&console.log("✅ POLL OPTION CLICK DETECTED!",e.target)});const t=document.createElement("style");t.textContent=`
         .poll-option {
             cursor: pointer !important;
             user-select: none;
@@ -1944,100 +1944,371 @@
         .submit-vote-btn:hover {
             opacity: 0.9 !important;
         }
-        .poll-results-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(31, 41, 55, 0.5);
-            border-radius: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        /* Vote Recorded Button Styling */
+        .vote-recorded-btn {
+            background: #10b981 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: default !important;
+            opacity: 1 !important;
+            transition: all 0.2s ease !important;
+        }
+        .vote-recorded-btn:hover {
+            background: #10b981 !important;
+            opacity: 1 !important;
+        }
+        .vote-recorded-btn svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        
+        /* Ultra-Compact Poll Results Styling */
+        .poll-results-compact {
+            margin-top: 12px;
+            padding: 10px;
+            background: rgba(31, 41, 55, 0.4);
+            border-radius: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
         .results-title {
             color: #10b981;
-            margin-bottom: 15px;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 600;
+            margin: 0;
         }
-        .result-item {
+        .vote-count {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .results-list {
+            margin-bottom: 8px;
+        }
+        .result-row {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+            padding: 2px 0;
+        }
+        .result-row.selected .result-label {
+            color: #10b981;
+            font-weight: 600;
         }
         .result-label {
-            width: 80px;
+            min-width: 70px;
             color: #f8fafc;
+            font-size: 13px;
             font-weight: 500;
+            margin-right: 8px;
         }
         .result-bar {
             flex: 1;
-            height: 20px;
-            background: rgba(55, 65, 81, 0.5);
-            border-radius: 10px;
-            margin: 0 10px;
+            height: 12px;
+            background: rgba(55, 65, 81, 0.6);
+            border-radius: 6px;
             overflow: hidden;
+            position: relative;
         }
         .result-fill {
             height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s ease;
+            border-radius: 6px;
+            transition: width 0.4s ease;
         }
-        .result-percentage {
-            width: 60px;
-            text-align: right;
-            color: #f8fafc;
-            font-weight: 600;
+        .yes-fill {
+            background: linear-gradient(90deg, #10b981, #34d399);
         }
-        .total-votes {
+        .no-fill {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+        .results-footer {
             text-align: center;
-            color: #94a3b8;
-            margin-top: 15px;
-            font-size: 14px;
+            padding-top: 4px;
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
         }
         .view-results-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .view-results-btn {
-            color: #10b981;
+            color: #3b82f6;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 16px;
-            border: 1px solid #10b981;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
-        .view-results-btn:hover {
-            background: #10b981;
-            color: #0a0e17;
+        .view-results-link:hover {
+            color: #60a5fa;
+            text-decoration: underline;
         }
-    `,document.head.appendChild(e),setTimeout(()=>{console.log("✅ DEBUGGING POLL OPTIONS - IMPROVED SENSITIVITY!");for(let t=1;t<=3;t++){const s=document.getElementById(`poll-options-${t}`);s?(console.log(`✅ Poll ${t} options:`,s),console.log(`✅ Poll ${t} pointer-events:`,window.getComputedStyle(s).pointerEvents),console.log(`✅ Poll ${t} display:`,window.getComputedStyle(s).display),console.log(`✅ Poll ${t} opacity:`,window.getComputedStyle(s).opacity),console.log(`✅ Poll ${t} children:`,s.children.length),s.querySelectorAll(".poll-option").forEach((i,a)=>{console.log(`✅ Poll ${t} option ${a}:`,i),console.log(`✅ Poll ${t} option ${a} pointer-events:`,window.getComputedStyle(i).pointerEvents),console.log(`✅ Poll ${t} option ${a} cursor:`,window.getComputedStyle(i).cursor)})):console.log(`❌ Poll ${t} options NOT FOUND!`)}},1e3)}function it(e){console.log("🗳️ Click detected on:",e.target),console.log("🗳️ Target classes:",e.target.classList),console.log("🗳️ Target tag:",e.target.tagName),console.log("🗳️ Target text:",e.target.textContent);const t=e.target.closest(".poll-option");if(t){console.log("✅ POLL OPTION CLICKED - IMPROVED SENSITIVITY!");const i=t.closest("[data-poll-id]"),a=i==null?void 0:i.dataset.pollId,o=t.dataset.option;console.log("🗳️ Poll ID:",a),console.log("🗳️ Option:",o),a&&o&&ue(a,o);return}const s=e.target.closest(".submit-vote-btn");if(s){console.log("✅ SUBMIT BUTTON CLICKED - IMPROVED SENSITIVITY!");const i=s.dataset.pollId,a=s.dataset.selectedOption;i&&a&&pe(i,a);return}console.log("🔍 Click on non-voting element:",e.target)}function ue(e,t){console.log(`✅ SELECTING OPTION ${t} FOR POLL ${e} - NO RESTRICTIONS!`);const s=document.querySelector(`[data-poll-id="${e}"]`);if(!s){console.log(`❌ Poll card not found for ID: ${e}`);return}s.querySelectorAll(".poll-option").forEach(o=>{o.classList.remove("selected");const l=o.querySelector(".option-circle");l&&l.classList.remove("selected")});const i=s.querySelector(`[data-option="${t}"]`);if(i){i.classList.add("selected");const o=i.querySelector(".option-circle");o&&o.classList.add("selected"),console.log(`✅ OPTION ${t} SELECTED SUCCESSFULLY!`)}else console.log(`❌ Option element not found for: ${t}`);const a=s.querySelector(".submit-vote-btn");a?(a.disabled=!1,a.dataset.selectedOption=t,a.textContent="Submit Vote",a.style.background="#3b82f6",console.log(`✅ SUBMIT BUTTON ENABLED FOR POLL ${e}!`)):console.log(`❌ Submit button not found for poll ${e}`)}async function pe(e,t){console.log(`✅ SUBMITTING VOTE: poll ${e}, option ${t} - WITH RESULTS!`);const s=document.querySelector(`[data-poll-id="${e}"]`);if(!s){console.log(`❌ Poll card not found for ID: ${e}`);return}const i=s.querySelector(".submit-vote-btn");i&&(i.disabled=!0,i.textContent="Submitting...",i.style.background="#6b7280"),setTimeout(()=>{console.log(`✅ VOTE SUBMITTED SUCCESSFULLY: poll ${e}, option ${t}`),i&&(i.textContent="✓ Vote Recorded",i.style.background="#10b981");const a=s.querySelector(".poll-options");a&&(a.style.pointerEvents="none",a.style.opacity="0.6"),ve(e,t),console.log(`✅ VOTING COMPLETED FOR POLL ${e}!`)},1e3)}function ve(e,t){console.log(`✅ DISPLAYING POLL RESULTS IMMEDIATELY: poll ${e}, option ${t}`);const s=document.querySelector(`[data-poll-id="${e}"]`);if(!s)return;const i=s.querySelector(".poll-options"),a=s.querySelector(".submit-vote-btn");i&&(i.style.display="none"),a&&(a.style.display="none");const o=`
-        <div class="poll-results-section">
-            <h4 class="results-title">Poll Results</h4>
-            <div class="results-container">
-                <div class="result-item">
-                    <div class="result-label">Yes</div>
+    `,document.head.appendChild(t),setTimeout(()=>{console.log("✅ DEBUGGING POLL OPTIONS - IMPROVED SENSITIVITY!");for(let e=1;e<=3;e++){const s=document.getElementById(`poll-options-${e}`);s?(console.log(`✅ Poll ${e} options:`,s),console.log(`✅ Poll ${e} pointer-events:`,window.getComputedStyle(s).pointerEvents),console.log(`✅ Poll ${e} display:`,window.getComputedStyle(s).display),console.log(`✅ Poll ${e} opacity:`,window.getComputedStyle(s).opacity),console.log(`✅ Poll ${e} children:`,s.children.length),s.querySelectorAll(".poll-option").forEach((i,a)=>{console.log(`✅ Poll ${e} option ${a}:`,i),console.log(`✅ Poll ${e} option ${a} pointer-events:`,window.getComputedStyle(i).pointerEvents),console.log(`✅ Poll ${e} option ${a} cursor:`,window.getComputedStyle(i).cursor)})):console.log(`❌ Poll ${e} options NOT FOUND!`)}},1e3)}function at(t){console.log("🗳️ Click detected on:",t.target),console.log("🗳️ Target classes:",t.target.classList),console.log("🗳️ Target tag:",t.target.tagName),console.log("🗳️ Target text:",t.target.textContent);const e=t.target.closest(".poll-option");if(e){console.log("✅ POLL OPTION CLICKED - IMPROVED SENSITIVITY!");const i=e.closest("[data-poll-id]"),a=i==null?void 0:i.dataset.pollId,o=e.dataset.option;console.log("🗳️ Poll ID:",a),console.log("🗳️ Option:",o),a&&o&&he(a,o);return}const s=t.target.closest(".submit-vote-btn");if(s){console.log("✅ SUBMIT BUTTON CLICKED - IMPROVED SENSITIVITY!");const i=s.dataset.pollId,a=s.dataset.selectedOption;i&&a&&ge(i,a);return}console.log("🔍 Click on non-voting element:",t.target)}function he(t,e){console.log(`✅ SELECTING OPTION ${e} FOR POLL ${t} - NO RESTRICTIONS!`);const s=document.querySelector(`[data-poll-id="${t}"]`);if(!s){console.log(`❌ Poll card not found for ID: ${t}`);return}s.querySelectorAll(".poll-option").forEach(o=>{o.classList.remove("selected");const l=o.querySelector(".option-circle");l&&l.classList.remove("selected")});const i=s.querySelector(`[data-option="${e}"]`);if(i){i.classList.add("selected");const o=i.querySelector(".option-circle");o&&o.classList.add("selected"),console.log(`✅ OPTION ${e} SELECTED SUCCESSFULLY!`)}else console.log(`❌ Option element not found for: ${e}`);const a=s.querySelector(".submit-vote-btn");a?(a.disabled=!1,a.dataset.selectedOption=e,a.textContent="Submit Vote",a.style.background="#3b82f6",console.log(`✅ SUBMIT BUTTON ENABLED FOR POLL ${t}!`)):console.log(`❌ Submit button not found for poll ${t}`)}async function ge(t,e){console.log(`✅ SUBMITTING VOTE: poll ${t}, option ${e} - WITH RESULTS!`);const s=document.querySelector(`[data-poll-id="${t}"]`);if(!s){console.log(`❌ Poll card not found for ID: ${t}`);return}const i=s.querySelector(".submit-vote-btn");i&&(i.disabled=!0,i.textContent="Submitting...",i.style.background="#6b7280"),setTimeout(()=>{console.log(`✅ VOTE SUBMITTED SUCCESSFULLY: poll ${t}, option ${e}`),i&&(i.textContent="✓ Vote Recorded",i.style.background="#10b981");const a=s.querySelector(".poll-options");a&&(a.style.pointerEvents="none",a.style.opacity="0.6"),pt(t,e),console.log(`✅ VOTING COMPLETED FOR POLL ${t}!`)},1e3)}function pt(t,e){console.log(`✅ DISPLAYING POLL RESULTS IMMEDIATELY: poll ${t}, option ${e}`);const s=document.querySelector(`[data-poll-id="${t}"]`);if(!s)return;const i=s.querySelector(".poll-options");i&&(i.style.display="none");const a=s.querySelector(".submit-vote-btn");a&&(a.innerHTML=`
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            Vote Recorded
+        `,a.className="vote-recorded-btn",a.disabled=!0,a.style.cursor="default");const o=`
+        <div class="poll-results-compact">
+            <div class="results-header">
+                <h4 class="results-title">Poll Results</h4>
+                <span class="vote-count">1 votes</span>
+            </div>
+            <div class="results-list">
+                <div class="result-row ${e==="yes"?"selected":""}">
+                    <span class="result-label">100.0% Yes</span>
                     <div class="result-bar">
-                        <div class="result-fill" style="width: ${t==="yes"?"100":"0"}%; background: #10b981;"></div>
+                        <div class="result-fill yes-fill" style="width: ${e==="yes"?"100":"0"}%"></div>
                     </div>
-                    <div class="result-percentage">${t==="yes"?"100.0":"0.0"}%</div>
                 </div>
-                <div class="result-item">
-                    <div class="result-label">No</div>
+                <div class="result-row ${e==="no"?"selected":""}">
+                    <span class="result-label">0.0% No</span>
                     <div class="result-bar">
-                        <div class="result-fill" style="width: ${t==="no"?"100":"0"}%; background: #ef4444;"></div>
+                        <div class="result-fill no-fill" style="width: ${e==="no"?"100":"0"}%"></div>
                     </div>
-                    <div class="result-percentage">${t==="no"?"100.0":"0.0"}%</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-label">Abstain</div>
-                    <div class="result-bar">
-                        <div class="result-fill" style="width: ${t==="abstain"?"100":"0"}%; background: #6b7280;"></div>
-                    </div>
-                    <div class="result-percentage">${t==="abstain"?"100.0":"0.0"}%</div>
                 </div>
             </div>
-            <div class="total-votes">Total: 1 vote</div>
-            <div class="view-results-link">
-                <a href="#" onclick="showDetailedResults(${e})" class="view-results-btn">VIEW RESULTS</a>
+            <div class="results-footer">
+                <a href="#" onclick="showDetailedResults(${t})" class="view-results-link">VIEW RESULTS</a>
             </div>
         </div>
-    `,l=s.querySelector(".poll-explanation");l&&l.insertAdjacentHTML("afterend",o),console.log(`✅ POLL RESULTS DISPLAYED FOR POLL ${e}!`)}window.initializeVotingSystem=R;window.reinitializeVotingSystem=()=>{I.initialized=!1,R()};window.showDetailedResults=e=>{console.log(`✅ SHOWING DETAILED RESULTS FOR POLL ${e}`),alert(`Detailed results for poll ${e} - This would show voter addresses and more details`)};window.testVotingSystem=()=>{console.log("🧪 MANUAL TEST: Testing voting system..."),console.log("🧪 Vote page element:",document.querySelector(".vote-page")),console.log("🧪 Poll options found:",document.querySelectorAll(".poll-option").length),console.log("🧪 Submit buttons found:",document.querySelectorAll(".submit-vote-btn").length),console.log("🧪 Poll cards found:",document.querySelectorAll("[data-poll-id]").length),document.querySelectorAll(".poll-option").forEach((t,s)=>{var i;console.log(`🧪 Poll option ${s}:`,t),console.log(`🧪 Poll option ${s} classes:`,t.classList),console.log(`🧪 Poll option ${s} data-option:`,t.dataset.option),console.log(`🧪 Poll option ${s} parent:`,t.parentElement),console.log(`🧪 Poll option ${s} parent ID:`,(i=t.parentElement)==null?void 0:i.id)});const e=document.querySelector(".poll-option");e&&(console.log("🧪 Simulating click on first option..."),e.click()),I.initialized=!1,R()};const he=new MutationObserver(e=>{e.forEach(t=>{t.addedNodes.forEach(s=>{var i;s.nodeType===Node.ELEMENT_NODE&&(s.querySelector&&s.querySelector(".vote-page")||(i=s.classList)!=null&&i.contains("vote-page"))&&(console.log("🗳️ Vote page detected, initializing..."),R())})})});he.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("DOMContentLoaded",()=>{setTimeout(()=>{R()},1e3)});document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),c.isConnected=!1,c.isPremium=!1,c.walletAddress="",c.currentPage="dashboard",console.log("🔄 App state reset:",c),S(),console.log("🔧 Sidebar initialized"),window.walletManager=new qt,v.start(),v("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{U()}),setInterval(()=>{const s=document.getElementById("clean-donut-chart");s&&s.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),U())},500);const e=new MutationObserver(s=>{s.forEach(i=>{i.type==="childList"&&i.addedNodes.forEach(a=>{a.nodeType===Node.ELEMENT_NODE&&a.querySelector&&a.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{U()}))})})}),t=document.getElementById("main-content");t&&e.observe(t,{childList:!0,subtree:!0}),Wt(),ie(),le(),ne(),setTimeout(()=>{const s=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",s),console.log("🔍 Sidebar content:",s?s.innerHTML.length:"null"),s&&!s.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",c),S())},50),console.log("✅ Protocol SPA Ready!")});
+    `,l=s.querySelector(".poll-explanation");l&&l.insertAdjacentHTML("afterend",o),console.log(`✅ POLL RESULTS DISPLAYED FOR POLL ${t}!`)}window.initializeVotingSystem=D;window.reinitializeVotingSystem=()=>{I.initialized=!1,D()};window.showDetailedResults=function(t){console.log(`📊 NEW MODAL FUNCTION CALLED - Showing detailed results for poll ${t}`),console.log("📊 Function type:",typeof window.showDetailedResults);const s={1:{question:"Should we reduce the protocol fee from 2.5% to 2.0%?",totalVotes:8,yes:{percentage:75,votes:6,wallets:["3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN","7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4","9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2","2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4","5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8","8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"]},no:{percentage:25,votes:2,wallets:["4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6","7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"]},abstain:{percentage:0,votes:0,wallets:[]}},2:{question:"Should we implement a new staking mechanism?",totalVotes:0,yes:{percentage:0,votes:0,wallets:[]},no:{percentage:0,votes:0,wallets:[]},abstain:{percentage:0,votes:0,wallets:[]}},3:{question:"Should we add support for new tokens?",totalVotes:0,yes:{percentage:0,votes:0,wallets:[]},no:{percentage:0,votes:0,wallets:[]},abstain:{percentage:0,votes:0,wallets:[]}}}[t];if(!s){alert(`No results found for poll ${t}`);return}vt(s)};typeof window.showDetailedResults>"u"&&(console.log("⚠️ showDetailedResults function not found, redefining..."),window.showDetailedResults=function(t){console.log(`📊 FALLBACK FUNCTION CALLED - Showing detailed results for poll ${t}`),vt({question:"Should we reduce the protocol fee from 2.5% to 2.0%?",totalVotes:8,yes:{percentage:75,votes:6,wallets:["3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN","7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4","9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2","2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4","5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8","8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"]},no:{percentage:25,votes:2,wallets:["4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6","7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"]},abstain:{percentage:0,votes:0,wallets:[]}})});function vt(t){const e=document.getElementById("poll-results-modal");e&&e.remove();const s=`
+        <div id="poll-results-modal" class="poll-results-modal-overlay">
+            <div class="poll-results-modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">Poll Results</h2>
+                    <button class="modal-close" onclick="closePollResultsModal()">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <div class="poll-question-section">
+                        <h3 class="poll-question">${t.question}</h3>
+                        <div class="total-votes-info">Total Votes: ${t.totalVotes}</div>
+                    </div>
+                    
+                    <div class="results-sections">
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">Yes</span>
+                                <span class="result-stats">${t.yes.percentage}% (${t.yes.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${t.yes.wallets.length>0?t.yes.wallets.map(i=>`<div class="wallet-item">
+                                            <span class="wallet-address">${W(i)}</span>
+                                        </div>`).join(""):'<div class="no-wallets">No wallets voted for this option</div>'}
+                            </div>
+                        </div>
+                        
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">No</span>
+                                <span class="result-stats">${t.no.percentage}% (${t.no.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${t.no.wallets.length>0?t.no.wallets.map(i=>`<div class="wallet-item">
+                                            <span class="wallet-address">${W(i)}</span>
+                                        </div>`).join(""):'<div class="no-wallets">No wallets voted for this option</div>'}
+                            </div>
+                        </div>
+                        
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">Abstain</span>
+                                <span class="result-stats">${t.abstain.percentage}% (${t.abstain.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${t.abstain.wallets.length>0?t.abstain.wallets.map(i=>`<div class="wallet-item">
+                                            <span class="wallet-address">${W(i)}</span>
+                                        </div>`).join(""):'<div class="no-wallets">No wallets voted for this option</div>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;document.body.insertAdjacentHTML("beforeend",s),me(),setTimeout(()=>{const i=document.getElementById("poll-results-modal");i&&i.classList.add("show")},10)}window.closePollResultsModal=function(){const t=document.getElementById("poll-results-modal");t&&(t.classList.remove("show"),setTimeout(()=>{t.remove()},300))};function W(t){return!t||t.length<8?t:`${t.slice(0,4)}...${t.slice(-4)}`}function me(){if(document.getElementById("poll-results-modal-styles"))return;const t=document.createElement("style");t.id="poll-results-modal-styles",t.textContent=`
+        .poll-results-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .poll-results-modal-overlay.show {
+            opacity: 1;
+        }
+        .poll-results-modal {
+            background: #1f2937;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .poll-results-modal-overlay.show .poll-results-modal {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .modal-title {
+            color: #10b981;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        .modal-content {
+            padding: 24px;
+        }
+        .poll-question-section {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .poll-question {
+            color: #f8fafc;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        .total-votes-info {
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .results-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .result-section {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .result-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .result-option {
+            color: #f8fafc;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .result-stats {
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .wallet-list {
+            max-height: 120px;
+            overflow-y: auto;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 6px;
+            background: rgba(31, 41, 55, 0.3);
+        }
+        .wallet-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .wallet-list::-webkit-scrollbar-track {
+            background: rgba(55, 65, 81, 0.3);
+            border-radius: 3px;
+        }
+        .wallet-list::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.5);
+            border-radius: 3px;
+        }
+        .wallet-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(16, 185, 129, 0.7);
+        }
+        .wallet-item {
+            padding: 6px 12px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.05);
+            transition: background-color 0.2s ease;
+        }
+        .wallet-item:last-child {
+            border-bottom: none;
+        }
+        .wallet-item:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+        .wallet-address {
+            color: #e2e8f0;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+        }
+        .no-wallets {
+            color: #94a3b8;
+            font-size: 14px;
+            font-style: italic;
+            text-align: center;
+            padding: 16px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .poll-results-modal {
+                width: 95%;
+                margin: 20px;
+            }
+            .modal-header, .modal-content {
+                padding: 16px;
+            }
+            .result-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .wallet-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .wallet-address {
+                margin-right: 0;
+            }
+        }
+    `,document.head.appendChild(t)}window.testVotingSystem=()=>{console.log("🧪 MANUAL TEST: Testing voting system..."),console.log("🧪 Vote page element:",document.querySelector(".vote-page")),console.log("🧪 Poll options found:",document.querySelectorAll(".poll-option").length),console.log("🧪 Submit buttons found:",document.querySelectorAll(".submit-vote-btn").length),console.log("🧪 Poll cards found:",document.querySelectorAll("[data-poll-id]").length),document.querySelectorAll(".poll-option").forEach((e,s)=>{var i;console.log(`🧪 Poll option ${s}:`,e),console.log(`🧪 Poll option ${s} classes:`,e.classList),console.log(`🧪 Poll option ${s} data-option:`,e.dataset.option),console.log(`🧪 Poll option ${s} parent:`,e.parentElement),console.log(`🧪 Poll option ${s} parent ID:`,(i=e.parentElement)==null?void 0:i.id)});const t=document.querySelector(".poll-option");t&&(console.log("🧪 Simulating click on first option..."),t.click()),I.initialized=!1,D()};window.testPollResults=function(t=1,e="yes"){console.log("🧪 TESTING NEW POLL RESULTS DESIGN..."),pt(t,e),console.log("✅ Poll results test completed!")};window.testPollResultsModal=function(t=1){console.log("🧪 TESTING POLL RESULTS MODAL..."),showDetailedResults(t),console.log("✅ Poll results modal test completed!")};window.testModalDirect=function(){console.log("🧪 TESTING MODAL DIRECTLY..."),console.log("🧪 showDetailedResults function:",window.showDetailedResults),console.log("🧪 Calling showDetailedResults(1)..."),window.showDetailedResults(1)};const be=new MutationObserver(t=>{t.forEach(e=>{e.addedNodes.forEach(s=>{var i;s.nodeType===Node.ELEMENT_NODE&&(s.querySelector&&s.querySelector(".vote-page")||(i=s.classList)!=null&&i.contains("vote-page"))&&(console.log("🗳️ Vote page detected, initializing..."),D())})})});be.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("DOMContentLoaded",()=>{setTimeout(()=>{D()},1e3)});document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),console.log("🧹 Clearing old wallet test data..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),c.isConnected=!1,c.isPremium=!1,c.walletAddress="",c.currentPage="dashboard",console.log("🔄 App state reset:",c),S(),console.log("🔧 Sidebar initialized"),window.walletManager=new Ft,v.start(),v("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{G()}),setInterval(()=>{const s=document.getElementById("clean-donut-chart");s&&s.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),G())},500);const t=new MutationObserver(s=>{s.forEach(i=>{i.type==="childList"&&i.addedNodes.forEach(a=>{a.nodeType===Node.ELEMENT_NODE&&a.querySelector&&a.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{G()}))})})}),e=document.getElementById("main-content");e&&t.observe(e,{childList:!0,subtree:!0}),Kt(),le(),re(),ce(),setTimeout(()=>{const s=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",s),console.log("🔍 Sidebar content:",s?s.innerHTML.length:"null"),s&&!s.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",c),S())},50),console.log("✅ Protocol SPA Ready!")});

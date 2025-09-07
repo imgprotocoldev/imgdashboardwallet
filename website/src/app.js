@@ -2898,70 +2898,110 @@ function setupVotingEventListeners() {
         .submit-vote-btn:hover {
             opacity: 0.9 !important;
         }
-        .poll-results-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(31, 41, 55, 0.5);
-            border-radius: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        /* Vote Recorded Button Styling */
+        .vote-recorded-btn {
+            background: #10b981 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: default !important;
+            opacity: 1 !important;
+            transition: all 0.2s ease !important;
+        }
+        .vote-recorded-btn:hover {
+            background: #10b981 !important;
+            opacity: 1 !important;
+        }
+        .vote-recorded-btn svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        
+        /* Ultra-Compact Poll Results Styling */
+        .poll-results-compact {
+            margin-top: 12px;
+            padding: 10px;
+            background: rgba(31, 41, 55, 0.4);
+            border-radius: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
         .results-title {
             color: #10b981;
-            margin-bottom: 15px;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 600;
+            margin: 0;
         }
-        .result-item {
+        .vote-count {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .results-list {
+            margin-bottom: 8px;
+        }
+        .result-row {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+            padding: 2px 0;
+        }
+        .result-row.selected .result-label {
+            color: #10b981;
+            font-weight: 600;
         }
         .result-label {
-            width: 80px;
+            min-width: 70px;
             color: #f8fafc;
+            font-size: 13px;
             font-weight: 500;
+            margin-right: 8px;
         }
         .result-bar {
             flex: 1;
-            height: 20px;
-            background: rgba(55, 65, 81, 0.5);
-            border-radius: 10px;
-            margin: 0 10px;
+            height: 12px;
+            background: rgba(55, 65, 81, 0.6);
+            border-radius: 6px;
             overflow: hidden;
+            position: relative;
         }
         .result-fill {
             height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s ease;
+            border-radius: 6px;
+            transition: width 0.4s ease;
         }
-        .result-percentage {
-            width: 60px;
-            text-align: right;
-            color: #f8fafc;
-            font-weight: 600;
+        .yes-fill {
+            background: linear-gradient(90deg, #10b981, #34d399);
         }
-        .total-votes {
+        .no-fill {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+        .results-footer {
             text-align: center;
-            color: #94a3b8;
-            margin-top: 15px;
-            font-size: 14px;
+            padding-top: 4px;
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
         }
         .view-results-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .view-results-btn {
-            color: #10b981;
+            color: #3b82f6;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 16px;
-            border: 1px solid #10b981;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
-        .view-results-btn:hover {
-            background: #10b981;
-            color: #0a0e17;
+        .view-results-link:hover {
+            color: #60a5fa;
+            text-decoration: underline;
         }
     `;
     document.head.appendChild(style);
@@ -3114,7 +3154,7 @@ async function submitVote(pollId, option) {
     }, 1000);
 }
 
-// Display poll results immediately after voting
+// Display poll results immediately after voting - IMPROVED DESIGN
 function displayPollResultsImmediate(pollId, selectedOption) {
     console.log(`✅ DISPLAYING POLL RESULTS IMMEDIATELY: poll ${pollId}, option ${selectedOption}`);
     
@@ -3123,46 +3163,47 @@ function displayPollResultsImmediate(pollId, selectedOption) {
     
     // Hide voting options
     const pollOptions = pollCard.querySelector('.poll-options');
-    const submitBtn = pollCard.querySelector('.submit-vote-btn');
-    
     if (pollOptions) {
         pollOptions.style.display = 'none';
     }
     
+    // Transform submit button to "Vote Recorded" instead of hiding it
+    const submitBtn = pollCard.querySelector('.submit-vote-btn');
     if (submitBtn) {
-        submitBtn.style.display = 'none';
+        submitBtn.innerHTML = `
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            Vote Recorded
+        `;
+        submitBtn.className = 'vote-recorded-btn';
+        submitBtn.disabled = true;
+        submitBtn.style.cursor = 'default';
     }
     
-    // Create results section
+    // Create compact results section matching the design
     const resultsHTML = `
-        <div class="poll-results-section">
-            <h4 class="results-title">Poll Results</h4>
-            <div class="results-container">
-                <div class="result-item">
-                    <div class="result-label">Yes</div>
+        <div class="poll-results-compact">
+            <div class="results-header">
+                <h4 class="results-title">Poll Results</h4>
+                <span class="vote-count">1 votes</span>
+            </div>
+            <div class="results-list">
+                <div class="result-row ${selectedOption === 'yes' ? 'selected' : ''}">
+                    <span class="result-label">100.0% Yes</span>
                     <div class="result-bar">
-                        <div class="result-fill" style="width: ${selectedOption === 'yes' ? '100' : '0'}%; background: #10b981;"></div>
+                        <div class="result-fill yes-fill" style="width: ${selectedOption === 'yes' ? '100' : '0'}%"></div>
                     </div>
-                    <div class="result-percentage">${selectedOption === 'yes' ? '100.0' : '0.0'}%</div>
                 </div>
-                <div class="result-item">
-                    <div class="result-label">No</div>
+                <div class="result-row ${selectedOption === 'no' ? 'selected' : ''}">
+                    <span class="result-label">0.0% No</span>
                     <div class="result-bar">
-                        <div class="result-fill" style="width: ${selectedOption === 'no' ? '100' : '0'}%; background: #ef4444;"></div>
+                        <div class="result-fill no-fill" style="width: ${selectedOption === 'no' ? '100' : '0'}%"></div>
                     </div>
-                    <div class="result-percentage">${selectedOption === 'no' ? '100.0' : '0.0'}%</div>
-                </div>
-                <div class="result-item">
-                    <div class="result-label">Abstain</div>
-                    <div class="result-bar">
-                        <div class="result-fill" style="width: ${selectedOption === 'abstain' ? '100' : '0'}%; background: #6b7280;"></div>
-                    </div>
-                    <div class="result-percentage">${selectedOption === 'abstain' ? '100.0' : '0.0'}%</div>
                 </div>
             </div>
-            <div class="total-votes">Total: 1 vote</div>
-            <div class="view-results-link">
-                <a href="#" onclick="showDetailedResults(${pollId})" class="view-results-btn">VIEW RESULTS</a>
+            <div class="results-footer">
+                <a href="#" onclick="showDetailedResults(${pollId})" class="view-results-link">VIEW RESULTS</a>
             </div>
         </div>
     `;
@@ -3236,12 +3277,405 @@ window.reinitializeVotingSystem = () => {
     initializeVotingSystem();
 };
 
-// Global function for detailed results
-window.showDetailedResults = (pollId) => {
-    console.log(`✅ SHOWING DETAILED RESULTS FOR POLL ${pollId}`);
-    // For now, just show an alert - can be enhanced later
-    alert(`Detailed results for poll ${pollId} - This would show voter addresses and more details`);
+// Global function for showing detailed results in a popup modal
+window.showDetailedResults = function(pollId) {
+    console.log(`📊 NEW MODAL FUNCTION CALLED - Showing detailed results for poll ${pollId}`);
+    console.log(`📊 Function type:`, typeof window.showDetailedResults);
+    
+    // Sample data - in real implementation, this would come from the backend
+    const results = {
+        1: {
+            question: "Should we reduce the protocol fee from 2.5% to 2.0%?",
+            totalVotes: 8,
+            yes: { 
+                percentage: 75, 
+                votes: 6, 
+                wallets: [
+                    "3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN",
+                    "7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
+                    "9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2",
+                    "2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
+                    "5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8",
+                    "8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"
+                ] 
+            },
+            no: { 
+                percentage: 25, 
+                votes: 2, 
+                wallets: [
+                    "4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6",
+                    "7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"
+                ] 
+            },
+            abstain: { 
+                percentage: 0, 
+                votes: 0, 
+                wallets: [] 
+            }
+        },
+        2: {
+            question: "Should we implement a new staking mechanism?",
+            totalVotes: 0,
+            yes: { percentage: 0, votes: 0, wallets: [] },
+            no: { percentage: 0, votes: 0, wallets: [] },
+            abstain: { percentage: 0, votes: 0, wallets: [] }
+        },
+        3: {
+            question: "Should we add support for new tokens?",
+            totalVotes: 0,
+            yes: { percentage: 0, votes: 0, wallets: [] },
+            no: { percentage: 0, votes: 0, wallets: [] },
+            abstain: { percentage: 0, votes: 0, wallets: [] }
+        }
+    };
+    
+    const poll = results[pollId];
+    if (!poll) {
+        alert(`No results found for poll ${pollId}`);
+        return;
+    }
+    
+    // Create and show the popup modal
+    showPollResultsModal(poll);
 };
+
+// Ensure the function is properly defined globally
+if (typeof window.showDetailedResults === 'undefined') {
+    console.log('⚠️ showDetailedResults function not found, redefining...');
+    window.showDetailedResults = function(pollId) {
+        console.log(`📊 FALLBACK FUNCTION CALLED - Showing detailed results for poll ${pollId}`);
+        showPollResultsModal({
+            question: "Should we reduce the protocol fee from 2.5% to 2.0%?",
+            totalVotes: 8,
+            yes: { 
+                percentage: 75, 
+                votes: 6, 
+                wallets: [
+                    "3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN",
+                    "7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
+                    "9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2",
+                    "2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
+                    "5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8",
+                    "8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"
+                ] 
+            },
+            no: { 
+                percentage: 25, 
+                votes: 2, 
+                wallets: [
+                    "4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6",
+                    "7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"
+                ] 
+            },
+            abstain: { percentage: 0, votes: 0, wallets: [] }
+        });
+    };
+}
+
+// Function to create and display the poll results modal
+function showPollResultsModal(poll) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('poll-results-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Create modal HTML
+    const modalHTML = `
+        <div id="poll-results-modal" class="poll-results-modal-overlay">
+            <div class="poll-results-modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">Poll Results</h2>
+                    <button class="modal-close" onclick="closePollResultsModal()">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <div class="poll-question-section">
+                        <h3 class="poll-question">${poll.question}</h3>
+                        <div class="total-votes-info">Total Votes: ${poll.totalVotes}</div>
+                    </div>
+                    
+                    <div class="results-sections">
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">Yes</span>
+                                <span class="result-stats">${poll.yes.percentage}% (${poll.yes.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${poll.yes.wallets.length > 0 ? 
+                                    poll.yes.wallets.map(wallet => 
+                                        `<div class="wallet-item">
+                                            <span class="wallet-address">${truncateWalletAddress(wallet)}</span>
+                                        </div>`
+                                    ).join('') : 
+                                    '<div class="no-wallets">No wallets voted for this option</div>'
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">No</span>
+                                <span class="result-stats">${poll.no.percentage}% (${poll.no.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${poll.no.wallets.length > 0 ? 
+                                    poll.no.wallets.map(wallet => 
+                                        `<div class="wallet-item">
+                                            <span class="wallet-address">${truncateWalletAddress(wallet)}</span>
+                                        </div>`
+                                    ).join('') : 
+                                    '<div class="no-wallets">No wallets voted for this option</div>'
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="result-section">
+                            <div class="result-section-header">
+                                <span class="result-option">Abstain</span>
+                                <span class="result-stats">${poll.abstain.percentage}% (${poll.abstain.votes} votes)</span>
+                            </div>
+                            <div class="wallet-list">
+                                ${poll.abstain.wallets.length > 0 ? 
+                                    poll.abstain.wallets.map(wallet => 
+                                        `<div class="wallet-item">
+                                            <span class="wallet-address">${truncateWalletAddress(wallet)}</span>
+                                        </div>`
+                                    ).join('') : 
+                                    '<div class="no-wallets">No wallets voted for this option</div>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to page
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Add modal styles if not already added
+    addPollResultsModalStyles();
+    
+    // Show modal with animation
+    setTimeout(() => {
+        const modal = document.getElementById('poll-results-modal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }, 10);
+}
+
+// Function to close the poll results modal
+window.closePollResultsModal = function() {
+    const modal = document.getElementById('poll-results-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+        }, 300);
+    }
+};
+
+// Function to truncate wallet address (like in sidebar)
+function truncateWalletAddress(address) {
+    if (!address || address.length < 8) return address;
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+}
+
+// Function to add modal styles
+function addPollResultsModalStyles() {
+    // Check if styles already exist
+    if (document.getElementById('poll-results-modal-styles')) {
+        return;
+    }
+    
+    const style = document.createElement('style');
+    style.id = 'poll-results-modal-styles';
+    style.textContent = `
+        .poll-results-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .poll-results-modal-overlay.show {
+            opacity: 1;
+        }
+        .poll-results-modal {
+            background: #1f2937;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .poll-results-modal-overlay.show .poll-results-modal {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .modal-title {
+            color: #10b981;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        .modal-content {
+            padding: 16px;
+        }
+        .poll-question-section {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .poll-question {
+            color: #f8fafc;
+            font-size: 15px;
+            font-weight: 500;
+            margin: 0 0 6px 0;
+            line-height: 1.4;
+        }
+        .total-votes-info {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .results-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .result-section {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 6px;
+            padding: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .result-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .result-option {
+            color: #f8fafc;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .result-stats {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .wallet-list {
+            max-height: 100px;
+            overflow-y: auto;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 4px;
+            background: rgba(31, 41, 55, 0.3);
+        }
+        .wallet-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .wallet-list::-webkit-scrollbar-track {
+            background: rgba(55, 65, 81, 0.3);
+            border-radius: 2px;
+        }
+        .wallet-list::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.5);
+            border-radius: 2px;
+        }
+        .wallet-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(16, 185, 129, 0.7);
+        }
+        .wallet-item {
+            padding: 4px 8px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.05);
+            transition: background-color 0.2s ease;
+        }
+        .wallet-item:last-child {
+            border-bottom: none;
+        }
+        .wallet-item:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+        .wallet-address {
+            color: #e2e8f0;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+        }
+        .no-wallets {
+            color: #94a3b8;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+            padding: 12px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .poll-results-modal {
+                width: 95%;
+                margin: 20px;
+            }
+            .modal-header, .modal-content {
+                padding: 12px;
+            }
+            .result-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .wallet-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .wallet-address {
+                margin-right: 0;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+}
 
 // Manual test function
 window.testVotingSystem = () => {
@@ -3270,6 +3704,28 @@ window.testVotingSystem = () => {
     // Try to initialize
     votingState.initialized = false;
     initializeVotingSystem();
+};
+
+// Global function for testing the new poll results design
+window.testPollResults = function(pollId = 1, option = 'yes') {
+    console.log('🧪 TESTING NEW POLL RESULTS DESIGN...');
+    displayPollResultsImmediate(pollId, option);
+    console.log('✅ Poll results test completed!');
+};
+
+// Global function for testing the poll results modal
+window.testPollResultsModal = function(pollId = 1) {
+    console.log('🧪 TESTING POLL RESULTS MODAL...');
+    showDetailedResults(pollId);
+    console.log('✅ Poll results modal test completed!');
+};
+
+// Simple test function to verify modal works
+window.testModalDirect = function() {
+    console.log('🧪 TESTING MODAL DIRECTLY...');
+    console.log('🧪 showDetailedResults function:', window.showDetailedResults);
+    console.log('🧪 Calling showDetailedResults(1)...');
+    window.showDetailedResults(1);
 };
 
 // Removed conflicting setupPollInteractions function - using simplified event delegation instead
