@@ -1616,52 +1616,6 @@
             </div>
         </div>
         
-        <!-- Poll Results (Hidden until vote is submitted) -->
-        <div class="poll-results" id="poll-results" style="display: none;">
-            <div class="results-card">
-                <div class="results-header">
-                    <h3>Poll Results</h3>
-                    <span class="results-status">Completed</span>
-                </div>
-                
-                <div class="results-content">
-                    <div class="result-option">
-                        <div class="result-label">Yes - Reduce to 2.0%</div>
-                        <div class="result-bar">
-                            <div class="result-fill yes" style="width: 67.4%"></div>
-                        </div>
-                        <div class="result-percentage">67.4% (1,247 votes)</div>
-                    </div>
-                    
-                    <div class="result-option">
-                        <div class="result-label">No - Keep at 2.5%</div>
-                        <div class="result-bar">
-                            <div class="result-fill no" style="width: 22.8%"></div>
-                        </div>
-                        <div class="result-percentage">22.8% (423 votes)</div>
-                    </div>
-                    
-                    <div class="result-option">
-                        <div class="result-label">Abstain</div>
-                        <div class="result-bar">
-                            <div class="result-fill abstain" style="width: 9.8%"></div>
-                        </div>
-                        <div class="result-percentage">9.8% (182 votes)</div>
-                    </div>
-                </div>
-                
-                <div class="results-summary">
-                    <div class="summary-item">
-                        <span class="summary-label">Total Votes:</span>
-                        <span class="summary-value">1,852</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-label">Participation:</span>
-                        <span class="summary-value">18.7%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <!-- Completed Polls Spreadsheet -->
         <div class="completed-polls-section">
@@ -2733,6 +2687,16 @@ async function submitVoteToAPI(pollId, voteOption) {
             voteOption: voteOption
         };
         
+        console.log(`📤 Submitting vote to backend:`, {
+            pollId,
+            walletAddress: currentWalletAddress,
+            voteOption,
+            url: `${votingState.apiBaseUrl}/api/polls/${pollId}/vote`,
+            walletLength: currentWalletAddress?.length,
+            optionLength: voteOption?.length,
+            requestBody: requestBody
+        });
+        
         const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/vote`, {
             method: 'POST',
             headers: {
@@ -2741,16 +2705,26 @@ async function submitVoteToAPI(pollId, voteOption) {
             body: JSON.stringify(requestBody)
         });
         
-        const data = await response.json();
+        console.log(`📥 Backend response status:`, response.status);
         
-        if (data.success) {
+        const data = await response.json();
+        console.log(`📥 Backend response data:`, data);
+        
+        // Check if vote was successful (200 status)
+        if (response.ok && response.status === 200) {
             console.log('✅ Vote submitted successfully:', data);
-            return true;
-        } else {
-            console.error('❌ Vote submission failed:', data.error);
-            alert(`Vote failed: ${data.error}`);
-            return false;
+            return { success: true, isNewVote: true };
         }
+        
+        // Check if user already voted (400 status with "already voted" message)
+        if (response.status === 400 && data.message && data.message.includes('already voted')) {
+            console.log('ℹ️ User already voted, will show results instead');
+            return { success: true, isNewVote: false, alreadyVoted: true };
+        }
+        
+        // For other errors, return failure
+        console.error('❌ Vote submission failed:', data.message || data.error);
+        return { success: false, error: data.message || data.error };
     } catch (error) {
         console.error('❌ Error submitting vote:', error);
         console.error('❌ Error details:', {
@@ -2758,8 +2732,7 @@ async function submitVoteToAPI(pollId, voteOption) {
             message: error.message,
             stack: error.stack
         });
-        alert('Failed to submit vote. Please try again.');
-        return false;
+        return { success: false, error: 'Network error. Please try again.' };
     }
 }
 
@@ -2787,7 +2760,10 @@ async function fetchPollResults(pollId) {
 // Voting system state
 const votingState = {
     apiBaseUrl: 'https://img-protocol-backend.onrender.com',
-    initialized: false
+    initialized: false,
+    pollResults: {},
+    walletVoteStatus: {}, // Track voting status per poll for current wallet
+    currentWallet: null
 };
 
 // Initialize voting system
@@ -2806,20 +2782,22 @@ async function initializeVotingSystem() {
     
     console.log('✅ Vote page found!', votePage);
     
-    if (votingState.initialized) {
-        console.log('🗳️ Already initialized');
-        return;
-    }
-    
     try {
-        // Load active polls
+        // Always load active polls (in case polls changed)
         await loadActivePolls();
         
-        // Setup event listeners
-        setupVotingEventListeners();
+        // Always check wallet status and update UI (handles wallet changes)
+        await updateVotingUIForCurrentWallet();
         
-        votingState.initialized = true;
-        console.log('✅ Voting system initialized successfully');
+        // Setup event listeners only once
+        if (!votingState.initialized) {
+            setupVotingEventListeners();
+            setupWalletMonitoring();
+            votingState.initialized = true;
+            console.log('✅ Voting system initialized successfully');
+        } else {
+            console.log('🔄 Voting system already initialized, updating UI only');
+        }
     } catch (error) {
         console.error('❌ Failed to initialize voting system:', error);
     }
@@ -2852,6 +2830,174 @@ function updatePollCards(polls) {
             if (descElement) descElement.textContent = poll.description;
         }
     });
+}
+
+// SIMPLE: Check if user has already voted by fetching votes from backend
+async function checkUserVoted(pollId, walletAddress) {
+    if (!walletAddress) return false;
+    
+    try {
+        console.log(`🔍 Checking if wallet ${walletAddress} voted on poll ${pollId}`);
+        const response = await fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/votes`);
+        
+        if (!response.ok) {
+            console.log(`❌ Failed to fetch votes for poll ${pollId}: ${response.status}`);
+            return false;
+        }
+        
+        const data = await response.json();
+        console.log(`📊 Votes data for poll ${pollId}:`, data);
+        
+        if (data.success && data.votes) {
+            // Backend uses wallet_address (with underscore), not walletAddress
+            const hasVoted = data.votes.some(vote => vote.wallet_address === walletAddress);
+            console.log(`✅ Vote check result for poll ${pollId}: ${hasVoted ? 'HAS VOTED' : 'HAS NOT VOTED'}`);
+            if (hasVoted) {
+                const userVote = data.votes.find(vote => vote.wallet_address === walletAddress);
+                console.log(`🗳️ User's vote:`, userVote);
+            }
+            return hasVoted;
+        }
+        
+        console.log(`❌ Invalid votes data for poll ${pollId}:`, data);
+        return false;
+    } catch (error) {
+        console.error(`❌ Error checking vote status for poll ${pollId}:`, error);
+        return false;
+    }
+}
+
+// Update voting UI based on current wallet status
+async function updateVotingUIForCurrentWallet() {
+    const currentWalletAddress = getCurrentWalletAddress();
+    
+    // Update current wallet in state
+    votingState.currentWallet = currentWalletAddress;
+    
+    if (!currentWalletAddress) {
+        console.log('ℹ️ No wallet connected, resetting all polls to voting state');
+        resetAllPollsToVotingState();
+        return;
+    }
+    
+    console.log(`🔍 Checking voting status for wallet: ${currentWalletAddress}`);
+    
+    // Get all poll cards
+    const pollCards = document.querySelectorAll('[data-poll-id]');
+    
+    for (const pollCard of pollCards) {
+        const pollId = pollCard.getAttribute('data-poll-id');
+        if (!pollId) continue;
+        
+        try {
+            // Check if user has voted on this poll
+            const hasVoted = await checkUserVoted(pollId, currentWalletAddress);
+            
+            // Store vote status for this poll
+            votingState.walletVoteStatus[pollId] = hasVoted;
+            
+            if (hasVoted) {
+                console.log(`✅ User already voted on poll ${pollId}, showing results`);
+                // Show results for users who have already voted
+                await setPollToVotedState(pollCard, pollId);
+            } else {
+                console.log(`ℹ️ User has not voted on poll ${pollId}, showing voting options`);
+                setPollToVotingState(pollCard, pollId);
+            }
+        } catch (error) {
+            console.error(`❌ Error checking vote for poll ${pollId}:`, error);
+            // Default to voting state on error
+            setPollToVotingState(pollCard, pollId);
+        }
+    }
+}
+
+// SIMPLE: Set poll to voted state
+async function setPollToVotedState(pollCard, pollId) {
+    // PREVENT DUPLICATE CALLS - Check if already in voted state
+    const submitBtn = pollCard.querySelector('.submit-vote-btn');
+    if (submitBtn && submitBtn.classList.contains('vote-recorded-btn')) {
+        console.log(`⚠️ Poll ${pollId} already in voted state, skipping`);
+        return;
+    }
+    
+    // Update button
+    if (submitBtn) {
+        submitBtn.innerHTML = `✓ Vote Recorded`;
+        submitBtn.className = 'vote-recorded-btn';
+        submitBtn.disabled = true;
+    }
+    
+    // Hide voting options
+    const pollOptions = pollCard.querySelector('.poll-options');
+    if (pollOptions) {
+        pollOptions.style.display = 'none';
+    }
+    
+    // Show results
+    await displayPollResultsImmediate(pollId, null);
+}
+
+// SIMPLE: Set poll to voting state
+function setPollToVotingState(pollCard, pollId) {
+    // Reset button
+    const submitBtn = pollCard.querySelector('.submit-vote-btn');
+    if (submitBtn) {
+        submitBtn.innerHTML = 'Submit Vote';
+        submitBtn.className = 'submit-vote-btn';
+        submitBtn.disabled = false;
+    }
+    
+    // Show voting options
+    const pollOptions = pollCard.querySelector('.poll-options');
+    if (pollOptions) {
+        pollOptions.style.display = 'flex';
+    }
+    
+    // Remove results
+    const existingResults = pollCard.querySelector('.poll-results-compact');
+    if (existingResults) {
+        existingResults.remove();
+    }
+}
+
+// Reset all polls to voting state (when wallet disconnects)
+function resetAllPollsToVotingState() {
+    const pollCards = document.querySelectorAll('[data-poll-id]');
+    pollCards.forEach(pollCard => {
+        const pollId = pollCard.getAttribute('data-poll-id');
+        if (pollId) {
+            setPollToVotingState(pollCard, pollId);
+        }
+    });
+    
+    // Clear vote status
+    votingState.walletVoteStatus = {};
+}
+
+// Setup wallet monitoring to detect wallet changes
+function setupWalletMonitoring() {
+    console.log('🔍 Setting up wallet monitoring for voting system...');
+    
+    // Monitor wallet state changes every 2 seconds
+    setInterval(async () => {
+        const currentWallet = getCurrentWalletAddress();
+        
+        // Debug wallet monitoring
+        if (currentWallet !== votingState.currentWallet) {
+            console.log(`🔄 WALLET CHANGED:`, {
+                from: votingState.currentWallet,
+                to: currentWallet,
+                timestamp: new Date().toISOString()
+            });
+            await updateVotingUIForCurrentWallet();
+        }
+        
+        // Also log current state for debugging
+        if (currentWallet && Math.random() < 0.1) { // Log 10% of the time to avoid spam
+            console.log(`🔍 Wallet monitoring: ${currentWallet}, vote status:`, votingState.walletVoteStatus);
+        }
+    }, 2000);
 }
 
 // Setup voting event listeners - IMPROVED VERSION
@@ -2968,6 +3114,14 @@ function setupVotingEventListeners() {
             font-weight: 500;
             margin-right: 8px;
         }
+        .result-percentage {
+            min-width: 50px;
+            color: #f8fafc;
+            font-size: 13px;
+            font-weight: 500;
+            margin-left: 8px;
+            text-align: right;
+        }
         .result-bar {
             flex: 1;
             height: 12px;
@@ -3083,6 +3237,10 @@ function selectPollOption(pollId, option) {
         return;
     }
     
+    // Debug: List all available options
+    const allOptions = pollCard.querySelectorAll('.poll-option');
+    console.log(`🔍 Available options in poll ${pollId}:`, Array.from(allOptions).map(opt => opt.dataset.option));
+    
     // Remove previous selections
     pollCard.querySelectorAll('.poll-option').forEach(opt => {
         opt.classList.remove('selected');
@@ -3099,6 +3257,7 @@ function selectPollOption(pollId, option) {
         console.log(`✅ OPTION ${option} SELECTED SUCCESSFULLY!`);
     } else {
         console.log(`❌ Option element not found for: ${option}`);
+        console.log(`🔍 Available options:`, Array.from(allOptions).map(opt => opt.dataset.option));
     }
     
     // Enable submit button - NO RESTRICTIONS
@@ -3108,15 +3267,17 @@ function selectPollOption(pollId, option) {
         submitBtn.dataset.selectedOption = option;
         submitBtn.textContent = 'Submit Vote';
         submitBtn.style.background = '#3b82f6';
-        console.log(`✅ SUBMIT BUTTON ENABLED FOR POLL ${pollId}!`);
+        console.log(`✅ SUBMIT BUTTON ENABLED FOR POLL ${pollId} WITH OPTION: ${option}`);
+        console.log(`🔍 Submit button dataset:`, submitBtn.dataset);
     } else {
         console.log(`❌ Submit button not found for poll ${pollId}`);
     }
 }
 
-// Submit vote - RESTORED WITH POLL RESULTS
+// Submit vote - PHASE 1: REAL BACKEND INTEGRATION
 async function submitVote(pollId, option) {
-    console.log(`✅ SUBMITTING VOTE: poll ${pollId}, option ${option} - WITH RESULTS!`);
+    console.log(`✅ SUBMITTING VOTE: poll ${pollId}, option "${option}" - REAL BACKEND!`);
+    console.log(`🔍 Option type:`, typeof option, `Option length:`, option?.length);
     
     const pollCard = document.querySelector(`[data-poll-id="${pollId}"]`);
     if (!pollCard) {
@@ -3131,35 +3292,69 @@ async function submitVote(pollId, option) {
         submitBtn.style.background = '#6b7280';
     }
     
-    // Simulate vote submission with results
-    setTimeout(() => {
-        console.log(`✅ VOTE SUBMITTED SUCCESSFULLY: poll ${pollId}, option ${option}`);
+    try {
+        // Submit vote to real backend
+        const result = await submitVoteToAPI(pollId, option);
         
+        if (result.success) {
+            if (result.alreadyVoted) {
+                console.log(`ℹ️ USER ALREADY VOTED: poll ${pollId}, showing results`);
+            } else {
+                console.log(`✅ VOTE SUBMITTED SUCCESSFULLY: poll ${pollId}, option ${option}`);
+            }
+            
+            // Update button to "Vote Recorded" for both new votes and already voted
+            if (submitBtn) {
+                submitBtn.textContent = '✓ Vote Recorded';
+                submitBtn.style.background = '#10b981';
+            }
+            
+            // Disable poll options
+            const pollOptions = pollCard.querySelector('.poll-options');
+            if (pollOptions) {
+                pollOptions.style.pointerEvents = 'none';
+                pollOptions.style.opacity = '0.6';
+            }
+            
+            // Update vote status in state
+            votingState.walletVoteStatus[pollId] = true;
+            
+            // Show poll results immediately from backend
+            await displayPollResultsImmediate(pollId, option);
+            
+            console.log(`✅ VOTING COMPLETED FOR POLL ${pollId}!`);
+        } else {
+            // Reset button on failure
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Vote';
+                submitBtn.style.background = '#3b82f6';
+            }
+            console.error('❌ Vote submission failed:', result.error);
+        }
+    } catch (error) {
+        console.error('❌ Error in submitVote:', error);
+        
+        // Reset button on error
         if (submitBtn) {
-            submitBtn.textContent = '✓ Vote Recorded';
-            submitBtn.style.background = '#10b981';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Vote';
+            submitBtn.style.background = '#3b82f6';
         }
-        
-        // Disable poll options
-        const pollOptions = pollCard.querySelector('.poll-options');
-        if (pollOptions) {
-            pollOptions.style.pointerEvents = 'none';
-            pollOptions.style.opacity = '0.6';
-        }
-        
-        // Show poll results immediately
-        displayPollResultsImmediate(pollId, option);
-        
-        console.log(`✅ VOTING COMPLETED FOR POLL ${pollId}!`);
-    }, 1000);
+    }
 }
 
-// Display poll results immediately after voting - IMPROVED DESIGN
-function displayPollResultsImmediate(pollId, selectedOption) {
-    console.log(`✅ DISPLAYING POLL RESULTS IMMEDIATELY: poll ${pollId}, option ${selectedOption}`);
-    
+// SIMPLE: Display poll results after voting
+async function displayPollResultsImmediate(pollId, selectedOption) {
     const pollCard = document.querySelector(`[data-poll-id="${pollId}"]`);
     if (!pollCard) return;
+    
+    // PREVENT DUPLICATE CALLS - Check if results already exist
+    const existingResults = pollCard.querySelector('.poll-results-compact');
+    if (existingResults) {
+        console.log(`⚠️ Results already exist for poll ${pollId}, skipping`);
+        return;
+    }
     
     // Hide voting options
     const pollOptions = pollCard.querySelector('.poll-options');
@@ -3167,54 +3362,89 @@ function displayPollResultsImmediate(pollId, selectedOption) {
         pollOptions.style.display = 'none';
     }
     
-    // Transform submit button to "Vote Recorded" instead of hiding it
+    // Update submit button
     const submitBtn = pollCard.querySelector('.submit-vote-btn');
     if (submitBtn) {
-        submitBtn.innerHTML = `
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Vote Recorded
-        `;
+        submitBtn.innerHTML = `✓ Vote Recorded`;
         submitBtn.className = 'vote-recorded-btn';
         submitBtn.disabled = true;
-        submitBtn.style.cursor = 'default';
     }
     
-    // Create compact results section matching the design
-    const resultsHTML = `
-        <div class="poll-results-compact">
-            <div class="results-header">
-                <h4 class="results-title">Poll Results</h4>
-                <span class="vote-count">1 votes</span>
+    // Fetch and display real results
+    try {
+        const results = await fetchPollResults(pollId);
+        if (results) {
+            const resultsHTML = createResultsHTML(pollId, results);
+            const pollExplanation = pollCard.querySelector('.poll-explanation');
+            if (pollExplanation) {
+                pollExplanation.insertAdjacentHTML('afterend', resultsHTML);
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching results:', error);
+    }
+}
+
+// Create results HTML with real backend data
+function createResultsHTML(pollId, results) {
+    const totalVotes = results.total || 0;
+    
+    // Generate result rows dynamically based on available options
+    let resultRowsHTML = '';
+    
+    // Handle backend data format: { total: 5, yes: 3, no: 2, percentages: { yes: "60.0", no: "40.0" } }
+    const percentages = results.percentages || {};
+    
+    // Get all options from percentages object
+    const options = Object.keys(percentages);
+    
+    options.forEach(option => {
+        const percentage = percentages[option] || '0.0';
+        const votes = results[option] || 0;
+        const displayName = getOptionDisplayName(option);
+        const fillClass = getOptionFillClass(option);
+        
+        resultRowsHTML += `
+            <div class="result-row">
+                <span class="result-label">${displayName}</span>
+                <div class="result-bar">
+                    <div class="result-fill ${fillClass}" style="width: ${percentage}%"></div>
+                </div>
+                <span class="result-percentage">${percentage}%</span>
             </div>
+        `;
+    });
+    
+    return `
+        <div class="poll-results-compact">
             <div class="results-list">
-                <div class="result-row ${selectedOption === 'yes' ? 'selected' : ''}">
-                    <span class="result-label">100.0% Yes</span>
-                    <div class="result-bar">
-                        <div class="result-fill yes-fill" style="width: ${selectedOption === 'yes' ? '100' : '0'}%"></div>
-                    </div>
-                </div>
-                <div class="result-row ${selectedOption === 'no' ? 'selected' : ''}">
-                    <span class="result-label">0.0% No</span>
-                    <div class="result-bar">
-                        <div class="result-fill no-fill" style="width: ${selectedOption === 'no' ? '100' : '0'}%"></div>
-                    </div>
-                </div>
+                ${resultRowsHTML}
             </div>
             <div class="results-footer">
-                <a href="#" onclick="showDetailedResults(${pollId})" class="view-results-link">VIEW RESULTS</a>
+                <a href="#" onclick="showDetailedResults('${pollId}')" class="view-results-link">VIEW RESULTS</a>
             </div>
         </div>
     `;
-    
-    // Insert results after poll explanation
-    const pollExplanation = pollCard.querySelector('.poll-explanation');
-    if (pollExplanation) {
-        pollExplanation.insertAdjacentHTML('afterend', resultsHTML);
-    }
-    
-    console.log(`✅ POLL RESULTS DISPLAYED FOR POLL ${pollId}!`);
+}
+
+
+// Helper functions for option display
+function getOptionDisplayName(option) {
+    const displayNames = {
+        'yes': 'Yes',
+        'no': 'No',
+        'abstain': 'Abstain'
+    };
+    return displayNames[option] || option.charAt(0).toUpperCase() + option.slice(1);
+}
+
+function getOptionFillClass(option) {
+    const fillClasses = {
+        'yes': 'yes-fill',
+        'no': 'no-fill',
+        'abstain': 'abstain-fill'
+    };
+    return fillClasses[option] || 'default-fill';
 }
 
 // Show poll results
@@ -3279,104 +3509,71 @@ function displayPollResults(pollId, results) {
 // Global functions for voting system
 window.initializeVotingSystem = initializeVotingSystem;
 window.reinitializeVotingSystem = () => {
-    votingState.initialized = false;
+    // Don't reset initialized flag - just update UI
     initializeVotingSystem();
 };
 
-// Global function for showing detailed results in a popup modal
-window.showDetailedResults = function(pollId) {
-    console.log(`📊 NEW MODAL FUNCTION CALLED - Showing detailed results for poll ${pollId}`);
-    console.log(`📊 Function type:`, typeof window.showDetailedResults);
+// Global function for showing detailed results in a popup modal - PHASE 1: REAL BACKEND DATA
+window.showDetailedResults = async function(pollId) {
+    console.log(`📊 SHOWING DETAILED RESULTS FOR POLL ${pollId} - REAL BACKEND DATA`);
     
-    // Sample data - in real implementation, this would come from the backend
-    const results = {
-        1: {
-            question: "Should we reduce the protocol fee from 2.5% to 2.0%?",
-            totalVotes: 8,
-            yes: { 
-                percentage: 75, 
-                votes: 6, 
-                wallets: [
-                    "3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN",
-                    "7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
-                    "9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2",
-                    "2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
-                    "5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8",
-                    "8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"
-                ] 
-            },
-            no: { 
-                percentage: 25, 
-                votes: 2, 
-                wallets: [
-                    "4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6",
-                    "7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"
-                ] 
-            },
-            abstain: { 
-                percentage: 0, 
-                votes: 0, 
-                wallets: [] 
-            }
-        },
-        2: {
-            question: "Should we implement a new staking mechanism?",
-            totalVotes: 0,
-            yes: { percentage: 0, votes: 0, wallets: [] },
-            no: { percentage: 0, votes: 0, wallets: [] },
-            abstain: { percentage: 0, votes: 0, wallets: [] }
-        },
-        3: {
-            question: "Should we add support for new tokens?",
-            totalVotes: 0,
-            yes: { percentage: 0, votes: 0, wallets: [] },
-            no: { percentage: 0, votes: 0, wallets: [] },
-            abstain: { percentage: 0, votes: 0, wallets: [] }
-        }
-    };
-    
-    const poll = results[pollId];
-    if (!poll) {
-        alert(`No results found for poll ${pollId}`);
+    if (!pollId) {
+        console.error('❌ No pollId provided to showDetailedResults');
         return;
     }
     
-    // Create and show the popup modal
-    showPollResultsModal(poll);
+    try {
+        // Fetch real poll data and votes from backend
+        const [pollData, votesData] = await Promise.all([
+            fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}`).then(res => res.json()),
+            fetch(`${votingState.apiBaseUrl}/api/polls/${pollId}/votes`).then(res => res.json())
+        ]);
+        
+        if (pollData.success && votesData.success) {
+            // Organize votes by option - Backend uses vote_option and wallet_address
+            const votesByOption = {};
+            votesData.votes.forEach(vote => {
+                if (!votesByOption[vote.vote_option]) {
+                    votesByOption[vote.vote_option] = [];
+                }
+                votesByOption[vote.vote_option].push(vote.wallet_address);
+            });
+            
+            // Calculate percentages and create poll object
+            const totalVotes = votesData.votes.length;
+            const poll = {
+                question: pollData.poll.title,
+                totalVotes: totalVotes,
+                yes: {
+                    percentage: totalVotes > 0 ? ((votesByOption.yes?.length || 0) / totalVotes * 100).toFixed(1) : '0.0',
+                    votes: votesByOption.yes?.length || 0,
+                    wallets: votesByOption.yes || []
+                },
+                no: {
+                    percentage: totalVotes > 0 ? ((votesByOption.no?.length || 0) / totalVotes * 100).toFixed(1) : '0.0',
+                    votes: votesByOption.no?.length || 0,
+                    wallets: votesByOption.no || []
+                },
+                abstain: {
+                    percentage: totalVotes > 0 ? ((votesByOption.abstain?.length || 0) / totalVotes * 100).toFixed(1) : '0.0',
+                    votes: votesByOption.abstain?.length || 0,
+                    wallets: votesByOption.abstain || []
+                }
+            };
+            
+            console.log(`✅ REAL POLL DATA LOADED:`, poll);
+            
+            // Create and show the popup modal
+            showPollResultsModal(poll);
+        } else {
+            console.error('❌ Failed to fetch poll data:', pollData.error || votesData.error);
+        }
+    } catch (error) {
+        console.error('❌ Error fetching detailed results:', error);
+    }
 };
 
-// Ensure the function is properly defined globally
-if (typeof window.showDetailedResults === 'undefined') {
-    console.log('⚠️ showDetailedResults function not found, redefining...');
-    window.showDetailedResults = function(pollId) {
-        console.log(`📊 FALLBACK FUNCTION CALLED - Showing detailed results for poll ${pollId}`);
-        showPollResultsModal({
-            question: "Should we reduce the protocol fee from 2.5% to 2.0%?",
-            totalVotes: 8,
-            yes: { 
-                percentage: 75, 
-                votes: 6, 
-                wallets: [
-                    "3p3waR5U4AvZ2Txs7s6SXEqtuxTdukBn2TAGMUVm3kwN",
-                    "7x9mK2L8Np4Qr6St1Uv3W5Yz8Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
-                    "9q5wE7Rt3Yu1Io8Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2",
-                    "2n8mK4L6Np8Qr0St2Uv4W6Yz0Ab2Cd4Ef6Gh8Ij0Kl2Mn4",
-                    "5x7wE9Rt1Yu3Io6Pa8Sd0Fg2Hj4Kl6Mn8Bv0Cx2Zz4Ab6Cd8",
-                    "8q2wE4Rt6Yu8Io0Pa2Sd4Fg6Hj8Kl0Mn2Bv4Cx6Zz8Ab0Cd2"
-                ] 
-            },
-            no: { 
-                percentage: 25, 
-                votes: 2, 
-                wallets: [
-                    "4m6nK8L0Np2Qr4St6Uv8W0Yz2Ab4Cd6Ef8Gh0Ij2Kl4Mn6",
-                    "7x9wE1Rt3Yu5Io7Pa9Sd1Fg3Hj5Kl7Mn9Bv1Cx3Zz5Ab7Cd9"
-                ] 
-            },
-            abstain: { percentage: 0, votes: 0, wallets: [] }
-        });
-    };
-}
+
 
 // Function to create and display the poll results modal
 function showPollResultsModal(poll) {
@@ -3707,8 +3904,7 @@ window.testVotingSystem = () => {
         firstOption.click();
     }
     
-    // Try to initialize
-    votingState.initialized = false;
+    // Try to initialize (don't reset state)
     initializeVotingSystem();
 };
 
