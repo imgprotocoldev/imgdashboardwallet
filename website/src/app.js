@@ -2925,7 +2925,7 @@ function setupVotingEventListeners() {
         
         /* Ultra-Compact Poll Results Styling */
         .poll-results-compact {
-            margin-top: 12px;
+            margin-top: 4px;
             padding: 10px;
             background: rgba(31, 41, 55, 0.4);
             border-radius: 6px;
@@ -3263,10 +3263,16 @@ function displayPollResults(pollId, results) {
         </div>
     `;
     
-    // Insert results
-    const pollContent = pollCard.querySelector('.poll-content');
-    if (pollContent) {
-        pollContent.insertAdjacentHTML('beforeend', resultsHtml);
+    // Insert results after poll explanation
+    const pollExplanation = pollCard.querySelector('.poll-explanation');
+    if (pollExplanation) {
+        pollExplanation.insertAdjacentHTML('afterend', resultsHtml);
+    } else {
+        // Fallback: insert at end of poll content
+        const pollContent = pollCard.querySelector('.poll-content');
+        if (pollContent) {
+            pollContent.insertAdjacentHTML('beforeend', resultsHtml);
+        }
     }
 }
 

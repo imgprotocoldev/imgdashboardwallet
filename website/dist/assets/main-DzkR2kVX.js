@@ -1971,7 +1971,7 @@
         
         /* Ultra-Compact Poll Results Styling */
         .poll-results-compact {
-            margin-top: 12px;
+            margin-top: 4px;
             padding: 10px;
             background: rgba(31, 41, 55, 0.4);
             border-radius: 6px;
@@ -2167,12 +2167,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
+            padding: 12px 16px;
             border-bottom: 1px solid rgba(16, 185, 129, 0.2);
         }
         .modal-title {
             color: #10b981;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             margin: 0;
         }
@@ -2180,11 +2180,11 @@
             background: none;
             border: none;
             color: #94a3b8;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             padding: 0;
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2196,75 +2196,75 @@
             color: #ef4444;
         }
         .modal-content {
-            padding: 24px;
+            padding: 16px;
         }
         .poll-question-section {
-            margin-bottom: 24px;
-            padding-bottom: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
             border-bottom: 1px solid rgba(16, 185, 129, 0.1);
         }
         .poll-question {
             color: #f8fafc;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
-            margin: 0 0 8px 0;
+            margin: 0 0 6px 0;
             line-height: 1.4;
         }
         .total-votes-info {
             color: #10b981;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
         }
         .results-sections {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
         .result-section {
             background: rgba(31, 41, 55, 0.5);
-            border-radius: 8px;
-            padding: 16px;
+            border-radius: 6px;
+            padding: 12px;
             border: 1px solid rgba(16, 185, 129, 0.1);
         }
         .result-section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         .result-option {
             color: #f8fafc;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
         }
         .result-stats {
             color: #10b981;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
         }
         .wallet-list {
-            max-height: 120px;
+            max-height: 100px;
             overflow-y: auto;
             border: 1px solid rgba(16, 185, 129, 0.1);
-            border-radius: 6px;
+            border-radius: 4px;
             background: rgba(31, 41, 55, 0.3);
         }
         .wallet-list::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         .wallet-list::-webkit-scrollbar-track {
             background: rgba(55, 65, 81, 0.3);
-            border-radius: 3px;
+            border-radius: 2px;
         }
         .wallet-list::-webkit-scrollbar-thumb {
             background: rgba(16, 185, 129, 0.5);
-            border-radius: 3px;
+            border-radius: 2px;
         }
         .wallet-list::-webkit-scrollbar-thumb:hover {
             background: rgba(16, 185, 129, 0.7);
         }
         .wallet-item {
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-bottom: 1px solid rgba(16, 185, 129, 0.05);
             transition: background-color 0.2s ease;
         }
@@ -2276,16 +2276,16 @@
         }
         .wallet-address {
             color: #e2e8f0;
-            font-size: 13px;
+            font-size: 12px;
             font-family: 'Courier New', monospace;
             font-weight: 500;
         }
         .no-wallets {
             color: #94a3b8;
-            font-size: 14px;
+            font-size: 13px;
             font-style: italic;
             text-align: center;
-            padding: 16px;
+            padding: 12px;
         }
         
         /* Responsive design */
@@ -2295,7 +2295,7 @@
                 margin: 20px;
             }
             .modal-header, .modal-content {
-                padding: 16px;
+                padding: 12px;
             }
             .result-section-header {
                 flex-direction: column;
