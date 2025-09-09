@@ -1490,7 +1490,10 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="vote-page">
-        <!-- Active Polls Grid -->
+        <!-- Active Polls Section -->
+        <div class="voting-section">
+            <div class="polls-container">
+                <h2 class="section-title">Active Polls</h2>
         <div class="active-polls-grid">
             <!-- Poll 1 -->
             <div class="poll-card" data-poll-id="1">
@@ -1585,8 +1588,8 @@
                 
                 <h2 class="poll-question">Should we integrate with cross-chain bridges (Wormhole, AllBridge)?</h2>
                 <p class="poll-explanation">Cross-chain integration would enable users to move assets between different blockchains seamlessly. This would significantly expand our user base and increase protocol utility across multiple ecosystems.</p>
-                
-                <div class="poll-options" id="poll-options-3">
+                    
+                    <div class="poll-options" id="poll-options-3">
                     <div class="poll-option" data-option="yes">
                         <div class="option-selector">
                             <div class="option-circle"></div>
@@ -1615,9 +1618,13 @@
                 </div>
             </div>
         </div>
-        
-        
-        <!-- Completed Polls Spreadsheet -->
+                </div>
+                    </div>
+                    
+        <!-- Voting History Section -->
+        <div class="voting-section">
+            <div class="voting-history-container">
+                <h2 class="section-title">Voting History</h2>
         <div class="completed-polls-section">
             <div class="polls-spreadsheet-wrapper">
                 <div class="polls-table-scroll-container">
@@ -1717,6 +1724,8 @@
                     <div class="data-cell poll-no">58.8%</div>
                     <div class="data-cell poll-votes">1.9M</div>
                     <div class="data-cell poll-date">Sep 18, 2024</div>
+                </div>
+                    </div>
                 </div>
                     </div>
                 </div>
@@ -3237,14 +3246,14 @@ async function submitVote(pollId, option) {
     const pollCard = document.querySelector(`[data-poll-id="${pollId}"]`);
     if (!pollCard) {
         console.log(`❌ Poll card not found for ID: ${pollId}`);
-        return;
-    }
-    
+                return;
+            }
+            
     const submitBtn = pollCard.querySelector('.submit-vote-btn');
     if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        submitBtn.style.background = '#6b7280';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.style.background = '#6b7280';
     }
     
     try {
@@ -3261,7 +3270,7 @@ async function submitVote(pollId, option) {
             // Update button to "Vote Recorded" for both new votes and already voted
             if (submitBtn) {
                 submitBtn.textContent = '✓ Vote Recorded';
-                submitBtn.style.background = '#10b981';
+                    submitBtn.style.background = '#10b981';
             }
             
             // Disable poll options
@@ -3282,7 +3291,7 @@ async function submitVote(pollId, option) {
             console.log(`🚨 TESTING: Function call completed!`);
             
             console.log(`✅ VOTING COMPLETED FOR POLL ${pollId}!`);
-        } else {
+                } else {
             // Reset button on failure
             if (submitBtn) {
                 submitBtn.disabled = false;
@@ -3290,16 +3299,16 @@ async function submitVote(pollId, option) {
                 submitBtn.style.background = '#3b82f6';
             }
             console.error('❌ Vote submission failed:', result.error);
-        }
-    } catch (error) {
+                }
+            } catch (error) {
         console.error('❌ Error in submitVote:', error);
-        
+                
         // Reset button on error
         if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Vote';
-            submitBtn.style.background = '#3b82f6';
-        }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Vote';
+                submitBtn.style.background = '#3b82f6';
+            }
     }
 }
 
