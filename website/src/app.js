@@ -1494,129 +1494,65 @@
         <div class="voting-section">
             <div class="polls-container">
                 <h2 class="section-title">Active Polls</h2>
-        <div class="active-polls-grid">
-            <!-- Poll 1 -->
-            <div class="poll-card" data-poll-id="1">
-                <div class="poll-header">
-                    <div class="poll-creator">IMG Protocol</div>
-                    <div class="poll-meta">
-                        <span class="poll-status-badge">Active</span>
+        <div class="active-polls-banner">
+            <!-- Professional Single Poll Banner -->
+            <div class="poll-banner-card" data-poll-id="1">
+                <div class="banner-background">
+                    <div class="banner-image">
+                        <div class="banner-overlay"></div>
                     </div>
                 </div>
                 
-                <h2 class="poll-question">Should we reduce the protocol fee from 2.5% to 2.0%?</h2>
-                <p class="poll-explanation">This proposal aims to reduce transaction costs for users while maintaining protocol sustainability. The 0.5% reduction would make our platform more competitive in the DeFi space.</p>
-                
-                <div class="poll-options" id="poll-options-1">
-                    <div class="poll-option" data-option="yes">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
+                <div class="banner-content">
+                    <div class="banner-left-section">
+                        <h2 class="banner-question">Should we reduce the protocol fee from 2.5% to 2.0%?</h2>
+                        
+                        <div class="banner-explanation">
+                            <p>This proposal aims to reduce transaction costs for users while maintaining protocol sustainability. The 0.5% reduction would make our platform more competitive in the DeFi space and attract more users to our ecosystem.</p>
+                            <p>Our current protocol fee of 2.5% was established during the early stages of the platform when we needed to ensure sufficient revenue for development and maintenance. However, as the platform has matured and our user base has grown, we believe we can reduce this fee while still maintaining sustainable operations.</p>
                         </div>
-                        <span class="option-text">Yes - Reduce to 2.0%</span>
                     </div>
                     
-                    <div class="poll-option" data-option="no">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
+                    <div class="banner-voting-section">
+                        <div class="voting-header">
+                            <div class="poll-creator">IMG Protocol</div>
+                            <div class="poll-meta">
+                                <span class="poll-status-badge">Active</span>
+                            </div>
                         </div>
-                        <span class="option-text">No - Keep at 2.5%</span>
-                    </div>
-                    
-                    <div class="poll-option" data-option="abstain">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
+                        
+                        <div class="poll-options" id="poll-options-1">
+                            <div class="poll-option" data-option="yes">
+                                <div class="option-selector">
+                                    <div class="option-circle"></div>
+                                </div>
+                                <span class="option-text">Yes - Reduce to 2.0%</span>
+                            </div>
+                            
+                            <div class="poll-option" data-option="no">
+                                <div class="option-selector">
+                                    <div class="option-circle"></div>
+                                </div>
+                                <span class="option-text">No - Keep at 2.5%</span>
+                            </div>
+                            
+                            <div class="poll-option" data-option="abstain">
+                                <div class="option-selector">
+                                    <div class="option-circle"></div>
+                                </div>
+                                <span class="option-text">Abstain</span>
+                            </div>
                         </div>
-                        <span class="option-text">Abstain</span>
+                        
+                        <div class="poll-actions">
+                            <button class="submit-vote-btn" id="submit-vote-btn-1" data-poll-id="1" disabled>Submit Vote</button>
+                            <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="poll-actions">
-                    <button class="submit-vote-btn" id="submit-vote-btn-1" data-poll-id="1" disabled>Submit Vote</button>
-                    <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Poll 2 -->
-            <div class="poll-card" data-poll-id="2">
-                <div class="poll-header">
-                    <div class="poll-creator">IMG Protocol</div>
-                    <div class="poll-meta">
-                        <span class="poll-status-badge">Active</span>
-                    </div>
-                </div>
-                
-                <h2 class="poll-question">Should we launch a new high-yield staking pool with 12% APY?</h2>
-                <p class="poll-explanation">This new staking pool would offer higher rewards for longer-term commitments. The 12% APY is sustainable through our diversified yield farming strategies and protocol revenue sharing.</p>
-                
-                <div class="poll-options" id="poll-options-2">
-                    <div class="poll-option" data-option="yes">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">Yes - Launch Pool</span>
-                    </div>
-                    
-                    <div class="poll-option" data-option="no">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">No - Keep Current</span>
-                    </div>
-                    
-                    <div class="poll-option" data-option="abstain">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">Abstain</span>
-                    </div>
-                </div>
-                
-                <div class="poll-actions">
-                    <button class="submit-vote-btn" id="submit-vote-btn-2" data-poll-id="2" disabled>Submit Vote</button>
-                    <div class="poll-timestamp">End Date: Sept 12, 2025 – 6:45 PM EST</div>
-                </div>
-            </div>
-
-            <!-- Poll 3 -->
-            <div class="poll-card" data-poll-id="3">
-                <div class="poll-header">
-                    <div class="poll-creator">IMG Protocol</div>
-                    <div class="poll-meta">
-                        <span class="poll-status-badge">Active</span>
-                    </div>
-                </div>
-                
-                <h2 class="poll-question">Should we integrate with cross-chain bridges (Wormhole, AllBridge)?</h2>
-                <p class="poll-explanation">Cross-chain integration would enable users to move assets between different blockchains seamlessly. This would significantly expand our user base and increase protocol utility across multiple ecosystems.</p>
-                    
-                    <div class="poll-options" id="poll-options-3">
-                    <div class="poll-option" data-option="yes">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">Yes - Integrate</span>
-                    </div>
-                    
-                    <div class="poll-option" data-option="no">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">No - Stay Single Chain</span>
-                    </div>
-                    
-                    <div class="poll-option" data-option="abstain">
-                        <div class="option-selector">
-                            <div class="option-circle"></div>
-                        </div>
-                        <span class="option-text">Abstain</span>
-                    </div>
-                </div>
-                
-                <div class="poll-actions">
-                    <button class="submit-vote-btn" id="submit-vote-btn-3" data-poll-id="3" disabled>Submit Vote</button>
-                    <div class="poll-timestamp">End Date: Sept 15, 2025 – 4:30 PM EST</div>
-                </div>
-            </div>
         </div>
                 </div>
                     </div>
@@ -2891,9 +2827,10 @@ async function showPollResults(pollCard, pollId) {
         
         if (data.success) {
             const resultsHTML = createResultsHTML(pollId, data.results);
-            const pollExplanation = pollCard.querySelector('.poll-explanation');
-            if (pollExplanation) {
-                pollExplanation.insertAdjacentHTML('afterend', resultsHTML);
+            // Insert results into the voting section above the actions
+            const pollActions = pollCard.querySelector('.poll-actions');
+            if (pollActions) {
+                pollActions.insertAdjacentHTML('beforebegin', resultsHTML);
             }
         }
     } catch (error) {
@@ -3362,12 +3299,13 @@ async function displayPollResultsAfterVote(pollId) {
             const resultsHTML = createResultsHTML(pollId, data.results);
             console.log(`📝 Generated results HTML:`, resultsHTML);
             
-            const pollExplanation = pollCard.querySelector('.poll-explanation');
-            if (pollExplanation) {
-                pollExplanation.insertAdjacentHTML('afterend', resultsHTML);
-                console.log(`✅ Results HTML inserted after poll explanation`);
+            // Insert results into the voting section above the actions
+            const pollActions = pollCard.querySelector('.poll-actions');
+            if (pollActions) {
+                pollActions.insertAdjacentHTML('beforebegin', resultsHTML);
+                console.log(`✅ Results HTML inserted before poll actions`);
             } else {
-                console.log(`❌ Poll explanation not found`);
+                console.log(`❌ Poll actions not found`);
             }
         } else {
             console.log(`❌ Results fetch failed:`, data.error);
