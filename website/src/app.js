@@ -1514,49 +1514,50 @@
                     </div>
                     
                     <div class="banner-voting-section">
+                <div class="poll-options-container">
                         <div class="voting-header">
-                            <div class="poll-creator">IMG Protocol</div>
-                            <div class="poll-meta">
-                                <span class="poll-status-badge">Active</span>
-                            </div>
-                        </div>
-                        
-                        <div class="poll-options" id="poll-options-1">
-                            <div class="poll-option" data-option="yes">
-                                <div class="option-selector">
-                                    <div class="option-circle"></div>
-                                </div>
-                                <span class="option-text">Yes - Reduce to 2.0%</span>
-                            </div>
-                            
-                            <div class="poll-option" data-option="no">
-                                <div class="option-selector">
-                                    <div class="option-circle"></div>
-                                </div>
-                                <span class="option-text">No - Keep at 2.5%</span>
-                            </div>
-                            
-                            <div class="poll-option" data-option="abstain">
-                                <div class="option-selector">
-                                    <div class="option-circle"></div>
-                                </div>
-                                <span class="option-text">Abstain</span>
-                            </div>
-                        </div>
-                        
-                        <div class="poll-actions">
-                            <button class="submit-vote-btn" id="submit-vote-btn-1" data-poll-id="1" disabled>Submit Vote</button>
-                            <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
-                        </div>
+                    <div class="poll-creator">IMG Protocol</div>
+                    <div class="poll-meta">
+                        <span class="poll-status-badge">Active</span>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        </div>
-                </div>
+                        <div class="poll-options" id="poll-options-1">
+                    <div class="poll-option" data-option="yes">
+                        <div class="option-selector">
+                            <div class="option-circle"></div>
+                        </div>
+                                <span class="option-text">Yes - Reduce to 2.0%</span>
                     </div>
                     
+                    <div class="poll-option" data-option="no">
+                        <div class="option-selector">
+                            <div class="option-circle"></div>
+                        </div>
+                                <span class="option-text">No - Keep at 2.5%</span>
+                    </div>
+                    
+                    <div class="poll-option" data-option="abstain">
+                        <div class="option-selector">
+                            <div class="option-circle"></div>
+                        </div>
+                        <span class="option-text">Abstain</span>
+                    </div>
+                </div>
+                
+                <div class="poll-actions">
+                            <button class="submit-vote-btn" id="submit-vote-btn-1" data-poll-id="1" disabled>Submit Vote</button>
+                            <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
+                </div>
+            </div>
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                
         <!-- Voting History Section -->
         <div class="voting-section">
             <div class="voting-history-container">
