@@ -1567,100 +1567,84 @@
                 <div class="polls-table-scroll-container">
                     <div class="polls-spreadsheet">
                 <div class="spreadsheet-header">
-                    <div class="header-cell">Voting History</div>
-                    <div class="header-cell">Status</div>
-                    <div class="header-cell">Yes %</div>
-                    <div class="header-cell">No %</div>
+                    <div class="header-cell">Poll</div>
+                    <div class="header-cell">Option 1</div>
+                    <div class="header-cell">Option 2</div>
+                    <div class="header-cell">Option 3</div>
                     <div class="header-cell">Total Votes</div>
                     <div class="header-cell">Date</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Treasury Fund Allocation</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge passed">Passed</span>
-                    </div>
-                    <div class="data-cell poll-yes">78.3%</div>
-                    <div class="data-cell poll-no">21.7%</div>
-                    <div class="data-cell poll-votes">3.2M</div>
-                    <div class="data-cell poll-date">Dec 15, 2024</div>
+                    <div class="data-cell poll-question">Increase infra [temporarily]</div>
+                    <div class="data-cell poll-result">Yes 70%</div>
+                    <div class="data-cell poll-yes">No 30%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">103</div>
+                    <div class="data-cell poll-date">Sept 8, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Smart Contract Upgrade</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge rejected">Rejected</span>
-                    </div>
-                    <div class="data-cell poll-yes">45.2%</div>
-                    <div class="data-cell poll-no">54.8%</div>
-                    <div class="data-cell poll-votes">2.8M</div>
-                    <div class="data-cell poll-date">Dec 8, 2024</div>
+                    <div class="data-cell poll-question">Infra: 50%Safe, 25% Burn, 25% LP</div>
+                    <div class="data-cell poll-result">Yes 80%</div>
+                    <div class="data-cell poll-yes">No 20%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">65</div>
+                    <div class="data-cell poll-date">Aug 31, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Reward Distribution Schedule</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge passed">Passed</span>
-                    </div>
-                    <div class="data-cell poll-yes">91.7%</div>
-                    <div class="data-cell poll-no">8.3%</div>
-                    <div class="data-cell poll-votes">4.1M</div>
-                    <div class="data-cell poll-date">Nov 28, 2024</div>
+                    <div class="data-cell poll-question">Logo Image for Kimbos shorts</div>
+                    <div class="data-cell poll-result">A 39%</div>
+                    <div class="data-cell poll-yes">B 61%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">87</div>
+                    <div class="data-cell poll-date">Aug 30, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Community Grant Program</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge passed">Passed</span>
-                    </div>
-                    <div class="data-cell poll-yes">82.1%</div>
-                    <div class="data-cell poll-no">17.9%</div>
-                    <div class="data-cell poll-votes">2.9M</div>
-                    <div class="data-cell poll-date">Nov 15, 2024</div>
+                    <div class="data-cell poll-question">Spaces with kimbo slice jr</div>
+                    <div class="data-cell poll-result">Friday 52%</div>
+                    <div class="data-cell poll-yes">Saturday 37%</div>
+                    <div class="data-cell poll-no">Sunday 11%</div>
+                    <div class="data-cell poll-votes">93</div>
+                    <div class="data-cell poll-date">Aug 29, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Protocol Fee Structure Update</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge rejected">Rejected</span>
-                    </div>
-                    <div class="data-cell poll-yes">38.5%</div>
-                    <div class="data-cell poll-no">61.5%</div>
-                    <div class="data-cell poll-votes">3.7M</div>
-                    <div class="data-cell poll-date">Nov 2, 2024</div>
+                    <div class="data-cell poll-question">Which website for Kimbo fight night?</div>
+                    <div class="data-cell poll-result">.unstoppable 6%</div>
+                    <div class="data-cell poll-yes">.net 32%</div>
+                    <div class="data-cell poll-no">imgsolana.com 62%</div>
+                    <div class="data-cell poll-votes">82</div>
+                    <div class="data-cell poll-date">Aug 26, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Governance Token Distribution</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge passed">Passed</span>
-                    </div>
-                    <div class="data-cell poll-yes">85.3%</div>
-                    <div class="data-cell poll-no">14.7%</div>
-                    <div class="data-cell poll-votes">2.4M</div>
-                    <div class="data-cell poll-date">Oct 20, 2024</div>
+                    <div class="data-cell poll-question">Reward frequency</div>
+                    <div class="data-cell poll-result">Every 6Hours 69%</div>
+                    <div class="data-cell poll-yes">Every Hour 31%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">140</div>
+                    <div class="data-cell poll-date">Aug 23, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Liquidity Pool Expansion</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge passed">Passed</span>
-                    </div>
-                    <div class="data-cell poll-yes">92.1%</div>
-                    <div class="data-cell poll-no">7.9%</div>
-                    <div class="data-cell poll-votes">3.8M</div>
-                    <div class="data-cell poll-date">Oct 5, 2024</div>
+                    <div class="data-cell poll-question">Update our branding</div>
+                    <div class="data-cell poll-result">OG [IMG] 82%</div>
+                    <div class="data-cell poll-yes">Pixel Bunny 18%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">155</div>
+                    <div class="data-cell poll-date">Aug 22, 2025</div>
                 </div>
                 
                 <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Security Audit Implementation</div>
-                    <div class="data-cell poll-result">
-                        <span class="result-badge rejected">Rejected</span>
-                    </div>
-                    <div class="data-cell poll-yes">41.2%</div>
-                    <div class="data-cell poll-no">58.8%</div>
-                    <div class="data-cell poll-votes">1.9M</div>
-                    <div class="data-cell poll-date">Sep 18, 2024</div>
+                    <div class="data-cell poll-question">view TG</div>
+                    <div class="data-cell poll-result">Group 66%</div>
+                    <div class="data-cell poll-yes">Topics 34%</div>
+                    <div class="data-cell poll-no"></div>
+                    <div class="data-cell poll-votes">119</div>
+                    <div class="data-cell poll-date">Aug 22, 2025</div>
                 </div>
                     </div>
                 </div>
