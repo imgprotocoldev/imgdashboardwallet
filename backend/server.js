@@ -441,14 +441,21 @@ app.post('/api/polls/:id/vote', async (req, res) => {
 
                 // Update poll results
                 const options = JSON.parse(poll.options);
+                console.log(`📊 Current poll options before update:`, options);
+                
                 options[voteOption]++;
                 options.total++;
+                
+                console.log(`📊 Updated poll options after increment:`, options);
+                console.log(`📊 Updating poll ${id} with new options:`, JSON.stringify(options));
 
                 db.run('UPDATE polls SET options = ? WHERE id = ?', [JSON.stringify(options), id], (err) => {
                     if (err) {
                         console.error('❌ Error updating poll results:', err.message);
+                        return res.status(500).json({ error: 'Failed to update poll results' });
                     }
 
+                    console.log(`✅ Poll results updated successfully for poll ${id}`);
                     console.log(`✅ Vote successfully recorded: poll_id=${id}, wallet_address=${walletAddress}, vote_option=${voteOption}`);
                     res.json({ 
                         success: true, 
@@ -485,14 +492,22 @@ app.get('/api/polls/:id/results', (req, res) => {
         }
 
         const results = JSON.parse(poll.options);
+        console.log(`📊 Raw poll options from database:`, results);
         
         // Calculate percentages
         const total = results.total;
+        console.log(`📊 Total votes: ${total}`);
+        console.log(`📊 Option1 votes: ${results.option1}`);
+        console.log(`📊 Option2 votes: ${results.option2}`);
+        console.log(`📊 Option3 votes: ${results.option3}`);
+        
         const percentages = {
             option1: total > 0 ? ((results.option1 / total) * 100).toFixed(1) : "0.0",
             option2: total > 0 ? ((results.option2 / total) * 100).toFixed(1) : "0.0",
             option3: total > 0 ? ((results.option3 / total) * 100).toFixed(1) : "0.0"
         };
+        
+        console.log(`📊 Calculated percentages:`, percentages);
 
         res.json({ 
             success: true, 
