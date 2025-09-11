@@ -68,7 +68,7 @@ function initializeDatabase() {
             start_date DATETIME,
             end_date DATETIME,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            options TEXT DEFAULT '{"yes": 0, "no": 0, "abstain": 0, "total": 0}'
+            options TEXT DEFAULT '{"option1": 0, "option2": 0, "option3": 0, "total": 0}'
         )
     `, (err) => {
         if (err) {
@@ -341,7 +341,7 @@ app.post('/api/polls', (req, res) => {
         status: 'draft',
         start_date: start_date || new Date().toISOString(),
         end_date,
-        options: JSON.stringify({ yes: 0, no: 0, abstain: 0, total: 0 })
+        options: JSON.stringify({ option1: 0, option2: 0, option3: 0, total: 0 })
     };
 
     db.run(`
@@ -396,8 +396,8 @@ app.post('/api/polls/:id/vote', async (req, res) => {
         return res.status(400).json({ error: 'Wallet address and vote option are required' });
     }
 
-    if (!['yes', 'no', 'abstain'].includes(voteOption)) {
-        return res.status(400).json({ error: 'Invalid vote option. Must be yes, no, or abstain' });
+    if (!['option1', 'option2', 'option3'].includes(voteOption)) {
+        return res.status(400).json({ error: 'Invalid vote option. Must be option1, option2, or option3' });
     }
 
     try {
@@ -489,9 +489,9 @@ app.get('/api/polls/:id/results', (req, res) => {
         // Calculate percentages
         const total = results.total;
         const percentages = {
-            yes: total > 0 ? ((results.yes / total) * 100).toFixed(1) : 0,
-            no: total > 0 ? ((results.no / total) * 100).toFixed(1) : 0,
-            abstain: total > 0 ? ((results.abstain / total) * 100).toFixed(1) : 0
+            option1: total > 0 ? ((results.option1 / total) * 100).toFixed(1) : 0,
+            option2: total > 0 ? ((results.option2 / total) * 100).toFixed(1) : 0,
+            option3: total > 0 ? ((results.option3 / total) * 100).toFixed(1) : 0
         };
 
         res.json({ 
