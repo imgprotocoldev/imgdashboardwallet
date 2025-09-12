@@ -3885,7 +3885,7 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0;
-    max-height: 200px;
+    max-height: 240px;
     overflow-y: auto;
     overflow-x: hidden !important;
     table-layout: fixed !important;
@@ -4222,7 +4222,7 @@
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
-        max-height: 350px;
+        max-height: 390px;
     }
     
     /* Custom scrollbar styling for tablet */
