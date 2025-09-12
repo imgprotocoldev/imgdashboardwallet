@@ -1491,7 +1491,7 @@
     
     <div class="vote-page">
         <!-- Active Polls Section -->
-        <div class="voting-section">
+        <div class="active-polls-section">
             <div class="polls-container">
                 <h2 class="section-title">Active Polls</h2>
         <div class="active-polls-banner">
@@ -1555,7 +1555,7 @@
                 </div>
                 
         <!-- Voting History Section -->
-        <div class="voting-section">
+        <div class="voting-history-section">
             <div class="polls-container">
                 <h2 class="section-title">Voting History</h2>
         <div class="completed-polls-section">
@@ -3530,7 +3530,6 @@ function showPollResultsModal(poll) {
                 <div class="modal-content">
                     <div class="poll-question-section">
                         <h3 class="poll-question">${poll.question}</h3>
-                        <div class="total-votes-info">Total Votes: ${poll.totalVotes}</div>
                     </div>
                     
                     <div class="results-sections">
@@ -3553,6 +3552,8 @@ function showPollResultsModal(poll) {
                             </div>
                         `).join('')}
                     </div>
+                    
+                    <div class="total-votes-info">Total Votes: ${poll.totalVotes}</div>
                 </div>
             </div>
         </div>
@@ -3682,6 +3683,10 @@ function addPollResultsModalStyles() {
             color: #10b981;
             font-size: 13px;
             font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .results-sections {
             display: flex;
