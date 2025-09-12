@@ -3031,7 +3031,7 @@
 
 /* Voting Sections - Container styling matching events page */
 .voting-section {
-    margin-top: 20px;
+    margin-top: 0px;
     width: 100%;
 }
 
@@ -3039,7 +3039,7 @@
     font-size: 24px;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 20px;
+    margin: 12px 0 12px 0;
     text-align: left;
 }
 
@@ -3165,13 +3165,13 @@
 .banner-voting-section {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 2px;
 }
 
 .poll-options-container {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 1px 12px 8px 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
@@ -3186,7 +3186,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
-    padding: 6px 0;
+    padding: 1px 0;
 }
 
 .banner-voting-section .poll-options {
@@ -3322,7 +3322,7 @@
     .poll-options-container {
         max-width: 100%;
         margin: 0 auto;
-        padding: 20px 18px;
+        padding: 1px 14px 12px 14px;
     }
     
     .poll-banner-card {
@@ -3947,6 +3947,7 @@
         overflow-x: hidden !important;
     }
     
+    
     .banner-content {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -3974,7 +3975,7 @@
     .poll-options-container {
         max-width: 100%;
         margin: 0 auto;
-        padding: 18px 16px;
+        padding: 1px 12px 10px 12px;
     }
     
     .poll-banner-card {
@@ -4176,6 +4177,7 @@
     .vote-page {
         padding: 55px 2px 0px 2px;
     }
+    
     
     .completed-polls-section {
         margin-top: 6px;

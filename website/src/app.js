@@ -1516,19 +1516,15 @@
                     <div class="banner-voting-section">
                 <div class="poll-options-container">
                         <div class="voting-header">
-                    <div class="poll-creator">IMG Protocol</div>
-                    <div class="poll-meta">
-                        <span class="poll-status-badge">Active</span>
-                    </div>
-                </div>
+                        </div>
                         <div class="poll-options" id="poll-options-1">
                     <div class="poll-option" data-option="option1">
                         <div class="option-selector">
                             <div class="option-circle"></div>
                         </div>
                                 <span class="option-text">Enjoying the Dashboard</span>
-                    </div>
-                    
+                </div>
+                
                     <div class="poll-option" data-option="option2">
                         <div class="option-selector">
                             <div class="option-circle"></div>
@@ -2949,10 +2945,10 @@ function setupVotingEventListeners() {
         
         /* Ultra-Compact Poll Results Styling */
         .poll-results-compact {
-            margin-top: 1px;
-            padding: 4px;
+            margin-top: -2px;
+            padding: 16px 12px 12px 12px;
             background: rgba(31, 41, 55, 0.4);
-            border-radius: 4px;
+            border-radius: 8px;
             border: 1px solid rgba(16, 185, 129, 0.2);
         }
         .results-header {
@@ -2963,13 +2959,13 @@ function setupVotingEventListeners() {
         }
         .results-title {
             color: #10b981;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             margin: 0;
         }
         .vote-count {
             color: #94a3b8;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
         }
         .results-list {
@@ -2988,10 +2984,10 @@ function setupVotingEventListeners() {
         }
         .result-label {
             color: #f8fafc;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
-            margin-bottom: 1px;
-            line-height: 1.1;
+            margin-bottom: 2px;
+            line-height: 1.2;
         }
         .result-bar-container {
             display: flex;
@@ -3000,17 +2996,17 @@ function setupVotingEventListeners() {
         }
         .result-bar {
             flex: 1;
-            height: 10px;
+            height: 12px;
             background: rgba(55, 65, 81, 0.6);
-            border-radius: 5px;
+            border-radius: 6px;
             overflow: hidden;
             position: relative;
-            margin-right: 6px;
+            margin-right: 8px;
         }
         .result-percentage {
-            min-width: 40px;
+            min-width: 50px;
             color: #f8fafc;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 500;
             text-align: right;
         }
