@@ -2785,7 +2785,7 @@
         display: block !important;
     width: 100%;
         margin-top: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
         padding: 0 4px;
     }
     
@@ -3021,25 +3021,41 @@
 .vote-page {
     width: 100%;
     max-width: 100vw;
-    padding: 4px 8px 0px 8px;
-        margin: 0;
+    padding: 0px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     overflow-x: hidden;
 }
 
-/* Voting Sections - Container styling matching events page */
-.voting-section {
+/* Active Polls Section - Separate positioning */
+.active-polls-section {
     margin-top: 0px;
+    margin-bottom: 20px;
     width: 100%;
+    padding: 4px 8px 0px 8px;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
-.section-title {
+/* Voting History Section - EXACT same positioning as active-polls-section */
+.voting-history-section {
+    margin-top: 0px;
+    width: 100%;
+    padding: 0px 8px 0px 8px;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* Vote page section titles - match main section-title styling */
+.vote-page .section-title {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
-    margin: 12px 0 12px 0;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
     text-align: left;
 }
 
@@ -3845,27 +3861,16 @@
     color: #1f2937;
 }
 
-/* Completed Polls Spreadsheet */
+/* Completed Polls Spreadsheet - Inside polls-container, no background needed */
 .completed-polls-section {
     padding: 0 !important;
     width: 100% !important;
-    margin-top: 40px !important;
-    margin-bottom: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    margin: 0 !important;
 }
 
-.completed-polls-section .section-header {
-    text-align: center;
-    margin-bottom: 8px;
-}
-
-.completed-polls-section .section-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0;
-}
+/* Removed conflicting section-header styles - now using main section-title */
 
 /* Voting History Spreadsheet - Simple Professional */
 .polls-spreadsheet-wrapper {
@@ -3877,10 +3882,13 @@
 }
 
 .polls-spreadsheet {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0;
     max-height: 200px;
     overflow-y: auto;
+    overflow-x: hidden !important;
+    table-layout: fixed !important;
 }
 
 /* Custom scrollbar styling for voting spreadsheet */
@@ -3905,7 +3913,7 @@
     
 .polls-spreadsheet .spreadsheet-header {
         display: grid;
-    grid-template-columns: 3.5fr 1.2fr 1.2fr 1.2fr 1.2fr 1.4fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     background: #1e293b;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: sticky;
@@ -3931,7 +3939,7 @@
 
 .polls-spreadsheet .spreadsheet-row {
     display: grid;
-    grid-template-columns: 3.5fr 1.2fr 1.2fr 1.2fr 1.2fr 1.4fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     background: rgba(255, 255, 255, 0.01);
     align-items: stretch;
@@ -4116,8 +4124,8 @@
     /* Tablet spreadsheet - using same scroller approach as harvesting */
     .polls-spreadsheet {
         display: grid !important;
-        grid-template-columns: 4fr 1.5fr 1.5fr 1.5fr 1.5fr 1.8fr !important;
-        min-width: 800px !important;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
+        min-width: 700px !important;
         width: 100% !important;
         gap: 0 !important;
         row-gap: 0 !important;
@@ -4275,8 +4283,8 @@
     /* Mobile spreadsheet - using same scroller approach as harvesting */
     .polls-spreadsheet {
         display: grid !important;
-        grid-template-columns: 4fr 1.5fr 1.5fr 1.5fr 1.5fr 1.8fr !important;
-        min-width: 750px !important;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
+        min-width: 600px !important;
         width: 100% !important;
         gap: 0 !important;
         row-gap: 0 !important;
