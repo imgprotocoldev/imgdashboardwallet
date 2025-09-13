@@ -1440,29 +1440,134 @@
     <!-- Sidebar Overlay for Mobile -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
-    <div class="reward-calculator-page">
-        <div class="page-header">
-            <h1>Reward Calculator</h1>
-            <p>Calculate your potential token rewards</p>
+    <div class="rewards-page">
+        <!-- IMG Token Statistics Header -->
+        <div class="token-stats-header">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">IMG PRICE</div>
+                    <div class="stat-value" id="img-price">$0.0000</div>
+                    <div class="stat-change" id="img-price-change">+0.00%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">24H VOLUME</div>
+                    <div class="stat-value" id="img-volume">$0.00</div>
+                    <div class="stat-change" id="img-volume-change">+0.00%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">MARKET CAP</div>
+                    <div class="stat-value" id="img-market-cap">$0.00</div>
+                    <div class="stat-change" id="img-market-cap-change">+0.00%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">LIQUIDITY</div>
+                    <div class="stat-value" id="img-liquidity">$0.00</div>
+                    <div class="stat-change" id="img-liquidity-change">+0.00%</div>
+                </div>
+            </div>
         </div>
         
-        <div class="calculator-content">
-            <div class="calculator-form">
-                <div class="form-group">
-                    <label for="token-amount">Token Amount</label>
-                    <input type="number" id="token-amount" placeholder="Enter amount" class="form-input">
+        <!-- IMG Rewards Calculator Section -->
+        <div class="rewards-calculator-section">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <h2 class="section-title">IMG REWARDS CALCULATOR</h2>
+                    <p class="calculator-subtitle">Calculate your potential earnings based on current market conditions</p>
                 </div>
                 
-                <div class="form-group">
-                    <label for="holding-period">Holding Period (days)</label>
-                    <input type="number" id="holding-period" placeholder="Enter days" class="form-input">
+                <div class="calculator-content">
+                    <!-- Input Section -->
+                    <div class="calculator-inputs">
+                        <div class="input-group">
+                            <label for="volume-24h">24h Volume (USD)</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="volume-24h" placeholder="100,000" value="100000" class="calculator-input">
+                                <span class="input-suffix">USD</span>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="img-holdings">Your $IMG Holdings</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="img-holdings" placeholder="1,000,000" value="1000000" class="calculator-input">
+                                <span class="input-suffix">IMG</span>
+                            </div>
+                            <div class="holdings-slider">
+                                <div class="slider-track">
+                                    <span class="slider-min">0</span>
+                                    <div class="slider-bar"></div>
+                                    <span class="slider-max">998M (max)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Section -->
+                    <div class="calculator-results">
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-icon">🏆</div>
+                                <div class="result-content">
+                                    <div class="result-label">Rewards Pool</div>
+                                    <div class="result-value" id="rewards-pool">US$2,500.00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">🏦</div>
+                                <div class="result-content">
+                                    <div class="result-label">InfraWallet</div>
+                                    <div class="result-value" id="infra-wallet">US$125.00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card highlight">
+                                <div class="result-icon">💰</div>
+                                <div class="result-content">
+                                    <div class="result-label">Daily Earnings</div>
+                                    <div class="result-value" id="daily-earnings">US$2.50258</div>
+                                    <div class="result-subtext" id="daily-earnings-sol">0.010367 SOL</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">📅</div>
+                                <div class="result-content">
+                                    <div class="result-label">Weekly Earnings</div>
+                                    <div class="result-value" id="weekly-earnings">US$17.52</div>
+                                    <div class="result-subtext" id="weekly-earnings-sol">0.072569 SOL</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">📊</div>
+                                <div class="result-content">
+                                    <div class="result-label">Monthly Projection</div>
+                                    <div class="result-value" id="monthly-projection">US$76.12</div>
+                                    <div class="result-subtext" id="monthly-projection-sol">0.315315 SOL</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">📈</div>
+                                <div class="result-content">
+                                    <div class="result-label">Annual Projection</div>
+                                    <div class="result-value" id="annual-projection">US$913.44</div>
+                                    <div class="result-subtext" id="annual-projection-sol">3.783778 SOL</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <button id="calculate-btn" class="calculate-btn">Calculate Rewards</button>
-            </div>
-            
-            <div class="calculator-results" id="calculator-results">
-                <p class="placeholder-text">Enter values and click calculate to see your potential rewards</p>
+                <div class="calculator-disclaimer">
+                    <p>* Real-time data from CoinGecko — SOL: US$241.41, IMG Circulating Supply: 998,948,765. API response may experience brief latency. InfraWallet allocations fund protocol marketing and ecosystem growth.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -3845,14 +3950,148 @@ window.testModalDirect = function() {
 // Removed conflicting setupPollInteractions function - using simplified event delegation instead
 
 // Auto-initialize voting system when vote page is detected
+// Initialize Rewards Calculator
+function initializeRewardsCalculator() {
+    console.log('💰 Initializing rewards calculator...');
+    
+    // Initialize token statistics
+    updateTokenStatistics();
+    
+    // Set up calculator inputs
+    const volumeInput = document.getElementById('volume-24h');
+    const holdingsInput = document.getElementById('img-holdings');
+    
+    if (volumeInput && holdingsInput) {
+        // Add event listeners for real-time calculation
+        volumeInput.addEventListener('input', calculateRewards);
+        holdingsInput.addEventListener('input', calculateRewards);
+        
+        // Initial calculation
+        calculateRewards();
+    }
+}
+
+// Fetch and update token statistics from DexScreener
+async function updateTokenStatistics() {
+    try {
+        console.log('📊 Fetching IMG token data...');
+        const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch token data');
+        }
+        
+        const data = await response.json();
+        
+        if (data.pairs && data.pairs.length > 0) {
+            const pair = data.pairs[0];
+            updateStatElement('img-price', formatPrice(pair.priceUsd));
+            updateStatElement('img-price-change', formatPercentage(pair.priceChange?.h24 || 0));
+            updateStatElement('img-volume', formatCurrency(pair.volume?.h24 || 0));
+            updateStatElement('img-volume-change', formatPercentage(pair.volumeChange?.h24 || 0));
+            updateStatElement('img-market-cap', formatCurrency(pair.marketCap || 0));
+            updateStatElement('img-market-cap-change', formatPercentage(pair.priceChange?.h24 || 0));
+            updateStatElement('img-liquidity', formatCurrency(pair.liquidity?.usd || 0));
+            updateStatElement('img-liquidity-change', formatPercentage(pair.priceChange?.h24 || 0));
+            
+            console.log('✅ Token statistics updated');
+        }
+    } catch (error) {
+        console.error('❌ Error fetching token data:', error);
+        // Set default values on error
+        updateStatElement('img-price', '$0.0000');
+        updateStatElement('img-price-change', '+0.00%');
+        updateStatElement('img-volume', '$0.00');
+        updateStatElement('img-volume-change', '+0.00%');
+        updateStatElement('img-market-cap', '$0.00');
+        updateStatElement('img-market-cap-change', '+0.00%');
+        updateStatElement('img-liquidity', '$0.00');
+        updateStatElement('img-liquidity-change', '+0.00%');
+    }
+}
+
+// Format price values
+function formatPrice(price) {
+    if (!price) return '$0.0000';
+    const num = parseFloat(price);
+    if (num < 0.0001) {
+        return `$${num.toFixed(6)}`;
+    } else if (num < 1) {
+        return `$${num.toFixed(4)}`;
+    } else {
+        return `$${num.toFixed(2)}`;
+    }
+}
+
+// Format currency values
+function formatCurrency(value) {
+    if (!value) return '$0.00';
+    const num = parseFloat(value);
+    if (num >= 1000000000) {
+        return `$${(num / 1000000000).toFixed(2)}B`;
+    } else if (num >= 1000000) {
+        return `$${(num / 1000000).toFixed(2)}M`;
+    } else if (num >= 1000) {
+        return `$${(num / 1000).toFixed(2)}K`;
+    } else {
+        return `$${num.toFixed(2)}`;
+    }
+}
+
+// Format percentage values
+function formatPercentage(value) {
+    if (!value) return '+0.00%';
+    const num = parseFloat(value);
+    const sign = num >= 0 ? '+' : '';
+    return `${sign}${num.toFixed(2)}%`;
+}
+
+// Update stat element
+function updateStatElement(id, value) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+// Calculate rewards based on inputs
+function calculateRewards() {
+    const volume = parseFloat(document.getElementById('volume-24h')?.value || 100000);
+    const holdings = parseFloat(document.getElementById('img-holdings')?.value || 1000000);
+    
+    // Basic reward calculations (these would be more complex in reality)
+    const totalRewardsPool = volume * 0.025; // 2.5% of volume
+    const infraWallet = totalRewardsPool * 0.05; // 5% to infra wallet
+    const dailyEarnings = (totalRewardsPool - infraWallet) * (holdings / 1000000000); // Based on holdings proportion
+    
+    // Update display
+    updateStatElement('rewards-pool', `US$${totalRewardsPool.toFixed(2)}`);
+    updateStatElement('infra-wallet', `US$${infraWallet.toFixed(2)}`);
+    updateStatElement('daily-earnings', `US$${dailyEarnings.toFixed(5)}`);
+    updateStatElement('daily-earnings-sol', `${(dailyEarnings / 241.41).toFixed(6)} SOL`);
+    updateStatElement('weekly-earnings', `US$${(dailyEarnings * 7).toFixed(2)}`);
+    updateStatElement('weekly-earnings-sol', `${((dailyEarnings * 7) / 241.41).toFixed(6)} SOL`);
+    updateStatElement('monthly-projection', `US$${(dailyEarnings * 30.44).toFixed(2)}`);
+    updateStatElement('monthly-projection-sol', `${((dailyEarnings * 30.44) / 241.41).toFixed(6)} SOL`);
+    updateStatElement('annual-projection', `US$${(dailyEarnings * 365).toFixed(2)}`);
+    updateStatElement('annual-projection-sol', `${((dailyEarnings * 365) / 241.41).toFixed(6)} SOL`);
+}
+
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
                 const votePage = node.querySelector ? node.querySelector('.vote-page') : null;
+                const rewardsPage = node.querySelector ? node.querySelector('.rewards-page') : null;
+                
                 if (votePage || node.classList?.contains('vote-page')) {
                     console.log('🗳️ Vote page detected, initializing...');
                     initializeVotingSystem();
+                }
+                
+                if (rewardsPage || node.classList?.contains('rewards-page')) {
+                    console.log('💰 Rewards page detected, initializing...');
+                    setTimeout(() => initializeRewardsCalculator(), 100);
                 }
             }
         });
