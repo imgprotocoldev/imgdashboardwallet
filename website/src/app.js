@@ -1441,134 +1441,93 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="rewards-page">
-        <!-- IMG Token Statistics Header -->
-        <div class="token-stats-header">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-label">IMG PRICE</div>
-                    <div class="stat-value" id="img-price">$0.0000</div>
-                    <div class="stat-change" id="img-price-change">+0.00%</div>
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+            <!-- Token Metrics Row -->
+            <div class="token-metrics-row">
+                <div class="metric-item">
+                    <div class="metric-label">IMG Price</div>
+                    <div class="metric-value" id="img-price">$0.0000</div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-label">24H VOLUME</div>
-                    <div class="stat-value" id="img-volume">$0.00</div>
-                    <div class="stat-change" id="img-volume-change">+0.00%</div>
+                <div class="metric-item">
+                    <div class="metric-label">24H Volume</div>
+                    <div class="metric-value" id="img-volume">$0.00</div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-label">MARKET CAP</div>
-                    <div class="stat-value" id="img-market-cap">$0.00</div>
-                    <div class="stat-change" id="img-market-cap-change">+0.00%</div>
+                <div class="metric-item">
+                    <div class="metric-label">Market Cap</div>
+                    <div class="metric-value" id="img-market-cap">$0.00</div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-label">LIQUIDITY</div>
-                    <div class="stat-value" id="img-liquidity">$0.00</div>
-                    <div class="stat-change" id="img-liquidity-change">+0.00%</div>
+                <div class="metric-item">
+                    <div class="metric-label">Liquidity</div>
+                    <div class="metric-value" id="img-liquidity">$0.00</div>
                 </div>
             </div>
+            
+            <!-- Calculator Title -->
+            <div class="calculator-title">
+                <h2>Earnings Calculator</h2>
+            </div>
+            
+            <!-- Calculator Controls -->
+            <div class="calculator-controls">
+                <!-- Input Column -->
+                <div class="input-column">
+                    <div class="input-group">
+                        <label>24h Volume (USD)</label>
+                        <input type="text" id="volume-24h" placeholder="100,000" value="100,000">
+                        <span class="input-unit">USD</span>
+                    </div>
+                    <div class="input-group">
+                        <label>Your IMG Holdings</label>
+                        <input type="text" id="img-holdings" placeholder="1,000,000" value="1,000,000">
+                        <span class="input-unit">IMG</span>
+                    </div>
+                </div>
+                
+                <!-- Pool Stats Column -->
+                <div class="pool-stats-column">
+                    <div class="pool-stat-box">
+                        <div class="pool-stat-label">Rewards Pool</div>
+                        <div class="pool-stat-value" id="rewards-pool">US$2,500.00</div>
+                    </div>
+                    <div class="pool-stat-box">
+                        <div class="pool-stat-label">InfraWallet</div>
+                        <div class="pool-stat-value" id="infra-wallet">US$125.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Earnings Display -->
+            <div class="earnings-display">
+                <div class="earnings-grid">
+                    <div class="earnings-item highlight">
+                        <div class="earnings-label">Daily Earnings</div>
+                        <div class="earnings-value" id="daily-earnings">US$2.50258</div>
+                        <div class="earnings-sol" id="daily-earnings-sol">0.010367 SOL</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">Weekly Earnings</div>
+                        <div class="earnings-value" id="weekly-earnings">US$17.52</div>
+                        <div class="earnings-sol" id="weekly-earnings-sol">0.072569 SOL</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">Monthly Projection</div>
+                        <div class="earnings-value" id="monthly-projection">US$76.12</div>
+                        <div class="earnings-sol" id="monthly-projection-sol">0.315315 SOL</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">Annual Projection</div>
+                        <div class="earnings-value" id="annual-projection">US$913.44</div>
+                        <div class="earnings-sol" id="annual-projection-sol">3.783778 SOL</div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         
-        <!-- IMG Rewards Calculator Section -->
-        <div class="rewards-calculator-section">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <h2 class="section-title">IMG REWARDS CALCULATOR</h2>
-                    <p class="calculator-subtitle">Calculate your potential earnings based on current market conditions</p>
-                </div>
-                
-                <div class="calculator-content">
-                    <!-- Input Section -->
-                    <div class="calculator-inputs">
-                        <div class="input-group">
-                            <label for="volume-24h">24h Volume (USD)</label>
-                            <div class="input-wrapper">
-                                <span class="input-prefix">$</span>
-                                <input type="number" id="volume-24h" placeholder="100,000" value="100000" class="calculator-input">
-                                <span class="input-suffix">USD</span>
-                            </div>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="img-holdings">Your $IMG Holdings</label>
-                            <div class="input-wrapper">
-                                <span class="input-prefix">$</span>
-                                <input type="number" id="img-holdings" placeholder="1,000,000" value="1000000" class="calculator-input">
-                                <span class="input-suffix">IMG</span>
-                            </div>
-                            <div class="holdings-slider">
-                                <div class="slider-track">
-                                    <span class="slider-min">0</span>
-                                    <div class="slider-bar"></div>
-                                    <span class="slider-max">998M (max)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Results Section -->
-                    <div class="calculator-results">
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-icon">🏆</div>
-                                <div class="result-content">
-                                    <div class="result-label">Rewards Pool</div>
-                                    <div class="result-value" id="rewards-pool">US$2,500.00</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-card">
-                                <div class="result-icon">🏦</div>
-                                <div class="result-content">
-                                    <div class="result-label">InfraWallet</div>
-                                    <div class="result-value" id="infra-wallet">US$125.00</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-card highlight">
-                                <div class="result-icon">💰</div>
-                                <div class="result-content">
-                                    <div class="result-label">Daily Earnings</div>
-                                    <div class="result-value" id="daily-earnings">US$2.50258</div>
-                                    <div class="result-subtext" id="daily-earnings-sol">0.010367 SOL</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-card">
-                                <div class="result-icon">📅</div>
-                                <div class="result-content">
-                                    <div class="result-label">Weekly Earnings</div>
-                                    <div class="result-value" id="weekly-earnings">US$17.52</div>
-                                    <div class="result-subtext" id="weekly-earnings-sol">0.072569 SOL</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-card">
-                                <div class="result-icon">📊</div>
-                                <div class="result-content">
-                                    <div class="result-label">Monthly Projection</div>
-                                    <div class="result-value" id="monthly-projection">US$76.12</div>
-                                    <div class="result-subtext" id="monthly-projection-sol">0.315315 SOL</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-card">
-                                <div class="result-icon">📈</div>
-                                <div class="result-content">
-                                    <div class="result-label">Annual Projection</div>
-                                    <div class="result-value" id="annual-projection">US$913.44</div>
-                                    <div class="result-subtext" id="annual-projection-sol">3.783778 SOL</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="calculator-disclaimer">
-                    <p>* Real-time data from CoinGecko — SOL: US$241.41, IMG Circulating Supply: 998,948,765. API response may experience brief latency. InfraWallet allocations fund protocol marketing and ecosystem growth.</p>
-                </div>
-            </div>
+        <!-- Footer -->
+        <div class="rewards-footer">
+            <p>Real-time data from DexScreener • SOL: US$241.41 • IMG Supply: 998,948,765</p>
         </div>
     </div>
 `,Te=()=>`
@@ -1579,18 +1538,18 @@
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
                     <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
-                </div>
-            </div>
+                        </div>
+                    </div>
             <div class="mobile-header-right">
                 <button class="burger-menu-btn" id="mobile-menu-btn">
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                 </button>
-            </div>
-        </div>
-    </div>
-    
+                        </div>
+                    </div>
+                </div>
+                
     <!-- Sidebar Overlay for Mobile -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
@@ -1605,9 +1564,9 @@
                 <div class="banner-background">
                     <div class="banner-image">
                         <div class="banner-overlay"></div>
-                    </div>
                 </div>
-                
+            </div>
+
                 <div class="banner-content">
                     <div class="banner-left-section">
                         <h2 class="banner-question">Are You Enjoying the Dashboard?</h2>
@@ -1615,9 +1574,9 @@
                         <div class="banner-explanation">
                             <p>This is the first edition of the IMG Dashboard, and your feedback will guide Version 2. Planned upgrades include improved design and colors, a more professional look, correct formatting on all devices, and new pages with deeper insights.</p>
                             <p>If you're happy with the current version, let us know! If not, your vote will help shape the improvements.</p>
-                        </div>
                     </div>
-                    
+                </div>
+                
                     <div class="banner-voting-section">
                 <div class="poll-options-container">
                         <div class="voting-header">
@@ -1628,8 +1587,8 @@
                             <div class="option-circle"></div>
                         </div>
                                 <span class="option-text">Enjoying the Dashboard</span>
-                </div>
-                
+                    </div>
+                    
                     <div class="poll-option" data-option="option2">
                         <div class="option-selector">
                             <div class="option-circle"></div>
@@ -1650,22 +1609,22 @@
                             <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
                 </div>
             </div>
-                    </div>
+        </div>
                 </div>
                         </div>
                     </div>
                     
                         </div>
                     </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
                 
         <!-- Voting History Section -->
         <div class="voting-history-section">
             <div class="polls-container">
                 <h2 class="section-title">Voting History</h2>
-                <div class="completed-polls-section">
+        <div class="completed-polls-section">
             <div class="polls-spreadsheet-wrapper">
                 <div class="polls-table-scroll-container">
                     <div class="polls-spreadsheet">
@@ -1753,8 +1712,8 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 `;class Re{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const a=t.target.closest("[id], [data-provider]");if(!a)return;if(t.preventDefault(),t.stopPropagation(),a.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(a.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=a.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(a.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const a=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",a.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const a=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",a),await this.handleWalletConnection(a,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const a=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",a),await this.handleWalletConnection(a,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,a){try{console.log(`🔍 Verifying tokens for ${a}: ${t}`);const i=await this.verifyImgTokens(t),s=i>=this.requiredImgAmount;console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${s}`),console.log(`   Premium Access Granted: ${s?"YES ✅":"NO ❌"}`);let n=s;i>0&&i>=47500&&(n=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=n,this.walletAddress=t,d.isConnected=!0,d.isPremium=n,d.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",n.toString()),localStorage.setItem("walletProvider",a),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${a} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${n?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",d.isConnected=!1,d.isPremium=!1,d.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),d.currentPage!=="dashboard"&&d.currentPage!=="metrics"&&p.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying token balance for:",t);try{console.log("🔄 Checking balance via Render backend...");const a=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${a}`),a}catch(a){return console.error("❌ Render backend verification failed:",a.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const a=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!a.ok)throw new Error(`Render backend error: ${a.status} ${a.statusText}`);const i=await a.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
                 <div class="connection-indicator">
                     <div class="loading-spinner"></div>

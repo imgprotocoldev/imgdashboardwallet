@@ -4425,408 +4425,507 @@
     }
 }
 
-/* ===== REWARDS PAGE ===== */
+/* ===== REWARDS PAGE - MODERN & PROFESSIONAL ===== */
 
-/* Rewards Page Layout - Full Width */
+/* Main Rewards Page - Full Width */
 .rewards-page {
-    width: 100% !important;
-    max-width: 100vw !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-    box-sizing: border-box !important;
-    overflow-x: hidden !important;
-    background: transparent !important;
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+    color: var(--text-primary);
+    box-sizing: border-box;
 }
 
-/* Token Statistics Header */
-.token-stats-header {
-    width: 100% !important;
-    padding: 20px 0 !important;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* Token Metrics Row - Integrated in Calculator */
+.token-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
 }
 
-/* Rewards page specific - use vote page section structure */
-.rewards-page .token-stats-header {
-    margin-top: 0px !important;
-    margin-bottom: 20px !important;
-    width: 100% !important;
-    padding: 4px 8px 0px 8px !important;
-    box-sizing: border-box !important;
-    max-width: 100% !important;
+.metric-item {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.stats-container {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-    gap: 20px !important;
-    width: 100% !important;
-    padding: 0 20px !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
+.metric-item:hover {
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-1px);
 }
 
-/* Rewards page specific - remove max-width constraints */
-.rewards-page .stats-container {
-    max-width: none !important;
+.metric-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
 
-.stat-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
-    padding: 20px !important;
-    text-align: center !important;
-    backdrop-filter: blur(10px) !important;
-    transition: all 0.3s ease !important;
+.metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
-.stat-card:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2) !important;
+/* Calculator Section */
+.calculator-section {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
-.stat-label {
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    color: var(--text-secondary) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    margin-bottom: 8px !important;
+.calculator-title {
+    margin-bottom: 30px;
 }
 
-.stat-value {
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    color: var(--text-primary) !important;
-    margin-bottom: 4px !important;
+.calculator-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
 }
 
-.stat-change {
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: var(--accent-success) !important;
+/* Calculator Controls - Two Column Layout */
+.calculator-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-/* Rewards Calculator Section */
-.rewards-calculator-section {
-    width: 100% !important;
-    padding: 40px 20px !important;
-    background: transparent !important;
+/* Input Column */
+.input-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Rewards page specific - use vote page section structure */
-.rewards-page .rewards-calculator-section {
-    margin-top: 0px !important;
-    width: 100% !important;
-    padding: 0px 8px 0px 8px !important;
-    box-sizing: border-box !important;
-    max-width: 100% !important;
+.input-group {
+    display: flex;
+    flex-direction: column;
 }
 
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.input-unit {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Pool Stats Column */
+.pool-stats-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pool-stat-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pool-stat-box:hover {
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+}
+
+.pool-stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.pool-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+/* Earnings Display */
+.earnings-display {
+    margin-bottom: 30px;
+}
+
+.earnings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.earnings-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.earnings-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+}
+
+.earnings-item.highlight {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+    border-color: var(--accent-primary);
+}
+
+.earnings-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.earnings-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
+}
+
+.earnings-sol {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+
+/* Footer */
+.rewards-footer {
+    text-align: center;
+    padding: 20px;
+}
+
+.rewards-footer p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Main Calculator Container - Remove ALL Measurements */
 .calculator-container {
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 16px !important;
-    padding: 40px !important;
-    backdrop-filter: blur(10px) !important;
-}
-
-/* Rewards page specific - use polls-container structure */
-.rewards-page .calculator-container {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6)) !important;
     border: 1px solid rgba(148, 163, 184, 0.1) !important;
     border-radius: 12px !important;
     padding: 24px !important;
     backdrop-filter: blur(10px) !important;
-    max-width: none !important;
-}
-
-/* Rewards page content - ensure full width usage */
-.rewards-page .calculator-content {
-    width: 100% !important;
-    max-width: none !important;
-}
-
-.rewards-page .calculator-inputs {
-    width: 100% !important;
-    max-width: none !important;
-}
-
-.rewards-page .calculator-results {
-    width: 100% !important;
-    max-width: none !important;
-}
-
-.rewards-page .results-grid {
-    width: 100% !important;
-    max-width: none !important;
-}
-
-/* Rewards page section titles - match vote page styling */
-.rewards-page .section-title {
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    color: var(--text-primary) !important;
-    margin: 0 0 24px 0 !important;
-    padding-bottom: 12px !important;
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3) !important;
-    text-align: left !important;
-}
-
-/* Clean full-width override for rewards page */
-.rewards-page {
-    width: 100% !important;
-    max-width: none !important;
-    padding: 4px 8px 0px 8px !important;
-    margin: 0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
     box-sizing: border-box !important;
 }
 
-/* Calculator Header */
-.calculator-header {
-    text-align: center !important;
-    margin-bottom: 40px !important;
+/* Professional Dashboard Header */
+.dashboard-header {
+    margin-bottom: 32px !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1) !important;
+    padding-bottom: 24px !important;
 }
 
-.calculator-header .section-title {
-    font-size: 32px !important;
+.header-title h1 {
+    font-size: 28px !important;
     font-weight: 700 !important;
     color: var(--text-primary) !important;
-    margin-bottom: 12px !important;
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+    margin: 0 0 8px 0 !important;
+    letter-spacing: -0.5px !important;
 }
 
-.calculator-subtitle {
-    font-size: 16px !important;
+.header-title p {
+    font-size: 14px !important;
     color: var(--text-secondary) !important;
     margin: 0 !important;
+    font-weight: 400 !important;
+}
+
+/* Market Data Row */
+.market-data-row {
+    display: flex !important;
+    gap: 32px !important;
+    margin-top: 20px !important;
+    flex-wrap: wrap !important;
+}
+
+.market-stat {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    min-width: 120px !important;
+}
+
+.market-stat .stat-label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 4px !important;
+}
+
+.market-stat .stat-value {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 2px !important;
+}
+
+.market-stat .stat-change {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--accent-success) !important;
+}
+
+/* Calculator Section */
+.calculator-section {
+    margin-top: 32px !important;
+}
+
+.calculator-header h2 {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin: 0 0 24px 0 !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1) !important;
 }
 
 /* Calculator Content */
 .calculator-content {
-    display: grid !important;
-    grid-template-columns: 1fr 2fr !important;
-    gap: 60px !important;
-    align-items: start !important;
-}
-
-/* Input Section */
-.calculator-inputs {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 30px !important;
-}
-
-.input-group {
-    margin-bottom: 24px !important;
-}
-
-.input-group label {
-    display: block !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: var(--text-primary) !important;
-    margin-bottom: 8px !important;
-}
-
-.input-wrapper {
     display: flex !important;
-    align-items: center !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    transition: all 0.3s ease !important;
+    flex-direction: column !important;
+    gap: 32px !important;
 }
 
-.input-wrapper:focus-within {
-    border-color: var(--accent-primary) !important;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+/* Input Panel */
+.input-panel {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 20px !important;
 }
 
-.input-prefix, .input-suffix {
-    padding: 14px 16px !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    color: var(--text-secondary) !important;
-    font-size: 14px !important;
+.input-row {
+    display: flex !important;
+    gap: 24px !important;
+    align-items: end !important;
+}
+
+.input-field {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.input-field label {
+    font-size: 12px !important;
     font-weight: 600 !important;
-    white-space: nowrap !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.pro-input {
+    padding: 12px 16px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(148, 163, 184, 0.2) !important;
+    border-radius: 4px !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    outline: none !important;
+    transition: border-color 0.2s ease !important;
+}
+
+.pro-input:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1) !important;
+}
+
+.pro-input::placeholder {
+    color: var(--text-muted) !important;
 }
 
 .input-suffix {
-    border-right: none !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.calculator-input {
-    flex: 1 !important;
-    padding: 14px 16px !important;
-    background: transparent !important;
-    border: none !important;
-    color: var(--text-primary) !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    outline: none !important;
-}
-
-.calculator-input::placeholder {
-    color: var(--text-muted) !important;
-}
-
-/* Holdings Slider */
-.holdings-slider {
-    margin-top: 12px !important;
-}
-
-.slider-track {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 8px 0 !important;
-}
-
-.slider-min, .slider-max {
     font-size: 12px !important;
     color: var(--text-muted) !important;
+    margin-top: 4px !important;
     font-weight: 500 !important;
 }
 
-.slider-bar {
-    flex: 1 !important;
-    height: 4px !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 2px !important;
-    position: relative !important;
+/* Results Panel */
+.results-panel {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 20px !important;
 }
 
-/* Results Section */
-.calculator-results {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 30px !important;
+.results-header h3 {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin: 0 0 20px 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1) !important;
 }
 
+/* Results Grid */
 .results-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-    gap: 20px !important;
-}
-
-.result-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
-    padding: 24px !important;
-    display: flex !important;
-    align-items: center !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
     gap: 16px !important;
-    transition: all 0.3s ease !important;
-    position: relative !important;
-    overflow: hidden !important;
+    margin-bottom: 24px !important;
 }
 
-.result-card::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 2px !important;
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)) !important;
-    opacity: 0 !important;
-    transition: opacity 0.3s ease !important;
+/* Earnings Cards */
+.earnings-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 16px !important;
+    transition: all 0.2s ease !important;
 }
 
-.result-card:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15) !important;
+.earnings-card:hover {
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
 }
 
-.result-card:hover::before {
-    opacity: 1 !important;
-}
-
-.result-card.highlight {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%) !important;
+.earnings-card.primary {
     border-color: var(--accent-primary) !important;
+    background: rgba(16, 185, 129, 0.05) !important;
 }
 
-.result-card.highlight::before {
-    opacity: 1 !important;
-}
-
-.result-icon {
-    font-size: 24px !important;
-    flex-shrink: 0 !important;
-}
-
-.result-content {
-    flex: 1 !important;
-}
-
-.result-label {
-    font-size: 14px !important;
-    color: var(--text-secondary) !important;
-    font-weight: 500 !important;
+.card-label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
     margin-bottom: 8px !important;
 }
 
-.result-value {
-    font-size: 20px !important;
-    color: var(--accent-primary) !important;
+.card-value {
+    font-size: 18px !important;
     font-weight: 700 !important;
+    color: var(--text-primary) !important;
     margin-bottom: 4px !important;
 }
 
-.result-subtext {
-    font-size: 12px !important;
+.card-subtext {
+    font-size: 11px !important;
     color: var(--text-muted) !important;
     font-weight: 500 !important;
 }
 
-/* Calculator Disclaimer */
-.calculator-disclaimer {
-    margin-top: 40px !important;
-    padding: 20px !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-radius: 8px !important;
+/* Pool Information */
+.pool-info {
+    display: flex !important;
+    gap: 32px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
+}
+
+.pool-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.pool-label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.pool-value {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+}
+
+/* Dashboard Footer */
+.dashboard-footer {
+    margin-top: 24px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
     text-align: center !important;
 }
 
-.calculator-disclaimer p {
-    font-size: 12px !important;
+.dashboard-footer p {
+    font-size: 11px !important;
     color: var(--text-muted) !important;
-    line-height: 1.5 !important;
     margin: 0 !important;
+    font-weight: 400 !important;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .calculator-content {
-        grid-template-columns: 1fr !important;
-        gap: 40px !important;
+    .market-data-row {
+        gap: 24px !important;
     }
     
-    .stats-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    .input-row {
+        flex-direction: column !important;
         gap: 16px !important;
     }
     
     .results-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    }
+    
+    .pool-info {
+        flex-direction: column !important;
+        gap: 16px !important;
     }
 }
 
@@ -4839,91 +4938,67 @@
         overflow-x: hidden !important;
     }
     
-    .rewards-calculator-section {
+    .calculator-container {
         padding: 20px !important;
     }
     
-    .calculator-container {
-        padding: 30px 20px !important;
+    .header-title h1 {
+        font-size: 24px !important;
     }
     
-    .calculator-header .section-title {
-        font-size: 28px !important;
+    .market-data-row {
+        gap: 16px !important;
+        flex-wrap: wrap !important;
     }
     
-    .stats-container {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-    }
-    
-    .stat-card {
-        padding: 16px !important;
-    }
-    
-    .stat-value {
-        font-size: 20px !important;
+    .market-stat {
+        min-width: 100px !important;
     }
     
     .results-grid {
         grid-template-columns: 1fr !important;
-        gap: 16px !important;
+        gap: 12px !important;
     }
     
-    .result-card {
-        padding: 20px !important;
-    }
-    
-    .result-value {
-        font-size: 18px !important;
+    .earnings-card {
+        padding: 14px !important;
     }
 }
 
 @media (max-width: 480px) {
     .rewards-page {
-        padding: 55px 2px 0px 2px !important;
-        width: 100% !important;
-    }
-    
-    .rewards-calculator-section {
-        padding: 15px !important;
+        padding: 55px 2px 0px 2px;
     }
     
     .calculator-container {
-        padding: 20px 16px !important;
-    }
-    
-    .calculator-header .section-title {
-        font-size: 24px !important;
-    }
-    
-    .stats-container {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
-        padding: 0 10px !important;
-    }
-    
-    .stat-card {
-        padding: 12px !important;
-    }
-    
-    .stat-value {
-        font-size: 18px !important;
-    }
-    
-    .calculator-inputs, .calculator-results {
-        padding: 20px !important;
-    }
-    
-    .result-card {
         padding: 16px !important;
-        gap: 12px !important;
     }
     
-    .result-icon {
+    .header-title h1 {
         font-size: 20px !important;
     }
     
-    .result-value {
+    .market-data-row {
+        gap: 12px !important;
+    }
+    
+    .market-stat {
+        min-width: 80px !important;
+    }
+    
+    .market-stat .stat-value {
+        font-size: 16px !important;
+    }
+    
+    .input-panel, .results-panel {
+        padding: 16px !important;
+    }
+    
+    .earnings-card {
+        padding: 12px !important;
+    }
+    
+    .card-value {
         font-size: 16px !important;
     }
 }

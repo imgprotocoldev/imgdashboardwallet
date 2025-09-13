@@ -711,6 +711,7 @@
         /* Ensure main content is positioned correctly */
         #main-content {
             margin-left: 300px !important;
+            width: calc(100% - 300px) !important;
             padding: 20px 20px 0px 20px !important;
             background: #0f172a !important;
             height: 100vh !important;
@@ -719,6 +720,13 @@
             overflow-x: hidden !important;
             box-sizing: border-box !important;
         }
+
+        /* Rewards Page - Full Width Override */
+        #main-content:has(.rewards-page) {
+            overflow-x: visible !important;
+            padding: 0 !important;
+        }
+        
 
         /* Token Metrics Section - Professional & Compact */
         .token-metrics-section {
@@ -1983,8 +1991,8 @@ o        /* Logo sizing moved to CSS file to prevent conflicts */
             color: #6b7280 !important;
         }
     </style>
-  <script type="module" crossorigin src="/assets/main-YvuRqdPe.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-Dy4jFJwl.css">
+  <script type="module" crossorigin src="/assets/main-hBTSDZOC.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-CJg4fpV_.css">
 </head>
 <body>
     <!-- Sidebar Container -->
