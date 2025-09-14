@@ -1443,60 +1443,52 @@
     <div class="rewards-page">
         <!-- Calculator Section -->
         <div class="calculator-section">
-            <!-- Token Metrics Row -->
-            <div class="token-metrics-row">
-                <div class="metric-item">
-                    <div class="metric-label">IMG Price</div>
-                    <div class="metric-value" id="img-price">$0.0000</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">24H Volume</div>
-                    <div class="metric-value" id="img-volume">$0.00</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Market Cap</div>
-                    <div class="metric-value" id="img-market-cap">$0.00</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Liquidity</div>
-                    <div class="metric-value" id="img-liquidity">$0.00</div>
-                </div>
-            </div>
-            
             <!-- Calculator Title -->
             <div class="calculator-title">
-                <h2>Earnings Calculator</h2>
-            </div>
-            
-            <!-- Calculator Controls -->
-            <div class="calculator-controls">
-                <!-- Input Column -->
-                <div class="input-column">
-                    <div class="input-group">
-                        <label>24h Volume (USD)</label>
-                        <input type="text" id="volume-24h" placeholder="100,000" value="100,000">
-                        <span class="input-unit">USD</span>
-                    </div>
-                    <div class="input-group">
-                        <label>Your IMG Holdings</label>
-                        <input type="text" id="img-holdings" placeholder="1,000,000" value="1,000,000">
-                        <span class="input-unit">IMG</span>
-                    </div>
+                <h2>IMG REWARDS CALCULATOR</h2>
+        </div>
+        
+            <!-- Modern Calculator Controls -->
+            <div class="modern-calculator-controls">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="input-container">
+                        <div class="input-field">
+                            <label>24h Volume (USD)</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="volume-24h" placeholder="100,000" value="100,000">
+                                <span class="input-unit">USD</span>
                 </div>
+                </div>
+                        <div class="input-field">
+                            <label>Your IMG Holdings</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="img-holdings" placeholder="1,000,000" value="1,000,000">
+                                <span class="input-unit">IMG</span>
+            </div>
+            </div>
+        </div>
+    </div>
                 
-                <!-- Pool Stats Column -->
-                <div class="pool-stats-column">
-                    <div class="pool-stat-box">
-                        <div class="pool-stat-label">Rewards Pool</div>
-                        <div class="pool-stat-value" id="rewards-pool">US$2,500.00</div>
-                    </div>
-                    <div class="pool-stat-box">
-                        <div class="pool-stat-label">InfraWallet</div>
-                        <div class="pool-stat-value" id="infra-wallet">US$125.00</div>
-                    </div>
+                <!-- Pool Stats Section -->
+                <div class="pool-stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                          <div class="stat-content">
+                                <div class="stat-label">Rewards Pool</div>
+                                <div class="stat-value" id="rewards-pool">US$2,500.00</div>
                 </div>
             </div>
-            
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-label">InfraWallet</div>
+                                <div class="stat-value" id="infra-wallet">US$125.00</div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+    
             <!-- Earnings Display -->
             <div class="earnings-display">
                 <div class="earnings-grid">
@@ -1504,32 +1496,110 @@
                         <div class="earnings-label">Daily Earnings</div>
                         <div class="earnings-value" id="daily-earnings">US$2.50258</div>
                         <div class="earnings-sol" id="daily-earnings-sol">0.010367 SOL</div>
-                    </div>
+            </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Weekly Earnings</div>
                         <div class="earnings-value" id="weekly-earnings">US$17.52</div>
                         <div class="earnings-sol" id="weekly-earnings-sol">0.072569 SOL</div>
-                    </div>
+            </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Monthly Projection</div>
                         <div class="earnings-value" id="monthly-projection">US$76.12</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.315315 SOL</div>
-                    </div>
+        </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
                         <div class="earnings-value" id="annual-projection">US$913.44</div>
                         <div class="earnings-sol" id="annual-projection-sol">3.783778 SOL</div>
+    </div>
                     </div>
                 </div>
+                
+            <!-- Comprehensive Projection Spreadsheet -->
+            <div class="projection-spreadsheet">
+                
+                <div class="spreadsheet-container">
+                    <div class="spreadsheet-table">
+                        <div class="table-header">
+                            <div class="header-cell">Earnings Type</div>
+                            <div class="header-cell">24H Volume</div>
+                            <div class="header-cell">IMG Holdings</div>
+                            <div class="header-cell">Total Earnings</div>
+                            <div class="header-cell">SOL Equivalent</div>
+                            <div class="header-cell">Rewards Pool</div>
+                            <div class="header-cell">InfraWallet</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="cell type-cell">Daily</div>
+                            <div class="cell volume-cell" id="daily-volume">$100,000</div>
+                            <div class="cell holdings-cell" id="daily-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell highlight" id="daily-total">US$2.50</div>
+                            <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
+                            <div class="cell pool-cell" id="daily-pool">US$2,500.00</div>
+                            <div class="cell wallet-cell" id="daily-wallet">US$125.00</div>
+                    </div>
+                    
+                        <div class="table-row">
+                            <div class="cell type-cell">Weekly</div>
+                            <div class="cell volume-cell" id="weekly-volume">$700,000</div>
+                            <div class="cell holdings-cell" id="weekly-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell" id="weekly-total">US$17.52</div>
+                            <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
+                            <div class="cell pool-cell" id="weekly-pool">US$17,500.00</div>
+                            <div class="cell wallet-cell" id="weekly-wallet">US$875.00</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="cell type-cell">Monthly</div>
+                            <div class="cell volume-cell" id="monthly-volume">$3,000,000</div>
+                            <div class="cell holdings-cell" id="monthly-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell" id="monthly-total">US$76.12</div>
+                            <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
+                            <div class="cell pool-cell" id="monthly-pool">US$75,000.00</div>
+                            <div class="cell wallet-cell" id="monthly-wallet">US$3,750.00</div>
+                    </div>
+                    
+                        <div class="table-row">
+                            <div class="cell type-cell">Annual</div>
+                            <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
+                            <div class="cell holdings-cell" id="annual-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell" id="annual-total">US$913.44</div>
+                            <div class="cell sol-cell" id="annual-sol">3.783778 SOL</div>
+                            <div class="cell pool-cell" id="annual-pool">US$912,500.00</div>
+                            <div class="cell wallet-cell" id="annual-wallet">US$45,625.00</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="cell type-cell">2 Years</div>
+                            <div class="cell volume-cell" id="year2-volume">$73,000,000</div>
+                            <div class="cell holdings-cell" id="year2-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell" id="year2-total">US$1,826.88</div>
+                            <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
+                            <div class="cell pool-cell" id="year2-pool">US$1,825,000.00</div>
+                            <div class="cell wallet-cell" id="year2-wallet">US$91,250.00</div>
+                </div>
+                
+                        <div class="table-row">
+                            <div class="cell type-cell">3 Years</div>
+                            <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
+                            <div class="cell holdings-cell" id="year3-holdings">1,000,000 IMG</div>
+                            <div class="cell earnings-cell" id="year3-total">US$2,740.32</div>
+                            <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
+                            <div class="cell pool-cell" id="year3-pool">US$2,737,500.00</div>
+                            <div class="cell wallet-cell" id="year3-wallet">US$136,875.00</div>
+                </div>
             </div>
-            
+                    </div>
+                </div>
+                
         </div>
         
         <!-- Footer -->
         <div class="rewards-footer">
             <p>Real-time data from DexScreener • SOL: US$241.41 • IMG Supply: 998,948,765</p>
-        </div>
-    </div>
+                        </div>
+                    </div>
 `,Te=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
@@ -4015,25 +4085,60 @@ function updateStatElement(id, value) {
 
 // Calculate rewards based on inputs
 function calculateRewards() {
-    const volume = parseFloat(document.getElementById('volume-24h')?.value || 100000);
-    const holdings = parseFloat(document.getElementById('img-holdings')?.value || 1000000);
+    const volume = parseFloat(document.getElementById('volume-24h')?.value?.replace(/,/g, '') || 100000);
+    const holdings = parseFloat(document.getElementById('img-holdings')?.value?.replace(/,/g, '') || 1000000);
     
     // Basic reward calculations (these would be more complex in reality)
     const totalRewardsPool = volume * 0.025; // 2.5% of volume
     const infraWallet = totalRewardsPool * 0.05; // 5% to infra wallet
     const dailyEarnings = (totalRewardsPool - infraWallet) * (holdings / 1000000000); // Based on holdings proportion
     
-    // Update display
+    // SOL price (this would come from API in real implementation)
+    const solPrice = 241.41;
+    
+    // Update earnings display boxes
+    updateStatElement('daily-earnings', `US$${dailyEarnings.toFixed(5)}`);
+    updateStatElement('daily-earnings-sol', `${(dailyEarnings / solPrice).toFixed(6)} SOL`);
+    updateStatElement('weekly-earnings', `US$${(dailyEarnings * 7).toFixed(2)}`);
+    updateStatElement('weekly-earnings-sol', `${((dailyEarnings * 7) / solPrice).toFixed(6)} SOL`);
+    updateStatElement('monthly-projection', `US$${(dailyEarnings * 30.44).toFixed(2)}`);
+    updateStatElement('monthly-projection-sol', `${((dailyEarnings * 30.44) / solPrice).toFixed(6)} SOL`);
+    updateStatElement('annual-projection', `US$${(dailyEarnings * 365).toFixed(2)}`);
+    updateStatElement('annual-projection-sol', `${((dailyEarnings * 365) / solPrice).toFixed(6)} SOL`);
+    
+    // Update pool stats
     updateStatElement('rewards-pool', `US$${totalRewardsPool.toFixed(2)}`);
     updateStatElement('infra-wallet', `US$${infraWallet.toFixed(2)}`);
-    updateStatElement('daily-earnings', `US$${dailyEarnings.toFixed(5)}`);
-    updateStatElement('daily-earnings-sol', `${(dailyEarnings / 241.41).toFixed(6)} SOL`);
-    updateStatElement('weekly-earnings', `US$${(dailyEarnings * 7).toFixed(2)}`);
-    updateStatElement('weekly-earnings-sol', `${((dailyEarnings * 7) / 241.41).toFixed(6)} SOL`);
-    updateStatElement('monthly-projection', `US$${(dailyEarnings * 30.44).toFixed(2)}`);
-    updateStatElement('monthly-projection-sol', `${((dailyEarnings * 30.44) / 241.41).toFixed(6)} SOL`);
-    updateStatElement('annual-projection', `US$${(dailyEarnings * 365).toFixed(2)}`);
-    updateStatElement('annual-projection-sol', `${((dailyEarnings * 365) / 241.41).toFixed(6)} SOL`);
+    
+    // Calculate projections for all time periods
+    const projections = [
+        { period: 'daily', multiplier: 1, volumeMult: 1 },
+        { period: 'weekly', multiplier: 7, volumeMult: 7 },
+        { period: 'monthly', multiplier: 30.44, volumeMult: 30 },
+        { period: 'annual', multiplier: 365, volumeMult: 365 },
+        { period: 'year2', multiplier: 730, volumeMult: 730 },
+        { period: 'year3', multiplier: 1095, volumeMult: 1095 }
+    ];
+    
+    projections.forEach(proj => {
+        // Volume and holdings stay the same, only earnings are calculated based on time period
+        const projectedPool = volume * 0.025 * proj.volumeMult; // Pool scales with time
+        const projectedWallet = projectedPool * 0.05;
+        const projectedEarnings = (projectedPool - projectedWallet) * (holdings / 1000000000);
+        
+        // Update spreadsheet values
+        updateStatElement(`${proj.period}-volume`, `$${formatNumber(volume)}`);
+        updateStatElement(`${proj.period}-holdings`, `${formatNumber(holdings)} IMG`);
+        updateStatElement(`${proj.period}-pool`, `US$${formatNumber(projectedPool)}`);
+        updateStatElement(`${proj.period}-wallet`, `US$${formatNumber(projectedWallet)}`);
+        updateStatElement(`${proj.period}-total`, `US$${formatNumber(projectedEarnings)}`);
+        updateStatElement(`${proj.period}-sol`, `${(projectedEarnings / solPrice).toFixed(6)} SOL`);
+    });
+}
+
+// Helper function to format numbers with commas
+function formatNumber(num) {
+    return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 const observer = new MutationObserver((mutations) => {
