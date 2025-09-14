@@ -4494,11 +4494,11 @@
 }
 
 .calculator-title {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 }
 
 .calculator-title h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
@@ -4600,13 +4600,14 @@
 .modern-calculator-controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
-    padding: 30px;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 20px;
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
     border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 20px;
+    border-radius: 12px;
     backdrop-filter: blur(10px);
+    align-items: start;
 }
 
 /* Input Section */
@@ -4614,26 +4615,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 16px;
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 .input-field {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .input-field label {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
 .input-wrapper {
@@ -4641,17 +4644,20 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 16px 20px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
 
+.input-wrapper:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
 .input-wrapper:focus-within {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
 }
 
 .input-wrapper input {
@@ -4659,7 +4665,7 @@
     background: transparent;
     border: none;
     color: var(--text-primary);
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
     outline: none;
     width: 100%;
@@ -4671,29 +4677,31 @@
 }
 
 .input-wrapper .input-unit {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
     color: var(--accent-primary);
     background: rgba(16, 185, 129, 0.1);
-    padding: 4px 12px;
-    border-radius: 20px;
+    padding: 4px 8px;
+    border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-left: 12px;
-    margin-top: 0;
+    margin-left: 8px;
 }
 
 /* Pool Stats Section */
 .pool-stats-section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
 }
 
 .stats-grid {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 12px;
     width: 100%;
+    max-width: 280px;
 }
 
 .stat-card {
@@ -4701,14 +4709,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.05));
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 12px;
-    padding: 20px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px 10px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     text-align: center;
-    min-height: 80px;
+    min-height: 60px;
 }
 
 .stat-card:hover {
@@ -4727,8 +4735,8 @@
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
 .stat-content .stat-value {
@@ -4744,15 +4752,15 @@
 
 .earnings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
 }
 
 .earnings-item {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 16px 12px;
+    border-radius: 8px;
+    padding: 12px 8px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -4773,7 +4781,7 @@
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .earnings-value {
@@ -4802,7 +4810,7 @@
 .spreadsheet-container {
     background: rgba(15, 23, 42, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
     backdrop-filter: blur(10px);
 }
