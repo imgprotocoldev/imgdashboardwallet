@@ -1483,8 +1483,8 @@
                             <div class="stat-content">
                                 <div class="stat-label">InfraWallet</div>
                                 <div class="stat-value" id="infra-wallet">US$125.00</div>
-                            </div>
-                        </div>
+            </div>
+        </div>
             </div>
         </div>
     </div>
@@ -1496,22 +1496,22 @@
                         <div class="earnings-label">Daily Earnings</div>
                         <div class="earnings-value" id="daily-earnings">US$2.50258</div>
                         <div class="earnings-sol" id="daily-earnings-sol">0.010367 SOL</div>
-            </div>
+                        </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Weekly Earnings</div>
                         <div class="earnings-value" id="weekly-earnings">US$17.52</div>
                         <div class="earnings-sol" id="weekly-earnings-sol">0.072569 SOL</div>
-            </div>
+                    </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Monthly Projection</div>
                         <div class="earnings-value" id="monthly-projection">US$76.12</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.315315 SOL</div>
-        </div>
+                        </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
                         <div class="earnings-value" id="annual-projection">US$913.44</div>
                         <div class="earnings-sol" id="annual-projection-sol">3.783778 SOL</div>
-    </div>
+                    </div>
                     </div>
                 </div>
                 
@@ -1529,7 +1529,7 @@
                             <div class="header-cell">Rewards Pool</div>
                             <div class="header-cell">InfraWallet</div>
                         </div>
-                        
+                
                         <div class="table-row">
                             <div class="cell type-cell">Daily</div>
                             <div class="cell volume-cell" id="daily-volume">$100,000</div>
@@ -1549,7 +1549,7 @@
                             <div class="cell pool-cell" id="weekly-pool">US$17,500.00</div>
                             <div class="cell wallet-cell" id="weekly-wallet">US$875.00</div>
                         </div>
-                        
+
                         <div class="table-row">
                             <div class="cell type-cell">Monthly</div>
                             <div class="cell volume-cell" id="monthly-volume">$3,000,000</div>
@@ -1569,7 +1569,7 @@
                             <div class="cell pool-cell" id="annual-pool">US$912,500.00</div>
                             <div class="cell wallet-cell" id="annual-wallet">US$45,625.00</div>
                         </div>
-                        
+                
                         <div class="table-row">
                             <div class="cell type-cell">2 Years</div>
                             <div class="cell volume-cell" id="year2-volume">$73,000,000</div>

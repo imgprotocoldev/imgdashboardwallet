@@ -4425,12 +4425,13 @@
     }
 }
 
-/* ===== REWARDS PAGE - MODERN & PROFESSIONAL ===== */
+/* ===== REWARDS PAGE - EXACT COPY OF VOTING PAGE STRUCTURE ===== */
 
-/* Main Rewards Page - Full Width */
+/* Main Rewards Page - EXACT same as harvesting-page */
 .rewards-page {
     width: 100%;
-    padding: 4px 8px 0px 8px;
+    max-width: none;
+    padding: 4px 8px 0px 8px; /* EXACT same as harvesting-page */
     background: transparent;
     color: var(--text-primary);
     box-sizing: border-box;
@@ -4478,12 +4479,18 @@
 }
 
 /* Calculator Section */
-.calculator-section {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 16px;
-    padding: 30px;
-    margin-bottom: 30px;
+/* Calculator Section - EXACT same styling as polls-container */
+.rewards-page .calculator-section {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6)) !important;
+    border: 1px solid rgba(148, 163, 184, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
 }
 
 .calculator-title {
@@ -5007,10 +5014,7 @@
     color: var(--accent-success) !important;
 }
 
-/* Calculator Section */
-.calculator-section {
-    margin-top: 32px !important;
-}
+/* Calculator Section - Duplicate rule removed */
 
 .calculator-header h2 {
     font-size: 20px !important;
