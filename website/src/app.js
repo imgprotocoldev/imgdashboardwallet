@@ -3186,37 +3186,11 @@ function setupVotingEventListeners() {
     `;
     document.head.appendChild(style);
     
-    // Debug: Check poll options CSS and state
-    setTimeout(() => {
-        console.log('✅ DEBUGGING POLL OPTIONS - IMPROVED SENSITIVITY!');
-    for (let i = 1; i <= 3; i++) {
-        const pollOptions = document.getElementById(`poll-options-${i}`);
-            if (pollOptions) {
-                console.log(`✅ Poll ${i} options:`, pollOptions);
-                console.log(`✅ Poll ${i} pointer-events:`, window.getComputedStyle(pollOptions).pointerEvents);
-                console.log(`✅ Poll ${i} display:`, window.getComputedStyle(pollOptions).display);
-                console.log(`✅ Poll ${i} opacity:`, window.getComputedStyle(pollOptions).opacity);
-                console.log(`✅ Poll ${i} children:`, pollOptions.children.length);
-                
-                // Check each option
-                pollOptions.querySelectorAll('.poll-option').forEach((option, index) => {
-                    console.log(`✅ Poll ${i} option ${index}:`, option);
-                    console.log(`✅ Poll ${i} option ${index} pointer-events:`, window.getComputedStyle(option).pointerEvents);
-                    console.log(`✅ Poll ${i} option ${index} cursor:`, window.getComputedStyle(option).cursor);
-                });
-            } else {
-                console.log(`❌ Poll ${i} options NOT FOUND!`);
-            }
-        }
-    }, 1000);
 }
 
 // IMPROVED click handler with better sensitivity
 function handleVotingClick(e) {
-    console.log('🗳️ Click detected on:', e.target);
-    console.log('🗳️ Target classes:', e.target.classList);
-    console.log('🗳️ Target tag:', e.target.tagName);
-    console.log('🗳️ Target text:', e.target.textContent);
+    // Click detected - checking for voting elements
     
     // Handle poll option selection - check for poll-option class or its children
     const pollOption = e.target.closest('.poll-option');

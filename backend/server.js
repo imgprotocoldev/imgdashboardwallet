@@ -615,28 +615,20 @@ app.get('/api/polls/:id/results', (req, res) => {
         }
 
         const results = JSON.parse(poll.options);
-        console.log(`📊 Raw poll options from database:`, results);
         
         // Calculate percentages - handle both old and new formats
         const total = results.total || 0;
-        console.log(`📊 Total votes: ${total}`);
         
         // Get vote counts for each option (handle both formats)
         const option1Votes = results.option1 || 0;
         const option2Votes = results.option2 || 0;
         const option3Votes = results.option3 || 0;
         
-        console.log(`📊 Option1 votes: ${option1Votes}`);
-        console.log(`📊 Option2 votes: ${option2Votes}`);
-        console.log(`📊 Option3 votes: ${option3Votes}`);
-        
         const percentages = {
             option1: total > 0 ? ((option1Votes / total) * 100).toFixed(1) : "0.0",
             option2: total > 0 ? ((option2Votes / total) * 100).toFixed(1) : "0.0",
             option3: total > 0 ? ((option3Votes / total) * 100).toFixed(1) : "0.0"
         };
-        
-        console.log(`📊 Calculated percentages:`, percentages);
 
         res.json({ 
             success: true, 
