@@ -4597,10 +4597,10 @@
     color: var(--accent-primary);
 }
 
-/* Modern Calculator Controls */
+/* Modern Calculator Controls - 3 Column Layout */
 .modern-calculator-controls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
     margin-bottom: 24px;
     padding: 20px;
@@ -4688,6 +4688,23 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-left: 8px;
+}
+
+/* Earnings Sections */
+.earnings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.earnings-section.short-term .earnings-item:first-child {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.earnings-section.long-term .earnings-item {
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 /* Pool Stats Section */
@@ -4802,14 +4819,14 @@
 
 /* Comprehensive Projection Spreadsheet */
 .projection-spreadsheet {
-    margin-top: 32px;
-    margin-bottom: 0; /* Remove any bottom margin */
+    margin-top: 16px;
+    margin-bottom: 24px; /* Add bottom margin for spacing */
 }
 
 /* Rewards Footer */
 .rewards-footer {
-    margin-top: 12px;
-    padding: 8px 20px;
+    margin-top: 20px;
+    padding: 12px 20px 16px 20px;
     text-align: center;
     border-top: 1px solid rgba(148, 163, 184, 0.1);
     margin-bottom: 0; /* Remove any bottom margin */
@@ -4847,8 +4864,8 @@
 }
 
 .header-cell {
-    padding: 16px 12px;
-    font-size: 11px;
+    padding: 20px 16px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text-primary);
     text-transform: uppercase;
@@ -4866,6 +4883,7 @@
     grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr 1fr 1.2fr 1.2fr;
     border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     transition: background-color 0.2s ease;
+    min-height: 60px;
 }
 
 .table-row:hover {
@@ -4877,8 +4895,8 @@
 }
 
 .cell {
-    padding: 16px 12px;
-    font-size: 12px;
+    padding: 20px 16px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-primary);
     text-align: center;
@@ -4941,8 +4959,8 @@
     
     .header-cell,
     .cell {
-        padding: 12px 8px;
-        font-size: 11px;
+        padding: 16px 12px;
+        font-size: 12px;
     }
 }
 
@@ -4954,8 +4972,8 @@
     
     .header-cell,
     .cell {
-        padding: 10px 6px;
-        font-size: 10px;
+        padding: 14px 10px;
+        font-size: 11px;
     }
 }
 
@@ -5255,6 +5273,17 @@
     .market-data-row {
         gap: 16px !important;
         flex-wrap: wrap !important;
+    }
+    
+    /* 3-Column Calculator - Mobile Stack */
+    .modern-calculator-controls {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 16px !important;
+    }
+    
+    .earnings-section {
+        gap: 8px !important;
     }
     
     .market-stat {

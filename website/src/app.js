@@ -1448,9 +1448,9 @@
                 <h2>IMG REWARDS CALCULATOR</h2>
         </div>
         
-            <!-- Modern Calculator Controls -->
+            <!-- Modern Calculator Controls - 3 Column Layout -->
             <div class="modern-calculator-controls">
-                <!-- Input Section -->
+                <!-- Column 1: Input Section -->
                 <div class="input-section">
                     <div class="input-container">
                         <div class="input-field">
@@ -1458,17 +1458,46 @@
                             <div class="input-wrapper">
                                 <input type="text" id="volume-24h" placeholder="100,000" value="100,000">
                                 <span class="input-unit">USD</span>
-                </div>
-                </div>
+                            </div>
+                        </div>
                         <div class="input-field">
                             <label>Your IMG Holdings</label>
                             <div class="input-wrapper">
                                 <input type="text" id="img-holdings" placeholder="1,000,000" value="1,000,000">
                                 <span class="input-unit">IMG</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Short-term Earnings -->
+                <div class="earnings-section short-term">
+                    <div class="earnings-item highlight">
+                        <div class="earnings-label">Daily Earnings</div>
+                        <div class="earnings-value" id="daily-earnings">US$2.50258</div>
+                        <div class="earnings-sol" id="daily-earnings-sol">0.010367 SOL</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">Weekly Earnings</div>
+                        <div class="earnings-value" id="weekly-earnings">US$17.52</div>
+                        <div class="earnings-sol" id="weekly-earnings-sol">0.072569 SOL</div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Long-term Projections -->
+                <div class="earnings-section long-term">
+                    <div class="earnings-item">
+                        <div class="earnings-label">Monthly Projection</div>
+                        <div class="earnings-value" id="monthly-projection">US$76.12</div>
+                        <div class="earnings-sol" id="monthly-projection-sol">0.315315 SOL</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">Annual Projection</div>
+                        <div class="earnings-value" id="annual-projection">US$913.44</div>
+                        <div class="earnings-sol" id="annual-projection-sol">3.783778 SOL</div>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
-    </div>
                 
                 <!-- Pool Stats Section -->
                 <div class="pool-stats-section">
@@ -1489,31 +1518,6 @@
         </div>
     </div>
     
-            <!-- Earnings Display -->
-            <div class="earnings-display">
-                <div class="earnings-grid">
-                    <div class="earnings-item highlight">
-                        <div class="earnings-label">Daily Earnings</div>
-                        <div class="earnings-value" id="daily-earnings">US$2.50258</div>
-                        <div class="earnings-sol" id="daily-earnings-sol">0.010367 SOL</div>
-                        </div>
-                    <div class="earnings-item">
-                        <div class="earnings-label">Weekly Earnings</div>
-                        <div class="earnings-value" id="weekly-earnings">US$17.52</div>
-                        <div class="earnings-sol" id="weekly-earnings-sol">0.072569 SOL</div>
-                    </div>
-                    <div class="earnings-item">
-                        <div class="earnings-label">Monthly Projection</div>
-                        <div class="earnings-value" id="monthly-projection">US$76.12</div>
-                        <div class="earnings-sol" id="monthly-projection-sol">0.315315 SOL</div>
-                        </div>
-                    <div class="earnings-item">
-                        <div class="earnings-label">Annual Projection</div>
-                        <div class="earnings-value" id="annual-projection">US$913.44</div>
-                        <div class="earnings-sol" id="annual-projection-sol">3.783778 SOL</div>
-                    </div>
-                    </div>
-                </div>
                 
             <!-- Comprehensive Projection Spreadsheet -->
             <div class="projection-spreadsheet">
@@ -3978,6 +3982,48 @@ window.testModalDirect = function() {
 // Removed conflicting setupPollInteractions function - using simplified event delegation instead
 
 // Auto-initialize voting system when vote page is detected
+// Format number with commas
+function formatNumberWithCommas(value) {
+    // Remove any existing commas and non-numeric characters except decimal point
+    const cleanValue = value.replace(/[^\d.]/g, '');
+    
+    // Split by decimal point if exists
+    const parts = cleanValue.split('.');
+    
+    // Add commas to the integer part
+    if (parts[0]) {
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    
+    // Rejoin with decimal point if it existed
+    return parts.join('.');
+}
+
+// Handle input formatting for calculator fields
+function handleInputFormatting(event) {
+    const input = event.target;
+    const cursorPosition = input.selectionStart;
+    const oldValue = input.value;
+    const oldLength = oldValue.length;
+    
+    // Format the number with commas
+    const formattedValue = formatNumberWithCommas(input.value);
+    
+    // Update the input value
+    input.value = formattedValue;
+    
+    // Calculate new cursor position based on added commas
+    const newLength = formattedValue.length;
+    const lengthDifference = newLength - oldLength;
+    const newCursorPosition = cursorPosition + lengthDifference;
+    
+    // Set cursor position
+    input.setSelectionRange(newCursorPosition, newCursorPosition);
+    
+    // Trigger calculation
+    calculateRewards();
+}
+
 // Initialize Rewards Calculator
 function initializeRewardsCalculator() {
     console.log('💰 Initializing rewards calculator...');
@@ -3990,9 +4036,9 @@ function initializeRewardsCalculator() {
     const holdingsInput = document.getElementById('img-holdings');
     
     if (volumeInput && holdingsInput) {
-        // Add event listeners for real-time calculation
-        volumeInput.addEventListener('input', calculateRewards);
-        holdingsInput.addEventListener('input', calculateRewards);
+        // Add event listeners for formatting and calculation
+        volumeInput.addEventListener('input', handleInputFormatting);
+        holdingsInput.addEventListener('input', handleInputFormatting);
         
         // Initial calculation
         calculateRewards();
