@@ -537,10 +537,8 @@ app.post('/api/polls/:id/vote', async (req, res) => {
                 return res.status(404).json({ error: 'Poll not found or not active' });
             }
 
-            // Check if poll has ended
-            const now = new Date();
-            const endDate = new Date(poll.end_date);
-            if (now > endDate) {
+            // Check if poll is manually ended (status = 'ended')
+            if (poll.status === 'ended') {
                 return res.status(400).json({ error: 'Poll has ended' });
             }
 
