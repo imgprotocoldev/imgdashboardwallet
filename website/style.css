@@ -5566,3 +5566,272 @@
     }
 }
 
+/* Pools Page Styles */
+.pools-page {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.pools-page .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.pools-page .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.pools-page .page-header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.pools-container {
+    width: 100%;
+}
+
+.pools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pool-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pool-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pool-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-primary);
+}
+
+.pool-box:hover::before {
+    opacity: 1;
+}
+
+.pool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pool-pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.token-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.token-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    border: 2px solid var(--border-color);
+}
+
+.token-placeholder.sol {
+    background: linear-gradient(135deg, #9945ff, #14f195);
+}
+
+.token-placeholder.bonk {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+}
+
+.token-placeholder.usdc {
+    background: linear-gradient(135deg, #2775ca, #2775ca);
+}
+
+.pair-separator {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0 4px;
+}
+
+.pool-exchange {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.exchange-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.exchange-placeholder {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+}
+
+.exchange-placeholder.raydium {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+}
+
+.exchange-placeholder.orca {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.exchange-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.pool-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pool-volume,
+.pool-change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pool-volume:last-child,
+.pool-change:last-child {
+    border-bottom: none;
+}
+
+.volume-label,
+.change-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.volume-value,
+.change-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.change-value.positive {
+    color: var(--accent-primary);
+}
+
+.change-value.negative {
+    color: var(--accent-danger);
+}
+
+.change-value.neutral {
+    color: var(--text-secondary);
+}
+
+/* Loading state */
+.pool-box .volume-value,
+.pool-box .change-value {
+    position: relative;
+}
+
+.pool-box .volume-value:contains("Loading"),
+.pool-box .change-value:contains("Loading") {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .pools-page {
+        padding: 15px;
+    }
+    
+    .pools-page .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .pools-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .pool-box {
+        padding: 20px;
+    }
+    
+    .pool-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .pool-exchange {
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .pools-page {
+        padding: 10px;
+    }
+    
+    .pool-box {
+        padding: 16px;
+    }
+    
+    .token-logo {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .exchange-logo {
+        width: 20px;
+        height: 20px;
+    }
+}
+

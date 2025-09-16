@@ -1400,20 +1400,113 @@
     <!-- Sidebar Overlay for Mobile -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
-    <div class="wallet-lookup-page">
+    <div class="pools-page">
         <div class="page-header">
             <h1>Pools</h1>
-            <p>Search and analyze wallet addresses</p>
+            <p>Track IMG token trading pools and volume data</p>
         </div>
         
-        <div class="lookup-content">
-            <div class="search-section">
-                <input type="text" id="wallet-search" placeholder="Enter wallet address..." class="search-input">
-                <button id="search-btn" class="search-btn">Search</button>
-            </div>
-            
-            <div class="results-section" id="search-results">
-                <p class="placeholder-text">Enter a wallet address to search for information</p>
+        <div class="pools-container">
+            <div class="pools-grid">
+                <!-- IMG/SOL on Raydium -->
+                <div class="pool-box" data-pool="img-sol-raydium">
+                    <div class="pool-header">
+                        <div class="pool-pair">
+                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <span class="pair-separator">/</span>
+                            <div class="token-placeholder sol">SOL</div>
+                        </div>
+                        <div class="pool-exchange">
+                            <div class="exchange-placeholder raydium">R</div>
+                            <span class="exchange-name">Raydium</span>
+                        </div>
+                    </div>
+                    <div class="pool-details">
+                        <div class="pool-volume">
+                            <span class="volume-label">24H Volume</span>
+                            <span class="volume-value" id="img-sol-volume">Loading...</span>
+                        </div>
+                        <div class="pool-change">
+                            <span class="change-label">24H Change</span>
+                            <span class="change-value" id="img-sol-change">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMG/BONK on Raydium -->
+                <div class="pool-box" data-pool="img-bonk-raydium">
+                    <div class="pool-header">
+                        <div class="pool-pair">
+                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <span class="pair-separator">/</span>
+                            <div class="token-placeholder bonk">BONK</div>
+                        </div>
+                        <div class="pool-exchange">
+                            <div class="exchange-placeholder raydium">R</div>
+                            <span class="exchange-name">Raydium</span>
+                        </div>
+                    </div>
+                    <div class="pool-details">
+                        <div class="pool-volume">
+                            <span class="volume-label">24H Volume</span>
+                            <span class="volume-value" id="img-bonk-raydium-volume">Loading...</span>
+                        </div>
+                        <div class="pool-change">
+                            <span class="change-label">24H Change</span>
+                            <span class="change-value" id="img-bonk-raydium-change">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMG/USDC on Raydium -->
+                <div class="pool-box" data-pool="img-usdc-raydium">
+                    <div class="pool-header">
+                        <div class="pool-pair">
+                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <span class="pair-separator">/</span>
+                            <div class="token-placeholder usdc">USDC</div>
+                        </div>
+                        <div class="pool-exchange">
+                            <div class="exchange-placeholder raydium">R</div>
+                            <span class="exchange-name">Raydium</span>
+                        </div>
+                    </div>
+                    <div class="pool-details">
+                        <div class="pool-volume">
+                            <span class="volume-label">24H Volume</span>
+                            <span class="volume-value" id="img-usdc-volume">Loading...</span>
+                        </div>
+                        <div class="pool-change">
+                            <span class="change-label">24H Change</span>
+                            <span class="change-value" id="img-usdc-change">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMG/BONK on Orca -->
+                <div class="pool-box" data-pool="img-bonk-orca">
+                    <div class="pool-header">
+                        <div class="pool-pair">
+                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <span class="pair-separator">/</span>
+                            <div class="token-placeholder bonk">BONK</div>
+                        </div>
+                        <div class="pool-exchange">
+                            <div class="exchange-placeholder orca">O</div>
+                            <span class="exchange-name">Orca</span>
+                        </div>
+                    </div>
+                    <div class="pool-details">
+                        <div class="pool-volume">
+                            <span class="volume-label">24H Volume</span>
+                            <span class="volume-value" id="img-bonk-orca-volume">Loading...</span>
+                        </div>
+                        <div class="pool-change">
+                            <span class="change-label">24H Change</span>
+                            <span class="change-value" id="img-bonk-orca-change">Loading...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
