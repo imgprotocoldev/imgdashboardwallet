@@ -4207,10 +4207,62 @@ async function fetchSOLPrice() {
     }
 }
 
-// Fetch IMG token market data using CoinGecko tickers API
+// Cache configuration - 5 minutes in milliseconds
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_KEY = 'img_pools_data';
+const CACHE_TIMESTAMP_KEY = 'img_pools_timestamp';
+
+// Check if cached data is still valid (less than 5 minutes old)
+function isCacheValid() {
+    const timestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+    if (!timestamp) return false;
+    
+    const now = Date.now();
+    const cacheTime = parseInt(timestamp);
+    const age = now - cacheTime;
+    
+    console.log(`🕐 Cache age: ${Math.round(age / (1000 * 60))} minutes`);
+    return age < CACHE_DURATION;
+}
+
+// Get cached data
+function getCachedData() {
+    try {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedData) {
+            console.log('📦 Using cached pools data');
+            return JSON.parse(cachedData);
+        }
+    } catch (error) {
+        console.error('❌ Error reading cached data:', error);
+    }
+    return null;
+}
+
+// Save data to cache
+function saveToCache(data) {
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+        console.log('💾 Pools data cached for 5 minutes');
+    } catch (error) {
+        console.error('❌ Error saving to cache:', error);
+    }
+}
+
+// Fetch IMG token market data using CoinGecko tickers API with caching
 async function fetchIMGPoolsData() {
+    // Check if we have valid cached data first
+    if (isCacheValid()) {
+        const cachedData = getCachedData();
+        if (cachedData) {
+            return cachedData;
+        }
+    }
+    
+    console.log('🔄 Cache expired or missing, fetching fresh data from API...');
+    
     // First, let's try to find the IMG token on CoinGecko
-    // We'll try common variations of the token name
     const possibleCoinIds = [
         'infinite-money-glitch',
         'img',
@@ -4263,6 +4315,8 @@ async function fetchIMGPoolsData() {
                     }))
                 };
                 
+                // Cache the data for 5 minutes
+                saveToCache(poolsData);
                 return poolsData;
             }
         } catch (error) {
@@ -4292,6 +4346,9 @@ async function fetchIMGPoolsData() {
 
         const data = await response.json();
         console.log('✅ IMG pools data fetched from onchain API');
+        
+         // Cache the data for 5 minutes
+        saveToCache(data);
         return data;
     } catch (error) {
         console.error("❌ Error fetching IMG pool data:", error);
@@ -4319,28 +4376,28 @@ async function loadPoolsData() {
     const pools = poolsData.data;
     console.log(`📊 Found ${pools.length} IMG pools`);
     
-    // Enhanced pool mapping for IMG token pairs
+    // Enhanced pool mapping for IMG token pairs - using contract addresses
     const poolMappings = {
         'img-sol-raydium': { 
-            searchTerms: ['SOL'], 
+            searchTerms: ['SO11111111111111111111111111111111111111112'], // SOL contract
             dex: 'raydium',
             volumeElement: 'img-sol-volume',
             changeElement: 'img-sol-change'
         },
         'img-bonk-raydium': { 
-            searchTerms: ['BONK'], 
+            searchTerms: ['DEZXAZ8Z7PNRNRJJZ3WXBORGIXCA6XJNB7YAB1PPB263'], // BONK contract
             dex: 'raydium',
             volumeElement: 'img-bonk-raydium-volume',
             changeElement: 'img-bonk-raydium-change'
         },
         'img-usdc-raydium': { 
-            searchTerms: ['USDC'], 
+            searchTerms: ['EPJFWDD5AUFQSSQEM2QN1XZYBAPC8G4WEGGKZWYTDT1V'], // USDC contract
             dex: 'raydium',
             volumeElement: 'img-usdc-volume',
             changeElement: 'img-usdc-change'
         },
         'img-bonk-orca': { 
-            searchTerms: ['BONK'], 
+            searchTerms: ['DEZXAZ8Z7PNRNRJJZ3WXBORGIXCA6XJNB7YAB1PPB263'], // BONK contract
             dex: 'orca',
             volumeElement: 'img-bonk-orca-volume',
             changeElement: 'img-bonk-orca-change'
@@ -4402,6 +4459,23 @@ async function loadPoolsData() {
     });
 }
 
+// Set fallback data for individual pool elements
+function setFallbackPoolsDataForElement(volumeElementId, changeElementId) {
+    const volumeElement = document.getElementById(volumeElementId);
+    const changeElement = document.getElementById(changeElementId);
+    
+    if (volumeElement) {
+        volumeElement.textContent = 'Loading...';
+        console.log(`🔄 Set fallback volume for ${volumeElementId}: Loading...`);
+    }
+    
+    if (changeElement) {
+        changeElement.textContent = 'Loading...';
+        changeElement.className = 'change-value neutral';
+        console.log(`🔄 Set fallback change for ${changeElementId}: Loading...`);
+    }
+}
+
 // Format volume for display
 function formatVolume(volume) {
     if (volume >= 1000000) {
@@ -4418,17 +4492,17 @@ function setFallbackPoolsData() {
     console.log('🔄 Setting fallback pools data...');
     
     const poolMappings = {
-        'img-sol-volume': '$12.5K',
-        'img-bonk-raydium-volume': '$8.2K',
-        'img-usdc-volume': '$15.7K',
-        'img-bonk-orca-volume': '$5.3K'
+        'img-sol-volume': 'Loading...',
+        'img-bonk-raydium-volume': 'Loading...',
+        'img-usdc-volume': 'Loading...',
+        'img-bonk-orca-volume': 'Loading...'
     };
     
     const changeMappings = {
-        'img-sol-change': '+2.34%',
-        'img-bonk-raydium-change': '-1.12%',
-        'img-usdc-change': '+0.87%',
-        'img-bonk-orca-change': '+3.45%'
+        'img-sol-change': 'Loading...',
+        'img-bonk-raydium-change': 'Loading...',
+        'img-usdc-change': 'Loading...',
+        'img-bonk-orca-change': 'Loading...'
     };
     
     // Update volume elements
@@ -4448,7 +4522,7 @@ function setFallbackPoolsData() {
         if (element) {
             const changeText = changeMappings[elementId];
             element.textContent = changeText;
-            element.className = `change-value ${changeText.includes('+') ? 'positive' : changeText.includes('-') ? 'negative' : 'neutral'}`;
+            element.className = 'change-value neutral';
             console.log(`✅ Updated ${elementId}: ${changeText}`);
         } else {
             console.log(`❌ Element not found: ${elementId}`);
