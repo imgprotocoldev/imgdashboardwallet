@@ -1401,23 +1401,19 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="pools-page">
-        <div class="page-header">
-            <h1>Pools</h1>
-            <p>Track IMG token trading pools and volume data</p>
-        </div>
-        
         <div class="pools-container">
             <div class="pools-grid">
-                <!-- IMG/SOL on Raydium -->
+                    <!-- IMG/SOL on Raydium -->
                 <div class="pool-box" data-pool="img-sol-raydium">
+                    <div class="pool-title">IMG/SOL</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <div class="token-placeholder sol">SOL</div>
+                            <img src="/solanalogo.png" alt="SOL" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <div class="exchange-placeholder raydium">R</div>
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
             </div>
         </div>
@@ -1425,24 +1421,30 @@
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
                             <span class="volume-value" id="img-sol-volume">Loading...</span>
-    </div>
+                        </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
                             <span class="change-value" id="img-sol-change">Loading...</span>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                    <div class="pool-footer">
+                        <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
+                        </a>
+                    </div>
             </div>
 
                 <!-- IMG/BONK on Raydium -->
                 <div class="pool-box" data-pool="img-bonk-raydium">
+                    <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <div class="token-placeholder bonk">BONK</div>
+                            <img src="/bonklogo.png" alt="BONK" class="token-logo">
         </div>
                         <div class="pool-exchange">
-                            <div class="exchange-placeholder raydium">R</div>
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
     </div>
         </div>
@@ -1450,24 +1452,30 @@
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
                             <span class="volume-value" id="img-bonk-raydium-volume">Loading...</span>
-                </div>
+                        </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
                             <span class="change-value" id="img-bonk-raydium-change">Loading...</span>
                         </div>
                     </div>
+                    <div class="pool-footer">
+                        <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
+                        </a>
+                    </div>
                 </div>
                 
                 <!-- IMG/USDC on Raydium -->
                 <div class="pool-box" data-pool="img-usdc-raydium">
+                    <div class="pool-title">IMG/USDC</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <div class="token-placeholder usdc">USDC</div>
+                            <img src="/usdclogo.png" alt="USDC" class="token-logo">
                         </div>
                         <div class="pool-exchange">
-                            <div class="exchange-placeholder raydium">R</div>
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
                         </div>
                     </div>
@@ -1481,18 +1489,24 @@
                             <span class="change-value" id="img-usdc-change">Loading...</span>
                         </div>
                     </div>
+                    <div class="pool-footer">
+                        <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
+                        </a>
+                    </div>
             </div>
             
                 <!-- IMG/BONK on Orca -->
                 <div class="pool-box" data-pool="img-bonk-orca">
+                    <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/imglogo.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <div class="token-placeholder bonk">BONK</div>
+                            <img src="/bonklogo.png" alt="BONK" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <div class="exchange-placeholder orca">O</div>
+                            <img src="/orcalogo.png" alt="Orca" class="exchange-logo">
                             <span class="exchange-name">Orca</span>
         </div>
     </div>
@@ -1506,6 +1520,18 @@
                             <span class="change-value" id="img-bonk-orca-change">Loading...</span>
                         </div>
                     </div>
+                    <div class="pool-footer">
+                        <a href="https://www.orca.so/?tokenIn=DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263&tokenOut=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh" target="_blank" class="external-link">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Source Footer -->
+            <div class="pools-footer">
+                <div class="data-source">
+                    <span>Data provided by CoinGecko • Refreshed every 5 minutes</span>
                 </div>
             </div>
         </div>
@@ -4448,7 +4474,7 @@ async function loadPoolsData() {
             const changeElement = document.getElementById(mapping.changeElement);
             if (changeElement) {
                 const change = matchingPool.attributes?.volume_usd?.h24_percentage || 0;
-                changeElement.textContent = `${change > 0 ? '+' : ''}${change.toFixed(2)}%`;
+                changeElement.textContent = `${change.toFixed(2)}%`;
                 changeElement.className = `change-value ${change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral'}`;
                 console.log(`  Volume %: ${change.toFixed(2)}% (raw: ${change})`);
             }
