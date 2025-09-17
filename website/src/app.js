@@ -1439,11 +1439,11 @@
                     <div class="pool-details">
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
-                            <span class="volume-value" id="img-sol-volume">Loading...</span>
+                            <span class="volume-value loading" id="img-sol-volume">Loading...</span>
                         </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
-                            <span class="change-value" id="img-sol-change">Loading...</span>
+                            <span class="change-value loading" id="img-sol-change">Loading...</span>
                         </div>
                     </div>
                     <div class="pool-footer">
@@ -1470,11 +1470,11 @@
                     <div class="pool-details">
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
-                            <span class="volume-value" id="img-bonk-raydium-volume">Loading...</span>
+                            <span class="volume-value loading" id="img-bonk-raydium-volume">Loading...</span>
                         </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
-                            <span class="change-value" id="img-bonk-raydium-change">Loading...</span>
+                            <span class="change-value loading" id="img-bonk-raydium-change">Loading...</span>
                         </div>
                     </div>
                     <div class="pool-footer">
@@ -1501,11 +1501,11 @@
                     <div class="pool-details">
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
-                            <span class="volume-value" id="img-usdc-volume">Loading...</span>
+                            <span class="volume-value loading" id="img-usdc-volume">Loading...</span>
                         </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
-                            <span class="change-value" id="img-usdc-change">Loading...</span>
+                            <span class="change-value loading" id="img-usdc-change">Loading...</span>
                         </div>
                     </div>
                     <div class="pool-footer">
@@ -1532,11 +1532,11 @@
                     <div class="pool-details">
                         <div class="pool-volume">
                             <span class="volume-label">24H Volume</span>
-                            <span class="volume-value" id="img-bonk-orca-volume">Loading...</span>
+                            <span class="volume-value loading" id="img-bonk-orca-volume">Loading...</span>
                         </div>
                         <div class="pool-change">
                             <span class="change-label">Volume %</span>
-                            <span class="change-value" id="img-bonk-orca-change">Loading...</span>
+                            <span class="change-value loading" id="img-bonk-orca-change">Loading...</span>
                         </div>
                     </div>
                     <div class="pool-footer">
@@ -4486,6 +4486,7 @@ async function loadPoolsData() {
             if (volumeElement) {
                 const volume = matchingPool.attributes?.volume_usd?.h24 || 0;
                 volumeElement.textContent = formatVolume(volume);
+                volumeElement.className = 'volume-value positive';
                 console.log(`  Volume: ${formatVolume(volume)} (raw: ${volume})`);
             }
             
@@ -4511,12 +4512,13 @@ function setFallbackPoolsDataForElement(volumeElementId, changeElementId) {
     
     if (volumeElement) {
         volumeElement.textContent = 'Loading...';
+        volumeElement.className = 'volume-value loading';
         console.log(`🔄 Set fallback volume for ${volumeElementId}: Loading...`);
     }
     
     if (changeElement) {
         changeElement.textContent = 'Loading...';
-        changeElement.className = 'change-value neutral';
+        changeElement.className = 'change-value loading';
         console.log(`🔄 Set fallback change for ${changeElementId}: Loading...`);
     }
 }
@@ -4555,6 +4557,7 @@ function setFallbackPoolsData() {
         const element = document.getElementById(elementId);
         if (element) {
             element.textContent = poolMappings[elementId];
+            element.className = 'volume-value loading';
             console.log(`✅ Updated ${elementId}: ${poolMappings[elementId]}`);
         } else {
             console.log(`❌ Element not found: ${elementId}`);
@@ -4567,7 +4570,7 @@ function setFallbackPoolsData() {
         if (element) {
             const changeText = changeMappings[elementId];
             element.textContent = changeText;
-            element.className = 'change-value neutral';
+            element.className = 'change-value loading';
             console.log(`✅ Updated ${elementId}: ${changeText}`);
         } else {
             console.log(`❌ Element not found: ${elementId}`);
