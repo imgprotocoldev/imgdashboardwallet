@@ -1612,12 +1612,12 @@
                 <div class="earnings-section short-term">
                     <div class="earnings-item highlight">
                         <div class="earnings-label">Daily Earnings</div>
-                        <div class="earnings-value" id="daily-earnings">$4.50</div>
+                        <div class="earnings-value" id="daily-earnings">$4.5000</div>
                         <div class="earnings-sol" id="daily-earnings-sol">0.0187 SOL</div>
                         </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Weekly Earnings</div>
-                        <div class="earnings-value" id="weekly-earnings">$31.50</div>
+                        <div class="earnings-value" id="weekly-earnings">$31.5000</div>
                         <div class="earnings-sol" id="weekly-earnings-sol">0.1309 SOL</div>
                     </div>
                 </div>
@@ -1626,12 +1626,12 @@
                 <div class="earnings-section long-term">
                     <div class="earnings-item">
                         <div class="earnings-label">Monthly Projection</div>
-                        <div class="earnings-value" id="monthly-projection">$137.02</div>
+                        <div class="earnings-value" id="monthly-projection">$137.0200</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.5808 SOL</div>
             </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
-                        <div class="earnings-value" id="annual-projection">$1,644.20</div>
+                        <div class="earnings-value" id="annual-projection">$1,644.2000</div>
                         <div class="earnings-sol" id="annual-projection-sol">6.9699 SOL</div>
         </div>
                 </div>
@@ -1676,7 +1676,7 @@
                             <div class="cell type-cell">Daily</div>
                             <div class="cell volume-cell" id="daily-volume">$100,000</div>
                             <div class="cell holdings-cell" id="daily-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell highlight" id="daily-total">$2.50</div>
+                            <div class="cell earnings-cell highlight" id="daily-total">$2.5000</div>
                             <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
                             <div class="cell pool-cell" id="daily-pool">$2,500.00</div>
                             <div class="cell wallet-cell" id="daily-wallet">$125.00</div>
@@ -1686,7 +1686,7 @@
                             <div class="cell type-cell">Weekly</div>
                             <div class="cell volume-cell" id="weekly-volume">$700,000</div>
                             <div class="cell holdings-cell" id="weekly-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="weekly-total">$17.52</div>
+                            <div class="cell earnings-cell" id="weekly-total">$17.5200</div>
                             <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
                             <div class="cell pool-cell" id="weekly-pool">$17,500.00</div>
                             <div class="cell wallet-cell" id="weekly-wallet">$875.00</div>
@@ -1696,7 +1696,7 @@
                             <div class="cell type-cell">Monthly</div>
                             <div class="cell volume-cell" id="monthly-volume">$3,000,000</div>
                             <div class="cell holdings-cell" id="monthly-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="monthly-total">$76.12</div>
+                            <div class="cell earnings-cell" id="monthly-total">$76.1200</div>
                             <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
                             <div class="cell pool-cell" id="monthly-pool">$75,000.00</div>
                             <div class="cell wallet-cell" id="monthly-wallet">$3,750.00</div>
@@ -1706,7 +1706,7 @@
                             <div class="cell type-cell">Annual</div>
                             <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
                             <div class="cell holdings-cell" id="annual-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="annual-total">$913.44</div>
+                            <div class="cell earnings-cell" id="annual-total">$913.4400</div>
                             <div class="cell sol-cell" id="annual-sol">3.783778 SOL</div>
                             <div class="cell pool-cell" id="annual-pool">$912,500.00</div>
                             <div class="cell wallet-cell" id="annual-wallet">$45,625.00</div>
@@ -1716,7 +1716,7 @@
                             <div class="cell type-cell">2 Years</div>
                             <div class="cell volume-cell" id="year2-volume">$73,000,000</div>
                             <div class="cell holdings-cell" id="year2-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="year2-total">$1,826.88</div>
+                            <div class="cell earnings-cell" id="year2-total">$1,826.8800</div>
                             <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
                             <div class="cell pool-cell" id="year2-pool">$1,825,000.00</div>
                             <div class="cell wallet-cell" id="year2-wallet">$91,250.00</div>
@@ -1726,7 +1726,7 @@
                             <div class="cell type-cell">3 Years</div>
                             <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
                             <div class="cell holdings-cell" id="year3-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="year3-total">$2,740.32</div>
+                            <div class="cell earnings-cell" id="year3-total">$2,740.3200</div>
                             <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
                             <div class="cell pool-cell" id="year3-pool">$2,737,500.00</div>
                             <div class="cell wallet-cell" id="year3-wallet">$136,875.00</div>
@@ -4616,15 +4616,15 @@ async function calculateRewards() {
     // Update SOL price display in footer
     updateStatElement('sol-price', `$${solPrice.toFixed(2)}`);
     
-    // Update earnings display boxes using precise calculation
-    updateStatElement('daily-earnings', `$${preciseDailyEarnings.toFixed(5)}`);
-    updateStatElement('daily-earnings-sol', `${(preciseDailyEarnings / solPrice).toFixed(6)} SOL`);
-    updateStatElement('weekly-earnings', `$${(preciseDailyEarnings * 7).toFixed(2)}`);
-    updateStatElement('weekly-earnings-sol', `${((preciseDailyEarnings * 7) / solPrice).toFixed(6)} SOL`);
-    updateStatElement('monthly-projection', `$${(preciseDailyEarnings * 30.4167).toFixed(2)}`);
-    updateStatElement('monthly-projection-sol', `${((preciseDailyEarnings * 30.4167) / solPrice).toFixed(6)} SOL`);
-    updateStatElement('annual-projection', `$${(preciseDailyEarnings * 365).toFixed(2)}`);
-    updateStatElement('annual-projection-sol', `${((preciseDailyEarnings * 365) / solPrice).toFixed(6)} SOL`);
+    // Update earnings display boxes using smart formatting
+    updateStatElement('daily-earnings', `$${formatEarnings(preciseDailyEarnings)}`);
+    updateStatElement('daily-earnings-sol', `${formatEarningsSOL(preciseDailyEarnings / solPrice)} SOL`);
+    updateStatElement('weekly-earnings', `$${formatEarnings(preciseDailyEarnings * 7)}`);
+    updateStatElement('weekly-earnings-sol', `${formatEarningsSOL((preciseDailyEarnings * 7) / solPrice)} SOL`);
+    updateStatElement('monthly-projection', `$${formatEarnings(preciseDailyEarnings * 30.4167)}`);
+    updateStatElement('monthly-projection-sol', `${formatEarningsSOL((preciseDailyEarnings * 30.4167) / solPrice)} SOL`);
+    updateStatElement('annual-projection', `$${formatEarnings(preciseDailyEarnings * 365)}`);
+    updateStatElement('annual-projection-sol', `${formatEarningsSOL((preciseDailyEarnings * 365) / solPrice)} SOL`);
     
     // Update pool stats
     updateStatElement('rewards-pool', `$${rewardsPool.toFixed(2)}`);
@@ -4648,18 +4648,55 @@ async function calculateRewards() {
         const projectedEarnings = (volume * 0.05 * 0.9 * holdings * proj.volumeMult) / totalSupply; // Precise calculation
         
         // Update spreadsheet values
-        updateStatElement(`${proj.period}-volume`, `$${formatNumber(volume)}`);
-        updateStatElement(`${proj.period}-holdings`, `${formatNumber(holdings)} IMG`);
-        updateStatElement(`${proj.period}-pool`, `$${formatNumber(projectedPool)}`);
-        updateStatElement(`${proj.period}-wallet`, `$${formatNumber(projectedWallet)}`);
-        updateStatElement(`${proj.period}-total`, `$${formatNumber(projectedEarnings)}`);
-        updateStatElement(`${proj.period}-sol`, `${(projectedEarnings / solPrice).toFixed(6)} SOL`);
+        updateStatElement(`${proj.period}-volume`, `$${formatPoolWallet(volume)}`);
+        updateStatElement(`${proj.period}-holdings`, `${formatPoolWallet(holdings)} IMG`);
+        updateStatElement(`${proj.period}-pool`, `$${formatPoolWallet(projectedPool)}`);
+        updateStatElement(`${proj.period}-wallet`, `$${formatPoolWallet(projectedWallet)}`);
+        updateStatElement(`${proj.period}-total`, `$${formatEarnings(projectedEarnings)}`);
+        updateStatElement(`${proj.period}-sol`, `${formatEarningsSOL(projectedEarnings / solPrice)} SOL`);
     });
 }
 
-// Helper function to format numbers with commas
-function formatNumber(num) {
+// Helper function to format earnings with smart decimal places
+function formatEarnings(num) {
+    if (num >= 1000) {
+        // For large numbers (1000+), use 2 decimal places with comma thousands separator
+        return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    } else if (num >= 100) {
+        // For medium numbers (100-999), use 3 decimal places, no thousands separator
+        return num.toFixed(3);
+    } else if (num >= 10) {
+        // For small numbers (10-99), use 4 decimal places, no thousands separator
+        return num.toFixed(4);
+    } else {
+        // For very small numbers (<10), use 4 decimal places, no thousands separator
+        return num.toFixed(4);
+    }
+}
+
+// Helper function to format pool/wallet with 2 decimal places
+function formatPoolWallet(num) {
     return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// Helper function to format Earnings (SOL) with smart decimal places
+function formatEarningsSOL(num) {
+    if (num >= 1000) {
+        // For large numbers (1000+), use 2 decimal places with comma thousands separator
+        return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    } else if (num >= 100) {
+        // For medium numbers (100-999), use 3 decimal places, no thousands separator
+        return num.toFixed(3);
+    } else if (num >= 10) {
+        // For small numbers (10-99), use 4 decimal places, no thousands separator
+        return num.toFixed(4);
+    } else if (num >= 1) {
+        // For very small numbers (1-9), use 5 decimal places, no thousands separator
+        return num.toFixed(5);
+    } else {
+        // For tiny numbers (<1), use 6 decimal places, no thousands separator
+        return num.toFixed(6);
+    }
 }
 
 const observer = new MutationObserver((mutations) => {
