@@ -36,9 +36,9 @@
         top: 0 !important;
         z-index: 5 !important;
         background: rgba(30, 41, 59, 0.98) !important;
-        border-bottom: 2px solid rgba(16, 185, 129, 0.4) !important;
+        border-bottom: none !important;
         border-radius: 12px 12px 0 0 !important;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.25) !important;
+        box-shadow: none !important;
     }
 
     /* Uniform header and cell styling */
@@ -171,7 +171,7 @@
         display: grid !important; /* Override any display: contents */
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
         min-width: 1000px !important;
-        border-bottom: 2px solid rgba(16, 185, 129, 0.4) !important;
+        border-bottom: none !important;
         border-radius: 12px 12px 0 0 !important;
         background: rgba(30, 41, 59, 0.98) !important;
     }
@@ -180,7 +180,7 @@
         display: grid !important; /* Override any display: contents */
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
         min-width: 1000px !important;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+        border-bottom: none !important;
         transition: background-color 0.2s ease !important;
     }
 
@@ -379,7 +379,7 @@
     color: var(--text-primary);
     margin: 0 0 24px 0;
     padding-bottom: 12px;
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+    border-bottom: none;
 }
 
 /* Featured Events Section - Clean & Simple */
@@ -3310,7 +3310,7 @@
     color: var(--text-primary);
     margin: 0 0 24px 0;
     padding-bottom: 12px;
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+    border-bottom: none;
     text-align: left;
 }
 
@@ -4127,34 +4127,100 @@
 
 /* Removed conflicting section-header styles - now using main section-title */
 
-/* Voting History Spreadsheet - Modern Professional Design */
-.polls-spreadsheet-wrapper {
+/* Voting History Spreadsheet Container - Compact Design */
+.voting-history-spreadsheet-container {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 16px;
+    backdrop-filter: blur(20px);
     width: 100%;
-    max-width: 100%;
+    height: 340px; /* Increased to 340px for better screen utilization */
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
-    border-radius: 16px;
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    box-shadow: 
-        0 10px 25px rgba(0, 0, 0, 0.2),
-        0 4px 10px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.polls-spreadsheet {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: auto !important;
-    table-layout: fixed !important;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+/* Voting History Spreadsheet Wrapper - Full Width with Scrolling */
+.voting-history-spreadsheet-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Table scroll container for voting history */
+.voting-history-spreadsheet-container .table-scroll-container {
+    overflow: auto;
+    flex: 1;
+    max-height: 240px; /* Increased scroll area for 340px container */
+}
+
+.voting-history-spreadsheet {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+    background: transparent;
+}
+
+.spreadsheet-header-row {
+    background: linear-gradient(135deg, #0b1220, #152232);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.spreadsheet-header-row th {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spreadsheet-row {
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spreadsheet-row:hover {
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+.spreadsheet-row td {
+    padding: 12px 8px;
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 13px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spreadsheet-row td:last-child {
+    border-right: none;
+}
+
+/* Column widths for voting history */
+.col-poll {
+    width: 35%;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.col-option1, .col-option2, .col-option3 {
+    width: 15%;
+}
+
+.col-total, .col-date {
+    width: 10%;
 }
 
 /* Enhanced scrollbar styling for voting spreadsheet */
@@ -4182,7 +4248,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.15));
-    border-bottom: 2px solid rgba(16, 185, 129, 0.4);
+    border-bottom: none;
     border-radius: 12px 12px 0 0;
     position: sticky;
     top: 0;
@@ -4205,14 +4271,14 @@
     box-sizing: border-box;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01);
 }
 
 
 .polls-spreadsheet .spreadsheet-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    border-bottom: none;
     background: rgba(255, 255, 255, 0.01);
     align-items: stretch;
     min-width: 800px;
@@ -4440,7 +4506,7 @@
         display: grid !important;
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
         background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.15)) !important;
-        border-bottom: 2px solid rgba(16, 185, 129, 0.4) !important;
+        border-bottom: none !important;
         border-radius: 12px 12px 0 0 !important;
         position: sticky !important;
         top: 0 !important;
@@ -4452,7 +4518,7 @@
     .polls-spreadsheet .spreadsheet-row {
         display: grid !important;
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+        border-bottom: none !important;
         background: rgba(255, 255, 255, 0.01) !important;
         align-items: stretch !important;
         min-width: 1000px !important;
@@ -4473,7 +4539,7 @@
     /* Header cells - first row */
     .polls-spreadsheet .header-cell {
         background: rgba(255, 255, 255, 0.05) !important;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+        border-bottom: none !important;
         position: sticky !important;
         top: 0 !important;
         z-index: 10 !important;
@@ -4482,7 +4548,7 @@
     /* Data cells - subsequent rows */
     .polls-spreadsheet .data-cell {
         background: rgba(255, 255, 255, 0.01) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-bottom: none !important;
     }
     
     .polls-spreadsheet .data-cell:nth-child(6n+1),
@@ -4628,7 +4694,7 @@
     /* Header cells - first row */
     .polls-spreadsheet .header-cell {
         background: #1e293b !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-bottom: none !important;
         position: sticky !important;
         top: 0 !important;
         z-index: 10 !important;
@@ -4637,7 +4703,7 @@
     /* Data cells - subsequent rows */
     .polls-spreadsheet .data-cell {
         background: rgba(255, 255, 255, 0.01) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-bottom: none !important;
     }
     
     .polls-spreadsheet .data-cell:nth-child(6n+1),
@@ -4814,7 +4880,7 @@
     color: var(--text-primary);
     margin: 0;
     padding-bottom: 12px;
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+    border-bottom: none;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -5170,7 +5236,7 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr 1fr 1.2fr 1.2fr;
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.1));
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+    border-bottom: none;
 }
 
 .header-cell {
@@ -5684,7 +5750,7 @@
         width: 100% !important;
         height: auto !important;
         background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.15)) !important;
-        border-bottom: 2px solid rgba(16, 185, 129, 0.4) !important;
+        border-bottom: none !important;
         border-radius: 12px 12px 0 0 !important;
     }
     
@@ -5694,7 +5760,7 @@
         min-width: 1000px !important;
         width: 100% !important;
         height: auto !important;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+        border-bottom: none !important;
         transition: background-color 0.2s ease !important;
         min-height: 50px !important;
         max-height: 60px !important;

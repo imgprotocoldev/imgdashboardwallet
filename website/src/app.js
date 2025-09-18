@@ -1628,15 +1628,15 @@
                         <div class="earnings-label">Monthly Projection</div>
                         <div class="earnings-value" id="monthly-projection">$137.0200</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.5808 SOL</div>
-            </div>
+                </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
                         <div class="earnings-value" id="annual-projection">$1,644.2000</div>
                         <div class="earnings-sol" id="annual-projection-sol">6.9699 SOL</div>
-        </div>
-                </div>
             </div>
-
+                    </div>
+                </div>
+                
                 <!-- Pool Stats Section -->
                 <div class="pool-stats-section">
                     <div class="stats-grid">
@@ -1644,15 +1644,15 @@
                           <div class="stat-content">
                                 <div class="stat-label">Rewards Pool</div>
                                 <div class="stat-value" id="rewards-pool">$4,500.00</div>
-            </div>
-            </div>
+                        </div>
+                    </div>
                         <div class="stat-card">
                             <div class="stat-content">
                                 <div class="stat-label">InfraWallet</div>
                                 <div class="stat-value" id="infra-wallet">$500.00</div>
-        </div>
-    </div>
-            </div>
+                        </div>
+                    </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -1670,7 +1670,7 @@
                             <div class="header-cell">Earnings (SOL)</div>
                             <div class="header-cell">Rewards Pool</div>
                             <div class="header-cell">InfraWallet</div>
-                        </div>
+                </div>
                 
                         <div class="table-row">
                             <div class="cell type-cell">Daily</div>
@@ -1680,8 +1680,8 @@
                             <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
                             <div class="cell pool-cell" id="daily-pool">$2,500.00</div>
                             <div class="cell wallet-cell" id="daily-wallet">$125.00</div>
-                    </div>
-                    
+            </div>
+
                         <div class="table-row">
                             <div class="cell type-cell">Weekly</div>
                             <div class="cell volume-cell" id="weekly-volume">$700,000</div>
@@ -1690,7 +1690,7 @@
                             <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
                             <div class="cell pool-cell" id="weekly-pool">$17,500.00</div>
                             <div class="cell wallet-cell" id="weekly-wallet">$875.00</div>
-                        </div>
+                    </div>
 
                         <div class="table-row">
                             <div class="cell type-cell">Monthly</div>
@@ -1700,8 +1700,8 @@
                             <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
                             <div class="cell pool-cell" id="monthly-pool">$75,000.00</div>
                             <div class="cell wallet-cell" id="monthly-wallet">$3,750.00</div>
-                    </div>
-                    
+                </div>
+                
                         <div class="table-row">
                             <div class="cell type-cell">Annual</div>
                             <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
@@ -1720,8 +1720,8 @@
                             <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
                             <div class="cell pool-cell" id="year2-pool">$1,825,000.00</div>
                             <div class="cell wallet-cell" id="year2-wallet">$91,250.00</div>
-                </div>
-                
+                    </div>
+                    
                         <div class="table-row">
                             <div class="cell type-cell">3 Years</div>
                             <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
@@ -1730,17 +1730,17 @@
                             <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
                             <div class="cell pool-cell" id="year3-pool">$2,737,500.00</div>
                             <div class="cell wallet-cell" id="year3-wallet">$136,875.00</div>
-                </div>
-            </div>
+                        </div>
                     </div>
-                </div>
+                        </div>
+                    </div>
                 
                 <!-- Footer -->
                 <div class="rewards-footer">
                     <p>All monetary values are calculated in US Dollars (USD) • Real-time data from DexScreener & CoinGecko • SOL: <span id="sol-price">$235.90</span> • IMG Supply: 998,968,783</p>
-                    </div>
-                    
-                        </div>
+                </div>
+                
+                </div>
 `,Te=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
@@ -1749,18 +1749,18 @@
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
                     <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
-                    </div>
-                        </div>
+            </div>
+        </div>
             <div class="mobile-header-right">
                 <button class="burger-menu-btn" id="mobile-menu-btn">
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                 </button>
-                        </div>
                 </div>
-            </div>
-
+                        </div>
+                    </div>
+                    
     <!-- Sidebar Overlay for Mobile -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
@@ -1775,9 +1775,9 @@
                 <div class="banner-background">
                     <div class="banner-image">
                         <div class="banner-overlay"></div>
+                        </div>
                     </div>
-                </div>
-                
+                    
                 <div class="banner-content">
                     <div class="banner-left-section">
                         <h2 class="banner-question">Are You Enjoying the Dashboard?</h2>
@@ -1791,26 +1791,26 @@
                     <div class="banner-voting-section">
                 <div class="poll-options-container">
                         <div class="voting-header">
-                        </div>
+                    </div>
                         <div class="poll-options" id="poll-options-1">
                     <div class="poll-option" data-option="option1">
                         <div class="option-selector">
                             <div class="option-circle"></div>
-                        </div>
-                                <span class="option-text">Enjoying the Dashboard</span>
                     </div>
+                                <span class="option-text">Enjoying the Dashboard</span>
+                </div>
                     
                     <div class="poll-option" data-option="option2">
                         <div class="option-selector">
                             <div class="option-circle"></div>
-                        </div>
+            </div>
                                 <span class="option-text">Just Okay</span>
-                    </div>
-                    
+        </div>
+        
                     <div class="poll-option" data-option="option3">
                         <div class="option-selector">
                             <div class="option-circle"></div>
-                        </div>
+                </div>
                         <span class="option-text">This is bad</span>
                     </div>
                 </div>
@@ -1818,110 +1818,122 @@
                 <div class="poll-actions">
                             <button class="submit-vote-btn" id="submit-vote-btn-1" data-poll-id="1" disabled>Submit Vote</button>
                             <div class="poll-timestamp">End Date: Sept 10, 2025 – 7:00 PM EST</div>
-                </div>
-            </div>
-        </div>
-                </div>
-                        </div>
                     </div>
-                    
-                        </div>
+                </div>
                     </div>
-                        </div>
+                </div>
                     </div>
                 </div>
                 
-        <!-- Voting History Section -->
+                    </div>
+                </div>
+                    </div>
+                    </div>
+                </div>
+                
+        <!-- Voting History Section - Matching Harvesting Design -->
         <div class="voting-history-section">
-            <div class="polls-container">
-                <h2 class="section-title">Voting History</h2>
-        <div class="completed-polls-section">
-            <div class="polls-spreadsheet-wrapper">
-                <div class="polls-spreadsheet">
+            <div class="voting-history-spreadsheet-container">
+                <!-- Professional Spreadsheet Header -->
                 <div class="spreadsheet-header">
-                    <div class="header-cell">Poll</div>
-                    <div class="header-cell">Option 1</div>
-                    <div class="header-cell">Option 2</div>
-                    <div class="header-cell">Option 3</div>
-                    <div class="header-cell">Total Votes</div>
-                    <div class="header-cell">Date</div>
+                    <h1>Voting History</h1>
+                    <div class="spreadsheet-controls">
+                        <select class="month-dropdown">
+                            <option value="2025-08">August 2025</option>
+                            <option value="2025-09" selected>September 2025</option>
+                            <option value="2025-10">October 2025</option>
+                            <option value="2025-11">November 2025</option>
+                            <option value="2025-12">December 2025</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Increase infra [temporarily]</div>
-                    <div class="data-cell poll-result">Yes 70%</div>
-                    <div class="data-cell poll-yes">No 30%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">103</div>
-                    <div class="data-cell poll-date">Sept 8, 2025</div>
-                </div>
+                <!-- Professional Spreadsheet -->
+                <div class="spreadsheet-wrapper">
+                    <div class="table-scroll-container">
+                        <table class="voting-history-spreadsheet">
+                            <thead>
+                                <tr class="spreadsheet-header-row">
+                                    <th class="col-poll">POLL</th>
+                                    <th class="col-option1">OPTION 1</th>
+                                    <th class="col-option2">OPTION 2</th>
+                                    <th class="col-option3">OPTION 3</th>
+                                    <th class="col-total">TOTAL VOTES</th>
+                                    <th class="col-date">DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                 
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Infra: 50%Safe, 25% Burn, 25% LP</div>
-                    <div class="data-cell poll-result">Yes 80%</div>
-                    <div class="data-cell poll-yes">No 20%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">65</div>
-                    <div class="data-cell poll-date">Aug 31, 2025</div>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Increase infra [temporarily]</td>
+                                    <td class="col-option1">Yes 70%</td>
+                                    <td class="col-option2">No 30%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">103</td>
+                                    <td class="col-date">Sept 8, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Infra: 50%Safe, 25% Burn, 25% LP</td>
+                                    <td class="col-option1">Yes 80%</td>
+                                    <td class="col-option2">No 20%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">65</td>
+                                    <td class="col-date">Aug 31, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Logo Image for Kimbos shorts</td>
+                                    <td class="col-option1">A 39%</td>
+                                    <td class="col-option2">B 61%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">87</td>
+                                    <td class="col-date">Aug 30, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Spaces with kimbo slice jr</td>
+                                    <td class="col-option1">Friday 52%</td>
+                                    <td class="col-option2">Saturday 37%</td>
+                                    <td class="col-option3">Sunday 11%</td>
+                                    <td class="col-total">93</td>
+                                    <td class="col-date">Aug 29, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Which website for Kimbo fight night?</td>
+                                    <td class="col-option1">.unstoppable 6%</td>
+                                    <td class="col-option2">.net 32%</td>
+                                    <td class="col-option3">imgsolana.com 62%</td>
+                                    <td class="col-total">82</td>
+                                    <td class="col-date">Aug 26, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Reward frequency</td>
+                                    <td class="col-option1">Every 6Hours 69%</td>
+                                    <td class="col-option2">Every Hour 31%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">140</td>
+                                    <td class="col-date">Aug 23, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">Update our branding</td>
+                                    <td class="col-option1">OG [IMG] 82%</td>
+                                    <td class="col-option2">Pixel Bunny 18%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">155</td>
+                                    <td class="col-date">Aug 22, 2025</td>
+                                </tr>
+                                <tr class="spreadsheet-row">
+                                    <td class="col-poll">view TG</td>
+                                    <td class="col-option1">Group 66%</td>
+                                    <td class="col-option2">Topics 34%</td>
+                                    <td class="col-option3">-</td>
+                                    <td class="col-total">119</td>
+                                    <td class="col-date">Aug 22, 2025</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Logo Image for Kimbos shorts</div>
-                    <div class="data-cell poll-result">A 39%</div>
-                    <div class="data-cell poll-yes">B 61%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">87</div>
-                    <div class="data-cell poll-date">Aug 30, 2025</div>
+                    </div>
                 </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Spaces with kimbo slice jr</div>
-                    <div class="data-cell poll-result">Friday 52%</div>
-                    <div class="data-cell poll-yes">Saturday 37%</div>
-                    <div class="data-cell poll-no">Sunday 11%</div>
-                    <div class="data-cell poll-votes">93</div>
-                    <div class="data-cell poll-date">Aug 29, 2025</div>
-                </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Which website for Kimbo fight night?</div>
-                    <div class="data-cell poll-result">.unstoppable 6%</div>
-                    <div class="data-cell poll-yes">.net 32%</div>
-                    <div class="data-cell poll-no">imgsolana.com 62%</div>
-                    <div class="data-cell poll-votes">82</div>
-                    <div class="data-cell poll-date">Aug 26, 2025</div>
-                </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Reward frequency</div>
-                    <div class="data-cell poll-result">Every 6Hours 69%</div>
-                    <div class="data-cell poll-yes">Every Hour 31%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">140</div>
-                    <div class="data-cell poll-date">Aug 23, 2025</div>
-                </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">Update our branding</div>
-                    <div class="data-cell poll-result">OG [IMG] 82%</div>
-                    <div class="data-cell poll-yes">Pixel Bunny 18%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">155</div>
-                    <div class="data-cell poll-date">Aug 22, 2025</div>
-                </div>
-                
-                <div class="spreadsheet-row">
-                    <div class="data-cell poll-question">view TG</div>
-                    <div class="data-cell poll-result">Group 66%</div>
-                    <div class="data-cell poll-yes">Topics 34%</div>
-                    <div class="data-cell poll-no"></div>
-                    <div class="data-cell poll-votes">119</div>
-                    <div class="data-cell poll-date">Aug 22, 2025</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
 `;class Re{constructor(){this.isConnected=!1,this.isPremium=!1,this.walletAddress="",this.requiredImgAmount=47500,this.imgTokenMint="znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh",this.solanaConnection=null,this.init()}init(){console.log("🔧 Initializing WalletManager..."),this.setupEventListeners(),this.initializeSolanaConnection()}initializeSolanaConnection(){try{if(typeof window<"u"&&window.solanaWeb3){const t=["https://mainnet.helius-rpc.com/?api-key=public","https://rpc.ankr.com/solana","https://solana-api.projectserum.com","https://api.mainnet-beta.solana.com"];this.solanaConnection=new window.solanaWeb3.Connection(t[0],"confirmed"),console.log("🌐 Solana connection initialized with Helius public RPC")}else console.log("⚠️ Solana Web3 not available, will use backup verification")}catch(t){console.error("❌ Failed to initialize Solana connection:",t)}}setupEventListeners(){console.log("🔧 Setting up wallet event listeners..."),setTimeout(()=>{window.walletClickHandler&&document.removeEventListener("click",window.walletClickHandler),window.walletClickHandler=t=>{const a=t.target.closest("[id], [data-provider]");if(!a)return;if(t.preventDefault(),t.stopPropagation(),a.id==="connect-wallet-btn"){console.log("🖱️ Wallet button clicked, current state:",this.isConnected),this.isConnected?this.disconnect():this.showWalletModal();return}if(a.id==="wallet-modal-close"){console.log("🖱️ Modal close clicked"),this.hideWalletModal();return}const i=a.getAttribute("data-provider");if(i==="phantom"){console.log("🖱️ Phantom provider clicked"),this.connectPhantom();return}if(i==="solflare"){console.log("🖱️ Solflare provider clicked"),this.connectSolflare();return}if(a.id==="wallet-modal"){console.log("🖱️ Modal background clicked"),this.hideWalletModal();return}},document.addEventListener("click",window.walletClickHandler),console.log("✅ Global wallet click handler attached")},50)}showWalletModal(){console.log("🔄 showWalletModal called");const t=document.getElementById("wallet-modal");if(t)console.log("✅ Modal found, showing..."),t.classList.add("show"),console.log("✅ Modal should now be visible");else{console.error("❌ Wallet modal not found in DOM!");const a=document.querySelectorAll(".wallet-modal");console.log("🔍 Found wallet-modal elements:",a.length)}}hideWalletModal(){const t=document.getElementById("wallet-modal");t&&t.classList.remove("show")}async connectPhantom(){console.log("🦄 Attempting Phantom connection...");try{if(!window.solana||!window.solana.isPhantom)throw new Error("Phantom wallet not found. Please install Phantom wallet extension.");this.showConnectingStatus();const a=(await window.solana.connect()).publicKey.toString();console.log("🦄 Phantom connected:",a),await this.handleWalletConnection(a,"Phantom")}catch(t){console.error("❌ Phantom connection failed:",t),this.showConnectionError(t.message)}}async connectSolflare(){console.log("🔥 Attempting Solflare connection...");try{if(!window.solflare||!window.solflare.isSolflare)throw new Error("Solflare wallet not found. Please install Solflare wallet extension.");this.showConnectingStatus();const a=(await window.solflare.connect()).publicKey.toString();console.log("🔥 Solflare connected:",a),await this.handleWalletConnection(a,"Solflare")}catch(t){console.error("❌ Solflare connection failed:",t),this.showConnectionError(t.message)}}async handleWalletConnection(t,a){try{console.log(`🔍 Verifying tokens for ${a}: ${t}`);const i=await this.verifyImgTokens(t),s=i>=this.requiredImgAmount;console.log(`   Token Balance: ${i}`),console.log(`   Required Amount: ${this.requiredImgAmount}`),console.log(`   Balance >= Required: ${i} >= ${this.requiredImgAmount} = ${s}`),console.log(`   Premium Access Granted: ${s?"YES ✅":"NO ❌"}`);let n=s;i>0&&i>=47500&&(n=!0,console.log("🎯 TESTING: Forcing premium access for wallets with 47,500+")),this.isConnected=!0,this.isPremium=n,this.walletAddress=t,d.isConnected=!0,d.isPremium=n,d.walletAddress=t,localStorage.setItem("walletConnected","true"),localStorage.setItem("walletAddress",t),localStorage.setItem("walletPremium",n.toString()),localStorage.setItem("walletProvider",a),this.hideWalletModal(),this.updateSidebar(),console.log(`✅ ${a} connected successfully!`),console.log(`💰 Balance: ${i.toLocaleString()} (Required: ${this.requiredImgAmount.toLocaleString()})`),console.log(`🌟 Final Premium Access: ${n?"YES ✅":"NO ❌"}`)}catch(i){console.error("❌ Failed to verify wallet:",i),this.showConnectionError("Failed to verify wallet. Please try again.")}}disconnect(){console.log("🔌 Disconnecting wallet..."),this.isConnected=!1,this.isPremium=!1,this.walletAddress="",d.isConnected=!1,d.isPremium=!1,d.walletAddress="",localStorage.removeItem("walletConnected"),localStorage.removeItem("walletAddress"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletProvider"),this.updateSidebar(),d.currentPage!=="dashboard"&&d.currentPage!=="metrics"&&p.redirect("/dashboard"),console.log("✅ Wallet disconnected successfully")}async verifyImgTokens(t){console.log("🔍 Verifying token balance for:",t);try{console.log("🔄 Checking balance via Render backend...");const a=await this.checkRenderBackend(t);return console.log(`✅ Token verification successful! Balance: ${a}`),a}catch(a){return console.error("❌ Render backend verification failed:",a.message),["8564VyMMrMQyFbJrLGLCvDhFBuHYwxysdXgX7zFC7oue"].includes(t)?(47500):(console.log("❌ Token verification failed, denying premium access"),0)}}async checkRenderBackend(t){console.log("🔄 Trying Render backend verification...");const a=await fetch("https://img-protocol-backend.onrender.com/api/check-img-tokens",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({walletAddress:t}),timeout:1e4});if(!a.ok)throw new Error(`Render backend error: ${a.status} ${a.statusText}`);const i=await a.json();return console.log("✅ Render backend verification successful:",i),i.imgTokenBalance||0}showConnectingStatus(){const t=document.getElementById("wallet-connection-status");t&&(t.style.display="block",t.innerHTML=`
                 <div class="connection-indicator">
                     <div class="loading-spinner"></div>
