@@ -3284,14 +3284,38 @@
     overflow-x: hidden;
 }
 
-/* Active Polls Section - Separate positioning */
-.active-polls-section {
+/* Voting Banner Section - Replacing Active Polls Section */
+.voting-banner-section {
     margin-top: 0px;
     margin-bottom: 20px;
     width: 100%;
     padding: 4px 8px 0px 8px;
     box-sizing: border-box;
     max-width: 100%;
+}
+
+/* Active Vote Badge - Modern Transparent Green */
+.active-vote-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.badge-text {
+    display: block;
+    line-height: 1;
 }
 
 /* Voting History Section - EXACT same positioning as active-polls-section */
@@ -4135,7 +4159,7 @@
     padding: 16px;
     backdrop-filter: blur(20px);
     width: 100%;
-    height: 340px; /* Increased to 340px for better screen utilization */
+    height: 430px; /* Adjusted to 430px per request */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -4158,7 +4182,7 @@
 .voting-history-spreadsheet-container .table-scroll-container {
     overflow: auto;
     flex: 1;
-    max-height: 240px; /* Increased scroll area for 340px container */
+    max-height: 330px; /* Adjusted scroll area for 430px container */
 }
 
 .voting-history-spreadsheet {
@@ -4189,7 +4213,7 @@
 
 .spreadsheet-row {
     transition: background-color 0.2s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: none;
 }
 
 .spreadsheet-row:hover {
@@ -4429,6 +4453,14 @@
         min-height: 200px;
     }
     
+    .active-vote-badge {
+        top: 12px;
+        left: 12px;
+        padding: 6px 12px;
+        font-size: 11px;
+        border-radius: 16px;
+    }
+    
     .poll-results {
         margin: 10px auto 20px auto;
         padding: 0 16px;
@@ -4471,35 +4503,69 @@
         font-size: 12px;
     }
     
-    /* Modern Mobile Voting Spreadsheet - Professional Design */
-    .polls-spreadsheet {
-        display: grid !important;
-        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr !important;
-        min-width: 1000px !important;
-        width: 100% !important;
-        gap: 0 !important;
-        row-gap: 0 !important;
-        column-gap: 0 !important;
-        align-items: stretch !important;
-        justify-items: stretch !important;
+    /* Mobile Voting History Spreadsheet - Matching Harvesting Design */
+    .voting-history-spreadsheet-container {
+        padding: 16px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 16px !important;
+        backdrop-filter: blur(20px) !important;
+    }
+    
+    .spreadsheet-header h1 {
+        font-size: 20px !important;
+    }
+    
+    .spreadsheet-header {
+        flex-direction: row !important;
+        gap: 16px;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    .spreadsheet-controls {
+        justify-content: flex-end !important;
+        gap: 8px !important;
+    }
+    
+    .month-dropdown {
+        min-width: 120px !important;
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        padding-right: 28px !important;
+    }
+    
+    .spreadsheet-wrapper {
+        border-radius: 12px;
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .voting-history-spreadsheet {
+        min-width: 800px !important;
+    }
+    
+    .table-scroll-container {
         overflow-x: auto !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
-        max-height: 300px;
     }
     
-    .polls-spreadsheet-wrapper {
-        border-radius: 16px;
-        overflow: hidden !important;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
-        border: 1px solid rgba(148, 163, 184, 0.1);
-        box-shadow: 
-            0 10px 25px rgba(0, 0, 0, 0.2),
-            0 4px 10px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+    .spreadsheet-header-row th,
+    .spreadsheet-row td {
+        padding: 12px 8px;
+        font-size: 12px;
     }
+    
+    .spreadsheet-header-row th {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+    
     
     
     .polls-spreadsheet .spreadsheet-header {

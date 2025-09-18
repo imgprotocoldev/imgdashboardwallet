@@ -1765,13 +1765,13 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
     <div class="vote-page">
-        <!-- Active Polls Section -->
-        <div class="active-polls-section">
-            <div class="polls-container">
-                <h2 class="section-title">Active Polls</h2>
-        <div class="active-polls-banner">
-            <!-- Professional Single Poll Banner -->
+        <!-- Voting Banner with Active Vote Badge -->
+        <div class="voting-banner-section">
             <div class="poll-banner-card" data-poll-id="1">
+                <!-- Active Vote Badge -->
+                <div class="active-vote-badge">
+                    <span class="badge-text">ACTIVE VOTE</span>
+                </div>
                 <div class="banner-background">
                     <div class="banner-image">
                         <div class="banner-overlay"></div>
@@ -1822,15 +1822,9 @@
                 </div>
                     </div>
                 </div>
-                    </div>
-                </div>
-                
-                    </div>
-                </div>
-                    </div>
-                    </div>
-                </div>
-                
+            </div>
+        </div>
+        
         <!-- Voting History Section - Matching Harvesting Design -->
         <div class="voting-history-section">
             <div class="voting-history-spreadsheet-container">
