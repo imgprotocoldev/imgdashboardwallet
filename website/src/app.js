@@ -1604,17 +1604,17 @@
                                 <input type="text" id="img-holdings" placeholder="1,000,000" value="1,000,000">
                                 <span class="input-unit">IMG</span>
                         </div>
-                        </div>
                     </div>
                     </div>
-                    
+                </div>
+                
                 <!-- Column 2: Short-term Earnings -->
                 <div class="earnings-section short-term">
                     <div class="earnings-item highlight">
                         <div class="earnings-label">Daily Earnings</div>
                         <div class="earnings-value" id="daily-earnings">$4.5000</div>
                         <div class="earnings-sol" id="daily-earnings-sol">0.0187 SOL</div>
-                        </div>
+                </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Weekly Earnings</div>
                         <div class="earnings-value" id="weekly-earnings">$31.5000</div>
@@ -1628,15 +1628,15 @@
                         <div class="earnings-label">Monthly Projection</div>
                         <div class="earnings-value" id="monthly-projection">$137.0200</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.5808 SOL</div>
-                </div>
+                        </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
                         <div class="earnings-value" id="annual-projection">$1,644.2000</div>
                         <div class="earnings-sol" id="annual-projection-sol">6.9699 SOL</div>
-            </div>
                     </div>
-                </div>
-                
+                        </div>
+                    </div>
+                    
                 <!-- Pool Stats Section -->
                 <div class="pool-stats-section">
                     <div class="stats-grid">
@@ -1650,9 +1650,9 @@
                             <div class="stat-content">
                                 <div class="stat-label">InfraWallet</div>
                                 <div class="stat-value" id="infra-wallet">$500.00</div>
-                        </div>
-                    </div>
-                        </div>
+                </div>
+                </div>
+            </div>
                     </div>
                 </div>
                 
@@ -1670,7 +1670,7 @@
                             <div class="header-cell">Earnings (SOL)</div>
                             <div class="header-cell">Rewards Pool</div>
                             <div class="header-cell">InfraWallet</div>
-                </div>
+                        </div>
                 
                         <div class="table-row">
                             <div class="cell type-cell">Daily</div>
@@ -1680,8 +1680,8 @@
                             <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
                             <div class="cell pool-cell" id="daily-pool">$2,500.00</div>
                             <div class="cell wallet-cell" id="daily-wallet">$125.00</div>
-            </div>
-
+                    </div>
+                    
                         <div class="table-row">
                             <div class="cell type-cell">Weekly</div>
                             <div class="cell volume-cell" id="weekly-volume">$700,000</div>
@@ -1690,7 +1690,7 @@
                             <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
                             <div class="cell pool-cell" id="weekly-pool">$17,500.00</div>
                             <div class="cell wallet-cell" id="weekly-wallet">$875.00</div>
-                    </div>
+                        </div>
 
                         <div class="table-row">
                             <div class="cell type-cell">Monthly</div>
@@ -1700,8 +1700,8 @@
                             <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
                             <div class="cell pool-cell" id="monthly-pool">$75,000.00</div>
                             <div class="cell wallet-cell" id="monthly-wallet">$3,750.00</div>
-                </div>
-                
+                    </div>
+                    
                         <div class="table-row">
                             <div class="cell type-cell">Annual</div>
                             <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
@@ -1720,8 +1720,8 @@
                             <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
                             <div class="cell pool-cell" id="year2-pool">$1,825,000.00</div>
                             <div class="cell wallet-cell" id="year2-wallet">$91,250.00</div>
-                    </div>
-                    
+                </div>
+                
                         <div class="table-row">
                             <div class="cell type-cell">3 Years</div>
                             <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
@@ -1730,17 +1730,17 @@
                             <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
                             <div class="cell pool-cell" id="year3-pool">$2,737,500.00</div>
                             <div class="cell wallet-cell" id="year3-wallet">$136,875.00</div>
-                        </div>
-                    </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
                 
                 <!-- Footer -->
                 <div class="rewards-footer">
                     <p>All monetary values are calculated in US Dollars (USD) • Real-time data from DexScreener & CoinGecko • SOL: <span id="sol-price">$235.90</span> • IMG Supply: 998,968,783</p>
-                </div>
-                
-                </div>
+                    </div>
+                    
+                        </div>
 `,Te=()=>`
     <!-- Mobile Header -->
     <div class="mobile-header">
@@ -1749,8 +1749,8 @@
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
                     <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
-            </div>
-        </div>
+                    </div>
+                        </div>
             <div class="mobile-header-right">
                 <button class="burger-menu-btn" id="mobile-menu-btn">
                     <div class="burger-line"></div>
@@ -1758,9 +1758,9 @@
                     <div class="burger-line"></div>
                 </button>
                 </div>
-                        </div>
                     </div>
-                    
+                </div>
+                
     <!-- Sidebar Overlay for Mobile -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     
@@ -1771,12 +1771,12 @@
                 <!-- Active Vote Badge -->
                 <div class="active-vote-badge">
                     <span class="badge-text">ACTIVE VOTE</span>
-                </div>
+                    </div>
                 <div class="banner-background">
                     <div class="banner-image">
                         <div class="banner-overlay"></div>
-                        </div>
                     </div>
+                </div>
                     
                 <div class="banner-content">
                     <div class="banner-left-section">
@@ -1785,13 +1785,13 @@
                         <div class="banner-explanation">
                             <p>This is the first edition of the IMG Dashboard, and your feedback will guide Version 2. Planned upgrades include improved design and colors, a more professional look, correct formatting on all devices, and new pages with deeper insights.</p>
                             <p>If you're happy with the current version, let us know! If not, your vote will help shape the improvements.</p>
-                    </div>
-                </div>
-                
+            </div>
+        </div>
+        
                     <div class="banner-voting-section">
                 <div class="poll-options-container">
                         <div class="voting-header">
-                    </div>
+                </div>
                         <div class="poll-options" id="poll-options-1">
                     <div class="poll-option" data-option="option1">
                         <div class="option-selector">
@@ -1799,18 +1799,18 @@
                     </div>
                                 <span class="option-text">Enjoying the Dashboard</span>
                 </div>
-                    
+                
                     <div class="poll-option" data-option="option2">
                         <div class="option-selector">
                             <div class="option-circle"></div>
-            </div>
+                    </div>
                                 <span class="option-text">Just Okay</span>
-        </div>
-        
+                </div>
+                
                     <div class="poll-option" data-option="option3">
                         <div class="option-selector">
                             <div class="option-circle"></div>
-                </div>
+                    </div>
                         <span class="option-text">This is bad</span>
                     </div>
                 </div>
@@ -1822,9 +1822,9 @@
                 </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
+                    </div>
+                </div>
+                
         <!-- Voting History Section - Matching Harvesting Design -->
         <div class="voting-history-section">
             <div class="voting-history-spreadsheet-container">
@@ -1833,8 +1833,9 @@
                     <h1>Voting History</h1>
                     <div class="spreadsheet-controls">
                         <select class="month-dropdown">
+                            <option value="all" selected>All</option>
                             <option value="2025-08">August 2025</option>
-                            <option value="2025-09" selected>September 2025</option>
+                            <option value="2025-09">September 2025</option>
                             <option value="2025-10">October 2025</option>
                             <option value="2025-11">November 2025</option>
                             <option value="2025-12">December 2025</option>
@@ -2832,6 +2833,90 @@ function setupEventsScrollers() {
     });
 }
 
+// Setup month filter for Voting History spreadsheet
+function setupVotingHistoryFilter() {
+    const container = document.querySelector('.voting-history-section');
+    if (!container) return;
+
+    const dropdown = container.querySelector('.month-dropdown');
+    const table = container.querySelector('.voting-history-spreadsheet');
+    if (!dropdown || !table) return;
+
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    // Ensure an empty-state element exists
+    const ensureEmptyState = () => {
+        let el = container.querySelector('.voting-history-empty');
+        if (!el) {
+            el = document.createElement('div');
+            el.className = 'voting-history-empty';
+            el.textContent = 'No results for this month';
+            // Minimal inline styling for immediate UX without CSS dependency
+            el.style.display = 'none';
+            el.style.padding = '12px 8px';
+            el.style.textAlign = 'center';
+            el.style.color = 'var(--text-secondary)';
+            el.style.fontSize = '13px';
+            el.style.borderTop = '1px solid rgba(255, 255, 255, 0.08)';
+            const wrapper = container.querySelector('.spreadsheet-wrapper');
+            if (wrapper) {
+                wrapper.appendChild(el);
+            } else {
+                container.appendChild(el);
+            }
+        }
+        return el;
+    };
+
+    const getMonthKey = (dateText) => {
+        // Expect dates like "Sept 8, 2025", "Aug 31, 2025", "September 8, 2025", "August 31, 2025"
+        // Normalize month names and map to 01-12
+        const monthMap = {
+            january: '01', jan: '01', february: '02', feb: '02', march: '03', mar: '03', 
+            april: '04', apr: '04', may: '05', june: '06', jun: '06',
+            july: '07', jul: '07', august: '08', aug: '08', september: '09', sept: '09', 
+            october: '10', oct: '10', november: '11', nov: '11', december: '12', dec: '12'
+        };
+        const parts = dateText.trim().replace(/,/g, '').split(/\s+/); // [Month, Day, Year]
+        if (parts.length < 3) return null;
+        const monthName = parts[0].toLowerCase();
+        const year = parts[2];
+        const mm = monthMap[monthName];
+        if (!mm) return null;
+        return `${year}-${mm}`;
+    };
+
+    const applyFilter = () => {
+        const selected = dropdown.value; // e.g., "2025-09" or "all"
+        const rows = Array.from(tbody.querySelectorAll('tr.spreadsheet-row'));
+        let matchCount = 0;
+        rows.forEach((row) => {
+            const dateCell = row.querySelector('td.col-date');
+            if (!dateCell) return;
+            
+            // If "all" is selected, show all rows
+            if (selected === 'all') {
+                row.style.display = '';
+                matchCount++;
+                return;
+            }
+            
+            // Otherwise filter by month
+            const key = getMonthKey(dateCell.textContent || '');
+            const match = key === selected;
+            row.style.display = match ? '' : 'none';
+            if (match) matchCount++;
+        });
+        const empty = ensureEmptyState();
+        empty.style.display = matchCount === 0 ? 'block' : 'none';
+    };
+
+    // Bind and apply once on load
+    dropdown.addEventListener('change', applyFilter);
+    applyFilter();
+}
+
 
 // Old simple voting system removed - using new professional system instead
 
@@ -2975,6 +3060,9 @@ async function initializeVotingSystem() {
         
         // Update UI for current wallet
         await updatePollStates();
+
+        // Setup voting history month filter (scoped to voting page)
+        setupVotingHistoryFilter();
         
     } catch (error) {
         console.error('❌ Failed to initialize voting system:', error);
