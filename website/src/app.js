@@ -1583,7 +1583,7 @@
         <div class="calculator-section">
             <!-- Calculator Title -->
             <div class="calculator-title">
-                <h2>IMG REWARDS CALCULATOR</h2>
+                <h2>Reward Calculator</h2>
                 </div>
                 
             <!-- Modern Calculator Controls - 3 Column Layout -->
