@@ -116,7 +116,7 @@
                     <div class="banner-header">
                         <span class="banner-title">Premium Dashboard</span>
                     </div>
-                    <div class="banner-subtitle">Must hold 50k</div>
+                    <div class="banner-subtitle">Must hold 50k IMG</div>
                     <div class="banner-action">Connect Wallet to unlock</div>
                 </div>
             `}
