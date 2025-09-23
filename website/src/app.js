@@ -247,7 +247,7 @@
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="weeklyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
-                                        <path d="M 35 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
+                                        <path d="M 0 0 L 35 0" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
                                     </pattern>
                                 </defs>
                                 
@@ -321,7 +321,7 @@
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="monthlyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
-                                        <path d="M 35 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
+                                        <path d="M 0 0 L 35 0" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
                                     </pattern>
                                 </defs>
                                 
@@ -361,8 +361,8 @@
                                 <!-- Gradients -->
                                 <defs>
                                     <linearGradient id="monthlyBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
                                     </linearGradient>
                                 </defs>
                                 </svg>
@@ -395,7 +395,7 @@
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="monthlyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
-                                        <path d="M 35 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
+                                        <path d="M 0 0 L 35 0" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
                                     </pattern>
                                 </defs>
                                 
