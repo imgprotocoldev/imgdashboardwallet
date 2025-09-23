@@ -377,11 +377,11 @@
                     </div>
                 </div>
 
-                <!-- Process Line Chart -->
+                <!-- Monthly Rewards Chart -->
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3 class="chart-title">PROCESS LINE</h3>
-                        <select class="chart-dropdown" id="process-dropdown">
+                        <h3 class="chart-title">MONTHLY REWARDS</h3>
+                        <select class="chart-dropdown" id="monthly-rewards-dropdown">
                             <option value="q1-2025">Q1 2025</option>
                             <option value="q2-2025">Q2 2025</option>
                             <option value="q3-2025">Q3 2025</option>
@@ -390,17 +390,17 @@
                     </div>
                     <div class="chart-content">
                         <div class="chart-inner-box">
-                            <div class="professional-chart" id="process-chart">
+                            <div class="professional-chart" id="monthly-chart">
                                 <svg viewBox="0 0 420 260" class="chart-svg" preserveAspectRatio="xMinYMin meet">
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
-                                    <pattern id="processGrid" width="35" height="20" patternUnits="userSpaceOnUse">
+                                    <pattern id="monthlyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
                                         <path d="M 35 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
                                     </pattern>
                                 </defs>
                                 
                                 <!-- Grid background starting from axes -->
-                                <rect x="40" y="20" width="360" height="200" fill="url(#processGrid)" />
+                                <rect x="40" y="20" width="360" height="200" fill="url(#monthlyGrid)" />
                                 
                                 <!-- Y-Axis -->
                                 <line x1="40" y1="20" x2="40" y2="220" stroke="rgba(148, 163, 184, 0.6)" stroke-width="2"/>
@@ -408,53 +408,41 @@
                                 <!-- X-Axis -->
                                 <line x1="40" y1="220" x2="400" y2="220" stroke="rgba(148, 163, 184, 0.6)" stroke-width="2"/>
                                 
-                                <!-- Y-Axis Labels - Expanded spacing for better visibility -->
-                                <text x="35" y="25" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">30k</text>
-                                <text x="35" y="58" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">25k</text>
-                                <text x="35" y="91" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">20k</text>
-                                <text x="35" y="124" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">15k</text>
-                                <text x="35" y="157" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">10k</text>
-                                <text x="35" y="190" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">5k</text>
+                                <!-- Y-Axis Labels - Monthly scale (max 300k) -->
+                                <text x="35" y="25" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">300k</text>
+                                <text x="35" y="58" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">250k</text>
+                                <text x="35" y="91" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">200k</text>
+                                <text x="35" y="124" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">150k</text>
+                                <text x="35" y="157" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">100k</text>
+                                <text x="35" y="190" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">50k</text>
                                 <text x="35" y="224" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">0</text>
                                 
-                                <!-- Line Chart - Smooth curve with expanded positioning -->
-                                <polyline 
-                                    fill="none" 
-                                    stroke="url(#lineGradient)" 
-                                    stroke-width="7" 
-                                    points="72,190 152,124 232,157 312,20 372,75"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                                
-                                <!-- Data Points - Bigger dots with expanded positioning -->
-                                <circle cx="72" cy="190" r="9" fill="#f59e0b" class="chart-dot" data-value="12000" data-label="May"/>
-                                <circle cx="152" cy="124" r="9" fill="#f59e0b" class="chart-dot" data-value="21000" data-label="Jun"/>
-                                <circle cx="232" cy="157" r="9" fill="#f59e0b" class="chart-dot" data-value="18000" data-label="Jul"/>
-                                <circle cx="312" cy="20" r="9" fill="#f59e0b" class="chart-dot" data-value="30000" data-label="Aug"/>
-                                <circle cx="372" cy="75" r="9" fill="#f59e0b" class="chart-dot" data-value="27000" data-label="Sep"/>
+                                <!-- Data Bars - Monthly Rewards (values out of 300k max) -->
+                                <rect x="65" y="120" width="65" height="100" fill="url(#monthlyBarGradient)" class="chart-bar" data-value="150000" data-label="Jan"/>
+                                <rect x="155" y="70" width="65" height="150" fill="url(#monthlyBarGradient)" class="chart-bar" data-value="225000" data-label="Feb"/>
+                                <rect x="245" y="95" width="65" height="125" fill="url(#monthlyBarGradient)" class="chart-bar" data-value="187500" data-label="Mar"/>
+                                <rect x="335" y="20" width="65" height="200" fill="url(#monthlyBarGradient)" class="chart-bar" data-value="300000" data-label="Apr"/>
                                 
                                 <!-- X-Axis Labels -->
-                                <text x="72" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">May</text>
-                                <text x="152" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jun</text>
-                                <text x="232" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jul</text>
-                                <text x="312" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Aug</text>
-                                <text x="372" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Sep</text>
+                                <text x="97" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jan</text>
+                                <text x="187" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Feb</text>
+                                <text x="277" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Mar</text>
+                                <text x="367" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Apr</text>
                                 
                                 <!-- Watermark larger and centered -->
                                 <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
                                 
                                 <!-- Gradients -->
                                 <defs>
-                                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                                    <linearGradient id="monthlyBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
                                     </linearGradient>
                                 </defs>
                                 </svg>
                                 
                                 <!-- Hover Tooltip -->
-                                <div class="chart-tooltip" id="process-tooltip">
+                                <div class="chart-tooltip" id="monthly-tooltip">
                                     <div class="tooltip-label"></div>
                                     <div class="tooltip-value"></div>
                                 </div>
@@ -462,6 +450,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -553,8 +542,91 @@
             </div>
         </div>
 
-
-
+        <!-- Process Line Chart -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 class="chart-title">PROCESS LINE</h3>
+                <select class="chart-dropdown" id="process-dropdown">
+                    <option value="q1-2025">Q1 2025</option>
+                    <option value="q2-2025">Q2 2025</option>
+                    <option value="q3-2025">Q3 2025</option>
+                    <option value="q4-2025">Q4 2025</option>
+                </select>
+            </div>
+            <div class="chart-content">
+                <div class="chart-inner-box">
+                    <div class="professional-chart" id="process-chart">
+                        <svg viewBox="0 0 420 260" class="chart-svg" preserveAspectRatio="xMinYMin meet">
+                        <!-- Grid Lines positioned from axes -->
+                        <defs>
+                            <pattern id="processGrid" width="35" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 35 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.06)" stroke-width="1"/>
+                            </pattern>
+                        </defs>
+                        
+                        <!-- Grid background starting from axes -->
+                        <rect x="40" y="20" width="360" height="200" fill="url(#processGrid)" />
+                        
+                        <!-- Y-Axis -->
+                        <line x1="40" y1="20" x2="40" y2="220" stroke="rgba(148, 163, 184, 0.6)" stroke-width="2"/>
+                        
+                        <!-- X-Axis -->
+                        <line x1="40" y1="220" x2="400" y2="220" stroke="rgba(148, 163, 184, 0.6)" stroke-width="2"/>
+                        
+                        <!-- Y-Axis Labels - Expanded spacing for better visibility -->
+                        <text x="35" y="25" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">30k</text>
+                        <text x="35" y="58" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">25k</text>
+                        <text x="35" y="91" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">20k</text>
+                        <text x="35" y="124" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">15k</text>
+                        <text x="35" y="157" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">10k</text>
+                        <text x="35" y="190" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">5k</text>
+                        <text x="35" y="224" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">0</text>
+                        
+                        <!-- Line Chart - Smooth curve with expanded positioning -->
+                        <polyline 
+                            fill="none" 
+                            stroke="url(#lineGradient)" 
+                            stroke-width="7" 
+                            points="72,190 152,124 232,157 312,20 372,75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        
+                        <!-- Data Points - Bigger dots with expanded positioning -->
+                        <circle cx="72" cy="190" r="9" fill="#f59e0b" class="chart-dot" data-value="12000" data-label="May"/>
+                        <circle cx="152" cy="124" r="9" fill="#f59e0b" class="chart-dot" data-value="21000" data-label="Jun"/>
+                        <circle cx="232" cy="157" r="9" fill="#f59e0b" class="chart-dot" data-value="18000" data-label="Jul"/>
+                        <circle cx="312" cy="20" r="9" fill="#f59e0b" class="chart-dot" data-value="30000" data-label="Aug"/>
+                        <circle cx="372" cy="75" r="9" fill="#f59e0b" class="chart-dot" data-value="27000" data-label="Sep"/>
+                        
+                        <!-- X-Axis Labels -->
+                        <text x="72" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">May</text>
+                        <text x="152" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jun</text>
+                        <text x="232" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jul</text>
+                        <text x="312" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Aug</text>
+                        <text x="372" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Sep</text>
+                        
+                        <!-- Watermark larger and centered -->
+                        <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
+                        
+                        <!-- Gradients -->
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        </svg>
+                        
+                        <!-- Hover Tooltip -->
+                        <div class="chart-tooltip" id="process-tooltip">
+                            <div class="tooltip-label"></div>
+                            <div class="tooltip-value"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 `;function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)}`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color");z();const n=document.createElement("div");n.id="donut-tooltip",n.className="donut-tooltip",n.innerHTML=`
@@ -4815,9 +4887,13 @@ const observer = new MutationObserver((mutations) => {
 observer.observe(document.body, { childList: true, subtree: true });
 
 // Also initialize on page load
+
+// (removed) No custom tooltip code; rely on original dashboard tooltip system
+
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         initializeVotingSystem();
+        // tooltips handled by existing dashboard code
     }, 1000);
 });
 
