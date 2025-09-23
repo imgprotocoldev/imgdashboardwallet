@@ -736,24 +736,21 @@
         }
 
         .metric-card {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
-            border: 1px solid rgba(51, 65, 85, 0.4) !important;
-            border-radius: 8px !important; /* Smaller border radius for sleeker look */
-            padding: 12px 8px !important; /* Even more compact padding for thinner container */
+            background: rgba(30, 41, 59, 0.15) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            border-radius: 16px !important;
+            padding: 12px 12px !important;
             text-align: center !important;
             position: relative !important;
             overflow: hidden !important;
-            min-height: auto !important; /* Allow natural height */
+            min-height: auto !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
         }
 
         .metric-card::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            height: 2px !important; /* Thinner accent line */
-            background: linear-gradient(90deg, #3b82f6, #06b6d4) !important;
+            display: none !important;
         }
 
         .metric-label {
@@ -878,29 +875,30 @@
         }
 
         .chart-dropdown {
-            background: rgba(255, 255, 255, 0.08) !important;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            border-radius: 8px !important;
+            background: rgba(17, 24, 39, 0.35) !important; /* darker glass */
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            border-radius: 0 !important; /* square edges */
             padding: 8px 14px !important;
-            color: #f8fafc !important;
+            color: #e5e7eb !important;
             font-size: 11px !important;
             font-weight: 600 !important;
             cursor: pointer !important;
-            transition: all 0.2s ease !important;
+            transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
         }
 
         .chart-dropdown:hover {
-            background: rgba(255, 255, 255, 0.12) !important;
-            border-color: rgba(59, 130, 246, 0.4) !important;
-            transform: translateY(-1px) !important;
+            background: rgba(17, 24, 39, 0.45) !important;
+            border-color: rgba(59, 130, 246, 0.35) !important;
+            transform: none !important; /* no movement */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15) inset !important;
         }
 
         .chart-dropdown:focus {
             outline: none !important;
             border-color: rgba(59, 130, 246, 0.6) !important;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
         }
 
         .chart-content {
