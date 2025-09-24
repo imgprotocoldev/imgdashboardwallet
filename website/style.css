@@ -437,11 +437,13 @@
     min-width: calc(33.333% - 14px);
     max-width: calc(33.333% - 14px);
     flex-shrink: 0;
-    background: linear-gradient(135deg, #1e293b, #334155);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    background: rgba(30, 41, 59, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
     padding: 28px;
-    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     transition: all 0.3s ease;
     min-height: 340px;
     position: relative;
@@ -638,11 +640,13 @@
     grid-template-columns: 1fr 1.2fr;
     gap: 16px;
     align-items: center;
-    background: linear-gradient(135deg, #1e293b, #334155);
-    border: 1px solid rgba(51, 65, 85, 0.5);
-    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
     padding: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     min-height: 130px;
 }
 
@@ -833,17 +837,18 @@
     grid-template-columns: 160px 1fr;
     gap: 20px;
     align-items: stretch;
-    background: linear-gradient(135deg, #1e293b, #334155);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 20px;
+    background: rgba(30, 41, 59, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
     padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
     min-height: 200px;
 }
 
@@ -1053,15 +1058,17 @@
 
 
 /* Featured Event Card Styles */
-.featured-event-card {
-    position: relative;
-    z-index: 2;
+    .featured-event-card {
+        position: relative;
+        z-index: 2;
         padding: 16px;
-    background: linear-gradient(135deg, #1e293b, #334155);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    backdrop-filter: blur(20px);
-}
+        background: rgba(30, 41, 59, 0.15) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    }
 
 
 
@@ -1537,10 +1544,13 @@
         scroll-snap-align: start;
         padding: 18px;
         min-height: 360px;
-        border-radius: 16px;
+        border-radius: 16px !important;
         box-sizing: border-box;
-        background: linear-gradient(135deg, #1e293b, #334155);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 41, 59, 0.15) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
         display: flex;
         flex-direction: column;
         gap: 16px;

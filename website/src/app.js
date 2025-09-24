@@ -696,7 +696,7 @@
                             <div class="pool-row">
                                 <div class="pool-name">IMG/SOL</div>
                                 <div class="pool-volume">$47.2K</div>
-                            </div>
+    </div>
                             <div class="pool-row">
                                 <div class="pool-name">IMG/USDC</div>
                                 <div class="pool-volume">$23.8K</div>
