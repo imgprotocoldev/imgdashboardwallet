@@ -243,7 +243,7 @@
                     <div class="chart-content">
                         <div class="chart-inner-box">
                             <div class="professional-chart" id="weekly-chart">
-                                <svg viewBox="0 0 420 260" class="chart-svg" preserveAspectRatio="xMinYMin meet">
+                                <svg viewBox="0 0 420 240" class="chart-svg" preserveAspectRatio="xMinYMin meet">
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="weeklyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
@@ -317,7 +317,7 @@
                     <div class="chart-content">
                         <div class="chart-inner-box">
                             <div class="professional-chart" id="monthly-chart">
-                                <svg viewBox="0 0 420 260" class="chart-svg" preserveAspectRatio="xMinYMin meet">
+                                <svg viewBox="0 0 420 240" class="chart-svg" preserveAspectRatio="xMinYMin meet">
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="monthlyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
@@ -391,7 +391,7 @@
                     <div class="chart-content">
                         <div class="chart-inner-box">
                             <div class="professional-chart" id="monthly-chart">
-                                <svg viewBox="0 0 420 260" class="chart-svg" preserveAspectRatio="xMinYMin meet">
+                                <svg viewBox="0 0 420 240" class="chart-svg" preserveAspectRatio="xMinYMin meet">
                                 <!-- Grid Lines positioned from axes -->
                                 <defs>
                                     <pattern id="monthlyGrid" width="35" height="20" patternUnits="userSpaceOnUse">
