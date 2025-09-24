@@ -1351,11 +1351,11 @@
             color: #94a3b8 !important;
         }
 
-        /* 24H Stats Styling - Compact */
+        /* 24H Stats Styling - Enhanced */
         .stats-breakdown {
             display: flex !important;
             flex-direction: column !important;
-            gap: 12px !important;
+            gap: 16px !important;
             width: 100% !important;
             padding: 15px 0 0 0 !important;
         }
@@ -1364,28 +1364,30 @@
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            margin-bottom: 6px !important;
+            margin-bottom: 8px !important;
         }
 
         .stats-item {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
+            flex: 1 !important;
         }
 
         .stats-label {
-            font-size: 10px !important;
+            font-size: 11px !important;
             color: #94a3b8 !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            margin-bottom: 3px !important;
+            letter-spacing: 0.08em !important;
+            margin-bottom: 6px !important;
         }
 
         .stats-value {
-            font-size: 14px !important;
-            font-weight: 700 !important;
+            font-size: 16px !important;
+            font-weight: 800 !important;
             font-family: 'JetBrains Mono', monospace !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
         }
 
         .buys-value {
@@ -1398,23 +1400,28 @@
 
         .stats-bar {
             width: 100% !important;
-            height: 6px !important;
-            background: rgba(30, 41, 59, 0.4) !important;
-            border-radius: 3px !important;
+            height: 8px !important;
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-radius: 4px !important;
             overflow: hidden !important;
             display: flex !important;
+            margin-top: 0px !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
         }
 
         .stats-bar-fill {
             height: 100% !important;
+            transition: width 0.3s ease !important;
         }
 
         .buys-bar {
-            background: #10b981 !important;
+            background: linear-gradient(90deg, #10b981, #059669) !important;
+            box-shadow: 0 1px 2px rgba(16, 185, 129, 0.3) !important;
         }
 
         .sells-bar {
-            background: #ef4444 !important;
+            background: linear-gradient(90deg, #ef4444, #dc2626) !important;
+            box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3) !important;
         }
 
         /* Pools Breakdown Styling - Clean Integration */
@@ -1423,20 +1430,20 @@
             flex-direction: column !important;
             gap: 0 !important;
             width: 100% !important;
-            padding: 15px 0 0 0 !important;
+            padding: 10px 0 0 0 !important;
         }
 
         .pool-header-row {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 12px 0 !important;
+            padding: 8px 0 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-            margin-bottom: 8px !important;
+            margin-bottom: 6px !important;
         }
 
         .pool-header-label {
-            font-size: 11px !important;
+            font-size: 12px !important;
             color: #94a3b8 !important;
             font-weight: 700 !important;
             font-family: 'JetBrains Mono', monospace !important;
@@ -1448,7 +1455,7 @@
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 10px 0 !important;
+            padding: 8px 0 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         }
 
@@ -1457,17 +1464,19 @@
         }
 
         .pool-name {
-            font-size: 14px !important;
+            font-size: 16px !important;
             color: #ffffff !important;
-            font-weight: 700 !important;
+            font-weight: 800 !important;
             font-family: 'JetBrains Mono', monospace !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
         }
 
         .pool-volume {
-            font-size: 14px !important;
+            font-size: 16px !important;
             color: #10b981 !important;
-            font-weight: 700 !important;
+            font-weight: 800 !important;
             font-family: 'JetBrains Mono', monospace !important;
+            text-shadow: 0 1px 2px rgba(16, 185, 129, 0.3) !important;
         }
 
         /* Empty Placeholder Styling */
