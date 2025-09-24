@@ -610,12 +610,120 @@
                                 <div class="tooltip-label"></div>
                                 <div class="tooltip-value"></div>
                                 </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+        <!-- Additional Stats Section -->
+        <div class="additional-stats-grid">
+            <!-- Box 4: 24H Stats -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">24H STATS</h3>
+                </div>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="stats-breakdown">
+                            <!-- Buys vs Sells Count -->
+                            <div class="stats-row">
+                                <div class="stats-item">
+                                    <div class="stats-label">BUYS</div>
+                                    <div class="stats-value buys-value">238</div>
+            </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">SELLS</div>
+                                    <div class="stats-value sells-value">176</div>
+                                </div>
+                            </div>
+                            <div class="stats-bar">
+                                <div class="stats-bar-fill buys-bar" style="width: 57.5%"></div>
+                                <div class="stats-bar-fill sells-bar" style="width: 42.5%"></div>
+        </div>
+
+                            <!-- Buy Vol vs Sell Vol -->
+                            <div class="stats-row">
+                                <div class="stats-item">
+                                    <div class="stats-label">BUY VOL</div>
+                                    <div class="stats-value buys-value">$29K</div>
+                                </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">SELL VOL</div>
+                                    <div class="stats-value sells-value">$18K</div>
+                                </div>
+                            </div>
+                            <div class="stats-bar">
+                                <div class="stats-bar-fill buys-bar" style="width: 61.7%"></div>
+                                <div class="stats-bar-fill sells-bar" style="width: 38.3%"></div>
+                            </div>
+
+                            <!-- Buyers vs Sellers -->
+                            <div class="stats-row">
+                                <div class="stats-item">
+                                    <div class="stats-label">BUYERS</div>
+                                    <div class="stats-value buys-value">119</div>
+                                </div>
+                                <div class="stats-item">
+                                    <div class="stats-label">SELLERS</div>
+                                    <div class="stats-value sells-value">64</div>
+                                </div>
+                            </div>
+                            <div class="stats-bar">
+                                <div class="stats-bar-fill buys-bar" style="width: 65.0%"></div>
+                                <div class="stats-bar-fill sells-bar" style="width: 35.0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 5: Top Pools -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">TOP POOLS</h3>
+                </div>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="pools-breakdown">
+                            <!-- Header Row -->
+                            <div class="pool-header-row">
+                                <div class="pool-header-label">POOL</div>
+                                <div class="pool-header-label">24H VOLUME</div>
+                            </div>
+                            
+                            <!-- Data Rows -->
+                            <div class="pool-row">
+                                <div class="pool-name">IMG/SOL</div>
+                                <div class="pool-volume">$47.2K</div>
+                            </div>
+                            <div class="pool-row">
+                                <div class="pool-name">IMG/USDC</div>
+                                <div class="pool-volume">$23.8K</div>
+                            </div>
+                            <div class="pool-row">
+                                <div class="pool-name">IMG/BON</div>
+                                <div class="pool-volume">$12.4K</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 6: Empty for now -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">COMING SOON</h3>
+    </div>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="empty-placeholder">
+                            <div class="placeholder-text">More features coming soon...</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
     </div>
 `;function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)}`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color")||"#3b82f6";console.log("🎨 Donut tooltip color:",s,"for label:",a);z();const n=document.createElement("div");n.id="donut-tooltip",n.className="chart-tooltip",n.innerHTML=`

@@ -875,6 +875,28 @@
             }
         }
 
+        /* Additional Stats Grid Layout */
+        .additional-stats-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px !important; /* Match charts-grid gap for consistent sizing */
+            margin-bottom: 24px !important;
+        }
+
+        @media (max-width: 1200px) {
+            .additional-stats-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important; /* Match charts-grid gap */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .additional-stats-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important; /* Match charts-grid gap */
+            }
+        }
+
         .chart-header {
             display: flex !important;
             justify-content: space-between !important;
@@ -1327,6 +1349,142 @@
         .daily-chart-placeholder {
             text-align: center !important;
             color: #94a3b8 !important;
+        }
+
+        /* 24H Stats Styling - Compact */
+        .stats-breakdown {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+            width: 100% !important;
+            padding: 15px 0 0 0 !important;
+        }
+
+        .stats-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 6px !important;
+        }
+
+        .stats-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .stats-label {
+            font-size: 10px !important;
+            color: #94a3b8 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            margin-bottom: 3px !important;
+        }
+
+        .stats-value {
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .buys-value {
+            color: #ffffff !important;
+        }
+
+        .sells-value {
+            color: #ef4444 !important;
+        }
+
+        .stats-bar {
+            width: 100% !important;
+            height: 6px !important;
+            background: rgba(30, 41, 59, 0.4) !important;
+            border-radius: 3px !important;
+            overflow: hidden !important;
+            display: flex !important;
+        }
+
+        .stats-bar-fill {
+            height: 100% !important;
+        }
+
+        .buys-bar {
+            background: #10b981 !important;
+        }
+
+        .sells-bar {
+            background: #ef4444 !important;
+        }
+
+        /* Pools Breakdown Styling - Clean Integration */
+        .pools-breakdown {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0 !important;
+            width: 100% !important;
+            padding: 15px 0 0 0 !important;
+        }
+
+        .pool-header-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 12px 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            margin-bottom: 8px !important;
+        }
+
+        .pool-header-label {
+            font-size: 11px !important;
+            color: #94a3b8 !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+        }
+
+        .pool-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .pool-row:last-child {
+            border-bottom: none !important;
+        }
+
+        .pool-name {
+            font-size: 14px !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .pool-volume {
+            font-size: 14px !important;
+            color: #10b981 !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        /* Empty Placeholder Styling */
+        .empty-placeholder {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        .placeholder-text {
+            color: #64748b !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            opacity: 0.7 !important;
         }
 
         .daily-chart-placeholder h4 {
@@ -2045,7 +2203,7 @@ o        /* Logo sizing moved to CSS file to prevent conflicts */
             color: #6b7280 !important;
         }
     </style>
-  <script type="module" crossorigin src="/assets/main-CQUwrKBQ.js"></script>
+  <script type="module" crossorigin src="/assets/main-Am1I3z4F.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-bTXf1bJM.css">
 </head>
 <body>
