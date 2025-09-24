@@ -456,68 +456,80 @@
 
         <!-- Annual Rewards Section - Individual Glass Containers -->
         <div class="annual-rewards-grid">
-            <!-- Box 1: Breakdown Data -->
+                    <!-- Box 1: Breakdown Data -->
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">BREAKDOWN DATA</h3>
+                    <select class="chart-dropdown" id="breakdown-dropdown">
+                        <option value="yearly" selected>Yearly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="daily">Daily</option>
+                    </select>
                 </div>
                 <div class="chart-content">
                     <div class="chart-inner-box">
-                        <div class="daily-breakdown">
-                            <div class="daily-breakdown-item">
-                                <div class="daily-breakdown-label">
-                                    <div class="daily-color-dot" style="background: #10b981;"></div>
-                                    <span>TREASURY INFLOW</span>
+                            <div class="daily-breakdown">
+                                <div class="daily-breakdown-item">
+                                    <div class="daily-breakdown-label">
+                                        <div class="daily-color-dot" style="background: #10b981;"></div>
+                                        <span>TREASURY INFLOW</span>
+                                    </div>
+                                    <span class="daily-breakdown-value treasury-value">0.22441</span>
                                 </div>
-                                <span class="daily-breakdown-value treasury-value">0.22441</span>
+                                <div class="daily-breakdown-item">
+                                    <div class="daily-breakdown-label">
+                                        <div class="daily-color-dot" style="background: #3b82f6;"></div>
+                                        <span>HOLDER EARNINGS</span>
+                                    </div>
+                                    <span class="daily-breakdown-value holders-value">0.17742</span>
+                                </div>
+                                <div class="daily-breakdown-item">
+                                    <div class="daily-breakdown-label">
+                                        <div class="daily-color-dot" style="background: #f59e0b;"></div>
+                                        <span>INFRA WALLET</span>
+                                    </div>
+                                    <span class="daily-breakdown-value infra-value">0.02191</span>
+                                </div>
+                                <div class="daily-breakdown-item">
+                                    <div class="daily-breakdown-label">
+                                        <div class="daily-color-dot" style="background: #ef4444;"></div>
+                                        <span>NET BALANCE</span>
+                                    </div>
+                                    <span class="daily-breakdown-value net-value">0.00500</span>
                             </div>
-                            <div class="daily-breakdown-item">
-                                <div class="daily-breakdown-label">
-                                    <div class="daily-color-dot" style="background: #3b82f6;"></div>
-                                    <span>HOLDER EARNINGS</span>
                                 </div>
-                                <span class="daily-breakdown-value holders-value">0.17742</span>
-                            </div>
-                            <div class="daily-breakdown-item">
-                                <div class="daily-breakdown-label">
-                                    <div class="daily-color-dot" style="background: #f59e0b;"></div>
-                                    <span>INFRA WALLET</span>
-                                </div>
-                                <span class="daily-breakdown-value infra-value">0.02191</span>
-                            </div>
-                            <div class="daily-breakdown-item">
-                                <div class="daily-breakdown-label">
-                                    <div class="daily-color-dot" style="background: #ef4444;"></div>
-                                    <span>NET BALANCE</span>
-                                </div>
-                                <span class="daily-breakdown-value net-value">0.00500</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Box 2: Clean Donut Chart -->
+                    <!-- Box 2: Clean Donut Chart -->
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">DISTRIBUTION CHART</h3>
+                    <select class="chart-dropdown" id="distribution-dropdown">
+                        <option value="yearly" selected>Yearly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="daily">Daily</option>
+                    </select>
                 </div>
                 <div class="chart-content">
                     <div class="chart-inner-box">
-                        <div class="daily-pie-chart-container">
-                            <div class="daily-pie-chart" id="daily-distribution-pie">
-                                <svg viewBox="0 0 320 320" class="daily-pie-svg" id="clean-donut-chart">
-                                    <!-- Clean SVG donut chart will be generated here -->
-                                </svg>
-                                <div class="daily-pie-center">
-                                    <div class="daily-pie-total">IMG</div>
-                                    <div class="daily-pie-label">RESULTS</div>
+                            <div class="daily-pie-chart-container">
+                                <div class="daily-pie-chart" id="daily-distribution-pie">
+                                    <svg viewBox="0 0 320 320" class="daily-pie-svg" id="clean-donut-chart">
+                                        <!-- Clean SVG donut chart will be generated here -->
+                                    </svg>
+                                    <div class="daily-pie-center">
+                                        <div class="daily-pie-total">IMG</div>
+                                        <div class="daily-pie-label">RESULTS</div>
+                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
             <!-- Box 3: Process Line Chart -->
             <div class="chart-card">
@@ -529,7 +541,7 @@
                         <option value="q3-2025">Q3 2025</option>
                         <option value="q4-2025">Q4 2025</option>
                     </select>
-                </div>
+                                </div>
                 <div class="chart-content">
                     <div class="chart-inner-box">
                         <div class="professional-chart" id="process-chart">
@@ -559,29 +571,27 @@
                             <text x="35" y="190" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">5k</text>
                             <text x="35" y="224" fill="rgba(148, 163, 184, 0.9)" font-size="11" text-anchor="end">0</text>
                             
-                            <!-- Line Chart - Smooth curve with expanded positioning -->
+                            <!-- Line Chart - Smooth curve with 4 months per quarter -->
                             <polyline 
                                 fill="none" 
                                 stroke="url(#lineGradient)" 
                                 stroke-width="7" 
-                                points="72,190 152,124 232,157 312,20 372,75"
+                                points="80,190 160,124 240,157 320,20"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                             />
                             
-                            <!-- Data Points - Bigger dots with expanded positioning -->
-                            <circle cx="72" cy="190" r="9" fill="#f59e0b" class="chart-dot" data-value="12000" data-label="May"/>
-                            <circle cx="152" cy="124" r="9" fill="#f59e0b" class="chart-dot" data-value="21000" data-label="Jun"/>
-                            <circle cx="232" cy="157" r="9" fill="#f59e0b" class="chart-dot" data-value="18000" data-label="Jul"/>
-                            <circle cx="312" cy="20" r="9" fill="#f59e0b" class="chart-dot" data-value="30000" data-label="Aug"/>
-                            <circle cx="372" cy="75" r="9" fill="#f59e0b" class="chart-dot" data-value="27000" data-label="Sep"/>
+                            <!-- Data Points - 4 months per quarter -->
+                            <circle cx="80" cy="190" r="9" fill="#f59e0b" class="chart-dot" data-value="12000" data-label="Jan"/>
+                            <circle cx="160" cy="124" r="9" fill="#f59e0b" class="chart-dot" data-value="21000" data-label="Feb"/>
+                            <circle cx="240" cy="157" r="9" fill="#f59e0b" class="chart-dot" data-value="18000" data-label="Mar"/>
+                            <circle cx="320" cy="20" r="9" fill="#f59e0b" class="chart-dot" data-value="30000" data-label="Apr"/>
                             
-                            <!-- X-Axis Labels -->
-                            <text x="72" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">May</text>
-                            <text x="152" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jun</text>
-                            <text x="232" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jul</text>
-                            <text x="312" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Aug</text>
-                            <text x="372" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Sep</text>
+                            <!-- X-Axis Labels - 4 months per quarter -->
+                            <text x="80" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Jan</text>
+                            <text x="160" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Feb</text>
+                            <text x="240" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Mar</text>
+                            <text x="320" y="240" fill="rgba(148, 163, 184, 0.9)" font-size="12" text-anchor="middle">Apr</text>
                             
                             <!-- Watermark larger and centered -->
                             <text x="210" y="130" fill="rgba(148, 163, 184, 0.06)" font-size="32" font-weight="bold" text-anchor="middle">IMG</text>
@@ -599,7 +609,7 @@
                             <div class="chart-tooltip" id="process-tooltip">
                                 <div class="tooltip-label"></div>
                                 <div class="tooltip-value"></div>
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>
