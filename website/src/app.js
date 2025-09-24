@@ -454,87 +454,94 @@
             </div>
         </div>
 
-        <!-- Annual Rewards Section -->
-        <!-- Annual Rewards Section - Fresh Start -->
-        <div class="daily-distribution-section">
-            <div class="daily-distribution-container">
-                <div class="daily-distribution-header">
-                    <h3 class="daily-distribution-title">ANNUAL REWARDS</h3>
+        <!-- Annual Rewards Section - Individual Glass Containers -->
+        <div class="annual-rewards-grid">
+            <!-- Box 1: Breakdown Data -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">BREAKDOWN DATA</h3>
                 </div>
-                <div class="daily-distribution-row">
-                    <!-- Box 1: Breakdown Data -->
-                    <div class="daily-distribution-box daily-box-1">
-                        <div class="daily-box-content">
-                            <div class="daily-breakdown">
-                                <div class="daily-breakdown-item">
-                                    <div class="daily-breakdown-label">
-                                        <div class="daily-color-dot" style="background: #10b981;"></div>
-                                        <span>TREASURY INFLOW</span>
-                                    </div>
-                                    <span class="daily-breakdown-value treasury-value">0.22441</span>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="daily-breakdown">
+                            <div class="daily-breakdown-item">
+                                <div class="daily-breakdown-label">
+                                    <div class="daily-color-dot" style="background: #10b981;"></div>
+                                    <span>TREASURY INFLOW</span>
                                 </div>
-                                <div class="daily-breakdown-item">
-                                    <div class="daily-breakdown-label">
-                                        <div class="daily-color-dot" style="background: #3b82f6;"></div>
-                                        <span>HOLDER EARNINGS</span>
-                                    </div>
-                                    <span class="daily-breakdown-value holders-value">0.17742</span>
+                                <span class="daily-breakdown-value treasury-value">0.22441</span>
+                            </div>
+                            <div class="daily-breakdown-item">
+                                <div class="daily-breakdown-label">
+                                    <div class="daily-color-dot" style="background: #3b82f6;"></div>
+                                    <span>HOLDER EARNINGS</span>
                                 </div>
-                                <div class="daily-breakdown-item">
-                                    <div class="daily-breakdown-label">
-                                        <div class="daily-color-dot" style="background: #f59e0b;"></div>
-                                        <span>INFRA WALLET</span>
-                                    </div>
-                                    <span class="daily-breakdown-value infra-value">0.02191</span>
+                                <span class="daily-breakdown-value holders-value">0.17742</span>
+                            </div>
+                            <div class="daily-breakdown-item">
+                                <div class="daily-breakdown-label">
+                                    <div class="daily-color-dot" style="background: #f59e0b;"></div>
+                                    <span>INFRA WALLET</span>
                                 </div>
-                                <div class="daily-breakdown-item">
-                                    <div class="daily-breakdown-label">
-                                        <div class="daily-color-dot" style="background: #ef4444;"></div>
-                                        <span>NET BALANCE</span>
-                                    </div>
-                                    <span class="daily-breakdown-value net-value">0.00500</span>
+                                <span class="daily-breakdown-value infra-value">0.02191</span>
+                            </div>
+                            <div class="daily-breakdown-item">
+                                <div class="daily-breakdown-label">
+                                    <div class="daily-color-dot" style="background: #ef4444;"></div>
+                                    <span>NET BALANCE</span>
+                                </div>
+                                <span class="daily-breakdown-value net-value">0.00500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 2: Clean Donut Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">DISTRIBUTION CHART</h3>
+                </div>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="daily-pie-chart-container">
+                            <div class="daily-pie-chart" id="daily-distribution-pie">
+                                <svg viewBox="0 0 320 320" class="daily-pie-svg" id="clean-donut-chart">
+                                    <!-- Clean SVG donut chart will be generated here -->
+                                </svg>
+                                <div class="daily-pie-center">
+                                    <div class="daily-pie-total">IMG</div>
+                                    <div class="daily-pie-label">RESULTS</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Box 2: Clean Donut Chart -->
-                    <div class="daily-distribution-box daily-box-2">
-                        <div class="daily-box-content">
-                            <div class="daily-pie-chart-container">
-                                <div class="daily-pie-chart" id="daily-distribution-pie">
-                                    <svg viewBox="0 0 320 320" class="daily-pie-svg" id="clean-donut-chart">
-                                        <!-- Clean SVG donut chart will be generated here -->
-                                    </svg>
-                                    <div class="daily-pie-center">
-                                        <div class="daily-pie-total">IMG</div>
-                                        <div class="daily-pie-label">RESULTS</div>
-                                    </div>
-                                </div>
+            <!-- Box 3: Key Metrics -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">KEY METRICS</h3>
+                </div>
+                <div class="chart-content">
+                    <div class="chart-inner-box">
+                        <div class="daily-metrics">
+                            <div class="daily-metric-item">
+                                <span class="daily-metric-label">STARTING DATE</span>
+                                <span class="daily-metric-value">Aug 20, 2025</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Box 3: Key Metrics -->
-                    <div class="daily-distribution-box daily-box-3">
-                        <div class="daily-box-content">
-                            <div class="daily-metrics">
-                                <div class="daily-metric-item">
-                                    <span class="daily-metric-label">STARTING DATE</span>
-                                    <span class="daily-metric-value">Aug 20, 2025</span>
-                                </div>
-                                <div class="daily-metric-item">
-                                    <span class="daily-metric-label">TOTAL HARVEST</span>
-                                    <span class="daily-metric-value">$12,847.32</span>
-                                </div>
-                                <div class="daily-metric-item">
-                                    <span class="daily-metric-label">TOTAL DISTRIBUTION</span>
-                                    <span class="daily-metric-value">$12,847.32</span>
-                                </div>
-                                <div class="daily-metric-item">
-                                    <span class="daily-metric-label">TOTAL REWARDS</span>
-                                    <span class="daily-metric-value">$11,562.59</span>
-                                </div>
+                            <div class="daily-metric-item">
+                                <span class="daily-metric-label">TOTAL HARVEST</span>
+                                <span class="daily-metric-value">$12,847.32</span>
+                            </div>
+                            <div class="daily-metric-item">
+                                <span class="daily-metric-label">TOTAL DISTRIBUTION</span>
+                                <span class="daily-metric-value">$12,847.32</span>
+                            </div>
+                            <div class="daily-metric-item">
+                                <span class="daily-metric-label">TOTAL REWARDS</span>
+                                <span class="daily-metric-value">$11,562.59</span>
                             </div>
                         </div>
                     </div>

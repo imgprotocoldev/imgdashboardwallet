@@ -853,6 +853,28 @@
             display: none !important;
         }
 
+        /* Annual Rewards Grid Layout */
+        .annual-rewards-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px !important; /* Match charts-grid gap for consistent sizing */
+            margin-bottom: 24px !important;
+        }
+
+        @media (max-width: 1200px) {
+            .annual-rewards-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important; /* Match charts-grid gap */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .annual-rewards-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important; /* Match charts-grid gap */
+            }
+        }
+
         .chart-header {
             display: flex !important;
             justify-content: space-between !important;
@@ -2014,7 +2036,7 @@ o        /* Logo sizing moved to CSS file to prevent conflicts */
             color: #6b7280 !important;
         }
     </style>
-  <script type="module" crossorigin src="/assets/main-CiQTdF7p.js"></script>
+  <script type="module" crossorigin src="/assets/main-DRpixNCN.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-bTXf1bJM.css">
 </head>
 <body>
