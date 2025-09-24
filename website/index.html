@@ -1062,39 +1062,60 @@
         /* Chart Tooltip */
         .chart-tooltip {
             position: absolute !important;
-            background: linear-gradient(135deg, #1e293b, #334155) !important;
-            border: 1px solid #3b82f6 !important;
+            background: rgba(15, 23, 42, 0.9) !important;
+            border: 1px solid rgba(59, 130, 246, 0.3) !important;
             border-radius: 8px !important;
-            padding: 6px 8px !important;
+            padding: 0 !important;
             color: #f8fafc !important;
-            font-size: 12px !important;
+            font-size: 14px !important;
             font-weight: 700 !important;
             pointer-events: none !important;
             opacity: 0 !important;
             transform: translate(-50%, -100%) !important;
             transition: all 0.2s ease !important;
             z-index: 1000 !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-            backdrop-filter: blur(10px) !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(8px) !important;
+            min-width: 120px !important;
+            max-width: 140px !important;
         }
 
         .chart-tooltip.show {
             opacity: 1 !important;
         }
 
+        .tooltip-header {
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8) !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-size: 12px !important;
+            padding: 6px 8px !important;
+            margin: 0 !important;
+            border-radius: 8px 8px 0 0 !important;
+            text-align: center !important;
+        }
+
         .tooltip-label {
             font-size: 12px !important;
-            color: #94a3b8 !important;
-            margin-bottom: 2px !important;
+            color: #ffffff !important;
+            margin: 0 !important;
             font-weight: 700 !important;
         }
 
+        .tooltip-content {
+            padding: 6px 8px !important;
+            text-align: center !important;
+        }
+
         .tooltip-value {
-            font-size: 12px !important;
+            font-size: 14px !important;
             color: #3b82f6 !important;
             font-weight: 700 !important;
             font-family: 'JetBrains Mono', monospace !important;
+            margin: 0 !important;
         }
+
+
 
 
 
