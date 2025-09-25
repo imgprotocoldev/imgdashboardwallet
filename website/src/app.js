@@ -695,15 +695,15 @@
                             <!-- Data Rows -->
                             <div class="pools-row">
                                 <div class="pool-name">IMG/SOL</div>
-                                <div class="pool-volume">$47.2K</div>
+                                <div class="pool-volume" id="terminal-img-sol-volume">Loading...</div>
     </div>
                             <div class="pools-row">
                                 <div class="pool-name">IMG/USDC</div>
-                                <div class="pool-volume">$23.8K</div>
+                                <div class="pool-volume" id="terminal-img-usdc-volume">Loading...</div>
                             </div>
                             <div class="pools-row">
                                 <div class="pool-name">IMG/BON</div>
-                                <div class="pool-volume">$12.4K</div>
+                                <div class="pool-volume" id="terminal-img-bon-volume">Loading...</div>
                             </div>
                         </div>
                     </div>
@@ -4863,6 +4863,104 @@ window.testFallbackData = function() {
     setFallbackPoolsData();
 };
 
+// Update terminal pools data from cache only
+function updateTerminalPoolsData() {
+    console.log('🔄 Updating terminal pools data from cache...');
+    
+    // Only use cached data - no API calls or fallbacks
+    const cachedData = getCachedData();
+    if (!cachedData || !cachedData.data) {
+        console.log('⚠️ No cached data available for terminal pools - keeping loading state');
+        return;
+    }
+    
+    const pools = cachedData.data;
+    console.log(`📦 Using cached data for terminal pools: ${pools.length} pools`);
+    
+    // Map pool data to terminal elements using same structure as pools page
+    const terminalPoolMappings = {
+        'terminal-img-sol-volume': { 
+            searchTerms: ['SO11111111111111111111111111111111111111112'], // SOL contract
+            dex: 'raydium'
+        },
+        'terminal-img-usdc-volume': { 
+            searchTerms: ['EPJFWDD5AUFQSSQEM2QN1XZYBAPC8G4WEGGKZWYTDT1V'], // USDC contract
+            dex: 'raydium'
+        },
+        'terminal-img-bon-volume': { 
+            searchTerms: ['DEZXAZ8Z7PNRNRJJZ3WXBORGIXCA6XJNB7YAB1PPB263'], // BONK contract
+            dex: 'raydium'
+        }
+    };
+    
+    // Update each terminal pool element
+    Object.entries(terminalPoolMappings).forEach(([elementId, mapping]) => {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.log(`⚠️ Terminal pool element ${elementId} not found`);
+            return;
+        }
+        
+        // Find matching pool data using same logic as pools page
+        const matchingPool = pools.find(pool => {
+            const token0Symbol = pool.attributes?.token0?.symbol || '';
+            const token1Symbol = pool.attributes?.token1?.symbol || '';
+            const dexId = pool.attributes?.dex_id || '';
+            
+            const hasMatchingTokens = mapping.searchTerms.some(term => 
+                token0Symbol.toLowerCase().includes(term.toLowerCase()) ||
+                token1Symbol.toLowerCase().includes(term.toLowerCase())
+            );
+            
+            const hasMatchingDex = dexId.toLowerCase().includes(mapping.dex.toLowerCase());
+            
+            return hasMatchingTokens && hasMatchingDex;
+        });
+        
+        if (matchingPool) {
+            const volume = matchingPool.attributes?.volume_usd?.h24 || 0;
+            const formattedVolume = formatVolume(volume);
+            element.textContent = formattedVolume;
+            element.classList.remove('loading');
+            console.log(`✅ Updated ${elementId}: ${formattedVolume} (${matchingPool.attributes?.token0?.symbol}/${matchingPool.attributes?.token1?.symbol} on ${matchingPool.attributes?.dex_id})`);
+        } else {
+            console.log(`⚠️ No data found for ${elementId} - keeping loading state`);
+            element.textContent = 'Loading...';
+            element.classList.add('loading');
+        }
+    });
+}
+
+// Initialize terminal pools data refresh
+function initializeTerminalPoolsRefresh() {
+    console.log('🚀 Initializing terminal pools refresh system...');
+    
+    // Update immediately - check cache first
+    updateTerminalPoolsData();
+    
+    // Set up interval to refresh every 5 minutes (same as pools page)
+    setInterval(() => {
+        console.log('⏰ Terminal pools refresh interval triggered');
+        updateTerminalPoolsData();
+    }, CACHE_DURATION); // 5 minutes
+    
+    console.log('✅ Terminal pools refresh system initialized');
+}
+
+// Function to update terminal pools when terminal page is loaded
+function updateTerminalPoolsOnPageLoad() {
+    console.log('🔄 Terminal page loaded, updating pools data...');
+    
+    // Check if terminal pools elements exist
+    const terminalPools = document.querySelectorAll('[id^="terminal-img-"]');
+    if (terminalPools.length > 0) {
+        console.log(`📊 Found ${terminalPools.length} terminal pool elements, updating...`);
+        updateTerminalPoolsData();
+    } else {
+        console.log('⚠️ Terminal pool elements not found');
+    }
+}
+
 // Calculate rewards based on inputs
 async function calculateRewards() {
     const volume = parseFloat(document.getElementById('volume-24h')?.value?.replace(/,/g, '') || 100000);
@@ -5000,11 +5098,13 @@ observer.observe(document.body, { childList: true, subtree: true });
 
 // (removed) No custom tooltip code; rely on original dashboard tooltip system
 
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        initializeVotingSystem();
-        // tooltips handled by existing dashboard code
-    }, 1000);
-});
+// Terminal pools initialization - integrated into main app initialization
+function initializeTerminalPoolsOnPageLoad() {
+    console.log('🚀 Initializing terminal pools system...');
+    initializeTerminalPoolsRefresh();
+}
 
-document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),setInterval(()=>{const i=document.querySelector(".pools-page");i&&(console.log("🚀 Pools page detected, loading pools data!"),loadPoolsData())},1000),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
+// Global function for terminal pools
+window.updateTerminalPoolsOnPageLoad = updateTerminalPoolsOnPageLoad;
+
+document.addEventListener("DOMContentLoaded",()=>{console.log("🚀 Protocol SPA Initializing..."),localStorage.removeItem("walletConnected"),localStorage.removeItem("walletPremium"),localStorage.removeItem("walletPublicKey"),localStorage.removeItem("imgProtocolWalletState"),d.isConnected=!1,d.isPremium=!1,d.walletAddress="",d.currentPage="dashboard",f(),console.log("🔧 Sidebar initialized"),window.walletManager=new Re,p.start(),p("/terminal"),console.log("🎯 Initializing clean donut chart..."),Promise.resolve().then(()=>{N()}),setInterval(()=>{const i=document.getElementById("clean-donut-chart");i&&i.querySelectorAll(".daily-pie-segment").length===0&&(console.log("🔄 Chart segments missing, restoring..."),N())},500);const t=new MutationObserver(i=>{i.forEach(s=>{s.type==="childList"&&s.addedNodes.forEach(n=>{n.nodeType===Node.ELEMENT_NODE&&n.querySelector&&n.querySelector("#clean-donut-chart")&&(console.log("🚀 Dashboard chart detected, initializing immediately!"),Promise.resolve().then(()=>{N()}))})})}),a=document.getElementById("main-content");a&&t.observe(a,{childList:!0,subtree:!0}),setInterval(()=>{const i=document.querySelector(".pools-page");i&&(console.log("🚀 Pools page detected, loading pools data!"),loadPoolsData())},1000),setInterval(()=>{const i=document.querySelectorAll('[id^="terminal-img-"]');i.length>0&&(console.log("🚀 Terminal pools detected, updating data!"),window.updateTerminalPoolsOnPageLoad&&window.updateTerminalPoolsOnPageLoad())},1000),We(),setupEventIcons(),setupHarvestingPage(),setupDistributionPage(),setTimeout(()=>{const i=document.getElementById("sidebar-container");console.log("🔍 Sidebar container:",i),console.log("🔍 Sidebar content:",i?i.innerHTML.length:"null"),i&&!i.innerHTML.trim()&&(console.log("🔧 Sidebar empty, forcing update with current state..."),console.log("🔧 Current app state:",d),f())},50),console.log("✅ Protocol SPA Ready!")});
