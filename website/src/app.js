@@ -685,23 +685,23 @@
                 </div>
                 <div class="chart-content">
                     <div class="chart-inner-box">
-                        <div class="pools-breakdown">
+                        <div class="pools-simple">
                             <!-- Header Row -->
-                            <div class="pool-header-row">
-                                <div class="pool-header-label">POOL</div>
-                                <div class="pool-header-label">24H VOLUME</div>
+                            <div class="pools-header">
+                                <div class="pools-label">POOLS</div>
+                                <div class="pools-label">24H VOLUME</div>
                             </div>
                             
                             <!-- Data Rows -->
-                            <div class="pool-row">
+                            <div class="pools-row">
                                 <div class="pool-name">IMG/SOL</div>
                                 <div class="pool-volume">$47.2K</div>
     </div>
-                            <div class="pool-row">
+                            <div class="pools-row">
                                 <div class="pool-name">IMG/USDC</div>
                                 <div class="pool-volume">$23.8K</div>
                             </div>
-                            <div class="pool-row">
+                            <div class="pools-row">
                                 <div class="pool-name">IMG/BON</div>
                                 <div class="pool-volume">$12.4K</div>
                             </div>
@@ -710,15 +710,26 @@
                 </div>
             </div>
 
-            <!-- Box 6: Empty for now -->
+            <!-- Box 6: News -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">COMING SOON</h3>
-    </div>
+                    <h3 class="chart-title">NEWS</h3>
+                </div>
                 <div class="chart-content">
                     <div class="chart-inner-box">
-                        <div class="empty-placeholder">
-                            <div class="placeholder-text">More features coming soon...</div>
+                        <div class="news-content">
+                            <div class="news-announcement">
+                                <div class="news-title">New Vote is Live!</div>
+                                <div class="news-subtitle">Have your say in shaping the project's future.</div>
+                            </div>
+                            <div class="news-announcement">
+                                <div class="news-title">Temporary Tax Structure</div>
+                                <div class="news-subtitle">New tax structure is currently in process.</div>
+                            </div>
+                            <div class="news-announcement">
+                                <div class="news-title">Reward Live Audit Feature</div>
+                                <div class="news-subtitle">Releasing in Q4 2025.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -726,7 +737,10 @@
         </div>
 
     </div>
-`;function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)}`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color")||"#3b82f6";console.log("🎨 Donut tooltip color:",s,"for label:",a);z();const n=document.createElement("div");n.id="donut-tooltip",n.className="chart-tooltip",n.innerHTML=`
+`;
+
+
+function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Math.cos(o),r=t+a*Math.sin(o),u=e+a*Math.cos(l),y=t+a*Math.sin(l),w=e+i*Math.cos(l),h=t+i*Math.sin(l),M=e+i*Math.cos(o),L=t+i*Math.sin(o),m=Math.abs(n-s)>180?1:0;return`M ${c} ${r} A ${a} ${a} 0 ${m} 1 ${u} ${y} L ${w} ${h} A ${i} ${i} 0 ${m} 0 ${M} ${L} Z`}function X(e){const t=e.treasury+e.holders+e.infra+e.net;console.log("🔄 Updating donut chart with data:",e),console.log("📊 Total:",t);const a=e.treasury/t*100,i=e.holders/t*100,s=e.infra/t*100,n=e.net/t*100;console.log("🎯 Percentages:",{treasuryPercent:a,holdersPercent:i,infraPercent:s,netPercent:n});const o=document.getElementById("clean-donut-chart");if(o){o.querySelectorAll(".daily-pie-segment").forEach(oe=>oe.remove());const r=160,u=160,y=120,w=80;let h=0;const M=a/100*360,L=R(r,u,y,w,h,h+M),m=document.createElementNS("http://www.w3.org/2000/svg","path");m.setAttribute("d",L),m.setAttribute("fill","#10b981"),m.setAttribute("class","daily-pie-segment treasury-segment"),m.setAttribute("data-label","TREASURY INFLOW"),m.setAttribute("data-value",`${e.treasury.toFixed(5)}`),m.setAttribute("data-percentage",`${Math.round(a)}%`),m.setAttribute("data-color","#10b981"),o.appendChild(m),h+=M;const C=i/100*360,W=R(r,u,y,w,h,h+C),x=document.createElementNS("http://www.w3.org/2000/svg","path");x.setAttribute("d",W),x.setAttribute("fill","#3b82f6"),x.setAttribute("class","daily-pie-segment holders-segment"),x.setAttribute("data-label","HOLDER EARNINGS"),x.setAttribute("data-value",`${e.holders.toFixed(5)}`),x.setAttribute("data-percentage",`${Math.round(i)}%`),x.setAttribute("data-color","#3b82f6"),o.appendChild(x),h+=C;const j=s/100*360,ie=R(r,u,y,w,h,h+j),k=document.createElementNS("http://www.w3.org/2000/svg","path");k.setAttribute("d",ie),k.setAttribute("fill","#f59e0b"),k.setAttribute("class","daily-pie-segment infra-segment"),k.setAttribute("data-label","INFRA WALLET"),k.setAttribute("data-value",`${e.infra.toFixed(5)}`),k.setAttribute("data-percentage",`${Math.round(s)}%`),k.setAttribute("data-color","#f59e0b"),o.appendChild(k),h+=j;const se=n/100*360,ne=R(r,u,y,w,h,h+se),E=document.createElementNS("http://www.w3.org/2000/svg","path");E.setAttribute("d",ne),E.setAttribute("fill","#ef4444"),E.setAttribute("class","daily-pie-segment net-segment"),E.setAttribute("data-label","NET BALANCE"),E.setAttribute("data-value",`${e.net.toFixed(5)}`),E.setAttribute("data-percentage",`${Math.round(n)}%`),E.setAttribute("data-color","#ef4444"),o.appendChild(E)}const l=document.querySelector(".daily-pie-total");l&&(l.textContent="IMG"),console.log("✅ Donut chart updated with new data:",e),ke()}function ke(){document.querySelectorAll(".daily-pie-segment").forEach(t=>{t.style.cursor="pointer",t.addEventListener("mouseenter",a=>{Q(a,t),t.style.filter="brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))"}),t.addEventListener("mouseleave",a=>{z(),t.style.filter="none"}),t.addEventListener("click",a=>{Q(a,t),setTimeout(()=>{z()},3e3)})})}function Q(e,t){const a=t.getAttribute("data-label"),i=t.getAttribute("data-value");t.getAttribute("data-percentage");const s=t.getAttribute("data-color")||"#3b82f6";console.log("🎨 Donut tooltip color:",s,"for label:",a);z();const n=document.createElement("div");n.id="donut-tooltip",n.className="chart-tooltip",n.innerHTML=`
         <div class="tooltip-header" style="background: ${s} !important; color: #ffffff; text-align: center;">
             <span class="tooltip-label" style="color: #ffffff;">${a}</span>
         </div>
@@ -1775,15 +1789,15 @@
                         </div>
                     </div>
                     </div>
-                </div>
-                
+                    </div>
+                    
                 <!-- Column 2: Short-term Earnings -->
                 <div class="earnings-section short-term">
                     <div class="earnings-item highlight">
                         <div class="earnings-label">Daily Earnings</div>
                         <div class="earnings-value" id="daily-earnings">$4.5000</div>
                         <div class="earnings-sol" id="daily-earnings-sol">0.0187 SOL</div>
-                </div>
+                        </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Weekly Earnings</div>
                         <div class="earnings-value" id="weekly-earnings">$31.5000</div>
@@ -1797,15 +1811,15 @@
                         <div class="earnings-label">Monthly Projection</div>
                         <div class="earnings-value" id="monthly-projection">$137.0200</div>
                         <div class="earnings-sol" id="monthly-projection-sol">0.5808 SOL</div>
-                        </div>
+                </div>
                     <div class="earnings-item">
                         <div class="earnings-label">Annual Projection</div>
                         <div class="earnings-value" id="annual-projection">$1,644.2000</div>
                         <div class="earnings-sol" id="annual-projection-sol">6.9699 SOL</div>
+            </div>
                     </div>
-                        </div>
-                    </div>
-                    
+                </div>
+                
                 <!-- Pool Stats Section -->
                 <div class="pool-stats-section">
                     <div class="stats-grid">
@@ -1819,96 +1833,95 @@
                             <div class="stat-content">
                                 <div class="stat-label">InfraWallet</div>
                                 <div class="stat-value" id="infra-wallet">$500.00</div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Comprehensive Projection Spreadsheet -->
+                <div class="projection-spreadsheet">
+                    <div class="spreadsheet-container">
+                        <div class="spreadsheet-table">
+                            <div class="table-header">
+                                <div class="header-cell">Type</div>
+                                <div class="header-cell">24H Volume</div>
+                                <div class="header-cell">IMG Holdings</div>
+                                <div class="header-cell">Earnings</div>
+                                <div class="header-cell">Earnings (SOL)</div>
+                                <div class="header-cell">Rewards Pool</div>
+                                <div class="header-cell">InfraWallet</div>
                 </div>
+                
+                            <div class="table-row">
+                                <div class="cell type-cell">Daily</div>
+                                <div class="cell volume-cell" id="daily-volume">$100,000</div>
+                                <div class="cell holdings-cell" id="daily-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell highlight" id="daily-total">$2.5000</div>
+                                <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
+                                <div class="cell pool-cell" id="daily-pool">$2,500.00</div>
+                                <div class="cell wallet-cell" id="daily-wallet">$125.00</div>
             </div>
-                    </div>
-                </div>
-                
-                
-            <!-- Comprehensive Projection Spreadsheet -->
-            <div class="projection-spreadsheet">
-                
-                <div class="spreadsheet-container">
-                    <div class="spreadsheet-table">
-                        <div class="table-header">
-                            <div class="header-cell">Type</div>
-                            <div class="header-cell">24H Volume</div>
-                            <div class="header-cell">IMG Holdings</div>
-                            <div class="header-cell">Earnings</div>
-                            <div class="header-cell">Earnings (SOL)</div>
-                            <div class="header-cell">Rewards Pool</div>
-                            <div class="header-cell">InfraWallet</div>
-                        </div>
-                
-                        <div class="table-row">
-                            <div class="cell type-cell">Daily</div>
-                            <div class="cell volume-cell" id="daily-volume">$100,000</div>
-                            <div class="cell holdings-cell" id="daily-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell highlight" id="daily-total">$2.5000</div>
-                            <div class="cell sol-cell" id="daily-sol">0.010367 SOL</div>
-                            <div class="cell pool-cell" id="daily-pool">$2,500.00</div>
-                            <div class="cell wallet-cell" id="daily-wallet">$125.00</div>
-                    </div>
-                    
-                        <div class="table-row">
-                            <div class="cell type-cell">Weekly</div>
-                            <div class="cell volume-cell" id="weekly-volume">$700,000</div>
-                            <div class="cell holdings-cell" id="weekly-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="weekly-total">$17.5200</div>
-                            <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
-                            <div class="cell pool-cell" id="weekly-pool">$17,500.00</div>
-                            <div class="cell wallet-cell" id="weekly-wallet">$875.00</div>
-                        </div>
 
-                        <div class="table-row">
-                            <div class="cell type-cell">Monthly</div>
-                            <div class="cell volume-cell" id="monthly-volume">$3,000,000</div>
-                            <div class="cell holdings-cell" id="monthly-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="monthly-total">$76.1200</div>
-                            <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
-                            <div class="cell pool-cell" id="monthly-pool">$75,000.00</div>
-                            <div class="cell wallet-cell" id="monthly-wallet">$3,750.00</div>
+                            <div class="table-row">
+                                <div class="cell type-cell">Weekly</div>
+                                <div class="cell volume-cell" id="weekly-volume">$700,000</div>
+                                <div class="cell holdings-cell" id="weekly-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell" id="weekly-total">$17.5200</div>
+                                <div class="cell sol-cell" id="weekly-sol">0.072569 SOL</div>
+                                <div class="cell pool-cell" id="weekly-pool">$17,500.00</div>
+                                <div class="cell wallet-cell" id="weekly-wallet">$875.00</div>
                     </div>
-                    
-                        <div class="table-row">
-                            <div class="cell type-cell">Annual</div>
-                            <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
-                            <div class="cell holdings-cell" id="annual-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="annual-total">$913.4400</div>
-                            <div class="cell sol-cell" id="annual-sol">3.783778 SOL</div>
-                            <div class="cell pool-cell" id="annual-pool">$912,500.00</div>
-                            <div class="cell wallet-cell" id="annual-wallet">$45,625.00</div>
-                        </div>
-                
-                        <div class="table-row">
-                            <div class="cell type-cell">2 Years</div>
-                            <div class="cell volume-cell" id="year2-volume">$73,000,000</div>
-                            <div class="cell holdings-cell" id="year2-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="year2-total">$1,826.8800</div>
-                            <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
-                            <div class="cell pool-cell" id="year2-pool">$1,825,000.00</div>
-                            <div class="cell wallet-cell" id="year2-wallet">$91,250.00</div>
+
+                            <div class="table-row">
+                                <div class="cell type-cell">Monthly</div>
+                                <div class="cell volume-cell" id="monthly-volume">$3,000,000</div>
+                                <div class="cell holdings-cell" id="monthly-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell" id="monthly-total">$76.1200</div>
+                                <div class="cell sol-cell" id="monthly-sol">0.315315 SOL</div>
+                                <div class="cell pool-cell" id="monthly-pool">$75,000.00</div>
+                                <div class="cell wallet-cell" id="monthly-wallet">$3,750.00</div>
                 </div>
                 
-                        <div class="table-row">
-                            <div class="cell type-cell">3 Years</div>
-                            <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
-                            <div class="cell holdings-cell" id="year3-holdings">1,000,000 IMG</div>
-                            <div class="cell earnings-cell" id="year3-total">$2,740.3200</div>
-                            <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
-                            <div class="cell pool-cell" id="year3-pool">$2,737,500.00</div>
-                            <div class="cell wallet-cell" id="year3-wallet">$136,875.00</div>
+                            <div class="table-row">
+                                <div class="cell type-cell">Annual</div>
+                                <div class="cell volume-cell" id="annual-volume">$36,500,000</div>
+                                <div class="cell holdings-cell" id="annual-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell" id="annual-total">$913.4400</div>
+                                <div class="cell sol-cell" id="annual-sol">3.783778 SOL</div>
+                                <div class="cell pool-cell" id="annual-pool">$912,500.00</div>
+                                <div class="cell wallet-cell" id="annual-wallet">$45,625.00</div>
+                    </div>
+                    
+                            <div class="table-row">
+                                <div class="cell type-cell">2 Years</div>
+                                <div class="cell volume-cell" id="year2-volume">$73,000,000</div>
+                                <div class="cell holdings-cell" id="year2-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell" id="year2-total">$1,826.8800</div>
+                                <div class="cell sol-cell" id="year2-sol">7.567556 SOL</div>
+                                <div class="cell pool-cell" id="year2-pool">$1,825,000.00</div>
+                                <div class="cell wallet-cell" id="year2-wallet">$91,250.00</div>
+                    </div>
+                    
+                            <div class="table-row">
+                                <div class="cell type-cell">3 Years</div>
+                                <div class="cell volume-cell" id="year3-volume">$109,500,000</div>
+                                <div class="cell holdings-cell" id="year3-holdings">1,000,000 IMG</div>
+                                <div class="cell earnings-cell" id="year3-total">$2,740.3200</div>
+                                <div class="cell sol-cell" id="year3-sol">11.351334 SOL</div>
+                                <div class="cell pool-cell" id="year3-pool">$2,737,500.00</div>
+                                <div class="cell wallet-cell" id="year3-wallet">$136,875.00</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-                </div>
-                
+        
                 <!-- Footer -->
                 <div class="rewards-footer">
                     <p>All monetary values are calculated in US Dollars (USD) • Real-time data from DexScreener & CoinGecko • SOL: <span id="sol-price">$235.90</span> • IMG Supply: 998,968,783</p>
-                    </div>
-                    
+                </div>
+                
                         </div>
 `,Te=()=>`
     <!-- Mobile Header -->
@@ -1926,7 +1939,7 @@
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                 </button>
-                </div>
+                    </div>
                     </div>
                 </div>
                 

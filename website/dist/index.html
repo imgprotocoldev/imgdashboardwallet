@@ -1424,59 +1424,54 @@
             box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3) !important;
         }
 
-        /* Pools Breakdown Styling - Clean Integration */
-        .pools-breakdown {
+        /* Simple Pools Styling */
+        .pools-simple {
             display: flex !important;
             flex-direction: column !important;
-            gap: 0 !important;
-            width: 100% !important;
-            padding: 10px 0 0 0 !important;
+            gap: 8px !important;
+            padding: 16px 0 !important;
         }
 
-        .pool-header-row {
+        .pools-header {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             padding: 8px 0 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-            margin-bottom: 6px !important;
+            margin-bottom: 4px !important;
         }
 
-        .pool-header-label {
-            font-size: 12px !important;
+        .pools-label {
+            font-size: 11px !important;
             color: #94a3b8 !important;
-            font-weight: 700 !important;
-            font-family: 'JetBrains Mono', monospace !important;
+            font-weight: 600 !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.1em !important;
+            letter-spacing: 0.05em !important;
         }
 
-        .pool-row {
+        .pools-row {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 8px 0 !important;
+            padding: 10px 0 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         }
 
-        .pool-row:last-child {
+        .pools-row:last-child {
             border-bottom: none !important;
         }
 
         .pool-name {
-            font-size: 16px !important;
-            color: #ffffff !important;
-            font-weight: 800 !important;
-            font-family: 'JetBrains Mono', monospace !important;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+            font-size: 14px !important;
+            color: #f8fafc !important;
+            font-weight: 600 !important;
         }
 
         .pool-volume {
-            font-size: 16px !important;
+            font-size: 14px !important;
             color: #10b981 !important;
-            font-weight: 800 !important;
+            font-weight: 600 !important;
             font-family: 'JetBrains Mono', monospace !important;
-            text-shadow: 0 1px 2px rgba(16, 185, 129, 0.3) !important;
         }
 
         /* Empty Placeholder Styling */
@@ -1495,6 +1490,50 @@
             text-align: center !important;
             opacity: 0.7 !important;
         }
+
+        /* News Styling */
+        .news-content {
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            padding: 16px 0 !important;
+            gap: 16px !important;
+        }
+
+        .news-announcement {
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 12px 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .news-announcement:last-child {
+            border-bottom: none !important;
+        }
+
+        .news-title {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            color: #10b981 !important;
+            margin-bottom: 8px !important;
+            letter-spacing: 0.05em !important;
+            text-transform: uppercase !important;
+            line-height: 1.2 !important;
+        }
+
+        .news-subtitle {
+            font-size: 13px !important;
+            color: #cbd5e1 !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+            max-width: 280px !important;
+            text-align: center !important;
+        }
+
+
 
         .daily-chart-placeholder h4 {
             font-size: 14px !important;
@@ -2212,8 +2251,8 @@ o        /* Logo sizing moved to CSS file to prevent conflicts */
             color: #6b7280 !important;
         }
     </style>
-  <script type="module" crossorigin src="/assets/main-RsoIUFJP.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-DmnxUWEJ.css">
+  <script type="module" crossorigin src="/assets/main-DtJRlaxj.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-WMqYrDbL.css">
 </head>
 <body>
     <!-- Sidebar Container -->
@@ -2262,8 +2301,7 @@ o        /* Logo sizing moved to CSS file to prevent conflicts */
                             </div>
                             </div>
                             </div>
-            
-    
+
     <!-- Solana Web3.js Library -->
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
     
