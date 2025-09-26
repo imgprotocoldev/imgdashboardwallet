@@ -172,7 +172,7 @@
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -754,7 +754,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -798,7 +798,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="project-updates-container">
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate6.png" alt="Server Optimization Upgrade">
+                                <img src="/event-images/Imgupdate6.webp" alt="Server Optimization Upgrade">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Server Optimization Upgrade</h3>
@@ -809,7 +809,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate5.png" alt="Rewards Update">
+                                <img src="/event-images/Imgupdate5.webp" alt="Rewards Update">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Rewards Update</h3>
@@ -820,7 +820,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate1.png" alt="Reward System Upgrade">
+                                <img src="/event-images/Imgupdate1.webp" alt="Reward System Upgrade">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Reward system upgrade</h3>
@@ -831,7 +831,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate2.png" alt="Blacklist Wallets">
+                                <img src="/event-images/Imgupdate2.webp" alt="Blacklist Wallets">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Blacklist Wallets</h3>
@@ -842,7 +842,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate4.png" alt="New Developer">
+                                <img src="/event-images/Imgupdate4.webp" alt="New Developer">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">New Developer</h3>
@@ -853,7 +853,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate3.png" alt="Infra Wallet">
+                                <img src="/event-images/Imgupdate3.webp" alt="Infra Wallet">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Infra Wallet</h3>
@@ -987,7 +987,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -1313,7 +1313,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -1567,7 +1567,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -1589,7 +1589,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -1610,12 +1610,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/SOL</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/tokens/imglogoround.webp" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/solanalogo.png" alt="SOL" class="token-logo">
+                            <img src="/tokens/solanalogo.webp" alt="SOL" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/tokens/radiumlogo.webp" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
             </div>
         </div>
@@ -1641,12 +1641,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/tokens/imglogoround.webp" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/bonklogo.png" alt="BONK" class="token-logo">
+                            <img src="/tokens/bonklogo.webp" alt="BONK" class="token-logo">
         </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/tokens/radiumlogo.webp" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
     </div>
         </div>
@@ -1672,12 +1672,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/USDC</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/tokens/imglogoround.webp" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/usdclogo.png" alt="USDC" class="token-logo">
+                            <img src="/tokens/usdclogo.webp" alt="USDC" class="token-logo">
                         </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/tokens/radiumlogo.webp" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
                         </div>
                     </div>
@@ -1703,12 +1703,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/tokens/imglogoround.webp" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/bonklogo.png" alt="BONK" class="token-logo">
+                            <img src="/tokens/bonklogo.webp" alt="BONK" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/orcalogo.png" alt="Orca" class="exchange-logo">
+                            <img src="/tokens/orcalogo.webp" alt="Orca" class="exchange-logo">
                             <span class="exchange-name">Orca</span>
         </div>
     </div>
@@ -1745,7 +1745,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                 </div>
             </div>
             <div class="mobile-header-right">
@@ -1930,7 +1930,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
             <div class="mobile-header-left">
                 <div class="mobile-brand-text">IMG FINANCE</div>
                 <div class="mobile-logo">
-                    <img src="/imgtextlogo.webp" alt="IMG Finance Logo">
+                    <img src="/logos/imgtextlogo.webp" alt="IMG Finance Logo">
                     </div>
                         </div>
             <div class="mobile-header-right">
