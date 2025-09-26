@@ -19,7 +19,7 @@
 
                 <div class="tab-item ${e.currentPage==="events"?"active":""}" data-page="events">
                     <a href="/events" class="tab-link">
-                        <img src="/icons/calendar.png" alt="" class="tab-icon">
+                        <img src="/calendar.png" alt="" class="tab-icon">
                         <span class="tab-label">Events</span>
                     </a>
                 </div>
@@ -27,7 +27,7 @@
                 ${e.isPremium?`
                     <div class="tab-item ${e.currentPage==="harvesting"?"active":""}" data-page="harvesting">
                         <a href="/harvesting" class="tab-link premium-tab">
-                            <img src="/icons/harvesting.png" alt="" class="tab-icon">
+                            <img src="/harvesting.png" alt="" class="tab-icon">
                             <span class="tab-label">Harvesting</span>
                             <span class="premium-badge">Premium</span>
                         </a>
@@ -35,7 +35,7 @@
 
                     <div class="tab-item ${e.currentPage==="distribution"?"active":""}" data-page="distribution">
                         <a href="/distribution" class="tab-link premium-tab">
-                            <img src="/icons/distribution.png" alt="" class="tab-icon">
+                            <img src="/distribution.png" alt="" class="tab-icon">
                             <span class="tab-label">Distribution</span>
                             <span class="premium-badge">Premium</span>
                         </a>
@@ -43,7 +43,7 @@
 
                     <div class="tab-item ${e.currentPage==="wallet-lookup"?"active":""}" data-page="wallet-lookup">
                         <a href="/wallet-lookup" class="tab-link premium-tab">
-                            <img src="/icons/pools.png" alt="" class="tab-icon">
+                            <img src="/pools.png" alt="" class="tab-icon">
                             <span class="tab-label">Pools</span>
                             <span class="premium-badge">Premium</span>
                         </a>
@@ -51,7 +51,7 @@
 
                     <div class="tab-item ${e.currentPage==="reward-calculator"?"active":""}" data-page="reward-calculator">
                         <a href="/reward-calculator" class="tab-link premium-tab">
-                            <img src="/icons/calculator.png" alt="" class="tab-icon">
+                            <img src="/calculator.png" alt="" class="tab-icon">
                             <span class="tab-label">Rewards</span>
                             <span class="premium-badge">Premium</span>
                         </a>
@@ -59,7 +59,7 @@
 
                     <div class="tab-item ${e.currentPage==="vote"?"active":""}" data-page="vote">
                         <a href="/vote" class="tab-link premium-tab">
-                            <img src="/icons/vote.png" alt="" class="tab-icon">
+                            <img src="/vote.png" alt="" class="tab-icon">
                             <span class="tab-label">Vote</span>
                             <span class="premium-badge">Premium</span>
                         </a>
@@ -67,41 +67,41 @@
                 `:`
                     <div class="tab-item locked" data-page="harvesting">
                         <div class="tab-link locked-tab">
-                            <img src="/icons/harvesting.png" alt="" class="tab-icon locked-icon">
+                            <img src="/harvesting.png" alt="" class="tab-icon locked-icon">
                             <span class="tab-label">Harvesting</span>
-                            <img src="/icons/shield.png" alt="Locked" class="lock-badge shield-icon">
+                            <img src="/shield.png" alt="Locked" class="lock-badge shield-icon">
                         </div>
                     </div>
 
                     <div class="tab-item locked" data-page="distribution">
                         <div class="tab-link locked-tab">
-                            <img src="/icons/distribution.png" alt="" class="tab-icon locked-icon">
+                            <img src="/distribution.png" alt="" class="tab-icon locked-icon">
                             <span class="tab-label">Distribution</span>
-                            <img src="/icons/shield.png" alt="Locked" class="lock-badge shield-icon">
+                            <img src="/shield.png" alt="Locked" class="lock-badge shield-icon">
                         </div>
                     </div>
 
                     <div class="tab-item locked" data-page="wallet-lookup">
                         <div class="tab-link locked-tab">
-                            <img src="/icons/pools.png" alt="" class="tab-icon locked-icon">
+                            <img src="/pools.png" alt="" class="tab-icon locked-icon">
                             <span class="tab-label">Pools</span>
-                            <img src="/icons/shield.png" alt="Locked" class="lock-badge shield-icon">
+                            <img src="/shield.png" alt="Locked" class="lock-badge shield-icon">
                         </div>
                     </div>
 
                     <div class="tab-item locked" data-page="reward-calculator">
                         <div class="tab-link locked-tab">
-                            <img src="/icons/calculator.png" alt="" class="tab-icon locked-icon">
+                            <img src="/calculator.png" alt="" class="tab-icon locked-icon">
                             <span class="tab-label">Rewards</span>
-                            <img src="/icons/shield.png" alt="Locked" class="lock-badge shield-icon">
+                            <img src="/shield.png" alt="Locked" class="lock-badge shield-icon">
                         </div>
                     </div>
 
                     <div class="tab-item locked" data-page="vote">
                         <div class="tab-link locked-tab">
-                            <img src="/icons/vote.png" alt="" class="tab-icon locked-icon">
+                            <img src="/vote.png" alt="" class="tab-icon locked-icon">
                             <span class="tab-label">Vote</span>
-                            <img src="/icons/shield.png" alt="Locked" class="lock-badge shield-icon">
+                            <img src="/shield.png" alt="Locked" class="lock-badge shield-icon">
                         </div>
                     </div>
                 `}
@@ -151,16 +151,16 @@
             <div class="social-title">Connect with us</div>
             <div class="social-links">
                 <a href="#" class="social-link" title="Telegram">
-                    <img src="/social/telegram.png" alt="Telegram" class="social-icon">
+                    <img src="/telegram.png" alt="Telegram" class="social-icon">
                 </a>
                 <a href="#" class="social-link" title="Twitter">
-                    <img src="/social/twitter.png" alt="Twitter" class="social-icon">
+                    <img src="/twitter.png" alt="Twitter" class="social-icon">
                 </a>
                 <a href="#" class="social-link" title="Discord">
-                    <img src="/social/discordtab.png" alt="Discord" class="social-icon">
+                    <img src="/discordtab.png" alt="Discord" class="social-icon">
                 </a>
                 <a href="#" class="social-link" title="Homepage">
-                    <img src="/social/homepage.png" alt="Homepage" class="social-icon">
+                    <img src="/homepage.png" alt="Homepage" class="social-icon">
                 </a>
             </div>
         </div>
@@ -798,7 +798,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="project-updates-container">
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate6.png" alt="Server Optimization Upgrade">
+                                <img src="/Imgupdate6.png" alt="Server Optimization Upgrade">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Server Optimization Upgrade</h3>
@@ -809,7 +809,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate5.png" alt="Rewards Update">
+                                <img src="/Imgupdate5.png" alt="Rewards Update">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Rewards Update</h3>
@@ -820,7 +820,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate1.png" alt="Reward System Upgrade">
+                                <img src="/Imgupdate1.png" alt="Reward System Upgrade">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Reward system upgrade</h3>
@@ -831,7 +831,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate2.png" alt="Blacklist Wallets">
+                                <img src="/Imgupdate2.png" alt="Blacklist Wallets">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Blacklist Wallets</h3>
@@ -842,7 +842,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate4.png" alt="New Developer">
+                                <img src="/Imgupdate4.png" alt="New Developer">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">New Developer</h3>
@@ -853,7 +853,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                         
                         <div class="project-update-banner completed">
                             <div class="update-image">
-                                <img src="/updates/Imgupdate3.png" alt="Infra Wallet">
+                                <img src="/Imgupdate3.png" alt="Infra Wallet">
                             </div>
                             <div class="update-content">
                                 <h3 class="update-title">Infra Wallet</h3>
@@ -876,7 +876,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                 <div class="featured-events-grid">
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/kimbosponsor.jpg" alt="First Sponsored Athlete">
+                            <img src="/kimbosponsor.jpg" alt="First Sponsored Athlete">
                         </div>
                         <div class="event-content">
 
@@ -893,7 +893,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/imggiveaway.jpg" alt="IMG Giveaway">
+                            <img src="/imggiveaway.jpg" alt="IMG Giveaway">
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">IMG Giveaway</h3>
@@ -909,7 +909,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/trackimgcoingecko.jpg" alt="Coingecko Update">
+                            <img src="/trackimgcoingecko.jpg" alt="Coingecko Update">
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">Coingecko Update</h3>
@@ -925,7 +925,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/newrewardsevent.jpg" alt="New Reward System Update">
+                            <img src="/newrewardsevent.jpg" alt="New Reward System Update">
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">New Reward System Update</h3>
@@ -941,7 +941,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/bitruelisting.jpg" alt="Bitrue Listing">
+                            <img src="/bitruelisting.jpg" alt="Bitrue Listing">
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">Bitrue Listing</h3>
@@ -957,7 +957,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     
                     <div class="featured-event-card">
                         <div class="event-image">
-                            <img src="/event-images/alphailistingbanner.jpg" alt="Alph.ai Listing">
+                            <img src="/alphailistingbanner.jpg" alt="Alph.ai Listing">
                         </div>
                         <div class="event-content">
                             <h3 class="event-title">Alph.ai Listing</h3>
@@ -1026,7 +1026,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                             <option value="2025-12">December 2025</option>
                         </select>
                         <button class="control-btn refresh-btn">
-                            <img src="/icons/refresh.png" alt="Refresh" class="btn-icon">
+                            <img src="/refresh.png" alt="Refresh" class="btn-icon">
                         </button>
                     </div>
                 </div>
@@ -1294,13 +1294,13 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                 <!-- Professional Pagination -->
                 <div class="spreadsheet-pagination">
                     <button class="pagination-btn prev-btn" disabled>
-                        <img src="/icons/left-arrow.png" alt="Previous" class="arrow-icon">
+                        <img src="/left-arrow.png" alt="Previous" class="arrow-icon">
                     </button>
                     <div class="pagination-info">
                         1/1 pages
                     </div>
                     <button class="pagination-btn next-btn">
-                        <img src="/icons/right-arrow.png" alt="Next" class="arrow-icon">
+                        <img src="/right-arrow.png" alt="Next" class="arrow-icon">
                     </button>
                 </div>
             </div>
@@ -1355,7 +1355,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                             <option value="2025-12">December 2025</option>
                         </select>
                         <button class="distribution-control-btn distribution-refresh-btn">
-                            <img src="/icons/refresh.png" alt="Refresh" class="distribution-btn-icon">
+                            <img src="/refresh.png" alt="Refresh" class="distribution-btn-icon">
                         </button>
                     </div>
                 </div>
@@ -1548,13 +1548,13 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                 <!-- Professional Pagination -->
                 <div class="distribution-spreadsheet-pagination">
                     <button class="distribution-pagination-btn distribution-prev-btn" disabled>
-                        <img src="/icons/left-arrow.png" alt="Previous" class="distribution-arrow-icon">
+                        <img src="/left-arrow.png" alt="Previous" class="distribution-arrow-icon">
                     </button>
                     <div class="distribution-pagination-info">
                         1/1 pages
                     </div>
                     <button class="distribution-pagination-btn distribution-next-btn">
-                        <img src="/icons/right-arrow.png" alt="Next" class="distribution-arrow-icon">
+                        <img src="/right-arrow.png" alt="Next" class="distribution-arrow-icon">
                     </button>
                 </div>
             </div>
@@ -1610,12 +1610,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/SOL</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/solanalogo.png" alt="SOL" class="token-logo">
+                            <img src="/solanalogo.png" alt="SOL" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
             </div>
         </div>
@@ -1631,7 +1631,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     </div>
                     <div class="pool-footer">
                         <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
-                            <img src="/icons/external-link.png" alt="External Link" class="external-link-icon">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
                         </a>
                     </div>
         </div>
@@ -1641,12 +1641,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/bonklogo.png" alt="BONK" class="token-logo">
+                            <img src="/bonklogo.png" alt="BONK" class="token-logo">
         </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
     </div>
         </div>
@@ -1662,7 +1662,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     </div>
                     <div class="pool-footer">
                         <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
-                            <img src="/icons/external-link.png" alt="External Link" class="external-link-icon">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
                         </a>
                     </div>
                 </div>
@@ -1672,12 +1672,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/USDC</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/usdclogo.png" alt="USDC" class="token-logo">
+                            <img src="/usdclogo.png" alt="USDC" class="token-logo">
                         </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/radiumlogo.png" alt="Raydium" class="exchange-logo">
+                            <img src="/radiumlogo.png" alt="Raydium" class="exchange-logo">
                             <span class="exchange-name">Raydium</span>
                         </div>
                     </div>
@@ -1693,7 +1693,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     </div>
                     <div class="pool-footer">
                         <a href="https://raydium.io/swap/?outputCurrency=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh&referrer=6tvwZLkMWj9qZNu8YoquKNde8RJXk1fofgaAyJkWMC5f" target="_blank" class="external-link">
-                            <img src="/icons/external-link.png" alt="External Link" class="external-link-icon">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
                         </a>
                     </div>
                 </div>
@@ -1703,12 +1703,12 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     <div class="pool-title">IMG/BONK</div>
                     <div class="pool-header">
                         <div class="pool-pair">
-                            <img src="/logos/imglogoround.png" alt="IMG" class="token-logo">
+                            <img src="/imglogoround.png" alt="IMG" class="token-logo">
                             <span class="pair-separator">/</span>
-                            <img src="/tokens/bonklogo.png" alt="BONK" class="token-logo">
+                            <img src="/bonklogo.png" alt="BONK" class="token-logo">
             </div>
                         <div class="pool-exchange">
-                            <img src="/tokens/orcalogo.png" alt="Orca" class="exchange-logo">
+                            <img src="/orcalogo.png" alt="Orca" class="exchange-logo">
                             <span class="exchange-name">Orca</span>
         </div>
     </div>
@@ -1724,7 +1724,7 @@ function R(e,t,a,i,s,n){const o=(s-90)*Math.PI/180,l=(n-90)*Math.PI/180,c=e+a*Ma
                     </div>
                     <div class="pool-footer">
                         <a href="https://www.orca.so/?tokenIn=DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263&tokenOut=znv3FZt2HFAvzYf5LxzVyryh3mBXWuTRRng25gEZAjh" target="_blank" class="external-link">
-                            <img src="/icons/external-link.png" alt="External Link" class="external-link-icon">
+                            <img src="/external-link.png" alt="External Link" class="external-link-icon">
                         </a>
                     </div>
                 </div>
